@@ -50,7 +50,7 @@ with st.sidebar:
     st.subheader("Search provider")
     search_provider = st.selectbox(
         "Choose search backend",
-        ["tavily", "scrapegraph"],
+        ["tavily", "scrapegraph", "arxiv"],
         index=0,
     )
     tavily_api_key = st.text_input("Tavily API key", type="password")
