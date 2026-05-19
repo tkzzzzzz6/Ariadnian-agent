@@ -28,7 +28,7 @@ class DeepResearcherAgent:
         """
         Orchestrates the research, analysis, and report writing process for a given topic.
         """
-        logger.info(f"Running deep researcher agent for topic: {topic}")
+        logger.info(f"Running Ariadnian-agent for topic: {topic}")
 
         # Step 1: Research
         research_content = self.searcher.run(topic)

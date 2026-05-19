@@ -8,13 +8,13 @@ mcp = FastMCP("deep_researcher_agent")
 
 @mcp.tool()
 def deep_researcher_agent(query: str) -> str:
-    """Run Deep Researcher Agent for given user query. Can do both standard and deep web search.
+    """Run Ariadnian-agent for given user query. Can do both standard and deep web search.
 
     Args:
         query (str): The research query or question.
 
     Returns:
-        str: The research response from the Deep Researcher Agent.
+        str: The research response from the Ariadnian-agent.
     """
     
     return run_research(query)

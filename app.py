@@ -14,23 +14,14 @@ from rag.embedder import Embedder
 from rag.vector_store import VectorStore
 
 st.set_page_config(
-    page_title="Deep Research Agent",
+    page_title="Ariadnian-agent",
     page_icon="🔎",
 )
 
-with open("./assets/scrapegraph.png", "rb") as scrapegraph_file:
-    scrapegraph_base64 = base64.b64encode(scrapegraph_file.read()).decode()
+with open("./assets/ariadne.png", "rb") as ariadne_file:
+    ariadne_base64 = base64.b64encode(ariadne_file.read()).decode()
 
-    title_html = f"""
-    <div style="display: flex; justify-content: center; align-items: center; width: 100%; padding: 32px 0 24px 0;">
-        <h1 style="margin: 0; padding: 0; font-size: 2.5rem; font-weight: bold;">
-            <span style="font-size:2.5rem;">🔎</span> Agentic Deep Searcher with
-            <span style="color: #fb542c;">Agno</span> &amp;
-            <span style="color: #8564ff;">Scrapegraph</span>
-            <img src="data:image/png;base64,{scrapegraph_base64}" style="height: 60px; margin-left: 12px; vertical-align: middle;"/>
-        </h1>
-    </div>
-    """
+    title_html = f"<div style=\"display: flex; justify-content: center; align-items: center; width: 100%; padding: 32px 0 24px 0;\"><h1 style=\"margin: 0; padding: 0; font-size: 2.5rem; font-weight: bold;\"><img src=\"data:image/png;base64,{ariadne_base64}\" style=\"height: 60px; margin-left: 12px; vertical-align: middle;\" /> Agentic Deep Searcher with <span style=\"color: #fb542c;\">Agno</span> &amp; <span style=\"color: #8564ff;\">Scrapegraph</span></h1></div>"
     st.markdown(title_html, unsafe_allow_html=True)
 
 with st.sidebar:

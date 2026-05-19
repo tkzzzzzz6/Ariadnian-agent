@@ -1,6 +1,6 @@
-# Deep Researcher Agent
+# Ariadnian-agent
 
-![Demo](./assets/demo.png)
+![Demo](./assets/ariadne.png)
 
 A multi-stage AI-powered research workflow agent that automates comprehensive web research, analysis, and report generation using Agno, Tavily/Scrapegraph, and configurable local or remote LLM backends.
 
@@ -37,7 +37,7 @@ A multi-stage AI-powered research workflow agent that automates comprehensive we
 
 ## Installation
 
-Follow these steps to set up the **Deep Researcher Agent** on your machine:
+Follow these steps to set up the **Ariadnian-agent** on your machine:
 
 1. **Install `uv`** (if you don’t have it):
 
@@ -49,7 +49,7 @@ Follow these steps to set up the **Deep Researcher Agent** on your machine:
    ```bash
    git clone https://github.com/Arindam200/awesome-ai-apps.git
    ```
-3. **Navigate to the Deep Researcher Agent directory:**
+3. **Navigate to the Ariadnian-agent directory:**
 
    ```bash
    cd awesome-ai-apps/advance_ai_agents/deep_researcher_agent
@@ -90,7 +90,7 @@ OPENAI_BASE_URL=https://your-gateway.example.com/v1
 
 ![usage](./assets/usage.gif)
 
-You can use the Deep Researcher Agent in three ways. Each method below includes a demo image so you know what to expect.
+You can use the Ariadnian-agent in three ways. Each method below includes a demo image so you know what to expect.
 
 ### Web Interface
 
