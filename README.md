@@ -15,8 +15,6 @@ A multi-stage AI-powered research workflow agent that automates comprehensive we
 
 ## How It Works
 
-![Workflow](./assets/workflow.gif)
-
 1. **Searcher**: Finds and extracts high-quality, up-to-date information from the web using Scrapegraph AI.
 2. **Analyst**: Synthesizes, interprets, and organizes the research findings, highlighting key insights and trends.
 3. **Writer**: Crafts a clear, structured, and actionable report, including references and recommendations.
@@ -87,8 +85,6 @@ OPENAI_BASE_URL=https://your-gateway.example.com/v1
 ```
 
 ## Usage
-
-![usage](./assets/usage.gif)
 
 You can use the Ariadnian-agent in three ways. Each method below includes a demo image so you know what to expect.
 
