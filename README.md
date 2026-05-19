@@ -1,6 +1,6 @@
 # Ariadnian-agent
 
-![Demo](./assets/ariadne.png)
+<img src="./assets/ariadne.png" width="400" alt="Demo"/>
 
 A multi-stage AI-powered research workflow agent that automates comprehensive web research, analysis, and report generation using Agno, Tavily/Scrapegraph, and configurable local or remote LLM backends.
 
