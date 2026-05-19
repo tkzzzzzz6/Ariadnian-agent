@@ -5,7 +5,6 @@ from agno.agent import Agent
 from agno.models.ollama import Ollama
 from agno.models.openai import OpenAIChat, OpenAILike
 from agno.tools import Toolkit
-from agno.tools.arxiv import ArxivTools
 from agno.tools.scrapegraph import ScrapeGraphTools
 from agno.tools.tavily import TavilyTools
 from dotenv import load_dotenv
@@ -63,6 +62,49 @@ def build_model() -> Any:
     raise ValueError(
         f"Unsupported MODEL_PROVIDER={provider!r}. Use ollama, openai, or openai_like."
     )
+
+
+class _ArxivToolkit(Toolkit):
+    def __init__(self, max_results: int = 10, delay_seconds: float = 3.0) -> None:
+        super().__init__(name="arxiv")
+        self.max_results = max_results
+        import arxiv as _arxiv
+
+        self.client = _arxiv.Client(
+            page_size=max_results,
+            delay_seconds=delay_seconds,
+            num_retries=3,
+        )
+
+    def search_arxiv(self, query: str) -> str:
+        """Search arXiv for academic papers related to the query. Returns titles, authors, summaries and links."""
+        import arxiv as _arxiv
+
+        search = _arxiv.Search(
+            query=query,
+            max_results=self.max_results,
+            sort_by=_arxiv.SortCriterion.Relevance,
+        )
+        try:
+            results = list(self.client.results(search))
+            if not results:
+                return "No papers found on arXiv for this query."
+            lines = []
+            for r in results:
+                authors = ", ".join(str(a) for a in r.authors[:3])
+                if len(r.authors) > 3:
+                    authors += " et al."
+                link = r.pdf_url or r.entry_id
+                lines.append(
+                    f"- **{r.title}** ({authors})\n  {r.summary[:300]}...\n  Link: {link}"
+                )
+            return "\n".join(lines)
+        except Exception as e:
+            return (
+                f"arXiv search error: {e}. "
+                "The arXiv API may be temporarily unavailable or rate-limited. "
+                "Please try again later or switch to another search provider."
+            )
 
 
 class _LocalScrapeGraphToolkit(Toolkit):
@@ -129,7 +171,7 @@ def build_search_tools() -> list[Any]:
         )
 
     if provider == "arxiv":
-        return [ArxivTools()]
+        return [_ArxivToolkit()]
 
     raise ValueError(
         f"Unsupported SEARCH_PROVIDER={provider!r}. Use tavily, scrapegraph, or arxiv."

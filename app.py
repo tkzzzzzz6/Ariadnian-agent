@@ -3,11 +3,15 @@ import os
 os.environ["STREAMLIT_TELEMETRY_OPT_OUT"] = "1"
 
 import streamlit as st
-from agents import DeepResearcherAgent
+from agents import DeepResearcherAgent, RAGResearcherAgent
 from settings import apply_runtime_environment, RuntimeSettings
 import time
 import base64
 import re
+
+from rag.retriever import RAGRetriever
+from rag.embedder import Embedder
+from rag.vector_store import VectorStore
 
 st.set_page_config(
     page_title="Deep Research Agent",
@@ -17,12 +21,11 @@ st.set_page_config(
 with open("./assets/scrapegraph.png", "rb") as scrapegraph_file:
     scrapegraph_base64 = base64.b64encode(scrapegraph_file.read()).decode()
 
-    # Create title with embedded images
     title_html = f"""
     <div style="display: flex; justify-content: center; align-items: center; width: 100%; padding: 32px 0 24px 0;">
         <h1 style="margin: 0; padding: 0; font-size: 2.5rem; font-weight: bold;">
-            <span style="font-size:2.5rem;">🔎</span> Agentic Deep Searcher with 
-            <span style="color: #fb542c;">Agno</span> & 
+            <span style="font-size:2.5rem;">🔎</span> Agentic Deep Searcher with
+            <span style="color: #fb542c;">Agno</span> &amp;
             <span style="color: #8564ff;">Scrapegraph</span>
             <img src="data:image/png;base64,{scrapegraph_base64}" style="height: 60px; margin-left: 12px; vertical-align: middle;"/>
         </h1>
@@ -56,7 +59,7 @@ with st.sidebar:
     st.subheader("Search provider")
     search_provider = st.selectbox(
         "Choose search backend",
-        ["tavily", "scrapegraph", "arxiv"],
+        ["tavily", "scrapegraph"],
         index=0,
     )
     tavily_api_key = st.text_input("Tavily API key", type="password")
@@ -77,6 +80,15 @@ with st.sidebar:
         scrapegraph_api_key = st.text_input("Scrapegraph API key", type="password")
     tavily_search_depth = st.selectbox("Tavily search depth", ["basic", "advanced"], index=1)
     tavily_include_answer = st.checkbox("Include Tavily answer", value=True)
+    st.divider()
+
+    st.subheader("📄 RAG (Document QA)")
+    use_rag = st.toggle("Enable RAG mode", value=False, help="Upload documents and ask questions based on their content")
+    if use_rag:
+        embedding_provider = st.selectbox("Embedding provider", ["ollama", "openai"], index=0)
+        embedding_model = st.text_input("Embedding model", value="nomic-embed-text")
+        embedding_host = st.text_input("Embedding host (Ollama)", value="http://localhost:11434")
+        top_k = st.slider("Retrieval top-k", min_value=1, max_value=20, value=5)
     st.divider()
 
     st.header("About")
@@ -108,32 +120,105 @@ apply_runtime_environment(
     }
 )
 
-# Chat input at the bottom
-user_input = st.chat_input("Ask a question about your documents...")
+if "rag_retriever" not in st.session_state:
+    st.session_state.rag_retriever = None
+if "rag_docs_ingested" not in st.session_state:
+    st.session_state.rag_docs_ingested = 0
+
+if use_rag:
+    st.subheader("📤 Upload Documents")
+    uploaded_files = st.file_uploader(
+        "Upload PDF, TXT, DOCX, or Markdown files",
+        type=["pdf", "txt", "docx", "md", "markdown"],
+        accept_multiple_files=True,
+    )
+
+    if uploaded_files:
+        settings = RuntimeSettings.from_environment()
+        embedder = Embedder(
+            provider=embedding_provider,
+            model=embedding_model,
+            host=embedding_host,
+            api_key=openai_api_key if embedding_provider == "openai" else None,
+            base_url=openai_base_url if embedding_provider == "openai" else None,
+        )
+        retriever = RAGRetriever(
+            vector_store=VectorStore(),
+            embedder=embedder,
+            chunk_size=settings.rag_chunk_size,
+            chunk_overlap=settings.rag_chunk_overlap,
+        )
+
+        if st.button("🚀 Process Documents"):
+            progress_bar = st.progress(0)
+            total_chunks = 0
+            for i, uploaded_file in enumerate(uploaded_files):
+                temp_path = f"/tmp/{uploaded_file.name}"
+                with open(temp_path, "wb") as f:
+                    f.write(uploaded_file.getbuffer())
+                try:
+                    chunks = retriever.ingest(temp_path)
+                    total_chunks += chunks
+                    progress_bar.progress((i + 1) / len(uploaded_files))
+                    st.success(f"✅ {uploaded_file.name}: {chunks} chunks ingested")
+                except Exception as e:
+                    st.error(f"❌ Failed to process {uploaded_file.name}: {e}")
+                finally:
+                    if os.path.exists(temp_path):
+                        os.remove(temp_path)
+
+            st.session_state.rag_retriever = retriever
+            st.session_state.rag_docs_ingested = total_chunks
+            st.info(f"📚 Total chunks in knowledge base: {total_chunks}")
+
+    if st.session_state.rag_docs_ingested > 0:
+        st.success(f"📚 Knowledge base ready: {st.session_state.rag_docs_ingested} chunks")
+        if st.button("🗑️ Clear Knowledge Base"):
+            if st.session_state.rag_retriever:
+                st.session_state.rag_retriever.reset()
+            st.session_state.rag_retriever = None
+            st.session_state.rag_docs_ingested = 0
+            st.rerun()
+
+placeholder = "Ask a question about your documents..." if use_rag else "Enter a research topic..."
+user_input = st.chat_input(placeholder)
 
 if user_input:
     try:
         settings = RuntimeSettings.from_environment()
-        agent = DeepResearcherAgent(settings=settings)
-        with st.status("Executing research plan...", expanded=True) as status:
-            # PHASE 1: Researching
-            phase1_msg = "🧠 **Phase 1: Researching** - Finding and extracting relevant information from the web..."
-            status.write(phase1_msg)
-            research_content = agent.searcher.run(user_input)
 
-            # PHASE 2: Analyzing
-            phase2_msg = "🔬 **Phase 2: Analyzing** - Synthesizing and interpreting the research findings..."
-            status.write(phase2_msg)
-            analysis = agent.analyst.run(research_content.content)
-
-            # PHASE 3: Writing Report
-            phase3_msg = (
-                "✍️ **Phase 3: Writing Report** - Producing a final, polished report..."
+        if use_rag and st.session_state.rag_retriever:
+            agent = RAGResearcherAgent(
+                settings=settings,
+                retriever=st.session_state.rag_retriever,
             )
-            status.write(phase3_msg)
-            report_iterator = agent.writer.run(analysis.content, stream=True)
+            with st.status("Executing document QA plan...", expanded=True) as status:
+                phase1_msg = "🔍 **Phase 1: Retrieving** - Finding relevant document chunks..."
+                status.write(phase1_msg)
 
-        # Move report display outside of status block
+                phase2_msg = "🔬 **Phase 2: Analyzing** - Synthesizing document context..."
+                status.write(phase2_msg)
+                context = "\n\n---\n\n".join(agent.retriever.retrieve(user_input))
+                analysis = agent.analyst.run(f"Question: {user_input}\n\nContext:\n{context}")
+
+                phase3_msg = "✍️ **Phase 3: Writing Report** - Producing answer based on documents..."
+                status.write(phase3_msg)
+                report_iterator = agent.writer.run(analysis.content, stream=True)
+        else:
+            agent = DeepResearcherAgent(settings=settings)
+            with st.status("Executing research plan...", expanded=True) as status:
+                phase1_msg = "🧠 **Phase 1: Researching** - Finding and extracting relevant information from the web..."
+                status.write(phase1_msg)
+                research_content = agent.searcher.run(user_input)
+
+                phase2_msg = "🔬 **Phase 2: Analyzing** - Synthesizing and interpreting the research findings..."
+                status.write(phase2_msg)
+                analysis = agent.analyst.run(research_content.content)
+
+                phase3_msg = "✍️ **Phase 3: Writing Report** - Producing a final, polished report..."
+                status.write(phase3_msg)
+                report_iterator = agent.writer.run(analysis.content, stream=True)
+
         full_report = ""
         report_container = st.empty()
         for chunk in report_iterator:

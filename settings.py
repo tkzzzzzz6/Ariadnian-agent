@@ -48,6 +48,14 @@ class RuntimeSettings:
     rag_chunk_size: int = 800
     rag_chunk_overlap: int = 100
 
+    # RAG settings
+    embedding_provider: str = "ollama"
+    embedding_model: str = "nomic-embed-text"
+    embedding_host: str = "http://localhost:11434"
+    rag_top_k: int = 5
+    rag_chunk_size: int = 800
+    rag_chunk_overlap: int = 100
+
     @classmethod
     def from_environment(cls) -> "RuntimeSettings":
         return cls(

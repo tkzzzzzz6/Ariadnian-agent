@@ -91,7 +91,6 @@ class RAGResearcherAgent:
         report = self.writer.run(analysis.content, stream=True)
         yield from report
 
-
 def run_research(query: str) -> str:
     agent = DeepResearcherAgent()
     final_report_iterator = agent.run(
