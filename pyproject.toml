@@ -1,0 +1,44 @@
+[project]
+name = "deep-researcher-agent"
+version = "0.1.0"
+description = "A multi-stage research workflow agent powered by Agno and Scrapegraph"
+authors = [
+    {name = "Arindam Majumder", email = "arindammajumder2020@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "agno",
+    "openai",
+    "ollama",
+    "scrapegraph-py",
+    "scrapegraphai",
+    "duckduckgo-search",
+    "tavily-python",
+    "python-dotenv",
+    "mcp",
+    "streamlit",
+    "pydantic",
+]
+
+[project.urls]
+# Homepage = "https://github.com/Arindam200/awesome-ai-apps"
+Repository = "https://github.com/Arindam200/awesome-ai-apps"
+# Issues = "https://github.com/Arindam200/awesome-ai-apps/issues"
+
+[[tool.uv.index]]
+# 次优先级：阿里云镜像源（带宽充足，速度快）
+name = "aliyun"
+url = "https://mirrors.aliyun.com/pypi/simple/"
+
+[[tool.uv.index]]
+# 优先级最高：清华大学镜像源（教育网优先，稳定性高）
+name = "tsinghua"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+
+
+[[tool.uv.index]]
+# 末优先级：中科大镜像源（教育网优先）
+name = "ustc"
+url = "https://mirrors.ustc.edu.cn/pypi/web/simple/"
+
