@@ -24,6 +24,8 @@ dependencies = [
     "chromadb",
     "python-docx",
     "requests",
+    "numpy",
+    "protobuf",
 ]
 
 [project.optional-dependencies]
@@ -53,7 +55,7 @@ url = "https://mirrors.ustc.edu.cn/pypi/web/simple/"
 
 
 
-# [tool.setuptools.packages.find]
-# where = ["."]
-# include = ["rag*"]
-# exclude = ["assets*", "__pycache__*", ".streamlit*", ".venv*"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rag*"]
+exclude = ["assets*", "__pycache__*", ".streamlit*", ".venv*"]
