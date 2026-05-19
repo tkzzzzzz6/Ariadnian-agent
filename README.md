@@ -7,7 +7,7 @@ A multi-stage AI-powered research workflow agent that automates comprehensive we
 ## Features
 
 - **Multi-Stage Research Workflow**: Automated pipeline for searching, analyzing, and reporting
-- **Web Search**: Tavily or Scrapegraph as the search backend
+- **Web Search**: Tavily, Scrapegraph, or arXiv as the search backend
 - **AI-Powered Analysis**: Ollama or OpenAI-compatible endpoints for synthesis
 - **Streamlit Web UI**: Modern, interactive interface
 - **MCP Server**: Model Context Protocol server for integration
@@ -33,6 +33,7 @@ A multi-stage AI-powered research workflow agent that automates comprehensive we
 - [uv](https://github.com/astral-sh/uv) for dependency management
 - API keys for the providers you choose: [Tavily](https://tavily.com/), [Scrapegraph Cloud](https://dub.sh/scrapegraphai), or [OpenAI-compatible routes](https://platform.openai.com/docs/api-reference/introduction)
 - (Optional) [Ollama](https://ollama.com/) if you want to use **local Scrapegraph** mode (zero API cost)
+- **arXiv** requires no API key — it searches academic papers directly
 
 ## Installation
 
@@ -81,6 +82,8 @@ OPENAI_BASE_URL=https://your-gateway.example.com/v1
 # SCRAPEGRAPH_LLM_MODEL=ollama/llama3.2
 # SCRAPEGRAPH_LLM_BASE_URL=http://localhost:11434
 # SCRAPEGRAPH_EMBEDDING_MODEL=ollama/nomic-embed-text
+
+# arXiv requires no API key — just set SEARCH_PROVIDER=arxiv
 ```
 
 ## Usage

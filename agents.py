@@ -45,6 +45,53 @@ class DeepResearcherAgent:
         yield from report
 
 
+class RAGResearcherAgent:
+    """
+    A document-QA workflow that:
+    1. Retrieves relevant chunks from uploaded documents.
+    2. Analyzes and synthesizes the retrieved context.
+    3. Produces a clear, well-structured report based on the documents.
+    """
+
+    def __init__(
+        self,
+        settings: RuntimeSettings | None = None,
+        retriever: Any | None = None,
+    ) -> None:
+        self.settings = settings or RuntimeSettings.from_environment()
+        self.retriever = retriever
+        self.analyst: Agent = build_analyst_agent(self.settings)
+        self.writer: Agent = build_writer_agent(self.settings)
+
+    def run(self, topic: str) -> Iterator[Any]:
+        """Orchestrates document retrieval, analysis, and report writing."""
+        logger.info(f"Running RAG researcher agent for topic: {topic}")
+
+        if self.retriever is None:
+            raise RuntimeError("RAG retriever is not initialized. Please upload documents first.")
+
+        # Step 1: Retrieve relevant document chunks
+        logger.info("Retrieving relevant document chunks")
+        retrieved_chunks = self.retriever.retrieve(topic)
+        if not retrieved_chunks:
+            # Fallback: let the writer know no docs were found
+            context = "[No relevant documents found for this query.]"
+        else:
+            context = "\n\n---\n\n".join(
+                [f"[Document chunk {i+1}]\n{chunk}" for i, chunk in enumerate(retrieved_chunks)]
+            )
+
+        # Step 2: Analysis (on retrieved context)
+        logger.info("Analysis started")
+        analyst_input = f"Question/Topic: {topic}\n\nRetrieved Context:\n{context}"
+        analysis = self.analyst.run(analyst_input)
+
+        # Step 3: Report Writing
+        logger.info("Report Writing Started")
+        report = self.writer.run(analysis.content, stream=True)
+        yield from report
+
+
 def run_research(query: str) -> str:
     agent = DeepResearcherAgent()
     final_report_iterator = agent.run(

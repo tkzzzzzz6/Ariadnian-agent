@@ -4,6 +4,7 @@ from agno.agent import Agent
 from agno.models.ollama import Ollama
 from agno.models.openai import OpenAIChat, OpenAILike
 from agno.tools import Toolkit
+from agno.tools.arxiv import ArxivTools
 from agno.tools.scrapegraph import ScrapeGraphTools
 from agno.tools.tavily import TavilyTools
 
@@ -124,8 +125,11 @@ def build_search_tools(settings: RuntimeSettings) -> list[Any]:
             f"Unsupported SCRAPEGRAPH_MODE={mode!r}. Use cloud or local."
         )
 
+    if provider == "arxiv":
+        return [ArxivTools()]
+
     raise ValueError(
-        f"Unsupported SEARCH_PROVIDER={settings.search_provider!r}. Use tavily or scrapegraph."
+        f"Unsupported SEARCH_PROVIDER={settings.search_provider!r}. Use tavily, scrapegraph, or arxiv."
     )
 
 

@@ -19,6 +19,8 @@ dependencies = [
     "mcp",
     "streamlit",
     "pydantic",
+    "arxiv>=4.0.0",
+    "pypdf>=6.11.0",
 ]
 
 [project.urls]

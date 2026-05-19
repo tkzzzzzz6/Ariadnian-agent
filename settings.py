@@ -40,6 +40,14 @@ class RuntimeSettings:
     scrapegraph_llm_base_url: str = "http://localhost:11434"
     scrapegraph_embedding_model: str = "ollama/nomic-embed-text"
 
+    # RAG settings
+    embedding_provider: str = "ollama"
+    embedding_model: str = "nomic-embed-text"
+    embedding_host: str = "http://localhost:11434"
+    rag_top_k: int = 5
+    rag_chunk_size: int = 800
+    rag_chunk_overlap: int = 100
+
     @classmethod
     def from_environment(cls) -> "RuntimeSettings":
         return cls(
@@ -57,4 +65,10 @@ class RuntimeSettings:
             scrapegraph_llm_model=_env("SCRAPEGRAPH_LLM_MODEL", "ollama/llama3.2") or "ollama/llama3.2",
             scrapegraph_llm_base_url=_env("SCRAPEGRAPH_LLM_BASE_URL", "http://localhost:11434") or "http://localhost:11434",
             scrapegraph_embedding_model=_env("SCRAPEGRAPH_EMBEDDING_MODEL", "ollama/nomic-embed-text") or "ollama/nomic-embed-text",
+            embedding_provider=(_env("EMBEDDING_PROVIDER", "ollama") or "ollama"),
+            embedding_model=_env("EMBEDDING_MODEL", "nomic-embed-text") or "nomic-embed-text",
+            embedding_host=_env("EMBEDDING_HOST", "http://localhost:11434") or "http://localhost:11434",
+            rag_top_k=int(_env("RAG_TOP_K", "5") or "5"),
+            rag_chunk_size=int(_env("RAG_CHUNK_SIZE", "800") or "800"),
+            rag_chunk_overlap=int(_env("RAG_CHUNK_OVERLAP", "100") or "100"),
         )
