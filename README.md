@@ -53,10 +53,14 @@ Follow these steps to set up the **Ariadnian-agent** on your machine:
    cd awesome-ai-apps/advance_ai_agents/deep_researcher_agent
    ```
 4. **Install all dependencies:**
+   
+  ```bash
+  # CPU only
+  uv sync --extra cpu
 
-   ```bash
-   uv sync
-   ```
+  # has GPU
+  uv sync --extra gpu
+  ```
 
 ## Environment Setup
 

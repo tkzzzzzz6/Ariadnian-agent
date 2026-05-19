@@ -24,8 +24,11 @@ dependencies = [
     "chromadb",
     "python-docx",
     "requests",
-    "onnxruntime-gpu>=1.26.0",
 ]
+
+[project.optional-dependencies]
+cpu = ["onnxruntime>=1.26.0"]
+gpu = ["onnxruntime-gpu>=1.26.0"]
 
 [project.urls]
 # Homepage = "https://github.com/Arindam200/awesome-ai-apps"
