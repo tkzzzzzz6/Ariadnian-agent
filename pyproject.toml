@@ -24,6 +24,7 @@ dependencies = [
     "chromadb",
     "python-docx",
     "requests",
+    "onnxruntime-gpu>=1.26.0",
 ]
 
 [project.urls]
