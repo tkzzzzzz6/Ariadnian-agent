@@ -1,6 +1,6 @@
 # Ariadnian-agent
 
-<p align="center"><img src="./assets/ariadne.png" width="400" alt="Demo"/></p>
+<p align="center"><img src="./assets/ariadne.png" width="150" alt="Demo"/></p>
 
 A multi-stage AI-powered research workflow agent that automates comprehensive web research, analysis, and report generation using Agno, Tavily/Scrapegraph, and configurable local or remote LLM backends.
 
@@ -27,7 +27,7 @@ A multi-stage AI-powered research workflow agent that automates comprehensive we
 
 ## Prerequisites
 
-- Python 3.10+
+- Python 3.12+
 - [uv](https://github.com/astral-sh/uv) for dependency management
 - API keys for the providers you choose: [Tavily](https://tavily.com/), [Scrapegraph Cloud](https://dub.sh/scrapegraphai), or [OpenAI-compatible routes](https://platform.openai.com/docs/api-reference/introduction)
 - (Optional) [Ollama](https://ollama.com/) if you want to use **local Scrapegraph** mode (zero API cost)
@@ -53,14 +53,14 @@ Follow these steps to set up the **Ariadnian-agent** on your machine:
    cd awesome-ai-apps/advance_ai_agents/deep_researcher_agent
    ```
 4. **Install all dependencies:**
-   
-  ```bash
+
+```bash
   # CPU only
   uv sync --extra cpu
 
   # has GPU
   uv sync --extra gpu
-  ```
+```
 
 ## Environment Setup
 
@@ -117,6 +117,7 @@ uv run python agents.py
 To use a local Ollama model, set `MODEL_PROVIDER=ollama` and make sure Ollama is running locally. To use an OpenAI-compatible custom model, set `MODEL_PROVIDER=openai_like` and fill in `OPENAI_API_KEY` plus `OPENAI_BASE_URL`.
 
 **Scrapegraph Local Mode**: Set `SEARCH_PROVIDER=scrapegraph` and `SCRAPEGRAPH_MODE=local` to run Scrapegraph fully on your machine using Ollama + DuckDuckGo search. No API key needed. Make sure you have pulled the required Ollama models:
+
 ```bash
 ollama pull llama3.2
 ollama pull nomic-embed-text
