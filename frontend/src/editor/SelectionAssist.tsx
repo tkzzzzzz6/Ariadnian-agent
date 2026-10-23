@@ -15,6 +15,7 @@ import { useApp } from '../lib/appContext'
 import { contentFromText, textBetween } from '../lib/editorText'
 import { brand } from '../theme'
 import { DiffView } from './DiffView'
+import { containsRich } from '../lib/richContent'
 
 const ACTIONS: { key: string; label: string; tip: string }[] = [
   { key: 'polish', label: '润色', tip: '修正语法用词，更流畅' },
@@ -127,6 +128,10 @@ export function SelectionAssist({ editor }: { editor: Editor }) {
 
   const start = (action: string) => {
     const { from, to } = editor.state.selection
+    if (containsRich(editor.state.doc, from, to)) {
+      notify('此选区包含图表或公式，请选择普通正文文字进行改写', 'warning')
+      return setMenu(null)
+    }
     const original = textBetween(editor, from, to)
     setMenu(null)
     placePanel(from, to)
@@ -143,6 +148,10 @@ export function SelectionAssist({ editor }: { editor: Editor }) {
 
   const accept = () => {
     if (!session) return
+    if (containsRich(editor.state.doc, session.from, session.to)) {
+      notify('选区出现了图表或公式，已取消整体替换，请重新选择文字', 'warning')
+      return close()
+    }
     if (textBetween(editor, session.from, session.to) !== session.original) {
       notify('原文在改写期间被修改了，请重新选中后再试', 'warning')
       return close()

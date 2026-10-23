@@ -70,6 +70,11 @@ export async function streamSSE(
 }
 
 export const api = {
+  uploadImage: (docId: string, file: File) => {
+    const data = new FormData()
+    data.append('file', file)
+    return req<{ id: string; src: string; extension: string; width: number; height: number; size: number }>(`/api/documents/${docId}/assets`, { method: 'POST', body: data })
+  },
   health: () => req<Health>('/api/health'),
   settings: () => req<SettingsView>('/api/settings'),
   saveSettings: (values: Record<string, string | null>) =>

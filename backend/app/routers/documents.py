@@ -7,6 +7,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from ..db import get_conn
+from ..document_assets import validate_content
 
 router = APIRouter(prefix="/api/documents", tags=["documents"])
 
@@ -37,6 +38,8 @@ def docs_list():
 @router.post("")
 def docs_create(body: DocIn):
     did = uuid.uuid4().hex[:12]
+    if body.content:
+        validate_content(did, body.content)
     with get_conn() as conn:
         conn.execute(
             "INSERT INTO documents (id, title, content, cite_style) VALUES (?,?,?,?)",
@@ -62,6 +65,7 @@ def docs_update(did: str, body: DocIn):
         sets.append("title=?")
         vals.append(body.title)
     if body.content is not None:
+        validate_content(did, body.content)
         sets.append("content=?")
         vals.append(json.dumps(body.content, ensure_ascii=False))
     if body.cite_style is not None:

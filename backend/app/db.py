@@ -89,6 +89,17 @@ CREATE TABLE IF NOT EXISTS agent_threads (
     created_at  TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );
+CREATE TABLE IF NOT EXISTS document_assets (
+    id TEXT PRIMARY KEY,
+    doc_id TEXT NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+    digest TEXT NOT NULL,
+    extension TEXT NOT NULL,
+    width INTEGER NOT NULL,
+    height INTEGER NOT NULL,
+    size INTEGER NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE(doc_id, digest)
+);
 """
 
 _lock = threading.Lock()
