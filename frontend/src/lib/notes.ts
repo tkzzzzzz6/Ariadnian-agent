@@ -34,15 +34,22 @@ const emit = () => listeners.forEach((l) => l())
 
 export const notesStore = {
   get: () => notes,
+  isLoaded: () => loaded,
   subscribe(l: () => void) {
     listeners.add(l)
     return () => listeners.delete(l)
   },
   async refresh() {
-    notes = await api.notes()
-    loaded = true
-    emit()
-    return notes
+    try {
+      notes = await api.notes()
+      loaded = true
+      emit()
+      return notes
+    } catch (e) {
+      loaded = false
+      emit()
+      throw e
+    }
   },
   upsert(n: Note) {
     notes = [n, ...notes.filter((x) => x.id !== n.id)]
@@ -52,6 +59,11 @@ export const notesStore = {
     notes = notes.filter((x) => x.id !== id)
     emit()
   },
+}
+
+/** Failed or unfinished loads must not be displayed as zero notes. */
+export function useNotesLoaded(): boolean {
+  return useSyncExternalStore(notesStore.subscribe, notesStore.isLoaded)
 }
 
 /** 全部笔记；传 paperId 时只要这篇论文的，按页码排序 */

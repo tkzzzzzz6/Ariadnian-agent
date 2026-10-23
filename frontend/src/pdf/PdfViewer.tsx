@@ -66,6 +66,8 @@ export interface PdfViewerProps {
   renderSelectionMenu?: (sel: PdfSelection, close: () => void) => ReactNode
   onError?: (msg: string) => void
   onLoaded?: (pages: number) => void
+  /** 仅报告浏览位置；调用方不得据此自动认定已读。 */
+  onPageChange?: (page: number, pages: number) => void
   /** 显示「目录」按钮（PDF 书签；没有书签时按页列出），宽屏时默认展开 */
   toc?: boolean
 }
@@ -101,7 +103,7 @@ async function loadOutline(doc: PDFDocumentProxy): Promise<TocItem[]> {
 }
 
 export function PdfViewer({
-  src, page, highlight, jumpKey, badge, onError, onLoaded, focus, marks, activeMark, onMarkClick, renderSelectionMenu, toc,
+  src, page, highlight, jumpKey, badge, onError, onLoaded, onPageChange, focus, marks, activeMark, onMarkClick, renderSelectionMenu, toc,
 }: PdfViewerProps) {
   const [showToc, setShowToc] = useState(false)
   const [outline, setOutline] = useState<TocItem[] | null>(null)
@@ -119,6 +121,8 @@ export function PdfViewer({
   useEffect(() => {
     let cancelled = false
     setDoc(null)
+    setCurrent(1)
+    setPageInput('1')
     setSizes([])
     setError(null)
     // 先自己请求文件：后端出错时（下载失败、不是 PDF、地址被拦截）能拿到具体原因
@@ -162,6 +166,10 @@ export function PdfViewer({
       task?.destroy()
     }
   }, [src]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (doc && sizes.length) onPageChange?.(current, sizes.length)
+  }, [doc, current, sizes.length, onPageChange])
 
   // ---------------------------------------------------------------- 宽度与缩放
   useLayoutEffect(() => {

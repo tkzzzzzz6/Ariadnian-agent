@@ -22,6 +22,10 @@ import { normalizeTitle } from '../lib/util'
 import type { Paper, PaperIn } from '../lib/types'
 import { brand } from '../theme'
 import AutorenewIcon from '@mui/icons-material/Autorenew'
+import { ReadingDialog } from '../components/ReadingDialog'
+import { useNotes, useNotesLoaded, notesStore } from '../lib/notes'
+import { pageProgressLabel, READING_LABELS, readingReminder, type ReadingRecord } from '../lib/reading'
+import { readingStore, useCitationCounts, useReading } from '../lib/readingStore'
 
 const PARSER_LABEL: Record<string, string> = { grobid: 'GROBID', mineru: 'MinerU', pymupdf: 'PyMuPDF' }
 
@@ -174,11 +178,13 @@ function SearchDialog({ open, onClose }: { open: boolean; onClose: () => void })
   )
 }
 
-function PaperItem({ p }: { p: Paper }) {
+function PaperItem({ p, reading, noteCount, citeCount }: { p: Paper; reading?: ReadingRecord; noteCount: number | null; citeCount: number | null }) {
   const { editor, refreshPapers, notify, openReader } = useApp()
   const [open, setOpen] = useState(false)
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
   const [busy, setBusy] = useState(false)
+  const [readingOpen, setReadingOpen] = useState(false)
+  const reminder = reading && citeCount != null ? readingReminder(reading.status, citeCount) : null
   const fileRef = useRef<HTMLInputElement>(null)
 
   const act = async (fn: () => Promise<any>, ok?: string) => {
@@ -224,7 +230,7 @@ function PaperItem({ p }: { p: Paper }) {
           <Box className="ops" sx={{ display: 'flex', opacity: open ? 1 : 0, transition: 'opacity .15s' }} onClick={(e) => e.stopPropagation()}>
             <Tooltip title="在光标处引用">
               <span>
-                <IconButton disabled={!editor} onClick={() => editor?.chain().focus().insertCitation([p.id]).run()}>
+                <IconButton aria-label="在光标处引用" disabled={!editor} onClick={() => editor?.chain().focus().insertCitation([p.id]).run()}>
                   <FormatQuoteIcon sx={{ fontSize: 16, color: brand.blue }} />
                 </IconButton>
               </span>
@@ -241,6 +247,17 @@ function PaperItem({ p }: { p: Paper }) {
             </IconButton>
           </Box>
         </Box>
+        <Box sx={{ mt: 0.75 }} onClick={(e) => e.stopPropagation()}>
+          <Typography sx={{ fontSize: 11.5, color: brand.muted }}>
+            {reading ? READING_LABELS[reading.status] : '阅读记录待加载'} · 划线/笔记 {noteCount ?? '未知'} 条 · 当前文档引用 {citeCount ?? '未知'} 次
+          </Typography>
+          {reading && <Typography sx={{ fontSize: 11.5, color: brand.muted }}>{pageProgressLabel(reading)}</Typography>}
+          {reminder && <Typography sx={{ fontSize: 11.5, color: 'warning.main' }}>{reminder}</Typography>}
+          <Button size="small" disabled={!reading} onClick={() => setReadingOpen(true)}>阅读记录</Button>
+          {reading?.read_through_page != null && (p.has_pdf || p.pdf_url) && (
+            <Button size="small" onClick={() => openReader({ paperId: p.id, evidences: [{ page: reading.read_through_page }] })}>继续阅读 p.{reading.read_through_page}</Button>
+          )}
+        </Box>
         <Collapse in={open}>
           <Typography sx={{ mt: 1, fontSize: 12, color: brand.ink, lineHeight: 1.65 }}>{p.abstract || '（无摘要）'}</Typography>
           {p.url && (
@@ -250,6 +267,7 @@ function PaperItem({ p }: { p: Paper }) {
           )}
         </Collapse>
       </Card>
+      {readingOpen && reading && <ReadingDialog record={reading} title={p.title} onClose={() => setReadingOpen(false)} />}
       <input
         ref={fileRef}
         type="file"
@@ -305,7 +323,16 @@ function PaperItem({ p }: { p: Paper }) {
 }
 
 export function LibraryPanel() {
-  const { papers, refreshPapers, notify } = useApp()
+  const { papers, refreshPapers, notify, editor, docId } = useApp()
+  const reading = useReading()
+  const counts = useCitationCounts(editor)
+  const notes = useNotes()
+  const notesLoaded = useNotesLoaded()
+  const noteCounts = useMemo(() => {
+    const result: Record<string, number> = Object.create(null)
+    for (const n of notes) result[n.paper_id] = (result[n.paper_id] ?? 0) + 1
+    return result
+  }, [notes])
   const [filter, setFilter] = useState('')
   const [searchOpen, setSearchOpen] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -335,6 +362,11 @@ export function LibraryPanel() {
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box sx={{ px: 2, pt: 0.5, pb: 1 }}>
         <SectionLabel>文献库 · {papers.length} 篇</SectionLabel>
+        <Typography sx={{ fontSize: 11.5, color: brand.muted, mb: 0.75 }}>引用次数仅统计当前文档（含草稿）；同一引用节点每篇计一次。阅读状态由你确认。</Typography>
+        {(reading.error || !notesLoaded) && <Box sx={{ mb: 0.75 }}>
+          <Typography sx={{ fontSize: 11.5, color: 'warning.main' }}>{reading.error ? `阅读记录加载失败：${reading.error}` : '笔记数量待加载，暂显示未知'}</Typography>
+          <Button size="small" onClick={() => { void readingStore.refresh(); notesStore.refresh().catch((e) => notify(e.message, 'error')) }}>重试加载</Button>
+        </Box>}
         <Box
           sx={{
             display: 'flex', alignItems: 'center', gap: 0.75, border: `1px solid ${brand.line}`, borderRadius: '6px', px: 1, py: 0.25,
@@ -348,7 +380,7 @@ export function LibraryPanel() {
       <Box sx={{ flex: 1, overflow: 'auto', px: 2, pb: 2 }}>
         <Thread>
           {shown.map((p) => (
-            <PaperItem key={p.id} p={p} />
+            <PaperItem key={p.id} p={p} reading={reading.records[p.id]} noteCount={notesLoaded ? noteCounts[p.id] ?? 0 : null} citeCount={editor && docId ? counts[p.id] ?? 0 : null} />
           ))}
           <ThreadItem dense>
             <Box sx={{ display: 'flex', gap: 0.75 }}>

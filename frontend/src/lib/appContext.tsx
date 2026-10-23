@@ -4,6 +4,7 @@ import { Alert, Button, Snackbar } from '@mui/material'
 import { api } from './api'
 import { citeStore } from './citations'
 import { notesStore } from './notes'
+import { readingStore } from './readingStore'
 import type { Health, Paper, PaperIn } from './types'
 
 /** 右侧抽屉里的视图 */
@@ -234,6 +235,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setPapers(list)
     citeStore.setPapers(list)
     notesStore.refresh().catch(() => undefined) // 删除文献时笔记也会被删掉
+    void readingStore.refresh()
     return list
   }, [])
 

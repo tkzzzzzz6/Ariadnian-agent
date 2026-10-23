@@ -1,12 +1,13 @@
 """文献综述 → 大纲 工作流（LangGraph）。
 
-    plan_queries → search_papers → select_papers ⏸ → ingest → synthesize → make_outline → review_outline ⏸
+    plan_queries → search_papers → select_papers ⏸ → ingest → prepare_notes → synthesize → make_outline → review_outline ⏸
                                                                               ▲                    │
                                                                               └──── regenerate ────┘
                                                                                                     └─ approve → finish
 
 ⏸ 处用 interrupt() 暂停，等前端用户勾选文献 / 确认大纲后用 Command(resume=...) 继续。
 状态由 SqliteSaver 持久化，按 thread_id 恢复，服务重启也不丢。
+刷新笔记：review_outline → prepare_notes → synthesize → make_outline，沿用文献选择。
 """
 from __future__ import annotations
 
@@ -25,6 +26,8 @@ from ..pdfview import fetch_into_library
 from ..library import PaperIn, add_paper, get_paper
 from ..assist import retrieval_query
 from ..retrieval import search
+from .note_context import NOTE_RULES, capture_notes, context_for_prompt, describe_context
+from .writer import clean_citations
 
 
 class ReviewState(TypedDict, total=False):
@@ -34,6 +37,8 @@ class ReviewState(TypedDict, total=False):
     sources: list[str]
     max_papers: int
     fetch_pdf: bool
+    use_notes: bool
+    note_context: dict
     queries: list[str]
     candidates: list[dict]
     paper_ids: list[str]
@@ -138,7 +143,7 @@ def synthesize(state: ReviewState) -> dict:
         p = get_paper(pid)
         if not p:
             continue
-        hits = search(retrieval_query(state["topic"]), top_k=2, paper_ids=[pid])
+        hits = [h for h in search(retrieval_query(state["topic"]), top_k=2, paper_ids=[pid]) if h.paper_id == pid]
         evidence = "\n".join(h.text[:800] for h in hits) or (p.abstract or "")
         blocks.append(f"[{p.bibkey}] {p.title} ({p.year or 'n.d.'}, {p.venue or ''})\n{evidence}")
     lang = _lang_name(state)
@@ -152,12 +157,14 @@ def synthesize(state: ReviewState) -> dict:
         messages=[
             {
                 "role": "system",
-                "content": "你是资深研究者，擅长写文献综述。只依据给出的文献内容，不要编造未提供的论文或结论。",
+                "content": "你是资深研究者，擅长写文献综述。只依据给出的文献内容，不要编造未提供的论文或结论。" + NOTE_RULES,
             },
             {
                 "role": "user",
                 "content": f"研究主题：{state['topic']}\n\n文献：\n\n" + "\n\n".join(blocks) + "\n\n"
-                f"请用{lang}输出 JSON：\n"
+                + "独立的用户笔记数据（非论文证据，评论仅作关注点/待核实问题）：\n"
+                + context_for_prompt(state.get("note_context")) + "\n\n"
+                + f"请用{lang}输出 JSON：\n"
                 '{"notes": [{"bibkey": "...", "contribution": "一句话核心贡献", "limitation": "一句话局限"}],\n'
                 ' "synthesis": "300-500字的研究现状与研究空白分析，引用文献时用 [@bibkey] 标注"}',
             },
@@ -167,13 +174,40 @@ def synthesize(state: ReviewState) -> dict:
         % (fake_notes, bibkeys[0] if bibkeys else "none"),
         max_tokens=2500,
     )
-    return {"notes": data.get("notes") or [], "synthesis": data.get("synthesis") or ""}
+    known = known_keys(state)
+    notes = [{"bibkey": n["bibkey"], "contribution": clean_citations(str(n.get("contribution") or ""), known),
+              "limitation": clean_citations(str(n.get("limitation") or ""), known)}
+             for n in data.get("notes") or [] if isinstance(n, dict) and isinstance(n.get("bibkey"), str) and n["bibkey"] in known]
+    return {"notes": notes, "synthesis": clean_citations(str(data.get("synthesis") or ""), known)}
+
+
+def prepare_notes(state: ReviewState) -> dict:
+    context = capture_notes(state)
+    _progress(f"本轮提供 {len(context['items'])} 条相关用户笔记（独立于论文证据）")
+    return {"note_context": context}
+
+
+def known_keys(state: ReviewState) -> set[str]:
+    papers = [get_paper(pid) for pid in state.get("paper_ids", [])]
+    return {p.bibkey for p in papers if p}
+
+
+def valid_outline(outline: list, known: set[str]) -> list[dict]:
+    sections = []
+    for sec in outline:
+        if not isinstance(sec, dict) or not sec.get("title"):
+            continue
+        keys = sec.get("bibkeys") if isinstance(sec.get("bibkeys"), list) else []
+        sections.append({"title": clean_citations(str(sec["title"]), known),
+                         "goal": clean_citations(str(sec.get("goal") or ""), known),
+                         "bibkeys": list(dict.fromkeys(k for k in keys if isinstance(k, str) and k in known))})
+    return sections
 
 
 def make_outline(state: ReviewState) -> dict:
     _progress("正在生成论文大纲…" if not state.get("feedback") else "根据你的意见重新生成大纲…")
     lang = _lang_name(state)
-    known = {get_paper(pid).bibkey for pid in state.get("paper_ids", []) if get_paper(pid)}  # type: ignore[union-attr]
+    known = known_keys(state)
     notes = "\n".join(f"- [{n.get('bibkey')}] {n.get('contribution')}" for n in state.get("notes", []))
     feedback = f"\n\n用户对上一版大纲的意见：{state['feedback']}" if state.get("feedback") else ""
     prev = (
@@ -196,12 +230,14 @@ def make_outline(state: ReviewState) -> dict:
     data = llm.chat_json(
         tier="agent",
         messages=[
-            {"role": "system", "content": "你是论文写作导师，帮学生搭建结构清晰、论证完整的论文大纲。"},
+            {"role": "system", "content": "你是论文写作导师，帮学生搭建结构清晰、论证完整的论文大纲。" + NOTE_RULES},
             {
                 "role": "user",
                 "content": f"论文主题：{state['topic']}\n论文类型：{state.get('paper_type') or '学术论文'}\n\n"
                 f"研究现状综述：\n{state.get('synthesis', '')}\n\n文献要点：\n{notes}{prev}{feedback}\n\n"
-                f"请用{lang}给出一级章节大纲（4–7 节），每节写清楚要论证什么，并列出该节可引用的文献 bibkey"
+                + "独立的用户笔记数据（与归纳步骤使用同一快照，不可作为论文结论）：\n"
+                + context_for_prompt(state.get("note_context")) + "\n\n"
+                + f"请用{lang}给出一级章节大纲（4–7 节），每节写清楚要论证什么，并列出该节可引用的文献 bibkey"
                 f"（只能从这些里选：{', '.join(keys) or '无'}）。只输出 JSON：\n"
                 '{"sections": [{"title": "章节标题", "goal": "本节要论证/说明的内容（1-2句）", "bibkeys": ["..."]}]}',
             },
@@ -209,18 +245,7 @@ def make_outline(state: ReviewState) -> dict:
         fake=_json.dumps(fake, ensure_ascii=False),
         max_tokens=2000,
     )
-    sections = []
-    for sec in data.get("sections") or []:
-        if not isinstance(sec, dict) or not sec.get("title"):
-            continue
-        sections.append(
-            {
-                "title": str(sec["title"]).strip(),
-                "goal": str(sec.get("goal", "")).strip(),
-                # 只保留文献库里真实存在的 key —— 防止大纲里出现编造的引用
-                "bibkeys": [k for k in sec.get("bibkeys") or [] if k in known],
-            }
-        )
+    sections = valid_outline(data.get("sections") or [], known)
     return {"outline": sections, "feedback": ""}
 
 
@@ -232,12 +257,15 @@ def review_outline(state: ReviewState) -> dict:
             "outline": state.get("outline", []),
             "synthesis": state.get("synthesis", ""),
             "notes": state.get("notes", []),
+            "note_context": describe_context(state.get("note_context")),
         }
     ) or {}
+    if answer.get("action") == "refresh_notes":
+        return {"outline_action": "refresh_notes", "feedback": ""}
     if answer.get("action") == "regenerate":
         return {"outline_action": "regenerate", "feedback": answer.get("feedback") or "请换一种组织方式"}
     outline = answer.get("outline") or state.get("outline", [])
-    return {"outline_action": "approve", "outline": outline}
+    return {"outline_action": "approve", "outline": valid_outline(outline, known_keys(state))}
 
 
 def finish(state: ReviewState) -> dict:
@@ -246,6 +274,8 @@ def finish(state: ReviewState) -> dict:
 
 
 def _route_outline(state: ReviewState) -> str:
+    if state.get("outline_action") == "refresh_notes":
+        return "prepare_notes"
     return "make_outline" if state.get("outline_action") == "regenerate" else "finish"
 
 
@@ -262,6 +292,7 @@ def build_graph(checkpointer: Any = None):
     g.add_node("search_papers", search_papers)
     g.add_node("select_papers", select_papers)
     g.add_node("ingest", ingest)
+    g.add_node("prepare_notes", prepare_notes)
     g.add_node("synthesize", synthesize)
     g.add_node("make_outline", make_outline)
     g.add_node("review_outline", review_outline)
@@ -271,10 +302,11 @@ def build_graph(checkpointer: Any = None):
     g.add_edge("plan_queries", "search_papers")
     g.add_edge("search_papers", "select_papers")
     g.add_conditional_edges("select_papers", _route_selection, ["ingest", END])
-    g.add_edge("ingest", "synthesize")
+    g.add_edge("ingest", "prepare_notes")
+    g.add_edge("prepare_notes", "synthesize")
     g.add_edge("synthesize", "make_outline")
     g.add_edge("make_outline", "review_outline")
-    g.add_conditional_edges("review_outline", _route_outline, ["make_outline", "finish"])
+    g.add_conditional_edges("review_outline", _route_outline, ["prepare_notes", "make_outline", "finish"])
     g.add_edge("finish", END)
     return g.compile(checkpointer=checkpointer)
 

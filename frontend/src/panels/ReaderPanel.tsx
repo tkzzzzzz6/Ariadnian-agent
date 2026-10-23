@@ -2,7 +2,7 @@
  * 抽屉「原文」：在写作界面旁边读文献库里的论文 PDF。
  * 从页边批注、找引用或文献库打开时，会跳到依据所在的页，并高亮与正文那句话最相关的原文。
  */
-import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Box, Button, CircularProgress, IconButton, Tooltip, Typography } from '@mui/material'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
@@ -20,6 +20,9 @@ const PdfViewer = lazy(() => import('../pdf/PdfViewer').then((m) => ({ default: 
 import { Card } from '../components/Thread'
 import { brand } from '../theme'
 import { VerdictChip } from './CitePanel'
+import { ReadingDialog } from '../components/ReadingDialog'
+import { READING_LABELS, pageProgressLabel } from '../lib/reading'
+import { useReading, readingStore } from '../lib/readingStore'
 
 export function ReaderPanel({ target, variant = 'drawer' }: { target?: ReaderTarget | null; variant?: 'drawer' | 'split' } = {}) {
   const ctx = useApp()
@@ -42,6 +45,17 @@ export function ReaderPanel({ target, variant = 'drawer' }: { target?: ReaderTar
   const [activeNote, setActiveNote] = useState<string | null>(null)
   const [popover, setPopover] = useState<{ note: Note; at: { x: number; y: number } } | null>(null)
   const [focus, setFocus] = useState<{ page: number; y?: number; key: number } | null>(null)
+  const readingState = useReading()
+  const reading = paper ? readingState.records[paper.id] : undefined
+  const [readingOpen, setReadingOpen] = useState(false)
+  const [recording, setRecording] = useState(false)
+  const [position, setPosition] = useState<{ paperId: string; page: number; pages: number } | null>(null)
+  const paperId = paper?.id
+  const onPageChange = useCallback((page: number, pages: number) => {
+    if (paperId) setPosition({ paperId, page, pages })
+  }, [paperId])
+  const currentPosition = position?.paperId === paperId ? position : null
+  useEffect(() => { setReadingOpen(false); setPosition(null) }, [paperId])
 
   useEffect(() => {
     setIdx(0)
@@ -167,8 +181,27 @@ export function ReaderPanel({ target, variant = 'drawer' }: { target?: ReaderTar
             </Box>
           )}
           {ev?.reason && <Typography sx={{ fontSize: 11.5, color: brand.muted, mt: 0.25 }}>{ev.reason}</Typography>}
+          <Typography sx={{ fontSize: 11.5, color: brand.muted, mt: 0.75 }}>
+            {reading ? `${READING_LABELS[reading.status]} · ${pageProgressLabel(reading)}` : readingState.error ? '阅读记录加载失败' : '阅读记录加载中…'}
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+            <Button disabled={!reading} onClick={() => setReadingOpen(true)}>修改阅读记录</Button>
+            {readingState.error && <Button onClick={() => void readingStore.refresh()}>重试加载</Button>}
+            {currentPosition && <Tooltip title="由你确认已读至当前页；不会自动标为全文已读。更换 PDF 后请核对页码。">
+              <span><Button disabled={!reading || recording} onClick={async () => {
+                if (!reading) return
+                setRecording(true)
+                try {
+                  await readingStore.save(paper.id, { status: reading.status === 'read' ? 'read' : 'reading', read_through_page: currentPosition.page, total_pages: currentPosition.pages })
+                  notify(`已记录读至第 ${currentPosition.page} 页`, 'success')
+                } catch (e: any) { notify(e.message, 'error') }
+                finally { setRecording(false) }
+              }}>记录读至第 {currentPosition.page} 页</Button></span>
+            </Tooltip>}
+          </Box>
         </Card>
       </Box>
+      {readingOpen && reading && <ReadingDialog key={paper.id} record={reading} title={paper.title} onClose={() => setReadingOpen(false)} />}
 
       {paper.has_pdf && <NotesList notes={notes} active={activeNote} onOpen={openNote} onCite={(n) => insertCite(n.page)} />}
 
@@ -176,12 +209,14 @@ export function ReaderPanel({ target, variant = 'drawer' }: { target?: ReaderTar
       {paper.has_pdf ? (
         <Suspense fallback={<Box sx={{ flex: 1, bgcolor: '#ececec' }} />}>
         <PdfViewer
+          key={paper.id}
           src={pdfFileUrl({ paper_id: paper.id })}
           toc={variant === 'split'}
           page={ev?.page ?? null}
           highlight={hl}
           jumpKey={`${reader.nonce}-${idx}`}
           onError={(m) => notify(m, 'error')}
+          onPageChange={onPageChange}
           focus={focus}
           marks={notes.map((n) => ({ id: n.id, page: n.page, rects: n.rects, fill: NOTE_COLORS[n.color].fill }))}
           activeMark={activeNote}

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  Box, Button, Checkbox, Chip, CircularProgress, Collapse, IconButton, InputBase, Menu, MenuItem, Tooltip, Typography,
+  Box, Button, Checkbox, Chip, CircularProgress, Collapse, FormControlLabel, IconButton, InputBase, Menu, MenuItem, Tooltip, Typography,
 } from '@mui/material'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
@@ -33,6 +33,8 @@ import PictureAsPdfOutlinedIcon from '@mui/icons-material/PictureAsPdfOutlined'
 import type { OutlineSection, PaperIn } from '../lib/types'
 import { Card, Composer, Thread, ThreadItem } from '../components/Thread'
 import { brand } from '../theme'
+import { ReviewNoteSources } from './ReviewNoteSources'
+import type { ReviewNoteContext } from '../lib/reviewNotes'
 
 type Status = 'idle' | 'running' | 'waiting' | 'done' | 'stopped' | 'error'
 
@@ -46,6 +48,7 @@ interface Result {
   notes?: { bibkey: string; contribution: string; limitation?: string }[]
   paper_ids?: string[]
   errors?: string[]
+  note_context?: ReviewNoteContext | null
 }
 interface Step {
   node: string
@@ -176,6 +179,9 @@ function ReviewOutlineCard({ value, onSubmit }: { value: any; onSubmit: (v: any)
   const [outline, setOutline] = useState<OutlineSection[]>(value.outline ?? [])
   const [feedback, setFeedback] = useState('')
   const [showSyn, setShowSyn] = useState(false)
+  const [confirmStale, setConfirmStale] = useState(false)
+  const needsConfirmation = !!value.note_context?.changed && !confirmStale
+  useEffect(() => setConfirmStale(false), [value.note_context?.captured_at])
   useEffect(() => setOutline(value.outline ?? []), [value])
   const upd = (i: number, f: Partial<OutlineSection>) => setOutline(outline.map((s, j) => (j === i ? { ...s, ...f } : s)))
   const move = (i: number, d: number) => {
@@ -198,6 +204,11 @@ function ReviewOutlineCard({ value, onSubmit }: { value: any; onSubmit: (v: any)
       <Collapse in={showSyn}>
         <Typography sx={{ px: 1.25, pb: 1, fontSize: 12, lineHeight: 1.7, whiteSpace: 'pre-wrap', color: brand.ink }}>{value.synthesis}</Typography>
       </Collapse>
+      <ReviewNoteSources context={value.note_context} />
+      <Box sx={{ px: 1.25, pb: 1 }}>
+        <Button size="small" onClick={() => onSubmit({ action: 'refresh_notes' })}>刷新笔记并重新生成</Button>
+        {value.note_context?.changed && <FormControlLabel control={<Checkbox size="small" checked={confirmStale} onChange={e => setConfirmStale(e.target.checked)} />} label={<Typography sx={{ fontSize: 12 }}>我已核对来源变化，仍沿用本轮历史笔记快照</Typography>} />}
+      </Box>
       <Box sx={{ bgcolor: '#fff', borderTop: `1px solid rgba(0,120,212,0.18)`, p: 1 }}>
         {outline.map((s, i) => (
           <Box key={i} sx={{ display: 'flex', gap: 1, py: 0.75, borderBottom: `1px solid ${brand.lineSoft}`, '&:hover .ops': { opacity: 1 } }}>
@@ -238,13 +249,13 @@ function ReviewOutlineCard({ value, onSubmit }: { value: any; onSubmit: (v: any)
         </Button>
         <Box sx={{ display: 'flex', gap: 1, mt: 1, alignItems: 'center', border: `1px solid ${brand.line}`, borderRadius: '6px', px: 1, py: 0.25 }}>
           <InputBase fullWidth multiline maxRows={3} placeholder="不满意？写下意见让 AI 重写，例如：方法拆成两节" value={feedback} onChange={(e) => setFeedback(e.target.value)} sx={{ fontSize: 12.5 }} />
-          <Button size="small" startIcon={<AutorenewIcon />} disabled={!feedback.trim()} onClick={() => onSubmit({ action: 'regenerate', feedback })}>
+          <Button size="small" startIcon={<AutorenewIcon />} disabled={!feedback.trim() || needsConfirmation} onClick={() => onSubmit({ action: 'regenerate', feedback, confirm_stale_notes: confirmStale })}>
             重写
           </Button>
         </Box>
       </Box>
       <Box sx={{ px: 1.25, py: 1, bgcolor: '#fff', borderTop: `1px solid ${brand.lineSoft}` }}>
-        <Button fullWidth variant="contained" disabled={!outline.length} onClick={() => onSubmit({ action: 'approve', outline })}>
+        <Button fullWidth variant="contained" disabled={!outline.length || needsConfirmation} onClick={() => onSubmit({ action: 'approve', outline, confirm_stale_notes: confirmStale })}>
           确认大纲
         </Button>
       </Box>
@@ -300,6 +311,7 @@ export function AgentPanel() {
   const [paperType, setPaperType] = useState('学术论文')
   const [maxPapers, setMaxPapers] = useState(8)
   const [fetchPdf, setFetchPdf] = useState<'yes' | 'no'>('yes')
+  const [useNotes, setUseNotes] = useState(true)
 
   const [threadId, setThreadId] = useState<string | null>(null)
   const [status, setStatus] = useState<Status>('idle')
@@ -438,7 +450,7 @@ export function AgentPanel() {
     try {
       const r = await run(
         '/api/agent/start',
-        { topic: t, doc_id: docId, language, paper_type: paperType, max_papers: maxPapers, fetch_pdf: fetchPdf === 'yes' },
+        { topic: t, doc_id: docId, language, paper_type: paperType, max_papers: maxPapers, fetch_pdf: fetchPdf === 'yes', use_notes: useNotes },
         handle,
       )
       if (r === 'stopped') setStatus('stopped')
@@ -468,6 +480,7 @@ export function AgentPanel() {
   const resume = async (value: any) => {
     if (!threadId) return
     if (pending) lastSent.current = { kind: pending.kind, value }
+    setError(null)
     setPending(null)
     setStatus('running')
     lastT.current = performance.now()
@@ -478,6 +491,13 @@ export function AgentPanel() {
     } catch (e: any) {
       setStatus('error')
       setError(e.message)
+      lastSent.current = null
+      const st = await api.agentState(threadId).catch(() => null)
+      if (st?.interrupt) {
+        // Keep locally edited outline fields when a fresh source check rejects approval.
+        setPending({ ...st.interrupt, ...(Array.isArray(value.outline) ? { outline: value.outline } : {}) })
+        setStatus('waiting')
+      }
     }
   }
 
@@ -645,6 +665,7 @@ export function AgentPanel() {
                 {result.outline?.length ? (
                   <Card variant="data">
                     <Typography sx={{ fontSize: 13, fontWeight: 500, mb: 0.75 }}>大纲 · {result.outline.length} 节</Typography>
+                    <ReviewNoteSources context={result.note_context} />
                     {result.outline.map((s, i) => (
                       <Box key={i} sx={{ mb: 0.75 }}>
                         <Typography sx={{ fontSize: 13, fontWeight: 600 }}>
@@ -692,6 +713,7 @@ export function AgentPanel() {
         )}
       </Box>
       <RunStatsBar />
+      {!sub && <FormControlLabel sx={{ mx: 2, my: 0 }} control={<Checkbox size="small" checked={useNotes} disabled={running} onChange={e => setUseNotes(e.target.checked)} />} label={<Typography sx={{ fontSize: 12, color: brand.muted }}>新综述使用选中文献的相关划线与笔记</Typography>} />}
       <Composer
         value={input}
         onChange={setInput}
