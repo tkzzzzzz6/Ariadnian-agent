@@ -18,7 +18,7 @@ from ..config import OVERRIDABLE_KEYS, SECRET_KEYS, TIERS, get_settings, load_ov
 
 router = APIRouter(prefix="/api/settings", tags=["settings"])
 
-_INT_KEYS = {"SEARCH_CACHE_DAYS", *(f"MODEL_{t.upper()}_TIMEOUT" for t in TIERS)}
+_INT_KEYS = {"SEARCH_CACHE_DAYS", "TRACE_RETENTION_DAYS", "TRACE_DETAIL_DAYS", *(f"MODEL_{t.upper()}_TIMEOUT" for t in TIERS)}
 _SOURCES = {"semantic_scholar", "arxiv", "openalex"}
 
 
@@ -74,6 +74,8 @@ def write_settings(body: SettingsIn):
             v = str(v).strip()
             if k in _INT_KEYS and not v.isdigit():
                 raise HTTPException(400, f"{k} 需要是整数")
+            if k in {"TRACE_RETENTION_DAYS", "TRACE_DETAIL_DAYS"} and not 1 <= int(v) <= 365:
+                raise HTTPException(400, "追踪保留天数需要在 1 到 365 之间")
             if k == "SEARCH_SOURCES":
                 srcs = [x.strip() for x in v.split(",") if x.strip()]
                 if not srcs or any(x not in _SOURCES for x in srcs):
@@ -95,7 +97,7 @@ def write_settings(body: SettingsIn):
                 raise HTTPException(400, "PDF 解析器只能是 pymupdf / grobid / mineru")
             if k in ("GROBID_URL", "MINERU_URL") and not v.startswith(("http://", "https://")):
                 raise HTTPException(400, f"{k} 需要以 http:// 或 https:// 开头")
-            if k == "LLM_FAKE":
+            if k in {"LLM_FAKE", "TRACE_CAPTURE"}:
                 v = "1" if v.lower() in {"1", "true", "yes", "on"} else "0"
         changes[k] = v
     save_overrides(changes)

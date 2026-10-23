@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import mimetypes
 import os
+import threading
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -17,6 +18,7 @@ from fastapi.staticfiles import StaticFiles
 
 from .config import get_settings
 from .db import init_db
+from . import tracing
 from .embeddings import embeddings_enabled
 from .llm import stats, tier_info
 from .security import PasswordMiddleware, check_startup
@@ -29,6 +31,7 @@ mimetypes.add_type("text/javascript", ".mjs")
 
 settings = get_settings()
 init_db()
+threading.Thread(target=tracing.cleanup, name="trace-cleanup", daemon=True).start()
 
 app = FastAPI(title="Ariadne Research Report Assistant", version="0.1.0")
 app.add_middleware(

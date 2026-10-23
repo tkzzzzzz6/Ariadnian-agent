@@ -18,7 +18,7 @@ from langgraph.config import get_stream_writer
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
-from .. import llm, scholar
+from .. import llm, scholar, tracing
 from ..config import get_settings
 from ..ingest import index_abstract, index_pdf
 from ..pdfview import fetch_into_library
@@ -46,6 +46,7 @@ class ReviewState(TypedDict, total=False):
 
 
 def _progress(message: str, **extra: Any) -> None:
+    tracing.progress(message, **extra)
     try:
         get_stream_writer()({"message": message, **extra})
     except Exception:  # 不在 stream 上下文时忽略
@@ -59,6 +60,7 @@ def _lang_name(state: ReviewState) -> str:
 # ---------------------------------------------------------------------------
 # 节点
 # ---------------------------------------------------------------------------
+@tracing.traced("node", "拆解检索式")
 def plan_queries(state: ReviewState) -> dict:
     _progress("正在把研究主题拆解为检索式…")
     topic = state["topic"]
@@ -78,6 +80,7 @@ def plan_queries(state: ReviewState) -> dict:
     return {"queries": queries}
 
 
+@tracing.traced("node", "检索文献")
 def search_papers(state: ReviewState) -> dict:
     found: list[PaperIn] = []
     errors: list[str] = list(state.get("errors") or [])
@@ -96,6 +99,7 @@ def search_papers(state: ReviewState) -> dict:
     return {"candidates": candidates, "errors": errors}
 
 
+@tracing.traced("node", "勾选文献")
 def select_papers(state: ReviewState) -> dict:
     answer = interrupt(
         {
@@ -111,6 +115,7 @@ def select_papers(state: ReviewState) -> dict:
     return {"candidates": selected}
 
 
+@tracing.traced("node", "加入文献库")
 def ingest(state: ReviewState) -> dict:
     s = get_settings()
     ids: list[str] = []
@@ -131,6 +136,7 @@ def ingest(state: ReviewState) -> dict:
     return {"paper_ids": ids, "errors": errors}
 
 
+@tracing.traced("node", "归纳研究现状")
 def synthesize(state: ReviewState) -> dict:
     _progress("正在阅读文献并归纳研究现状…")
     blocks = []
@@ -170,6 +176,7 @@ def synthesize(state: ReviewState) -> dict:
     return {"notes": data.get("notes") or [], "synthesis": data.get("synthesis") or ""}
 
 
+@tracing.traced("node", "生成大纲")
 def make_outline(state: ReviewState) -> dict:
     _progress("正在生成论文大纲…" if not state.get("feedback") else "根据你的意见重新生成大纲…")
     lang = _lang_name(state)
@@ -224,6 +231,7 @@ def make_outline(state: ReviewState) -> dict:
     return {"outline": sections, "feedback": ""}
 
 
+@tracing.traced("node", "确认大纲")
 def review_outline(state: ReviewState) -> dict:
     answer = interrupt(
         {
@@ -240,6 +248,7 @@ def review_outline(state: ReviewState) -> dict:
     return {"outline_action": "approve", "outline": outline}
 
 
+@tracing.traced("node", "完成")
 def finish(state: ReviewState) -> dict:
     _progress("完成：大纲已确认，可以插入到文档中")
     return {}
