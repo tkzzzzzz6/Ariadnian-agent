@@ -384,7 +384,7 @@ export function AgentPanel() {
       .then((threads) => {
         const t = threads[0]
         // 审稿结束后意见仍留在页边，所以最近一次审稿也恢复
-        if (t && (['waiting', 'stopped', 'running'].includes(t.status) || (t.kind === 'critique' && t.status === 'done' && !critiqueStore.isDismissed(t.thread_id)))) openThread(t)
+        if (t && (['waiting', 'stopped', 'running', 'stopping', 'interrupted'].includes(t.status) || (t.kind === 'critique' && t.status === 'done' && !critiqueStore.isDismissed(t.thread_id)))) openThread(t)
         // 面板打开的是别的任务时，最近一次审稿的意见照样挂回页边
         const c = threads.find((x) => x.kind === 'critique' && x.status !== 'error')
         if (c && c !== t && !critiqueStore.isDismissed(c.thread_id))
