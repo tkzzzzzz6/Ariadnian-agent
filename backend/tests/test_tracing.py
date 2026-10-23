@@ -250,3 +250,107 @@ def test_scholar_source_threads_inherit_trace_context(trace_db, monkeypatch):
     assert len(sources) == 2 and all(s["data"]["cache_hit"] for s in sources)
     assert len({s["parent_id"] for s in sources}) == 1
     assert {s["data"]["source"] for s in sources} == {"arxiv", "openalex"}
+
+
+def test_overview_recovered_attempts_are_distinct_from_unresolved_errors(trace_db, monkeypatch):
+    settings = llm.get_settings()
+    tiers = {k: dataclasses.replace(v, model="openai/bad", fallbacks=("openai/good",), api_key="test-key") for k, v in settings.tiers.items()}
+    monkeypatch.setattr(llm, "get_settings", lambda: dataclasses.replace(settings, llm_fake=False, tiers=tiers))
+    def complete(**kw):
+        if kw["model"].endswith("bad"):
+            raise RuntimeError("temporary failure")
+        return NS(choices=[NS(message=NS(content="ok"))], usage=None)
+    monkeypatch.setattr(llm.litellm, "completion", complete)
+    with recorded() as r:
+        with tracing.span("node", "work", "执行"):
+            assert llm.chat([{"role": "user", "content": "question"}]) == "ok"
+            try:
+                with tracing.span("tool", "download", "下载"):
+                    raise ValueError("unresolved download")
+            except ValueError:
+                pass
+    data = tracing.overview(r.thread_id, r.id)
+    assert len(data["spans"]) == 1  # compact overview contains stages, not every call
+    assert data["spans"][0]["data"]["call_count"] == 2
+    assert sorted(i["state"] for i in data["issues"]) == ["error", "recovered"]
+    assert "structured" not in json.dumps(data)
+
+
+def test_global_issue_navigation_finds_call_beyond_first_page(trace_db):
+    with recorded() as r:
+        with tracing.span("node", "work", "执行") as node:
+            for _ in range(65):
+                with tracing.span("tool", "search", "检索"):
+                    pass
+            try:
+                with tracing.span("tool", "last", "最后一个失败调用") as target:
+                    raise RuntimeError("last call failed")
+            except RuntimeError:
+                pass
+    data = tracing.overview(r.thread_id, r.id)
+    assert data["issues"][0]["id"] == target.id
+    page = tracing.node_calls(r.thread_id, r.id, node.id, focus=target.id)
+    assert page["offset"] == 50 and any(s["id"] == target.id for s in page["spans"])
+    assert tracing.node_calls("different-task", r.id, node.id) is None
+
+
+def test_tool_projections_are_valid_bounded_and_opt_in(trace_db):
+    @tracing.traced("tool", "检索")
+    def search(query):
+        return ([{"title": "论文" * 80, "url": "https://example.org/paper", "text": "evidence" * 100} for _ in range(10)], [])
+    with recorded("no-capture") as a:
+        search("private-query")
+    row = tracing.read(a.thread_id, a.id)["spans"][0]
+    assert not row["has_detail"]
+    trace_db["capture"] = True
+    with recorded("capture") as b:
+        search("private-query")
+    row = tracing.read(b.thread_id, b.id)["spans"][0]
+    detail = tracing.detail(b.thread_id, b.id, row["id"])["detail"]
+    projection = json.loads(detail["structured"])
+    assert projection["query"] == "private-query" and projection["total"] == 10 and projection["sampled"]
+    assert 0 < len(projection["items"]) <= 6 and len(detail["structured"]) < 2000
+    assert "private-query" not in json.dumps(tracing.overview(b.thread_id, b.id))
+
+
+def test_partial_content_is_throttled_and_activity_does_not_write(trace_db):
+    trace_db["capture"] = True
+    with recorded() as r:
+        with tracing.span("llm", "model", "模型") as call:
+            tracing.snapshot(reasoning="first")
+            tracing.snapshot(reasoning="second")
+            assert call.data["content_revision"] == 1
+            assert call.detail["reasoning"] == "first"
+            call.last_snapshot -= 2
+            tracing.snapshot(reasoning="first, then a longer chunk")
+            assert call.data["content_revision"] == 2 and call.detail["reasoning"] == "first, then a longer chunk"
+            before = r.count
+            for _ in range(1000):
+                tracing.activity()
+            assert r.count == before
+
+
+def test_handled_parallel_failure_is_not_counted_as_a_successful_chapter(trace_db, monkeypatch):
+    from app.agent import writer
+
+    original = writer._write
+    def fail_one(state, index):
+        if index == 0:
+            raise RuntimeError("chapter failed")
+        return original(state, index)
+    monkeypatch.setattr(writer, "_write", fail_one)
+    ev = events(client.post("/api/agent/write", json={"mode": "parallel", "outline": [{"title": "One"}, {"title": "Two"}]}))
+    tid = next(e["thread_id"] for e in ev if e["type"] == "status")
+    row = wait_runs(tid, 1)[0]
+    data = tracing.overview(tid, row["id"])
+    failed = [n for n in data["spans"] if n["name"] == "write_one" and n["data"].get("outcome") == "error"]
+    assert len(failed) == 1 and data["issues"]
+
+
+def test_live_preview_keeps_newest_chunks_after_reaching_content_limit():
+    preview = ""
+    for i in range(30):
+        preview = llm._append_preview(preview, f"chunk-{i}-" + "x" * 200)
+    assert len(preview) <= 1800
+    assert preview.startswith("chunk-0-") and "chunk-29-" in preview
+    assert "中间内容已省略" in preview

@@ -317,6 +317,28 @@ def trace_span(tid: str, rid: str, sid: str):
     return data
 
 
+@router.get("/{tid}/traces/{rid}/overview")
+def trace_overview(tid: str, rid: str):
+    try:
+        data = tracing.overview(tid, rid)
+    except Exception as e:
+        raise HTTPException(503, "运行概览暂时不可读取") from e
+    if data is None:
+        raise HTTPException(404, "运行记录不存在或已清理")
+    return data
+
+
+@router.get("/{tid}/traces/{rid}/nodes/{nid}")
+def trace_node_calls(tid: str, rid: str, nid: str, offset: int = Query(0, ge=0), focus: str | None = Query(None, max_length=64)):
+    try:
+        data = tracing.node_calls(tid, rid, nid, offset, focus=focus)
+    except Exception as e:
+        raise HTTPException(503, "调用记录暂时不可读取") from e
+    if data is None:
+        raise HTTPException(404, "运行记录不存在或已清理")
+    return data
+
+
 @router.get("/{tid}/traces/{rid}/diagnostic")
 def trace_diagnostic(tid: str, rid: str):
     try:

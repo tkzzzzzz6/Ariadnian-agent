@@ -5,9 +5,10 @@ import { api } from './api'
 import { citeStore } from './citations'
 import { notesStore } from './notes'
 import type { Health, Paper, PaperIn } from './types'
+import type { TraceTask } from './trace'
 
 /** 右侧抽屉里的视图 */
-export type RightTab = 'agent' | 'cite' | 'ask' | 'library' | 'reader' | 'docs'
+export type RightTab = 'agent' | 'cite' | 'ask' | 'library' | 'reader' | 'docs' | 'trace'
 
 export interface CiteRequest {
   sentence: string
@@ -51,6 +52,10 @@ export interface PreviewTarget {
 }
 
 interface AppCtx {
+  traceThreadId: string | null
+  pinTrace: (tid: string | null) => void
+  agentTaskRequest: (TraceTask & { nonce: number }) | null
+  openAgentTask: (task: TraceTask, restore: boolean) => void
   editor: Editor | null
   setEditor: (e: Editor | null) => void
   papers: Paper[]
@@ -110,6 +115,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [docId, setDocId] = useState<string | null>(null)
   const [docTitle, setDocTitle] = useState('')
   const [rightTab, setRightTab] = useState<RightTab>('agent')
+  const [traceThreadId, setTraceThreadId] = useState<string | null>(null)
+  const [agentTaskRequest, setAgentTaskRequest] = useState<(TraceTask & { nonce: number }) | null>(null)
+  const pinTrace = useCallback((tid: string | null) => {
+    setTraceThreadId(tid)
+    setRightTab(tid ? 'trace' : 'agent')
+    setDrawerOpen(true)
+  }, [])
+  const openAgentTask = useCallback((task: TraceTask, restore: boolean) => {
+    if (restore) setAgentTaskRequest({ ...task, nonce: Date.now() })
+    setRightTab('agent'); setDrawerOpen(true)
+  }, [])
+  useEffect(() => {
+    setTraceThreadId(null)
+    setAgentTaskRequest(null)
+    setRightTab(t => t === 'trace' ? 'agent' : t)
+  }, [docId])
   const [citeRequest, setCiteRequest] = useState<CiteRequest | null>(null)
   const [toast, setToast] = useState<{ msg: string; severity: 'success' | 'info' | 'warning' | 'error'; action?: { label: string; onClick: () => void } } | null>(null)
   const [agentAlert, setAgentAlert] = useState<string | null>(null)
@@ -259,7 +280,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const toggleDrawer = useCallback(
     (tab: RightTab) => {
       // 综述 Agent / 找引用 / 文献问答 同属「AI 助手」，图标栏上是同一个按钮
-      const group = (t: RightTab) => (t === 'agent' || t === 'cite' || t === 'ask' ? 'assistant' : t)
+      const group = (t: RightTab) => (t === 'agent' || t === 'cite' || t === 'ask' || t === 'trace' ? 'assistant' : t)
       if (drawerOpen && group(tab) === group(rightTab)) {
         setDrawerOpen(false)
         return
@@ -307,11 +328,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
       drawerOpen, setDrawerOpen, toggleDrawer, copilot, setCopilot, review, setReview, docsVersion, bumpDocs,
       settingsTab, openSettings, closeSettings, refreshHealth, reader, openReader, preview, openPreview, closePreview,
       agentAlert, alertAgent, split, setSplit, splitTabs, splitActive, setSplitActive, closeSplitTab, askRequest, askAI,
+      traceThreadId, pinTrace, agentTaskRequest, openAgentTask,
     }),
     [editor, papers, refreshPapers, docId, docTitle, rightTab, citeRequest, requestCitations, notify, health,
       drawerOpen, toggleDrawer, copilot, setCopilot, review, setReview, docsVersion, bumpDocs,
       settingsTab, openSettings, closeSettings, refreshHealth, reader, openReader, preview, openPreview, closePreview,
-      agentAlert, alertAgent, split, setSplit, splitTabs, splitActive, closeSplitTab, askRequest, askAI],
+      agentAlert, alertAgent, split, setSplit, splitTabs, splitActive, closeSplitTab, askRequest, askAI,
+      traceThreadId, pinTrace, agentTaskRequest, openAgentTask],
   )
 
   return (

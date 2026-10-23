@@ -39,6 +39,7 @@ interface State {
   status?: string
   step?: string
   warning?: string
+  runId?: string
 }
 
 let state: State = { threadId: null, stats: null, running: false, at: 0 }
@@ -53,7 +54,7 @@ export const runStats = {
   onEvent(e: any) {
     if (e?.type === 'status') {
       if (e.thread_id && e.thread_id !== state.threadId) set({ threadId: e.thread_id, stats: null, step: '', warning: '' })
-      set({ status: e.status })
+      set({ status: e.status, ...(e.run_id ? { runId: e.run_id } : {}) })
     }
     else if (e?.type === 'stats') set({ stats: e.stats, at: Date.now() })
     else if (e?.type === 'progress' && e.message) set({ step: e.message })

@@ -21,12 +21,18 @@ export interface TraceSpan {
   duration_ms: number | null
   data: {
     model?: string; tier?: string; error?: string; handled_error?: string; warnings?: string[]
-    result_count?: number; prompt_tokens?: number | null; completion_tokens?: number | null
+    result_count?: number | null; prompt_tokens?: number | null; completion_tokens?: number | null
     reasoning_tokens?: number | null; first_token_ms?: number | null; first_reasoning_ms?: number | null
     estimated?: boolean; reasoning_available?: boolean; phase?: string
     source?: string; cache_hit?: boolean
     call_count?: number
     node_label?: string
+    tool_count?: number; section_index?: number; section_title?: string
+    checked_count?: number; issue_count?: number; notes_count?: number; annotation_count?: number
+    content_revision?: number; updated_at?: number; operation?: string; attempt?: number
+    planned_sections?: number; mode?: string
+    node_id?: string
+    outcome?: 'error' | 'partial'
   }
   has_detail: boolean
 }
@@ -40,6 +46,29 @@ export interface TracePage {
   has_more: boolean
   summary: { calls: number; tools: number; steps: number; known_tokens: number | null; unknown_calls: number | null; estimated: boolean }
   events: { id: number; parent_id: string | null; at: number; message: string; phase?: string }[]
+}
+export interface TraceTask {
+  thread_id: string; doc_id: string | null; topic: string; kind: 'review' | 'write' | 'critique'; status: string
+}
+export interface TraceIssue {
+  id: string; node_id: string | null; label: string; state: 'error' | 'warning' | 'recovered'; message: string
+  /** Local navigation sequence, never persisted in the trace. */
+  navigation?: number
+}
+export interface TraceOverview extends TracePage {
+  active_calls: TraceSpan[]
+  issues: TraceIssue[]
+  last_activity: number
+  nodes_truncated: boolean
+  issues_truncated: boolean
+  task: TraceTask | null
+}
+export interface TraceProjection {
+  type: 'papers' | 'evidence' | 'citations'
+  query?: string; anchor?: string; total: number; sampled: boolean
+  items: { paper_id?: string; title?: string; bibkey?: string; page?: number; year?: number; source?: string;
+    url?: string; pdf_url?: string; text?: string; anchor?: string; reason?: string; verdict?: string; kind?: string;
+    checks?: { title?: string; verdict?: string; reason?: string; paper_id?: string; page?: number }[] }[]
 }
 export const traceStatus: Record<string, string> = {
   running: '运行中', waiting: '等待你确认', stopping: '正在保存并停止', stopped: '已停止',

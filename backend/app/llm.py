@@ -206,10 +206,19 @@ def _reasoning(message: Any) -> str | None:
     return None
 
 
-def _completion(kw: dict, tier: str, purpose: str = "模型调用"):
+def _append_preview(previous: str, chunk: str, limit: int = 1800) -> str:
+    """Keep the beginning and latest text without accumulating a whole stream."""
+    text = previous + chunk
+    if len(text) <= limit:
+        return text
+    marker = "\n…[中间内容已省略，以下为最新片段]…\n"
+    return text[:500] + marker + text[-(limit - 500 - len(marker)):]
+
+
+def _completion(kw: dict, tier: str, purpose: str = "模型调用", operation: str | None = None, attempt: int = 1):
     start = time.perf_counter()
     with tracing.span("llm", kw["model"], purpose, _trace_messages(kw["messages"])):
-        tracing.annotate(model=kw["model"], tier=tier, phase="waiting", reasoning_available=False)
+        tracing.annotate(model=kw["model"], tier=tier, phase="waiting", reasoning_available=False, operation=operation, attempt=attempt)
         try:
             resp = litellm.completion(**kw)
             message = resp.choices[0].message
@@ -243,22 +252,30 @@ def chat(
     t = s.tiers[tier]
     _check_ready(t)
     last_err: Exception | None = None
+    operation = f"request-{next(_stream_ids)}"
+    attempt_number = 0
+
+    def invoke(kw, purpose):
+        nonlocal attempt_number
+        attempt_number += 1
+        return _completion(kw, tier, purpose, operation, attempt_number)
+
     for attempt, model in enumerate(_candidates(t)):
         kw = _kwargs(t, model) | {"messages": messages, "temperature": temperature, "max_tokens": max_tokens}
         if json_mode:
             kw["response_format"] = {"type": "json_object"}
         try:
             try:
-                resp = _completion(kw, tier, "模型调用" if attempt == 0 else "备用模型调用")
+                resp = invoke(kw, "模型调用" if attempt == 0 else "备用模型调用")
             except litellm.BadRequestError:
                 if not json_mode:
                     raise
                 kw.pop("response_format")
-                resp = _completion(kw, tier, "重试 · 兼容 JSON 输出")
+                resp = invoke(kw, "重试 · 兼容 JSON 输出")
             text = resp.choices[0].message.content or ""
             if not text.strip() and max_tokens and getattr(resp.choices[0], "finish_reason", None) == "length":
                 kw["max_tokens"] = None
-                resp = _completion(kw, tier, "重试 · 正文为空且达到长度限制")
+                resp = invoke(kw, "重试 · 正文为空且达到长度限制")
                 text = resp.choices[0].message.content or ""
             return text
         except Exception as e:
@@ -288,6 +305,8 @@ def stream_chat(
                     meter.stream_tick(key, start)
                 if i == 0:
                     tracing.annotate(phase="output", estimated=True, reasoning_available=False)
+                tracing.activity()
+                tracing.snapshot(output=text[:i + 6][:2001])
                 yield text[i : i + 6]
             _fake_record(tier, messages, text, start, 0.0 if text else None, stream_key=key)
             return
@@ -303,13 +322,14 @@ def stream_chat(
         output, reasoning_text = "", ""
         try:
             with tracing.span("llm", model, "模型调用" if attempt == 0 else "备用模型调用", _trace_messages(messages)) as trace:
-                tracing.annotate(model=model, tier=tier, phase="waiting", reasoning_available=False)
+                tracing.annotate(model=model, tier=tier, phase="waiting", reasoning_available=False, operation=f"stream-{key}", attempt=attempt + 1)
                 try:
                     stream = litellm.completion(
                         **_kwargs(t, model), messages=messages, temperature=temperature, stream=True,
                         stream_options={"include_usage": True},
                     )
                     for chunk in stream:
+                        tracing.activity()
                         if getattr(chunk, "usage", None):
                             usage = chunk.usage
                         if not chunk.choices:
@@ -321,18 +341,19 @@ def stream_chat(
                                 first_reasoning = time.perf_counter() - start
                                 tracing.annotate(phase="reasoning", reasoning_available=True,
                                                  first_reasoning_ms=int(first_reasoning * 1000))
-                            if trace and trace.recorder.capture and len(reasoning_text) < 2001:
-                                reasoning_text += reasoning[:2001 - len(reasoning_text)]
+                            if trace and trace.recorder.capture:
+                                reasoning_text = _append_preview(reasoning_text, reasoning)
                         text = getattr(delta, "content", None)
                         if text:
                             if first is None:
                                 first = time.perf_counter() - start
                                 tracing.annotate(phase="output")
-                            if trace and trace.recorder.capture and len(output) < 2001:
-                                output += text[:2001 - len(output)]
+                            if trace and trace.recorder.capture:
+                                output = _append_preview(output, text)
                             if meter is not None:
                                 meter.stream_tick(key, start)
                             yield text
+                        tracing.snapshot(output=output or None, reasoning=reasoning_text or None)
                     _log(tier, model, stream=True, ok=True, latency=time.perf_counter() - start,
                          first_token=first, usage=usage, stream_key=key)
                 except Exception as e:

@@ -126,6 +126,7 @@ class Recorder:
         self.capture = policy()["capture"]
         self.secrets = _secrets()
         self.started = time.time()
+        self.last_activity = self.started
         self.incomplete = False
         self.status = "running"
         self.events: queue.Queue = queue.Queue(maxsize=2048)
@@ -276,6 +277,8 @@ class Span:
     def save(self):
         if self.recorder:
             try:
+                self.data["updated_at"] = time.time()
+                self.recorder.last_activity = self.data["updated_at"]
                 self.recorder.put("span", (self.id, self.recorder.id, self.parent_id, self.kind, self.name,
                     scrub(self.label, 180), self.status, self.started, self.ended, self.duration,
                     json.dumps(self.data, ensure_ascii=False), json.dumps(self.detail, ensure_ascii=False) if self.detail else None))
@@ -339,10 +342,34 @@ def content(**data):
             s.content(key, value)
 
 
+def activity():
+    """In-memory heartbeat only; never write a row for every streamed token."""
+    if r := _run.get():
+        r.last_activity = time.time()
+
+
+def snapshot(**data):
+    """Publish bounded partial content at most once a second per model call."""
+    s = _span.get()
+    if not s or not s.recorder.capture:
+        return
+    now = time.monotonic()
+    if now - getattr(s, "last_snapshot", 0) < 1:
+        return
+    signature = tuple(data.items())
+    if signature == getattr(s, "snapshot_signature", None):
+        return
+    s.last_snapshot, s.snapshot_signature = now, signature
+    content(**data)
+    s.data["content_revision"] = s.data.get("content_revision", 0) + 1
+    s.save()
+
+
 def progress(message: str, **extra):
     r, s = _run.get(), _span.get()
     if not r:
         return
+    activity()
     try:
         # Deliberately ignore draft, paragraphs, streamed tokens and raw results.
         if extra.get("delta") is not None or extra.get("phase") == "token":
@@ -376,12 +403,21 @@ def traced(kind: str, label: str):
                     "query", "sources", "limit", "top_k", "paper_ids", "paper_id", "url", "section", "topic",
                     "paragraph", "title", "check_citations", "review")}
             with span(kind, fn.__name__, title, inputs) as s:
+                if s and kind == "node" and isinstance(index, int) and 0 <= index < len(outline):
+                    s.data["section_index"] = index
+                    s.data["section_title"] = scrub(outline[index].get("title", ""), 180)
                 result = fn(*args, **kwargs)
                 if s:
                     if kind == "node" and isinstance(result, dict):
+                        if fn.__name__ == "write_one" and any(p.get("status") == "error" for p in result.get("parts", {}).values()):
+                            s.data["outcome"] = "error"
+                        if fn.__name__ == "prepare":
+                            s.data["planned_sections"] = len(result.get("order", []))
+                            s.data["mode"] = state.get("mode")
                         before = (args[0].get("errors") or []) if args else []
                         errors = result.get("errors") or []
                         if len(errors) > len(before):
+                            s.data["outcome"] = "partial"
                             s.data["handled_error"] = scrub("；".join(str(x) for x in errors[len(before):]), 600)
                     if isinstance(result, (list, tuple)):
                         s.data["result_count"] = len(result[0]) if isinstance(result, tuple) and isinstance(result[0], list) else len(result)
@@ -390,10 +426,125 @@ def traced(kind: str, label: str):
                     elif isinstance(result, int):
                         s.data["result_count"] = result
                     if kind == "tool":
+                        try:
+                            _tool_summary(s, fn.__name__, bound, result)
+                        except Exception:
+                            s.recorder.incomplete = True
                         s.content("output", result)
                 return result
         return wrapped
     return decorate
+
+
+def _tool_summary(s: Span, name: str, bound: dict, result: Any):
+    """Readable result projections are opt-in, bounded, valid JSON, never repr."""
+    if name == "annotate" and isinstance(result, list):
+        citations = [x for a in result for x in a.get("items", []) if isinstance(a, dict)]
+        s.data.update(checked_count=len(citations), issue_count=sum(x.get("verdict") != "supports" for x in citations)
+                      + sum(a.get("kind") != "cite_check" for a in result), annotation_count=len(result))
+    if name == "gather_evidence" and isinstance(result, list):
+        s.data["notes_count"] = sum(x.get("source") == "note" for x in result)
+    if not s.recorder.capture:
+        return
+    values = result[0] if isinstance(result, tuple) and result and isinstance(result[0], list) else result
+    if not isinstance(values, list) and not bound.get("query") and not bound.get("paragraph"):
+        return
+    structured: dict = {"query": str(bound.get("query", ""))[:240], "items": []}
+    fields = ("paper_id", "title", "bibkey", "page", "year", "source", "url", "pdf_url", "text", "anchor", "reason", "verdict", "kind")
+    if isinstance(values, list):
+        for item in values[:6]:
+            if hasattr(item, "model_dump"):
+                item = item.model_dump()
+            elif hasattr(item, "__dataclass_fields__"):
+                from dataclasses import asdict
+                item = asdict(item)
+            if not isinstance(item, dict):
+                continue
+            entry = {k: (str(item[k])[:140] if isinstance(item[k], str) and k not in ("url", "pdf_url") else item[k])
+                     for k in fields if item.get(k) is not None and not (k in ("url", "pdf_url") and len(str(item[k])) > 600)}
+            if name == "annotate":
+                entry["checks"] = [{k: str(v)[:100] for k, v in check.items() if k in ("title", "verdict", "reason", "paper_id", "page")}
+                                   for check in item.get("items", [])[:2]]
+            structured["items"].append(entry)
+    if bound.get("paragraph"):
+        structured["anchor"] = str(bound["paragraph"])[:160]
+    structured["total"] = s.data.get("result_count", 0)
+    structured["type"] = "citations" if name == "annotate" else "evidence" if name in ("gather_evidence", "search") and not isinstance(result, tuple) else "papers"
+    while len(json.dumps(structured, ensure_ascii=False)) > 1800 and structured["items"]:
+        structured["items"].pop()
+    structured["sampled"] = len(structured["items"]) < structured["total"]
+    s.content("structured", structured)
+
+
+def overview(thread_id: str, run_id: str):
+    base = read(thread_id, run_id, limit=1)
+    if base is None:
+        return None
+    with connect() as conn:
+        rows = [dict(r) for r in conn.execute("SELECT id,parent_id,kind,name,label,status,started,ended,duration_ms,data,detail IS NOT NULL AS has_detail "
+                                             "FROM spans WHERE run_id=? ORDER BY started,id", (run_id,))]
+    for row in rows:
+        row["data"] = json.loads(row["data"])
+        row["has_detail"] = bool(row["has_detail"])
+        if row["status"] == "running" and base["run"]["status"] not in ("running", "stopping"):
+            row["status"] = "interrupted"
+    nodes = [s for s in rows if s["kind"] == "node"]
+    good_ops = {s["data"].get("operation") for s in rows if s["kind"] == "llm" and s["status"] == "done"} - {None}
+    failures = [s for s in rows if s["status"] == "error" or s["data"].get("handled_error") or s["data"].get("warnings")]
+    parents = {s["parent_id"] for s in failures if s["status"] == "error"}
+    issues = []
+    for s in failures:
+        if s["id"] in parents:
+            continue
+        recovered = s["status"] == "error" and s["data"].get("operation") in good_ops
+        issues.append({"id": s["id"], "node_id": s["data"].get("node_id", s["id"] if s["kind"] == "node" else None),
+                       "label": s["label"], "state": "recovered" if recovered else "warning" if s["data"].get("warnings") else "error",
+                       "message": s["data"].get("error") or s["data"].get("handled_error") or "；".join(s["data"].get("warnings", []))})
+    grouped: dict[str, list] = {}
+    for s in rows:
+        grouped.setdefault(s["data"].get("node_id"), []).append(s)
+    for n in nodes:
+        children = grouped.get(n["id"], [])
+        n["data"]["call_count"] = sum(s["kind"] == "llm" for s in children)
+        n["data"]["tool_count"] = sum(s["kind"] == "tool" for s in children)
+        n["data"]["result_count"] = next((s["data"]["result_count"] for s in children if s["kind"] == "tool" and "result_count" in s["data"]), None)
+    active = [s for s in rows if s["status"] == "running" and s["kind"] != "node"]
+    last_activity = max([base["run"]["started"]] + [s["data"].get("updated_at", s["ended"] or s["started"]) for s in rows]
+                       + [e["at"] for e in base["events"]])
+    with _lock:
+        live = _live.get(run_id)
+    if live:
+        last_activity = max(last_activity, live.last_activity)
+    from .db import get_conn
+
+    with get_conn() as conn:
+        task = conn.execute("SELECT thread_id,doc_id,topic,kind,status FROM agent_threads WHERE thread_id=?", (thread_id,)).fetchone()
+    return {**base, "spans": nodes[:500], "nodes_truncated": len(nodes) > 500, "issues": issues[:100],
+            "issues_truncated": len(issues) > 100, "active_calls": active[:40], "last_activity": last_activity,
+            "task": dict(task) if task else None, "has_more": False}
+
+
+def node_calls(thread_id: str, run_id: str, node_id: str, offset: int = 0, limit: int = 50, focus: str | None = None):
+    run = next((r for r in runs(thread_id) if r["id"] == run_id), None)
+    if not run:
+        return None
+    with connect() as conn:
+        if focus:
+            target = conn.execute("SELECT started,id FROM spans WHERE run_id=? AND id=? AND json_extract(data,'$.node_id')=?",
+                                  (run_id, focus, node_id)).fetchone()
+            if target:
+                rank = conn.execute("SELECT COUNT(*) FROM spans WHERE run_id=? AND json_extract(data,'$.node_id')=? "
+                    "AND (started < ? OR (started=? AND id < ?))", (run_id, node_id, target["started"], target["started"], target["id"])).fetchone()[0]
+                offset = (rank // limit) * limit
+        rows = [dict(r) for r in conn.execute("SELECT id,parent_id,kind,name,label,status,started,ended,duration_ms,data,detail IS NOT NULL AS has_detail "
+            "FROM spans WHERE run_id=? AND json_extract(data,'$.node_id')=? ORDER BY started,id LIMIT ? OFFSET ?",
+            (run_id, node_id, limit + 1, offset))]
+    for row in rows:
+        row["data"] = json.loads(row["data"])
+        row["has_detail"] = bool(row["has_detail"])
+        if row["status"] == "running" and run["status"] not in ("running", "stopping"):
+            row["status"] = "interrupted"
+    return {"spans": rows[:limit], "has_more": len(rows) > limit, "offset": offset}
 
 
 def runs(thread_id: str) -> list[dict]:

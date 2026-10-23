@@ -292,7 +292,7 @@ function Launcher({
 
 // ------------------------------------------------------------------ 主面板
 export function AgentPanel() {
-  const { docId, editor, papers, refreshPapers, notify, alertAgent } = useApp()
+  const { docId, editor, papers, refreshPapers, notify, alertAgent, agentTaskRequest } = useApp()
   const { run, stop, running, stopping } = useAgentStream()
   const [input, setInput] = useState('')
   const [topic, setTopic] = useState('')
@@ -370,6 +370,10 @@ export function AgentPanel() {
   }
 
   // 开始新的分节写作 / 审稿（还没选历史任务）：先清掉上一个任务的统计，新任务开始后自动显示
+  useEffect(() => {
+    if (agentTaskRequest && agentTaskRequest.doc_id === docId) void openThread({ ...agentTaskRequest, created_at: '' })
+  }, [agentTaskRequest?.nonce]) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (sub && !sub.threadId) runStats.focus(null)
   }, [sub])
