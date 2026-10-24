@@ -30,7 +30,7 @@ import { api } from './lib/api'
 import { useApp, type RightTab } from './lib/appContext'
 import { citeStore, useCiteState } from './lib/citations'
 import { createDoc, relTime, useBootstrapDoc, useDocList } from './lib/docs'
-import { citedIds, docxStyleFor, download, exportDocx, toLatex, toMarkdown, type DocxStyle } from './lib/export'
+import { citedIds, docxStyleFor, download, exportDocx, exportBundle, type DocxStyle } from './lib/export'
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
 import type { CiteStyle } from './lib/types'
 import { DrawerPanel } from './panels/DrawerPanel'
@@ -123,7 +123,7 @@ function DocSwitcher() {
 }
 
 function ExportButton() {
-  const { editor, docTitle, notify } = useApp()
+  const { editor, docId, docTitle, notify } = useApp()
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
   const st = useCiteState()
   const [busy, setBusy] = useState(false)
@@ -136,7 +136,7 @@ function ExportButton() {
     if (kind !== 'md' && kind !== 'tex' && kind !== 'bib') {
       setBusy(true)
       try {
-        download(`${name}.docx`, await exportDocx(json, docTitle || '论文', kind))
+        download(`${name}.docx`, await exportDocx(json, docTitle || '论文', kind, docId ?? undefined))
         notify('已导出 Word 文件', 'success')
       } catch (e: any) {
         notify(e.message, 'error')
@@ -146,18 +146,20 @@ function ExportButton() {
       return
     }
     try {
-      if (kind === 'md') download(`${name}.md`, toMarkdown(json, docTitle), 'text/markdown')
-      if (kind === 'tex') download(`${name}.tex`, toLatex(json, docTitle), 'application/x-tex')
-      if (kind !== 'bib' && !ids.length) return
-      download('refs.bib', await api.bibtex(ids.length ? ids : undefined), 'application/x-bibtex')
+      setBusy(true)
+      if (kind === 'md' || kind === 'tex') {
+        if (!docId) throw new Error('请先打开文档')
+        download(`${name}-${kind}.zip`, await exportBundle(json, docTitle, kind, docId))
+        notify('已导出包含正文、图片和参考文献的资源包', 'success')
+      } else download('refs.bib', ids.length ? await api.bibtex(ids) : '', 'application/x-bibtex')
     } catch (e: any) {
       notify(e.message, 'error')
-    }
+    } finally { setBusy(false) }
   }
   return (
     <>
       <Tooltip title="导出">
-        <IconButton onClick={(e) => setAnchor(e.currentTarget)} disabled={busy} sx={{ color: brand.muted }}>
+        <IconButton aria-label="导出" onClick={(e) => setAnchor(e.currentTarget)} disabled={busy} sx={{ color: brand.muted }}>
           {busy ? <CircularProgress size={16} /> : <FileDownloadOutlinedIcon fontSize="small" />}
         </IconButton>
       </Tooltip>
@@ -171,11 +173,11 @@ function ExportButton() {
         </MenuItem>
         <MenuItem onClick={() => exportAs('tex')}>
           <ListItemIcon><FunctionsIcon fontSize="small" /></ListItemIcon>
-          <ListItemText primary="LaTeX + refs.bib" secondary="可直接上传 Overleaf 编译" />
+          <ListItemText primary="LaTeX 资源包（ZIP）" secondary="含图片与 refs.bib，可上传 Overleaf" />
         </MenuItem>
         <MenuItem onClick={() => exportAs('md')}>
           <ListItemIcon><DescriptionOutlinedIcon fontSize="small" /></ListItemIcon>
-          <ListItemText primary="Markdown + refs.bib" secondary="pandoc 引用语法" />
+          <ListItemText primary="Markdown 资源包（ZIP）" secondary="含图片与 refs.bib，Pandoc 引用语法" />
         </MenuItem>
         <MenuItem onClick={() => exportAs('bib')}>
           <ListItemIcon><MenuBookOutlinedIcon fontSize="small" /></ListItemIcon>

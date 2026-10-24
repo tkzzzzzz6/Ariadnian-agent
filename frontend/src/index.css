@@ -30,6 +30,20 @@ body,
   color: #333;
   min-height: 360px;
 }
+.paper-body .report-image { position: relative; margin: 1.25em auto; max-width: 100%; text-align: center; }
+.paper-body .report-image img { display: block; width: 100%; height: auto; border-radius: 3px; }
+.paper-body .report-image.is-selected { outline: 2px solid #8764b8; outline-offset: 4px; }
+.paper-body .report-image figcaption { font-size: 13px; color: #616161; margin-top: 8px; line-height: 1.5; }
+.paper-body .rich-image-edit { font: inherit; font-size: 12px; border: 1px solid #ddd; background: white; color: #0078d4; border-radius: 4px; padding: 4px 8px; cursor: pointer; }
+.paper-body table { border-collapse: collapse; table-layout: fixed; width: 100%; margin: 1em 0; font-size: 14px; }
+.paper-body td, .paper-body th { border: 1px solid #bdbdbd; padding: 7px 9px; vertical-align: top; min-width: 35px; position: relative; overflow-wrap: anywhere; }
+.paper-body th { background: #f3f5f7; font-weight: 600; }
+.paper-body td p, .paper-body th p { margin: 0; text-indent: 0; }
+.paper-body .selectedCell::after { position: absolute; inset: 0; pointer-events: none; content: ''; background: #0078d41a; }
+.paper-body .tiptap-mathematics-render { cursor: pointer; }
+.paper-body .tiptap-mathematics-render[data-type="inline-math"] { display: inline-block; padding: 0 3px; border-radius: 3px; }
+.paper-body .tiptap-mathematics-render:hover { background: #8764b812; }
+.paper-body .tiptap-mathematics-render[data-type="block-math"] { overflow-x: auto; margin: 1em 0; padding: 8px; }
 .paper-body p {
   margin: 0 0 1em;
 }

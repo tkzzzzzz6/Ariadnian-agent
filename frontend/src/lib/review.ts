@@ -63,8 +63,12 @@ export function collectParagraphs(editor: Editor, minLen = 30): Para[] {
   const papers = citeStore.get().papers
   const out: Para[] = []
   editor.state.doc.descendants((node, pos) => {
+    if (['table', 'image', 'blockMath'].includes(node.type.name)) return false
     if (node.type.name !== 'paragraph') return true
     if (node.attrs.live) return false // Agent 正在流式写入的段落：写完再检查
+    let hasMath = false
+    node.descendants(child => { if (child.type.name === 'inlineMath') hasMath = true })
+    if (hasMath) return false // Do not turn formula-bearing paragraphs into plain-text rewrites.
     let marked = ''
     let plain = ''
     const map: number[] = []

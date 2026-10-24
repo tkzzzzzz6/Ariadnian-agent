@@ -25,6 +25,8 @@ import { BatchCitationsDialog } from './BatchCitationsDialog'
 import { References } from './References'
 import { SelectionAssist } from './SelectionAssist'
 import { useGhostCompletion } from './useGhostCompletion'
+import { richExtensions } from './extensions/RichNodes'
+import { RichContentControls, type RichContentHandle } from './RichContentControls'
 
 export type SaveState = 'saved' | 'saving' | 'dirty' | 'error'
 
@@ -91,6 +93,7 @@ function useColumns(el: HTMLElement | null) {
 export function PaperEditor({ docId }: { docId: string }) {
   const { setEditor, docTitle, setDocTitle, notify, copilot, review, bumpDocs, drawerOpen, setDrawerOpen } = useApp()
   const [loaded, setLoaded] = useState(false)
+  const rich = useRef<RichContentHandle>(null)
   const [batchOpen, setBatchOpen] = useState(false)
   const [saveState, setSaveState] = useState<SaveState>('saved')
   const [active, setActive] = useState<string | null>(null)
@@ -124,6 +127,11 @@ export function PaperEditor({ docId }: { docId: string }) {
       GhostText,
       ReviewMarks,
       DraftParagraph,
+      ...richExtensions({
+        insert: (kind, range) => rich.current?.insert(kind, range), upload: (file, pos) => rich.current?.upload(file, pos),
+        editImage: pos => rich.current?.editImage(pos), editMath: pos => rich.current?.editMath(pos),
+        warn: message => notify(message, 'warning'),
+      }),
     ],
     editorProps: { attributes: { class: 'paper-body', spellcheck: 'false' } },
     onUpdate: ({ editor: e, transaction }) => {
@@ -309,7 +317,8 @@ export function PaperEditor({ docId }: { docId: string }) {
         display: 'flex', flexDirection: 'column', overflow: 'hidden',
       }}
     >
-      <EditorToolbar editor={editor} />
+      <EditorToolbar editor={editor} onInsert={kind => rich.current?.insert(kind)} />
+      <RichContentControls key={docId} ref={rich} editor={editor} docId={docId} />
 
       <Box ref={setScrollEl} sx={{ flex: 1, overflow: 'auto' }} className="editor-scroll">
         <Box

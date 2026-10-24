@@ -51,7 +51,7 @@ export function rewriteTransaction(state: EditorState, annotation: PlacedAnnotat
   if (!start.sameParent(state.doc.resolve(to)) || start.parent.type.name !== 'paragraph' || start.parent.attrs.live) return null
   if (state.doc.textBetween(from, to, '', '') !== annotation.anchor) return null
   let containsCitation = false
-  state.doc.nodesBetween(from, to, (node) => { if (node.type.name === 'citation') containsCitation = true })
+  state.doc.nodesBetween(from, to, (node) => { if (node.isLeaf && !node.isText && node.type.name !== 'hardBreak') containsCitation = true })
   if (containsCitation) return null
   const transaction = closeHistory(state.tr).insertText(annotation.revised, from, to)
   const paragraph = transaction.doc.nodeAt(start.before())!
