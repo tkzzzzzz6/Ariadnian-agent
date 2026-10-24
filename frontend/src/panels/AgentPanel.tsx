@@ -292,7 +292,7 @@ function Launcher({
 
 // ------------------------------------------------------------------ 主面板
 export function AgentPanel() {
-  const { docId, editor, papers, refreshPapers, notify, alertAgent } = useApp()
+  const { docId, editor, papers, refreshPapers, notify, alertAgent, agentTaskRequest } = useApp()
   const { run, stop, running, stopping } = useAgentStream()
   const [input, setInput] = useState('')
   const [topic, setTopic] = useState('')
@@ -371,6 +371,10 @@ export function AgentPanel() {
 
   // 开始新的分节写作 / 审稿（还没选历史任务）：先清掉上一个任务的统计，新任务开始后自动显示
   useEffect(() => {
+    if (agentTaskRequest && agentTaskRequest.doc_id === docId) void openThread({ ...agentTaskRequest, created_at: '' })
+  }, [agentTaskRequest?.nonce]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
     if (sub && !sub.threadId) runStats.focus(null)
   }, [sub])
 
@@ -384,7 +388,7 @@ export function AgentPanel() {
       .then((threads) => {
         const t = threads[0]
         // 审稿结束后意见仍留在页边，所以最近一次审稿也恢复
-        if (t && (['waiting', 'stopped', 'running'].includes(t.status) || (t.kind === 'critique' && t.status === 'done' && !critiqueStore.isDismissed(t.thread_id)))) openThread(t)
+        if (t && (['waiting', 'stopped', 'running', 'stopping', 'interrupted'].includes(t.status) || (t.kind === 'critique' && t.status === 'done' && !critiqueStore.isDismissed(t.thread_id)))) openThread(t)
         // 面板打开的是别的任务时，最近一次审稿的意见照样挂回页边
         const c = threads.find((x) => x.kind === 'critique' && x.status !== 'error')
         if (c && c !== t && !critiqueStore.isDismissed(c.thread_id))

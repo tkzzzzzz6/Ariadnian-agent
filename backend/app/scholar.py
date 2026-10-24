@@ -8,13 +8,15 @@
 """
 from __future__ import annotations
 
+from . import tracing
+
 import json
 import re
 import threading
 import time
 import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor
-from contextvars import ContextVar
+from contextvars import ContextVar, copy_context
 from pathlib import Path
 from typing import Callable
 
@@ -132,11 +134,15 @@ def _cache_put(key: str, papers: list[PaperIn]) -> None:
         )
 
 
+@tracing.traced("tool", "查询学术来源")
 def _cached(source: str, fn: Callable[[str, int], list[PaperIn]], query: str, limit: int) -> list[PaperIn]:
+    tracing.annotate(source=source)
     key = f"{source}|{limit}|{' '.join(query.lower().split())}"
     hit = _cache_get(key)
     if hit is not None:
+        tracing.annotate(cache_hit=True)
         return hit
+    tracing.annotate(cache_hit=False)
     res = fn(query, limit)
     _cache_put(key, res)
     return res
@@ -287,6 +293,7 @@ def dedupe(papers: list[PaperIn]) -> list[PaperIn]:
     return out
 
 
+@tracing.traced("tool", "检索学术文献")
 def search(query: str, sources: list[str] | None = None, limit: int = 8) -> tuple[list[PaperIn], list[str]]:
     """并发检索多个来源；返回 (结果, 提示信息列表)。单个来源失败不影响其他来源，
     Semantic Scholar 失败时自动用 OpenAlex 补位。"""
@@ -296,7 +303,7 @@ def search(query: str, sources: list[str] | None = None, limit: int = 8) -> tupl
     results: list[PaperIn] = []
     errors: dict[str, str] = {}
     with ThreadPoolExecutor(max_workers=max(1, len(sources))) as ex:
-        futures = {src: ex.submit(_cached, src, _FNS[src], query, limit) for src in sources}
+        futures = {src: ex.submit(copy_context().run, _cached, src, _FNS[src], query, limit) for src in sources}
         for src, fut in futures.items():
             try:
                 results.extend(fut.result())

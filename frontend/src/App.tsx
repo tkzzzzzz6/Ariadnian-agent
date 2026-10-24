@@ -266,7 +266,7 @@ const RAIL: [RightTab, string, typeof StorageOutlinedIcon][] = [
 
 function Rail() {
   const { drawerOpen, rightTab, toggleDrawer, setDocId, bumpDocs, agentAlert } = useApp()
-  const group = (t: RightTab) => (t === 'agent' || t === 'cite' || t === 'ask' ? 'agent' : t === 'reader' ? 'library' : t)
+  const group = (t: RightTab) => (t === 'agent' || t === 'cite' || t === 'ask' || t === 'trace' ? 'agent' : t === 'reader' ? 'library' : t)
   return (
     <Box sx={{ width: 52, flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.75, pt: 1.5, borderRight: `1px solid ${brand.lineSoft}` }}>
       <Tooltip title="新建论文" placement="right">

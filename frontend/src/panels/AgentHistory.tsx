@@ -8,6 +8,7 @@ import RateReviewOutlinedIcon from '@mui/icons-material/RateReviewOutlined'
 import { api } from '../lib/api'
 import { fmtTokens } from '../lib/runStats'
 import { brand } from '../theme'
+import { RunTraceDialog } from './RunTraceDialog'
 
 export interface ThreadInfo {
   thread_id: string
@@ -21,7 +22,9 @@ export interface ThreadInfo {
 
 const STATUS: Record<string, [string, string]> = {
   waiting: ['等你确认', brand.orange],
-  running: ['中断', brand.faint],
+  running: ['运行中', brand.purple],
+  stopping: ['正在停止', brand.orange],
+  interrupted: ['意外中断', brand.orange],
   stopped: ['已停止', brand.faint],
   done: ['已完成', brand.green],
   error: ['出错', brand.red],
@@ -44,6 +47,8 @@ const ICON = { review: AccountTreeOutlinedIcon, write: EditNoteIcon, critique: R
 export function AgentHistory({ docId, onOpen, disabled }: { docId: string | null; onOpen: (t: ThreadInfo) => void; disabled?: boolean }) {
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
   const [items, setItems] = useState<ThreadInfo[] | null>(null)
+  const [traceId, setTraceId] = useState<string | null>(null)
+  const [error, setError] = useState('')
   return (
     <>
       <Button
@@ -53,7 +58,8 @@ export function AgentHistory({ docId, onOpen, disabled }: { docId: string | null
         onClick={(e) => {
           setAnchor(e.currentTarget)
           setItems(null)
-          if (docId) api.agentThreads(docId).then(setItems).catch(() => setItems([]))
+          setError('')
+          if (docId) api.agentThreads(docId).then(setItems).catch(e => { setItems([]); setError(e.message) })
         }}
         sx={{ color: brand.muted, fontSize: 12, py: 0, minHeight: 24, '& svg': { fontSize: '16px !important' } }}
       >
@@ -67,7 +73,7 @@ export function AgentHistory({ docId, onOpen, disabled }: { docId: string | null
         )}
         {items?.length === 0 && (
           <MenuItem disabled dense>
-            这篇文档还没有 Agent 任务
+            {error || '这篇文档还没有 Agent 任务'}
           </MenuItem>
         )}
         {items?.map((t) => {
@@ -104,10 +110,12 @@ export function AgentHistory({ docId, onOpen, disabled }: { docId: string | null
                 }
                 slotProps={{ primary: { noWrap: true, sx: { fontSize: 13 } } }}
               />
+              <Button size="small" onClick={e => { e.stopPropagation(); setAnchor(null); setTraceId(t.thread_id) }} sx={{ ml: 1, flexShrink: 0, fontSize: 11.5 }}>运行详情</Button>
             </MenuItem>
           )
         })}
       </Menu>
+      {traceId && <RunTraceDialog threadId={traceId} onClose={() => setTraceId(null)} />}
     </>
   )
 }

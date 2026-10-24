@@ -23,7 +23,7 @@ from langgraph.config import get_stream_writer
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import interrupt
 
-from .. import llm
+from .. import llm, tracing
 from ..assist import CITE_TOKEN, cite_keys, split_sentences, strip_cites, suggest_citations
 from ..config import get_settings
 from ..library import list_papers
@@ -58,6 +58,7 @@ class CritiqueState(TypedDict, total=False):
 
 
 def _progress(message: str, **extra: Any) -> None:
+    tracing.progress(message, **extra)
     try:
         get_stream_writer()({"message": message, **extra})
     except Exception:  # 不在 stream 上下文时忽略
@@ -268,6 +269,7 @@ def _candidates(anchor: str) -> list[dict]:
     ]
 
 
+@tracing.traced("node", "审稿")
 def review(state: CritiqueState) -> dict:
     rnd = int(state.get("round") or 0) + 1
     sections = state.get("sections") or []
@@ -326,6 +328,7 @@ def review(state: CritiqueState) -> dict:
             "scores": scores, "history": history, "errors": errors, "responses": {}}
 
 
+@tracing.traced("node", "等待修改")
 def await_revision(state: CritiqueState) -> dict:
     answer = interrupt({
         "kind": "revise",
@@ -348,6 +351,7 @@ def await_revision(state: CritiqueState) -> dict:
     return upd
 
 
+@tracing.traced("node", "完成")
 def finish(state: CritiqueState) -> dict:
     n = len(state.get("issues") or [])
     _progress(f"审稿结束：共 {state.get('round', 0)} 轮" + (f"，还有 {n} 条意见未解决" if n else "，意见都已解决"))

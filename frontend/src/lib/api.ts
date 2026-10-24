@@ -151,6 +151,13 @@ export const api = {
       { method: 'POST', body: JSON.stringify({ title, headings, refresh }) },
     ),
   agentStats: (tid: string) => req<import('./runStats').RunStats | null>(`/api/agent/${tid}/stats`),
+  agentTraces: (tid: string) => req<import('./trace').TraceList>(`/api/agent/${tid}/traces`),
+  agentTrace: (tid: string, rid: string, offset = 0) => req<import('./trace').TracePage>(`/api/agent/${tid}/traces/${rid}?offset=${offset}`),
+  agentTraceOverview: (tid: string, rid: string) => req<import('./trace').TraceOverview>(`/api/agent/${tid}/traces/${rid}/overview`),
+  agentTraceNode: (tid: string, rid: string, nid: string, offset = 0, focus = '') => req<{ spans: import('./trace').TraceSpan[]; has_more: boolean; offset: number }>(`/api/agent/${tid}/traces/${rid}/nodes/${nid}?offset=${offset}${focus ? `&focus=${encodeURIComponent(focus)}` : ''}`),
+  agentTraceDetail: (tid: string, rid: string, sid: string) => req<{ detail: Record<string, string> | null }>(`/api/agent/${tid}/traces/${rid}/spans/${sid}`),
+  agentDiagnostic: (tid: string, rid: string) => req<unknown>(`/api/agent/${tid}/traces/${rid}/diagnostic`),
+  agentClearTraces: (tid: string) => req<{ ok: boolean }>(`/api/agent/${tid}/traces`, { method: 'DELETE' }),
   agentStop: (tid: string) => req<{ ok: boolean }>(`/api/agent/${tid}/stop`, { method: 'POST' }),
   agentState: (tid: string) => req<{ thread_id: string; status: string; interrupt: any; result: any }>(`/api/agent/${tid}`),
 }

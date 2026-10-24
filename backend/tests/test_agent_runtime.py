@@ -26,7 +26,7 @@ from langgraph.graph import END, START, StateGraph
 from starlette.requests import ClientDisconnect
 
 from app.agent.runtime import active
-from app import runstats
+from app import runstats, tracing
 from app.routers import agent
 
 
@@ -105,6 +105,7 @@ def test_disconnect_closes_only_http_body_and_preserves_checkpoint(blocked_graph
     assert calls == ["first"]
     assert state_for(graph, tid).values["count"] == 1
     assert agent.get_thread(tid)["status"] == "stopped"
+    assert tracing.runs(tid)[0]["status"] == "stopped"
     assert owners and all(a == b for a, b in owners)
 
     async def resume():
@@ -115,6 +116,7 @@ def test_disconnect_closes_only_http_body_and_preserves_checkpoint(blocked_graph
     events = asyncio.run(resume())
     assert events[-1]["type"] == "done"
     assert calls == ["first", "second"]  # completed node wasn't replayed
+    assert [r["status"] for r in tracing.runs(tid)] == ["done", "stopped"]
     assert state_for(graph, tid).values["count"] == 2
     assert active(tid) is None
 
@@ -140,6 +142,7 @@ def test_stop_keeps_stream_open_and_blocks_resume_until_checkpoint(blocked_graph
         return tid, events
 
     tid, events = asyncio.run(stop_and_drain())
+    assert tracing.runs(tid)[0]["status"] == "stopped"
     assert events[-1] == {"type": "status", "status": "stopped"}
     assert calls == ["first"]
     assert state_for(graph, tid).values["count"] == 1

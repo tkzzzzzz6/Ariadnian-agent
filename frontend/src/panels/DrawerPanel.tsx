@@ -9,12 +9,13 @@ import { CitePanel } from './CitePanel'
 import { DocsPanel } from './DocsPanel'
 import { LibraryPanel } from './LibraryPanel'
 import { ReaderPanel } from './ReaderPanel'
+import { RunTracePanel } from './RunTraceDialog'
 
-const VIEWS: RightTab[] = ['agent', 'cite', 'ask', 'library', 'reader', 'docs']
+const VIEWS: RightTab[] = ['agent', 'cite', 'ask', 'library', 'reader', 'docs', 'trace']
 
 /** 右侧抽屉：Agent（综述 / 分节写作 / 审稿）/ 找引用 / 文献问答 / 文献库 / 原文 / 我的论文。平时收起，Ctrl+J 切换 */
 export function DrawerPanel() {
-  const { rightTab, setRightTab, setDrawerOpen, reader, agentAlert } = useApp()
+  const { rightTab, setRightTab, setDrawerOpen, reader, agentAlert, traceThreadId, drawerOpen } = useApp()
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: '#fcfcfc', borderLeft: `1px solid ${brand.lineSoft}` }}>
       <Box sx={{ px: 2, pt: 1.5, pb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -36,6 +37,7 @@ export function DrawerPanel() {
                 ['cite', '找引用'],
                 ['ask', '文献问答'],
                 ['library', '文献库'],
+                ...(traceThreadId ? ([['trace', '观察']] as [RightTab, string][]) : []),
                 // 打开过原文才出现，平时不占位置
                 ...(reader || rightTab === 'reader' ? ([['reader', '原文']] as [RightTab, string][]) : []),
               ]}
@@ -60,6 +62,8 @@ export function DrawerPanel() {
             <LibraryPanel />
           ) : t === 'reader' ? (
             <ReaderPanel />
+          ) : t === 'trace' ? (
+            traceThreadId && <RunTracePanel key={traceThreadId} threadId={traceThreadId} active={drawerOpen && rightTab === 'trace'} />
           ) : (
             <DocsPanel />
           )}

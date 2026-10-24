@@ -18,7 +18,7 @@ import itertools
 import time
 from typing import Any, Callable, Iterator, Literal
 
-from . import runstats
+from . import runstats, tracing
 from .config import ModelTier, get_settings
 
 os.environ.setdefault("LITELLM_LOG", "ERROR")
@@ -110,6 +110,12 @@ def _log(tier: str, model: str, *, stream: bool, ok: bool, latency: float, first
     pt = getattr(usage, "prompt_tokens", None) if usage else None
     ct = getattr(usage, "completion_tokens", None) if usage else None
     cached = _cached_tokens(usage)
+    reasoning_details = getattr(usage, "completion_tokens_details", None) if usage else None
+    reasoning_tokens = (reasoning_details.get("reasoning_tokens") if isinstance(reasoning_details, dict)
+                        else getattr(reasoning_details, "reasoning_tokens", None))
+    tracing.annotate(model=model, tier=tier, prompt_tokens=pt, completion_tokens=ct, cached_tokens=cached,
+                     cost_usd=cost, first_token_ms=int(first_token * 1000) if first_token is not None else None,
+                     reasoning_tokens=reasoning_tokens, phase="finished", estimated=False)
     meter = runstats.current()
     if meter is not None:  # 属于某个 Agent 任务：计入这次运行的统计
         try:
@@ -123,10 +129,10 @@ def _log(tier: str, model: str, *, stream: bool, ok: bool, latency: float, first
         with get_conn() as conn:
             conn.execute(
                 "INSERT INTO llm_calls (tier, model, stream, ok, latency_ms, first_token_ms, prompt_tokens,"
-                " completion_tokens, cached_tokens, cost_usd, error, thread_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+                " completion_tokens, cached_tokens, cost_usd, error, thread_id, run_id, span_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 (tier, model, int(stream), int(ok), int(latency * 1000),
                  int(first_token * 1000) if first_token is not None else None, pt, ct, cached, cost,
-                 (error or "")[:300] or None, meter.thread_id if meter else None),
+                 tracing.scrub(error, 300) if error else None, meter.thread_id if meter else None, *tracing.ids()),
             )
     except Exception:  # 日志失败不能影响主流程
         pass
@@ -143,6 +149,9 @@ def _fake_record(tier: str, messages: list[dict[str, str]], text: str, started: 
     meter.record(resolve_model(configured) if configured else "fake", ok=True, latency=time.perf_counter() - started, first_token=first,
                  prompt_tokens=sum(est(str(m.get("content", ""))) for m in messages), completion_tokens=est(text),
                  cached_tokens=None, cost=None, stream_key=stream_key)
+    tracing.annotate(model="离线演示", tier=tier, estimated=True, prompt_tokens=sum(est(str(m.get("content", ""))) for m in messages),
+                     completion_tokens=est(text), phase="finished", reasoning_available=False)
+    tracing.content(output=text)
 
 
 def _cached_tokens(usage: Any) -> int | None:
@@ -180,6 +189,50 @@ def _fake_text(messages: list[dict[str, str]], fake: FakeFn) -> str:
 # ---------------------------------------------------------------------------
 # 对外接口
 # ---------------------------------------------------------------------------
+def _trace_messages(messages: list[dict]) -> list[dict]:
+    # System prompts and protocol blocks are not diagnostic display content.
+    return [{"role": m.get("role"), "content": str(m.get("content", ""))[:2000]}
+            for m in messages if m.get("role") in ("user", "assistant")][-4:]
+
+
+def _reasoning(message: Any) -> str | None:
+    value = getattr(message, "reasoning_content", None)
+    if isinstance(value, str) and value:
+        return value
+    blocks = getattr(message, "thinking_blocks", None)
+    if isinstance(blocks, list):
+        texts = [b.get("thinking", "") for b in blocks if isinstance(b, dict) and b.get("type") == "thinking"]
+        return "\n".join(t for t in texts if isinstance(t, str)) or None
+    return None
+
+
+def _append_preview(previous: str, chunk: str, limit: int = 1800) -> str:
+    """Keep the beginning and latest text without accumulating a whole stream."""
+    text = previous + chunk
+    if len(text) <= limit:
+        return text
+    marker = "\n…[中间内容已省略，以下为最新片段]…\n"
+    return text[:500] + marker + text[-(limit - 500 - len(marker)):]
+
+
+def _completion(kw: dict, tier: str, purpose: str = "模型调用", operation: str | None = None, attempt: int = 1):
+    start = time.perf_counter()
+    with tracing.span("llm", kw["model"], purpose, _trace_messages(kw["messages"])):
+        tracing.annotate(model=kw["model"], tier=tier, phase="waiting", reasoning_available=False, operation=operation, attempt=attempt)
+        try:
+            resp = litellm.completion(**kw)
+            message = resp.choices[0].message
+            reasoning = _reasoning(message)
+            tracing.annotate(reasoning_available=bool(reasoning))
+            tracing.content(output=message.content, reasoning=reasoning)
+            _log(tier, kw["model"], stream=False, ok=True, latency=time.perf_counter() - start,
+                 usage=getattr(resp, "usage", None), cost=_cost(resp))
+            return resp
+        except Exception as e:
+            _log(tier, kw["model"], stream=False, ok=False, latency=time.perf_counter() - start, error=repr(e))
+            raise
+
+
 def chat(
     messages: list[dict[str, str]],
     *,
@@ -191,40 +244,41 @@ def chat(
 ) -> str:
     s = get_settings()
     if s.llm_fake:
-        text = _fake_text(messages, fake)
-        _fake_record(tier, messages, text, time.perf_counter())
-        return text
+        with tracing.span("llm", "fake", "模型调用 · 离线演示", _trace_messages(messages)):
+            started = time.perf_counter()
+            text = _fake_text(messages, fake)
+            _fake_record(tier, messages, text, started)
+            return text
     t = s.tiers[tier]
     _check_ready(t)
     last_err: Exception | None = None
-    for model in _candidates(t):
+    operation = f"request-{next(_stream_ids)}"
+    attempt_number = 0
+
+    def invoke(kw, purpose):
+        nonlocal attempt_number
+        attempt_number += 1
+        return _completion(kw, tier, purpose, operation, attempt_number)
+
+    for attempt, model in enumerate(_candidates(t)):
         kw = _kwargs(t, model) | {"messages": messages, "temperature": temperature, "max_tokens": max_tokens}
         if json_mode:
             kw["response_format"] = {"type": "json_object"}
-        start = time.perf_counter()
         try:
             try:
-                resp = litellm.completion(**kw)
+                resp = invoke(kw, "模型调用" if attempt == 0 else "备用模型调用")
             except litellm.BadRequestError:
                 if not json_mode:
                     raise
-                kw.pop("response_format")  # 服务端不支持 JSON 模式 → 退回普通模式
-                resp = litellm.completion(**kw)
-            _log(tier, model, stream=False, ok=True, latency=time.perf_counter() - start,
-                 usage=getattr(resp, "usage", None), cost=_cost(resp))
+                kw.pop("response_format")
+                resp = invoke(kw, "重试 · 兼容 JSON 输出")
             text = resp.choices[0].message.content or ""
             if not text.strip() and max_tokens and getattr(resp.choices[0], "finish_reason", None) == "length":
-                # 推理模型会先输出思考过程，思考就把 max_tokens 用完时正文是空的 → 去掉上限再试一次
-                # （思考长度不可预测，放宽到固定值仍可能不够；更好的做法是给这一档换非推理模型）
                 kw["max_tokens"] = None
-                start = time.perf_counter()
-                resp = litellm.completion(**kw)
-                _log(tier, model, stream=False, ok=True, latency=time.perf_counter() - start,
-                     usage=getattr(resp, "usage", None), cost=_cost(resp))
+                resp = invoke(kw, "重试 · 正文为空且达到长度限制")
                 text = resp.choices[0].message.content or ""
             return text
-        except Exception as e:  # noqa: BLE001
-            _log(tier, model, stream=False, ok=False, latency=time.perf_counter() - start, error=repr(e))
+        except Exception as e:
             last_err = e
     raise last_err  # type: ignore[misc]
 
@@ -238,51 +292,84 @@ def stream_chat(
 ) -> Iterator[str]:
     s = get_settings()
     meter = runstats.current()
-    key = next(_stream_ids)  # 这次调用在运行统计里的标识（实时速度）
+    key = next(_stream_ids)
     if s.llm_fake:
-        text = _fake_text(messages, fake)
-        # npm run demo 会设置 LLM_FAKE_STREAM_DELAY，模拟生成速度，前端才能看到流式效果
-        delay = float(os.getenv("LLM_FAKE_STREAM_DELAY", "0") or 0)
-        start = time.perf_counter()
-        for i in range(0, len(text), 6):
-            if delay:
-                time.sleep(delay)
-            if meter is not None:
-                meter.stream_tick(key, start)
-            yield text[i : i + 6]
-        _fake_record(tier, messages, text, start, 0.0 if text else None, stream_key=key)
-        return
+        with tracing.span("llm", "fake", "模型调用 · 离线演示", _trace_messages(messages)):
+            text = _fake_text(messages, fake)
+            delay = float(os.getenv("LLM_FAKE_STREAM_DELAY", "0") or 0)
+            start = time.perf_counter()
+            for i in range(0, len(text), 6):
+                if delay:
+                    time.sleep(delay)
+                if meter is not None:
+                    meter.stream_tick(key, start)
+                if i == 0:
+                    tracing.annotate(phase="output", estimated=True, reasoning_available=False)
+                tracing.activity()
+                tracing.snapshot(output=text[:i + 6][:2001])
+                yield text[i : i + 6]
+            _fake_record(tier, messages, text, start, 0.0 if text else None, stream_key=key)
+            return
     t = s.tiers[tier]
     _check_ready(t)
     last_err: Exception | None = None
-    for model in _candidates(t):
+    for attempt, model in enumerate(_candidates(t)):
         start = time.perf_counter()
         first: float | None = None
+        first_reasoning: float | None = None
         usage = None
+        stream = None
+        output, reasoning_text = "", ""
         try:
-            stream = litellm.completion(
-                **_kwargs(t, model), messages=messages, temperature=temperature, stream=True,
-                stream_options={"include_usage": True},
-            )
-            for chunk in stream:
-                if getattr(chunk, "usage", None):
-                    usage = chunk.usage
-                if not chunk.choices:
-                    continue
-                delta = chunk.choices[0].delta.content
-                if delta:
-                    if first is None:
-                        first = time.perf_counter() - start
-                    if meter is not None:
-                        meter.stream_tick(key, start)
-                    yield delta
-            _log(tier, model, stream=True, ok=True, latency=time.perf_counter() - start, first_token=first, usage=usage,
-                 stream_key=key)
+            with tracing.span("llm", model, "模型调用" if attempt == 0 else "备用模型调用", _trace_messages(messages)) as trace:
+                tracing.annotate(model=model, tier=tier, phase="waiting", reasoning_available=False, operation=f"stream-{key}", attempt=attempt + 1)
+                try:
+                    stream = litellm.completion(
+                        **_kwargs(t, model), messages=messages, temperature=temperature, stream=True,
+                        stream_options={"include_usage": True},
+                    )
+                    for chunk in stream:
+                        tracing.activity()
+                        if getattr(chunk, "usage", None):
+                            usage = chunk.usage
+                        if not chunk.choices:
+                            continue
+                        delta = chunk.choices[0].delta
+                        reasoning = _reasoning(delta)
+                        if reasoning:
+                            if first_reasoning is None:
+                                first_reasoning = time.perf_counter() - start
+                                tracing.annotate(phase="reasoning", reasoning_available=True,
+                                                 first_reasoning_ms=int(first_reasoning * 1000))
+                            if trace and trace.recorder.capture:
+                                reasoning_text = _append_preview(reasoning_text, reasoning)
+                        text = getattr(delta, "content", None)
+                        if text:
+                            if first is None:
+                                first = time.perf_counter() - start
+                                tracing.annotate(phase="output")
+                            if trace and trace.recorder.capture:
+                                output = _append_preview(output, text)
+                            if meter is not None:
+                                meter.stream_tick(key, start)
+                            yield text
+                        tracing.snapshot(output=output or None, reasoning=reasoning_text or None)
+                    _log(tier, model, stream=True, ok=True, latency=time.perf_counter() - start,
+                         first_token=first, usage=usage, stream_key=key)
+                except Exception as e:
+                    _log(tier, model, stream=True, ok=False, latency=time.perf_counter() - start,
+                         first_token=first, usage=usage, error=repr(e), stream_key=key)
+                    raise
+                finally:
+                    tracing.content(output=output or None, reasoning=reasoning_text or None)
+                    if stream is not None and callable(getattr(stream, "close", None)):
+                        try:
+                            stream.close()
+                        except Exception:
+                            pass
             return
-        except Exception as e:  # noqa: BLE001
-            _log(tier, model, stream=True, ok=False, latency=time.perf_counter() - start, first_token=first, error=repr(e),
-                 stream_key=key)
-            if first is not None:  # 已经输出了一部分，不能再切换模型重来
+        except Exception as e:
+            if first is not None:
                 raise
             last_err = e
     raise last_err  # type: ignore[misc]

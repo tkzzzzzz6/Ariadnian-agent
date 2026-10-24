@@ -51,6 +51,7 @@ OVERRIDABLE_KEYS = {
     "SEMANTIC_SCHOLAR_API_KEY", "OPENALEX_API_KEY", "SEARCH_CACHE_DAYS", "SEARCH_SOURCES",
     "MODEL_PRICES",  # 自定义模型价格（JSON，元 / 百万 tokens）
     "PDF_PARSER", "GROBID_URL", "MINERU_URL", "MINERU_BACKEND",  # PDF 全文解析器
+    "TRACE_CAPTURE", "TRACE_RETENTION_DAYS", "TRACE_DETAIL_DAYS",
 }
 
 # 网页里把某项「明确设为空」（例如 DeepSeek 不需要自定义地址），避免回退到 .env 里的旧值

@@ -7,6 +7,8 @@
 """
 from __future__ import annotations
 
+from . import tracing
+
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -187,6 +189,7 @@ def store_chunks(paper_id: str, chunks: list[Chunk], *, fulltext: bool) -> int:
     return len(chunks)
 
 
+@tracing.traced("tool", "索引文献摘要")
 def index_abstract(paper_id: str, title: str, abstract: str | None) -> int:
     """没有全文时，先把 标题+摘要 作为一个块，保证论文能被检索到。"""
     with get_conn() as conn:
@@ -197,6 +200,7 @@ def index_abstract(paper_id: str, title: str, abstract: str | None) -> int:
     return store_chunks(paper_id, [Chunk(text, "Abstract", None)], fulltext=False)
 
 
+@tracing.traced("tool", "解析并索引全文")
 def index_pdf(paper_id: str, path: str | Path, report: dict | None = None) -> int:
     """解析全文并入库。解析器按设置选择（PyMuPDF / GROBID / MinerU），外部服务不可用时自动回退 PyMuPDF。"""
     from .parsers import parse_pdf

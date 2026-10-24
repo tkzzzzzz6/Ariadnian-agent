@@ -3,11 +3,13 @@
  * 运行中实时刷新（耗时在本地继续走），历史任务显示保存下来的统计。悬停每一项看明细。
  */
 import { useEffect, useState, type ReactNode } from 'react'
-import { Box, CircularProgress, Tooltip, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Tooltip, Typography } from '@mui/material'
 import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined'
 import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined'
 import { fmtTokens, useRunStats, type ContextUse } from '../lib/runStats'
 import { brand } from '../theme'
+import { RunTraceDialog } from './RunTraceDialog'
+import { traceStatus } from '../lib/trace'
 
 function fmtDur(ms: number): string {
   const s = Math.round(ms / 1000)
@@ -47,7 +49,8 @@ function Item({ icon, children, tip }: { icon?: ReactNode; children: ReactNode; 
 }
 
 export function RunStatsBar() {
-  const { stats: s, running, at } = useRunStats()
+  const { threadId, stats: s, running, at, step, status, warning } = useRunStats()
+  const [details, setDetails] = useState(false)
   const [now, setNow] = useState(Date.now())
   useEffect(() => {
     if (!running) return
@@ -64,11 +67,19 @@ export function RunStatsBar() {
   const models = Object.entries(s.models ?? {})
 
   return (
+    <>
+    <Box sx={{ px: 2, pt: 0.75, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 0.75, borderTop: `1px solid ${brand.lineSoft}` }}>
+      <Typography sx={{ fontSize: 12, color: status === 'error' ? brand.red : brand.muted, flex: 1, minWidth: 120, overflowWrap: 'anywhere' }}>
+        {status ? traceStatus[status] ?? status : '已保存的任务'} · 累计执行 {fmtDur(elapsed)}
+        {running && step ? ` · ${step}` : ''}{warning ? ` · ${warning}` : ''}
+      </Typography>
+      <Button disabled={!threadId} onClick={() => setDetails(true)} sx={{ color: brand.purple, flexShrink: 0 }}>运行详情</Button>
+    </Box>
     <Box
       aria-label="Agent 运行统计"
       sx={{
         display: 'flex', alignItems: 'center', gap: 1.5, px: 2, py: 0.5, flexShrink: 0, overflow: 'hidden',
-        borderTop: `1px solid ${brand.lineSoft}`, bgcolor: 'rgba(0,0,0,0.015)',
+        bgcolor: 'rgba(0,0,0,0.015)', flexWrap: 'wrap',
       }}
     >
       <Item
@@ -132,5 +143,7 @@ export function RunStatsBar() {
         </Item>
       )}
     </Box>
+    {details && threadId && <RunTraceDialog key={threadId} threadId={threadId} onClose={() => setDetails(false)} />}
+    </>
   )
 }

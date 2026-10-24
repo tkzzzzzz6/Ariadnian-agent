@@ -4,6 +4,8 @@
 """
 from __future__ import annotations
 
+from . import tracing
+
 import re
 from functools import lru_cache
 from typing import Iterator
@@ -351,6 +353,7 @@ def _review(paragraph_marked: str, plain: str, title: str) -> dict:
     )
 
 
+@tracing.traced("tool", "检查引用与生成批注")
 def annotate(paragraph: str, title: str = "", check_citations: bool = True, review: bool = True) -> list[dict]:
     """paragraph 使用 [@bibkey] 表示引用。返回的 anchor 都是去掉引用标记后的原文片段，前端据此定位。"""
     import hashlib
