@@ -86,6 +86,9 @@ export const api = {
   llmStats: (days = 30) => req<UsageStats>(`/api/llm/stats?days=${days}`),
 
   // 文献库
+  reading: () => req<import('./reading').ReadingRecord[]>('/api/reading'),
+  saveReading: (id: string, patch: import('./reading').ReadingPatch) =>
+    req<import('./reading').ReadingRecord>(`/api/reading/${encodeURIComponent(id)}`, { method: 'PATCH', body: JSON.stringify(patch) }),
   papers: () => req<Paper[]>('/api/papers'),
   addPaper: (p: PaperIn) => req<{ paper: Paper; created: boolean }>('/api/papers', { method: 'POST', body: JSON.stringify(p) }),
   updatePaper: (id: string, fields: Partial<Paper>) =>

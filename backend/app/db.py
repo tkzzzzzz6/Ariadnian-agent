@@ -79,6 +79,14 @@ CREATE TABLE IF NOT EXISTS notes (
     updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_notes_paper ON notes(paper_id, page);
+CREATE TABLE IF NOT EXISTS paper_reading (
+    paper_id TEXT PRIMARY KEY REFERENCES papers(id) ON DELETE CASCADE,
+    status TEXT NOT NULL DEFAULT 'unknown' CHECK(status IN ('unknown','unread','reading','read')),
+    read_through_page INTEGER CHECK(read_through_page >= 1),
+    total_pages INTEGER CHECK(total_pages >= 1),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+    CHECK(read_through_page IS NULL OR total_pages IS NULL OR read_through_page <= total_pages)
+);
 CREATE TABLE IF NOT EXISTS agent_threads (
     thread_id   TEXT PRIMARY KEY,
     doc_id      TEXT,

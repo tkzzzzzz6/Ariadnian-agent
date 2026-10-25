@@ -10,7 +10,9 @@ from fastapi import APIRouter, HTTPException, Query
 from langgraph.types import Command
 from pydantic import BaseModel, Field
 
-from ..agent.graph import get_graph
+from ..agent.graph import get_graph, known_keys, valid_outline
+from ..agent.note_context import describe_context
+from ..agent.writer import clean_citations
 from ..agent.critic import get_critic
 from ..agent.writer import get_writer
 from ..agent.runtime import AgentRun, active, release, reserve
@@ -24,6 +26,7 @@ NODE_LABELS = {
     "search_papers": "检索文献",
     "select_papers": "勾选文献",
     "ingest": "加入文献库",
+    "prepare_notes": "准备相关用户笔记",
     "synthesize": "归纳研究现状",
     "make_outline": "生成大纲",
     "review_outline": "确认大纲",
@@ -50,6 +53,7 @@ class StartIn(BaseModel):
     sources: list[str] | None = None  # 不传则使用设置里的默认来源
     max_papers: int = 8
     fetch_pdf: bool = True
+    use_notes: bool = True
 
 
 class SectionIn(BaseModel):
@@ -113,7 +117,13 @@ def _result(values: dict) -> dict:
     if "drafts" in values:  # 分节写作
         keys = ("topic", "outline", "drafts", "mode", "order", "polish", "polish_done", "edits", "polish_summary", "errors")
         return {k: values.get(k) for k in keys} | {"kind": "write"}
-    return {k: values.get(k) for k in ("topic", "outline", "synthesis", "notes", "paper_ids", "errors")} | {"kind": "review"}
+    known = known_keys(values)
+    return {k: values.get(k) for k in ("topic", "paper_ids", "errors")} | {
+        "kind": "review", "outline": valid_outline(values.get("outline") or [], known),
+        "synthesis": clean_citations(values.get("synthesis") or "", known),
+        "notes": [n for n in values.get("notes") or [] if isinstance(n, dict) and n.get("bibkey") in known],
+        "note_context": describe_context(values.get("note_context")),
+    }
 
 
 def _run(run: AgentRun, graph: Any, payload: Any) -> None:
@@ -195,6 +205,10 @@ def _response(tid: str, payload: Any = None, *, resuming: bool = False):
             waiting = any(task.interrupts for task in snap.tasks)
             if waiting and not payload:
                 raise HTTPException(409, "任务在等你确认，请先在卡片上做出选择")
+            if waiting and snap.values.get("note_context") and isinstance(payload, dict):
+                context = describe_context(snap.values["note_context"])
+                if context["changed"] and payload.get("action") != "refresh_notes" and payload.get("confirm_stale_notes") is not True:
+                    raise HTTPException(409, "本轮笔记来源已修改或删除。请刷新笔记并重新生成，或明确确认沿用旧快照。")
             payload = Command(resume=payload) if waiting else None
         response = run.response()
         run.start(lambda worker: _run(worker, graph, payload))
@@ -373,6 +387,9 @@ def get_thread(tid: str):
         if task.interrupts:
             pending = task.interrupts[0].value
             break
+    if isinstance(pending, dict) and pending.get("kind") == "review_outline":
+        current = _result(snap.values)
+        pending = {**pending, **{k: current[k] for k in ("outline", "synthesis", "notes", "note_context")}}
     with get_conn() as conn:
         row = conn.execute("SELECT status, kind FROM agent_threads WHERE thread_id=?", (tid,)).fetchone()
     return {

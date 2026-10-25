@@ -22,7 +22,7 @@ from . import tracing
 from .embeddings import embeddings_enabled
 from .llm import stats, tier_info
 from .security import PasswordMiddleware, check_startup
-from .routers import agent, assist, documents, export, notes, papers, pdf, settings as settings_router
+from .routers import agent, assist, documents, export, notes, papers, pdf, reading, settings as settings_router
 from .routers import document_assets
 
 check_startup()
@@ -47,6 +47,7 @@ app.add_middleware(PasswordMiddleware)
 app.include_router(papers.router)
 app.include_router(pdf.router)
 app.include_router(notes.router)
+app.include_router(reading.router)
 app.include_router(documents.router)
 app.include_router(document_assets.router)
 app.include_router(assist.router)

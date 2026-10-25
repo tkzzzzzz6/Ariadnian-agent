@@ -66,6 +66,8 @@ export interface PdfViewerProps {
   renderSelectionMenu?: (sel: PdfSelection, close: () => void) => ReactNode
   onError?: (msg: string) => void
   onLoaded?: (pages: number) => void
+  /** 仅报告浏览位置；调用方不得据此自动认定已读。 */
+  onPageChange?: (page: number, pages: number) => void
   /** 显示「目录」按钮（PDF 书签；没有书签时按页列出），宽屏时默认展开 */
   toc?: boolean
 }
@@ -101,7 +103,7 @@ async function loadOutline(doc: PDFDocumentProxy): Promise<TocItem[]> {
 }
 
 export function PdfViewer({
-  src, page, highlight, jumpKey, badge, onError, onLoaded, focus, marks, activeMark, onMarkClick, renderSelectionMenu, toc,
+  src, page, highlight, jumpKey, badge, onError, onLoaded, onPageChange, focus, marks, activeMark, onMarkClick, renderSelectionMenu, toc,
 }: PdfViewerProps) {
   const [showToc, setShowToc] = useState(false)
   const [outline, setOutline] = useState<TocItem[] | null>(null)
@@ -119,6 +121,8 @@ export function PdfViewer({
   useEffect(() => {
     let cancelled = false
     setDoc(null)
+    setCurrent(1)
+    setPageInput('1')
     setSizes([])
     setError(null)
     // 先自己请求文件：后端出错时（下载失败、不是 PDF、地址被拦截）能拿到具体原因
@@ -163,6 +167,10 @@ export function PdfViewer({
     }
   }, [src]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (doc && sizes.length) onPageChange?.(current, sizes.length)
+  }, [doc, current, sizes.length, onPageChange])
+
   // ---------------------------------------------------------------- 宽度与缩放
   useLayoutEffect(() => {
     const el = scrollRef.current
@@ -193,14 +201,14 @@ export function PdfViewer({
     const target = highlight?.page ?? page
     if (!target) return
     const y = highlight?.rects?.length ? Math.min(...highlight.rects.map((r) => r[1])) : 0
-    // 等布局（缩放后的高度）生效再滚
-    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, target), sizes.length), y), 60)
+    // 等布局生效后直接定位；后台标签页可能暂停平滑滚动动画。
+    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, target), sizes.length), y, false), 60)
     return () => window.clearTimeout(t)
   }, [doc, sizes.length, page, highlight, jumpKey, scrollToPage]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!doc || !sizes.length || !focus) return
-    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, focus.page), sizes.length), focus.y ?? 0), 60)
+    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, focus.page), sizes.length), focus.y ?? 0, false), 60)
     return () => window.clearTimeout(t)
   }, [doc, sizes.length, focus?.key]) // eslint-disable-line react-hooks/exhaustive-deps
 

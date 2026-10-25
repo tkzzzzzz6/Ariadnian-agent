@@ -71,7 +71,7 @@ jobs:
       - name: 类型检查
         run: npx tsc -b
 
-      - name: 引用批处理测试
+      - name: 前端回归测试
         run: npm test
 
       - name: 构建
