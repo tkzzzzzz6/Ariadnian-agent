@@ -30,6 +30,20 @@ body,
   color: #333;
   min-height: 360px;
 }
+.paper-body .report-image { position: relative; margin: 1.25em auto; max-width: 100%; text-align: center; }
+.paper-body .report-image img { display: block; width: 100%; height: auto; border-radius: 3px; }
+.paper-body .report-image.is-selected { outline: 2px solid #8764b8; outline-offset: 4px; }
+.paper-body .report-image figcaption { font-size: 13px; color: #616161; margin-top: 8px; line-height: 1.5; }
+.paper-body .rich-image-edit { font: inherit; font-size: 12px; border: 1px solid #ddd; background: white; color: #0078d4; border-radius: 4px; padding: 4px 8px; cursor: pointer; }
+.paper-body table { border-collapse: collapse; table-layout: fixed; width: 100%; margin: 1em 0; font-size: 14px; }
+.paper-body td, .paper-body th { border: 1px solid #bdbdbd; padding: 7px 9px; vertical-align: top; min-width: 35px; position: relative; overflow-wrap: anywhere; }
+.paper-body th { background: #f3f5f7; font-weight: 600; }
+.paper-body td p, .paper-body th p { margin: 0; text-indent: 0; }
+.paper-body .selectedCell::after { position: absolute; inset: 0; pointer-events: none; content: ''; background: #0078d41a; }
+.paper-body .tiptap-mathematics-render { cursor: pointer; }
+.paper-body .tiptap-mathematics-render[data-type="inline-math"] { display: inline-block; padding: 0 3px; border-radius: 3px; }
+.paper-body .tiptap-mathematics-render:hover { background: #8764b812; }
+.paper-body .tiptap-mathematics-render[data-type="block-math"] { overflow-x: auto; margin: 1em 0; padding: 8px; }
 .paper-body p {
   margin: 0 0 1em;
 }
@@ -72,7 +86,7 @@ body,
 .paper-body strong {
   color: #242424;
 }
-.paper-body .is-empty::before {
+.paper-body :is(p, h1, h2, h3).is-empty::before {
   content: attr(data-placeholder);
   float: left;
   color: #b0b0b0;
@@ -243,3 +257,44 @@ body,
     transform: none;
   }
 }
+
+/* Shared Markdown answer typography: no remote resources or raw HTML rendering. */
+.markdown-answer { font-size:13.5px; line-height:1.75; overflow-wrap:anywhere; }
+.markdown-answer p { margin:0 0 .8em; }
+.markdown-answer h1,.markdown-answer h2,.markdown-answer h3,.markdown-answer h4 { line-height:1.4; margin:1em 0 .5em; font-size:1.1em; }
+.markdown-answer h1 { font-size:1.3em; }
+.markdown-answer ul,.markdown-answer ol { padding-left:1.7em; margin:.6em 0; }
+.markdown-answer li p { margin:.25em 0; }
+.markdown-answer pre,.answer-raw { white-space:pre-wrap; overflow-wrap:anywhere; overflow-x:auto; background:#f4f5f7; border:1px solid #e5e7eb; border-radius:6px; padding:10px; font-size:12px; line-height:1.6; max-width:100%; margin:.5em 0; }
+.markdown-answer code,.paper-body code { font-family:'Roboto Mono',monospace; font-size:.88em; background:#f1f3f5; padding:1px 4px; border-radius:3px; }
+.markdown-answer pre code,.paper-body pre code { padding:0; background:none; }
+.paper-body pre { white-space:pre-wrap; overflow-x:auto; background:#f4f5f7; padding:14px; border-radius:6px; }
+.paper-body mark { padding:0 1px; border-radius:2px; }
+.paper-body a,.markdown-answer a { color:#0078d4; text-decoration:underline; }
+.answer-table { overflow-x:auto; max-width:100%; margin:.75em 0; }
+.markdown-answer table { border-collapse:collapse; min-width:100%; font-size:12.5px; }
+.markdown-answer th,.markdown-answer td { border:1px solid #d4d4d4; padding:6px 8px; text-align:left; }
+.markdown-answer th { background:#f4f5f7; }
+.markdown-answer blockquote { border-left:3px solid #0078d470; margin:.7em 0; padding:4px 12px; background:#fafafa; color:#555; }
+.markdown-answer .katex-display { overflow-x:auto; overflow-y:hidden; padding:4px 0; }
+.answer-citation { font:inherit; font-size:.9em; color:#0078d4; border:0; background:#0078d40c; border-radius:3px; padding:0 3px; margin:0 1px; cursor:pointer; }
+
+/* Shared editor/answer syntax colors; text remains selectable and editable. */
+.report-code,.answer-code { border:1px solid #e0e4e8; border-radius:7px; margin:1em 0; overflow:hidden; background:#f6f8fa; }
+.code-block-toolbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; min-height:30px; padding:4px 10px; border-bottom:1px solid #e0e4e8; color:#57606a; font-family:var(--paper-font); font-size:12px; line-height:1.6; background:#f0f3f6; user-select:none; }
+.code-block-toolbar label { display:inline-flex; align-items:center; gap:4px; }
+.code-block-toolbar select { max-width:210px; border:1px solid #d0d7de; border-radius:4px; padding:2px 5px; background:#fff; color:#24292f; font:inherit; }
+.code-block-actions { display:flex; align-items:center; gap:6px; }
+.code-block-toolbar button { font:inherit; color:#57606a; background:transparent; border:1px solid transparent; border-radius:4px; padding:2px 6px; cursor:pointer; }
+.code-block-toolbar button:hover,.code-block-toolbar button[aria-pressed="true"] { background:#fff; border-color:#d0d7de; }
+.paper-body .report-code pre,.markdown-answer .answer-code pre { margin:0; border:0; border-radius:0; padding:12px; font-size:13px; line-height:1.7; background:transparent; overflow-x:auto; }
+.report-code code,.answer-code code { color:#24292f; }
+.report-code pre > code { display:block; position:relative; min-height:1.7em; }
+.report-code code[data-code-placeholder]::before { content:attr(data-code-placeholder); position:absolute; top:0; left:0; color:#8c959f; pointer-events:none; user-select:none; font:inherit; }
+.report-code .hljs-keyword,.answer-code .hljs-keyword,.report-code .hljs-selector-tag,.answer-code .hljs-selector-tag { color:#cf222e; }
+.report-code .hljs-string,.answer-code .hljs-string,.report-code .hljs-regexp,.answer-code .hljs-regexp { color:#0a3069; }
+.report-code .hljs-comment,.answer-code .hljs-comment { color:#6e7781; font-style:italic; }
+.report-code .hljs-number,.answer-code .hljs-number,.report-code .hljs-literal,.answer-code .hljs-literal,.report-code .hljs-attr,.answer-code .hljs-attr { color:#0550ae; }
+.report-code .hljs-title,.answer-code .hljs-title,.report-code .hljs-built_in,.answer-code .hljs-built_in { color:#8250df; }
+.report-code .hljs-type,.answer-code .hljs-type,.report-code .hljs-tag,.answer-code .hljs-tag { color:#116329; }
+.report-code .hljs-meta,.answer-code .hljs-meta { color:#953800; }

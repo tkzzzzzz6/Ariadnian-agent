@@ -44,3 +44,43 @@ test('late refresh cannot undo a saved record; failures retain data and deleted 
   assert.equal(readingStore.get().records.a, undefined)
   assert.equal(readingStore.get().error, null)
 })
+
+
+test('refreshes requested during a library change wait for one fresh list', async () => {
+  const record = id => ({ paper_id: id, status: 'unknown', read_through_page: null, total_pages: null, updated_at: null })
+  const releases = []
+  read = () => new Promise(resolve => releases.push(resolve))
+  const initial = readingStore.refresh()
+  // A paper was added (or deleted) after the server captured this first list.
+  const afterChange = readingStore.refresh()
+  const duplicate = readingStore.refresh()
+  assert.equal(afterChange, duplicate)
+  assert.notEqual(initial, afterChange)
+  assert.equal(releases.length, 1)
+  let settled = false
+  afterChange.then(() => { settled = true })
+  releases[0]([record('old-paper')])
+  await initial
+  assert.equal(settled, false)
+  assert.equal(releases.length, 2)
+  releases[1]([record('new-paper')])
+  await afterChange
+  assert.equal(releases.length, 2)
+  assert.equal(readingStore.get().records['old-paper'], undefined)
+  assert.equal(readingStore.get().records['new-paper'].status, 'unknown')
+})
+
+test('a queued refresh can recover after the preceding request failed', async () => {
+  let fail, finish, calls = 0
+  read = () => ++calls === 1 ? new Promise((_resolve, reject) => { fail = reject }) : new Promise(resolve => { finish = resolve })
+  const first = readingStore.refresh()
+  const retry = readingStore.refresh()
+  fail(new Error('temporary outage'))
+  await first
+  assert.equal(calls, 2)
+  assert.equal(readingStore.get().error, 'temporary outage')
+  finish([])
+  await retry
+  assert.equal(readingStore.get().error, null)
+  assert.deepEqual(readingStore.get().records, {})
+})

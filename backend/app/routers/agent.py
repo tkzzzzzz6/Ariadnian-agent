@@ -6,7 +6,7 @@ import uuid
 from contextlib import closing
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from langgraph.types import Command
 from pydantic import BaseModel, Field
 
@@ -16,7 +16,7 @@ from ..agent.writer import clean_citations
 from ..agent.critic import get_critic
 from ..agent.writer import get_writer
 from ..agent.runtime import AgentRun, active, release, reserve
-from .. import runstats
+from .. import runstats, tracing
 from ..db import get_conn
 
 router = APIRouter(prefix="/api/agent", tags=["agent"])
@@ -130,6 +130,8 @@ def _run(run: AgentRun, graph: Any, payload: Any) -> None:
     tid = run.tid
     config = {"configurable": {"thread_id": tid}}
     meter = runstats.RunMeter(tid, runstats.load(tid))
+    trace = tracing.start(tid)
+    status, trace_error = "interrupted", None
     last = [time.perf_counter(), meter.version]
 
     def tick(force: bool = False) -> dict | None:
@@ -141,7 +143,7 @@ def _run(run: AgentRun, graph: Any, payload: Any) -> None:
 
     try:
         _set_status(tid, "running")
-        run.emit({"type": "status", "status": "running", "thread_id": tid})
+        run.emit({"type": "status", "status": "running", "thread_id": tid, "run_id": trace.id if trace else None})
         run.emit(tick(force=True))
         while True:
             # Fully drain one superstep before considering cancellation. This
@@ -149,9 +151,9 @@ def _run(run: AgentRun, graph: Any, payload: Any) -> None:
             # iterator on its owner thread rather than during SSE finalization.
             with closing(graph.stream(payload, config, stream_mode=["updates", "custom"],
                                       interrupt_after="*", durability="sync")) as stream:
-                for mode, chunk in runstats.bind(meter, stream):
+                for mode, chunk in tracing.bind(trace, runstats.bind(meter, stream)):
                     if mode == "custom":
-                        run.emit({"type": "progress", **chunk})
+                        run.emit({"type": "trace", **chunk["trace"]} if "trace" in chunk else {"type": "progress", **chunk})
                     else:
                         for node, update in chunk.items():
                             if node == "__interrupt__":
@@ -179,11 +181,15 @@ def _run(run: AgentRun, graph: Any, payload: Any) -> None:
                      else {"type": "status", "status": status})
             return
     except Exception as e:  # noqa: BLE001
+        status, trace_error = "error", f"{type(e).__name__}: {e}"
         meter.stop_clock()
         run.emit(tick(force=True))
         _set_status(tid, "error")
         run.emit({"type": "error", "message": f"{type(e).__name__}: {e}"})
     finally:
+        tracing.finish(trace, status, trace_error)
+        if trace and trace.incomplete:
+            run.emit({"type": "trace_warning", "message": "部分运行记录未能保存，任务执行不受影响"})
         meter.stop_clock()
         runstats.save(meter)
 
@@ -282,6 +288,9 @@ def list_threads(doc_id: str | None = None):
         d = dict(r)
         st = json.loads(d.pop("stats") or "null") if d.get("stats") else None
         d["tokens"] = (st or {}).get("total_tokens")  # 历史列表只需要总量
+        if d["status"] == "running":
+            a = active(d["thread_id"])
+            d["status"] = "stopping" if a and a.stop_requested.is_set() else "running" if a else "interrupted"
         out.append(d)
     return out
 
@@ -290,6 +299,81 @@ def list_threads(doc_id: str | None = None):
 def thread_stats(tid: str):
     """任务的运行统计（历史任务回看时用）；没有记录时返回 null"""
     return runstats.load(tid)
+
+
+@router.get("/{tid}/traces")
+def trace_runs(tid: str):
+    try:
+        return {"runs": tracing.runs(tid), "policy": tracing.policy()}
+    except Exception as e:
+        raise HTTPException(503, "运行记录暂时不可读取，任务执行不受影响") from e
+
+
+@router.get("/{tid}/traces/{rid}")
+def trace_run(tid: str, rid: str, offset: int = Query(0, ge=0), limit: int = Query(50, ge=1, le=200)):
+    try:
+        data = tracing.read(tid, rid, offset, limit)
+    except Exception as e:
+        raise HTTPException(503, "运行记录暂时不可读取") from e
+    if data is None:
+        raise HTTPException(404, "运行记录不存在或已清理")
+    return data
+
+
+@router.get("/{tid}/traces/{rid}/spans/{sid}")
+def trace_span(tid: str, rid: str, sid: str):
+    try:
+        data = tracing.detail(tid, rid, sid)
+    except Exception as e:
+        raise HTTPException(503, "步骤记录暂时不可读取") from e
+    if data is None:
+        raise HTTPException(404, "步骤不存在或已清理")
+    return data
+
+
+@router.get("/{tid}/traces/{rid}/overview")
+def trace_overview(tid: str, rid: str):
+    try:
+        data = tracing.overview(tid, rid)
+    except Exception as e:
+        raise HTTPException(503, "运行概览暂时不可读取") from e
+    if data is None:
+        raise HTTPException(404, "运行记录不存在或已清理")
+    return data
+
+
+@router.get("/{tid}/traces/{rid}/nodes/{nid}")
+def trace_node_calls(tid: str, rid: str, nid: str, offset: int = Query(0, ge=0), focus: str | None = Query(None, max_length=64)):
+    try:
+        data = tracing.node_calls(tid, rid, nid, offset, focus=focus)
+    except Exception as e:
+        raise HTTPException(503, "调用记录暂时不可读取") from e
+    if data is None:
+        raise HTTPException(404, "运行记录不存在或已清理")
+    return data
+
+
+@router.get("/{tid}/traces/{rid}/diagnostic")
+def trace_diagnostic(tid: str, rid: str):
+    try:
+        data = tracing.diagnostic(tid, rid)
+    except Exception as e:
+        raise HTTPException(503, "诊断记录暂时不可读取") from e
+    if data is None:
+        raise HTTPException(404, "运行记录不存在或已清理")
+    return data
+
+
+@router.delete("/{tid}/traces")
+def trace_clear(tid: str):
+    from ..security import settings_locked
+
+    if settings_locked():
+        raise HTTPException(403, "管理员已锁定设置，无法清理记录")
+    if active(tid):
+        raise HTTPException(409, "请等待任务结束或停止后再清理")
+    tracing.clear(tid)
+    return {"ok": True}
 
 
 @router.get("/{tid}")

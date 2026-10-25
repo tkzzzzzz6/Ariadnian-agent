@@ -9,6 +9,7 @@ let snapshot: { records: Record<string, ReadingRecord>; loaded: boolean; error: 
 const listeners = new Set<() => void>()
 const emit = () => listeners.forEach((l) => l())
 let pending: Promise<void> | null = null
+let queued: Promise<void> | null = null
 let revision = 0
 const editedAt = new Map<string, number>()
 
@@ -16,7 +17,15 @@ export const readingStore = {
   get: () => snapshot,
   subscribe(l: () => void) { listeners.add(l); return () => { listeners.delete(l) } },
   refresh(): Promise<void> {
-    if (pending) return pending
+    if (pending) {
+      // Changes to the paper library may happen after the in-flight list was
+      // captured. Coalesce later refreshes into one fresh request, not that list.
+      if (!queued) queued = pending.then(() => {
+        queued = null
+        return readingStore.refresh()
+      })
+      return queued
+    }
     const started = revision
     pending = api.reading().then((records) => {
       // A refresh started before a successful edit must not roll it back.

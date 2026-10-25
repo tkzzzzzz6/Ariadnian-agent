@@ -1,6 +1,8 @@
 """混合检索：BM25（中英文分词）+ 可选向量检索，用 RRF 融合。"""
 from __future__ import annotations
 
+from . import tracing
+
 import re
 import threading
 from dataclasses import dataclass
@@ -75,6 +77,7 @@ def invalidate_index() -> None:
     _index.version = -1
 
 
+@tracing.traced("tool", "检索文献证据")
 def search(query: str, top_k: int = 6, paper_ids: list[str] | None = None) -> list[Hit]:
     _index.ensure()
     rows = _index.rows

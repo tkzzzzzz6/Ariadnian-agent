@@ -244,3 +244,12 @@ desktop/build/
 
 # Docker 部署配置（含密码和密钥）
 deploy/ariadne.env
+
+# 本地工具（cloudflared 等二进制，勿提交）
+tools/
+
+# 论文写作相关的产物目录，提交源文件即可
+docs/posters/
+docs/presentations/
+docs/design-assets/
+docs/ariadne-tables/

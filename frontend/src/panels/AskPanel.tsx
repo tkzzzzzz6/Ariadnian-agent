@@ -8,6 +8,10 @@ import { api, streamSSE } from '../lib/api'
 import { authorYearLabel, citeStore } from '../lib/citations'
 import { useApp } from '../lib/appContext'
 import { Card, Composer, Thread, ThreadItem } from '../components/Thread'
+import { closeHistory } from '@tiptap/pm/history'
+import { MarkdownAnswer } from '../components/MarkdownAnswer'
+import { markdownToContent } from '../lib/markdown'
+import { formatAllowed } from '../lib/formatting'
 import { brand } from '../theme'
 
 interface Source {
@@ -25,6 +29,7 @@ interface Msg {
   a: string
   sources: Source[]
   done: boolean
+  error?: string
 }
 
 const EXAMPLES = ['这些论文是怎么评测引用准确性的？', 'RAG 的主要思路是什么？有哪些代表性改进？', '哪些工作讨论了模型幻觉的成因？']
@@ -41,7 +46,7 @@ function headingsOf(editor: any): string[] {
 }
 
 export function AskPanel() {
-  const { editor, notify, docTitle, papers, drawerOpen, rightTab, askRequest } = useApp()
+  const { editor, notify, docTitle, papers, openPreview, drawerOpen, rightTab, askRequest } = useApp()
   const [sugs, setSugs] = useState<Suggestion[] | null>(null)
   const [sugLoading, setSugLoading] = useState(false)
   const [sugError, setSugError] = useState(false)
@@ -70,10 +75,17 @@ export function AskPanel() {
   const [msgs, setMsgs] = useState<Msg[]>([])
   const busy = msgs.some((m) => !m.done)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const follow = useRef(true)
+  useEffect(()=>{
+    if (!follow.current) return
+    const id=requestAnimationFrame(()=>scrollRef.current?.scrollTo({top:1e6}))
+    return ()=>cancelAnimationFrame(id)
+  },[msgs])
 
   const ask = async (question: string) => {
     if (!question.trim() || busy) return
     setQ('')
+    follow.current=true
     const idx = msgs.length
     setMsgs((m) => [...m, { q: question, a: '', sources: [], done: false }])
     const patch = (f: (m: Msg) => Msg) => setMsgs((all) => all.map((m, i) => (i === idx ? f(m) : m)))
@@ -82,9 +94,10 @@ export function AskPanel() {
         if (e.type === 'sources') patch((m) => ({ ...m, sources: e.sources }))
         else if (e.type === 'token') patch((m) => ({ ...m, a: m.a + e.text }))
         else if (e.type === 'error') throw new Error(e.message)
-        scrollRef.current?.scrollTo({ top: 1e6 })
+
       })
     } catch (err: any) {
+      patch(m=>({...m,error:err.message}))
       notify(err.message, 'error')
     }
     patch((m) => ({ ...m, done: true }))
@@ -101,25 +114,21 @@ export function AskPanel() {
   /** 把回答插入正文：[n] 换成对应文献的引用节点 */
   const insertAnswer = (m: Msg) => {
     if (!editor) return
-    const content: any[] = []
-    let last = 0
-    for (const match of m.a.matchAll(/\[(\d+(?:\s*[,，]\s*\d+)*)\]/g)) {
-      const ids = match[1]
-        .split(/[,，]/)
-        .map((n) => m.sources.find((s) => s.n === Number(n.trim()))?.paper_id)
-        .filter(Boolean)
-      if (!ids.length) continue
-      if (match.index! > last) content.push({ type: 'text', text: m.a.slice(last, match.index) })
-      content.push({ type: 'citation', attrs: { ids: [...new Set(ids)] } })
-      last = match.index! + match[0].length
-    }
-    if (last < m.a.length) content.push({ type: 'text', text: m.a.slice(last) })
-    editor.chain().focus().insertContent({ type: 'paragraph', content: content.filter((c) => c.type !== 'text' || c.text) }).run()
+    if (!formatAllowed(editor.state)) return notify('请先保留当前 Agent 草稿，再插入回答','info')
+    const pos=editor.state.selection.$from
+    for(let d=pos.depth;d>0;d--) if(['tableCell','tableHeader','codeBlock'].includes(pos.node(d).type.name)) return notify('请将光标放在普通正文位置后插入','info')
+    try {
+      const available=m.sources.filter(s=>papers.some(p=>p.id===s.paper_id))
+      const content=markdownToContent(m.a,available)
+      editor.chain().focus().command(({tr})=>{closeHistory(tr);return true}).insertContent(content).run()
+      editor.view.dispatch(closeHistory(editor.state.tr).setMeta('addToHistory',false))
+      notify('已插入正文，保留格式与引用','success')
+    }catch(e:any){notify(e.message,'error')}
   }
 
   return (
     <>
-      <Box ref={scrollRef} sx={{ flex: 1, overflow: 'auto', px: 2, pt: 1 }}>
+      <Box ref={scrollRef} onScroll={e=>{const el=e.currentTarget;follow.current=el.scrollHeight-el.scrollTop-el.clientHeight<80}} sx={{ flex: 1, overflow: 'auto', px: 2, pt: 1 }}>
         {!msgs.length ? (
           <Box>
             <Typography sx={{ fontSize: 13, color: brand.muted, lineHeight: 1.7, mb: 1.5 }}>
@@ -194,15 +203,16 @@ export function AskPanel() {
                 <ThreadItem icon={<AutoAwesomeOutlinedIcon sx={{ color: `${brand.blue} !important` }} />}>
                   <Box sx={{ pt: 0.25 }}>
                     {m.a ? (
-                      <Typography sx={{ fontSize: 13.5, lineHeight: 1.75, whiteSpace: 'pre-wrap' }}>{m.a}</Typography>
+                      <MarkdownAnswer text={m.a} streaming={!m.done} sources={m.sources} prefix={`ask-source-${i}`}/>
                     ) : (
-                      <CircularProgress size={14} />
+                      m.done ? <Typography sx={{fontSize:12,color:brand.faint}}>未收到回答内容</Typography> : <CircularProgress size={14} />
                     )}
+                    {m.error&&<Typography color="error" sx={{fontSize:12,my:1}}>生成中断：{m.error}。已收到的内容保留供查看。</Typography>}
                     {m.sources.length > 0 && (
                       <Box sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
                         {m.sources.map((s) => (
-                          <Tooltip key={s.n} title={s.snippet} placement="right">
-                            <Card variant="data" sx={{ py: 0.4, px: 1, fontSize: 12 }}>
+                          <Tooltip key={s.n} title={s.snippet} placement="right"><Box id={`ask-source-${i}-${s.n}`}>
+                            <Card variant="data" onClick={()=>{const p=papers.find(p=>p.id===s.paper_id);if(p)openPreview({paper:p,claim:s.snippet})}} sx={{ py: 0.4, px: 1, fontSize: 12 }}>
                               <Box sx={{ display: 'flex', gap: 0.75 }}>
                                 <Box sx={{ color: brand.blue, fontWeight: 600 }}>[{s.n}]</Box>
                                 <Box sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
@@ -210,12 +220,13 @@ export function AskPanel() {
                                   {s.page ? ` · p.${s.page}` : ''}
                                 </Box>
                               </Box>
-                            </Card>
+                            </Card></Box>
                           </Tooltip>
                         ))}
                       </Box>
                     )}
-                    {m.done && m.a && (
+                    {m.a&&<Button size="small" onClick={async()=>{try{await navigator.clipboard.writeText(m.a);notify('已复制 Markdown','success')}catch{notify('无法访问剪贴板，请切换源码后手动复制','info')}}}>复制 Markdown</Button>}
+                    {m.done && m.a && !m.error && (
                       <Button size="small" startIcon={<NoteAddOutlinedIcon />} onClick={() => insertAnswer(m)} sx={{ mt: 0.75 }}>
                         插入到正文（带引用）
                       </Button>

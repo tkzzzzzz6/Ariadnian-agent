@@ -7,6 +7,8 @@
 """
 from __future__ import annotations
 
+from . import tracing
+
 import hashlib
 import re
 import shutil
@@ -58,6 +60,7 @@ def cached_pdf(url: str) -> Path:
     return dest
 
 
+@tracing.traced("tool", "下载论文全文")
 def fetch_into_library(paper_id: str, url: str) -> Path:
     """把论文 PDF 放进文献库：预览过就直接用缓存，否则下载。"""
     from . import scholar

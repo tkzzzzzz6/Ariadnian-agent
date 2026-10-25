@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react'
+import Highlight from '@tiptap/extension-highlight'
+import Superscript from '@tiptap/extension-superscript'
+import Subscript from '@tiptap/extension-subscript'
+import { safeLink } from '../lib/formatting'
+import { LinkEditor } from './FormatActions'
 import StarterKit from '@tiptap/starter-kit'
 import { CharacterCount, Placeholder } from '@tiptap/extensions'
 import { Box, Button, CircularProgress, InputBase, Popper, Tooltip, Typography } from '@mui/material'
@@ -25,6 +30,9 @@ import { BatchCitationsDialog } from './BatchCitationsDialog'
 import { References } from './References'
 import { SelectionAssist } from './SelectionAssist'
 import { useGhostCompletion } from './useGhostCompletion'
+import { RichCodeBlock } from './extensions/RichCodeBlock'
+import { richExtensions } from './extensions/RichNodes'
+import { RichContentControls, type RichContentHandle } from './RichContentControls'
 
 export type SaveState = 'saved' | 'saving' | 'dirty' | 'error'
 
@@ -91,6 +99,7 @@ function useColumns(el: HTMLElement | null) {
 export function PaperEditor({ docId }: { docId: string }) {
   const { setEditor, docTitle, setDocTitle, notify, copilot, review, bumpDocs, drawerOpen, setDrawerOpen } = useApp()
   const [loaded, setLoaded] = useState(false)
+  const rich = useRef<RichContentHandle>(null)
   const [batchOpen, setBatchOpen] = useState(false)
   const [saveState, setSaveState] = useState<SaveState>('saved')
   const [active, setActive] = useState<string | null>(null)
@@ -113,17 +122,22 @@ export function PaperEditor({ docId }: { docId: string }) {
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({ heading: { levels: [1, 2, 3] }, link: { openOnClick: false } }),
+      StarterKit.configure({ codeBlock: false, heading: { levels: [1, 2, 3] }, link: { openOnClick: false, isAllowedUri: url => !!safeLink(url) } }),
       Placeholder.configure({
         placeholder: ({ node }) =>
-          node.type.name === 'heading' ? '章节标题' : node.attrs.live ? 'Agent 正在写作…' : '开始写作…  输入 @ 插入引用，选中文字让 AI 润色，停顿片刻会出现灰色续写建议（Tab 接受）',
+          node.type.name === 'heading' ? '章节标题' : node.type.name === 'paragraph' ? (node.attrs.live ? 'Agent 正在写作…' : '开始写作…  输入 @ 插入引用，选中文字让 AI 润色，停顿片刻会出现灰色续写建议（Tab 接受）') : '',
       }),
-      CharacterCount,
+      RichCodeBlock, CharacterCount, Highlight.configure({multicolor:true}), Superscript, Subscript,
       Citation,
       CitationSuggest,
       GhostText,
       ReviewMarks,
       DraftParagraph,
+      ...richExtensions({
+        insert: (kind, range) => rich.current?.insert(kind, range), upload: (file, pos) => rich.current?.upload(file, pos),
+        editImage: pos => rich.current?.editImage(pos), editMath: pos => rich.current?.editMath(pos),
+        warn: message => notify(message, 'warning'),
+      }),
     ],
     editorProps: { attributes: { class: 'paper-body', spellcheck: 'false' } },
     onUpdate: ({ editor: e, transaction }) => {
@@ -309,7 +323,9 @@ export function PaperEditor({ docId }: { docId: string }) {
         display: 'flex', flexDirection: 'column', overflow: 'hidden',
       }}
     >
-      <EditorToolbar editor={editor} />
+      <LinkEditor editor={editor} />
+      <EditorToolbar editor={editor} onInsert={kind => rich.current?.insert(kind)} />
+      <RichContentControls key={docId} ref={rich} editor={editor} docId={docId} />
 
       <Box ref={setScrollEl} sx={{ flex: 1, overflow: 'auto' }} className="editor-scroll">
         <Box

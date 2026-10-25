@@ -27,7 +27,7 @@ from langgraph.config import get_stream_writer
 from langgraph.graph import END, START, StateGraph
 from langgraph.types import Send, interrupt
 
-from .. import llm
+from .. import llm, tracing
 from ..assist import CITE_TOKEN, annotate, cite_keys, retrieval_query, strip_cites
 from ..config import get_settings
 from ..db import get_conn
@@ -69,6 +69,7 @@ class WriterState(TypedDict, total=False):
 
 
 def _progress(message: str, **extra: Any) -> None:
+    tracing.progress(message, **extra)
     try:
         get_stream_writer()({"message": message, **extra})
     except Exception:  # 不在 stream 上下文时忽略
@@ -78,6 +79,7 @@ def _progress(message: str, **extra: Any) -> None:
 # ---------------------------------------------------------------------------
 # 证据：检索片段 + 用户笔记
 # ---------------------------------------------------------------------------
+@tracing.traced("tool", "收集证据与用户笔记")
 def gather_evidence(section: dict, topic: str, limit: int = 8) -> list[dict]:
     by_key = {p.bibkey: p for p in list_papers()}
     allowed = [by_key[k].id for k in section.get("bibkeys") or [] if k in by_key]
@@ -278,6 +280,7 @@ def _fake_polish(items: list[tuple[int, dict]]) -> dict:
     return {"summary": "各节内容基本衔接，补了几处过渡。（离线演示）", "edits": edits}
 
 
+@tracing.traced("node", "总编统稿")
 def polish(state: WriterState) -> dict:
     drafts = [dict(d) for d in state.get("drafts") or []]
     items = [(i, d) for i, d in enumerate(drafts) if d.get("status") in ("accepted", "drafted") and d.get("paragraphs")]
@@ -342,6 +345,7 @@ def polish(state: WriterState) -> dict:
 # ---------------------------------------------------------------------------
 # 节点
 # ---------------------------------------------------------------------------
+@tracing.traced("node", "准备写作")
 def prepare(state: WriterState) -> dict:
     outline = state.get("outline") or []
     sel = state.get("selected")
@@ -352,6 +356,7 @@ def prepare(state: WriterState) -> dict:
     return {"order": order, "pos": 0, "index": order[0] if order else 0, "drafts": drafts, "errors": [], "parts": {}, "edits": [], "polish_done": False}
 
 
+@tracing.traced("node", "写作本节")
 def write_section(state: WriterState) -> dict:
     i = state["index"]
     drafts = list(state["drafts"])
@@ -359,6 +364,7 @@ def write_section(state: WriterState) -> dict:
     return {"drafts": drafts, "feedback": ""}
 
 
+@tracing.traced("node", "并行章节写作")
 def write_one(state: WriterState) -> dict:
     """并行模式的子 Agent：只写一节。出错只影响这一节"""
     i = state["index"]
@@ -370,6 +376,7 @@ def write_one(state: WriterState) -> dict:
         return {"parts": {str(i): {"title": state["outline"][i]["title"], "status": "error", "error": msg}}}
 
 
+@tracing.traced("node", "汇总章节")
 def collect(state: WriterState) -> dict:
     drafts = list(state["drafts"])
     errors = list(state.get("errors") or [])
@@ -381,6 +388,7 @@ def collect(state: WriterState) -> dict:
     return {"drafts": drafts, "errors": errors}
 
 
+@tracing.traced("node", "确认本节")
 def review_section(state: WriterState) -> dict:
     i = state["index"]
     drafts = list(state["drafts"])
@@ -402,11 +410,13 @@ def review_section(state: WriterState) -> dict:
     return {"drafts": drafts, "action": action}
 
 
+@tracing.traced("node", "下一节")
 def advance(state: WriterState) -> dict:
     pos = state.get("pos", 0) + 1
     return {"pos": pos, "index": state["order"][pos]}
 
 
+@tracing.traced("node", "完成")
 def finish(state: WriterState) -> dict:
     drafts = state.get("drafts") or []
     n = sum(1 for d in drafts if d.get("status") in ("accepted", "drafted"))

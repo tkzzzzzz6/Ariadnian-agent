@@ -97,6 +97,17 @@ CREATE TABLE IF NOT EXISTS agent_threads (
     created_at  TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );
+CREATE TABLE IF NOT EXISTS document_assets (
+    id TEXT PRIMARY KEY,
+    doc_id TEXT NOT NULL REFERENCES documents(id) ON DELETE CASCADE,
+    digest TEXT NOT NULL,
+    extension TEXT NOT NULL,
+    width INTEGER NOT NULL,
+    height INTEGER NOT NULL,
+    size INTEGER NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    UNIQUE(doc_id, digest)
+);
 """
 
 _lock = threading.Lock()
@@ -129,6 +140,9 @@ def init_db() -> None:
         # 旧数据库补列：调用属于哪个 Agent 任务（运行统计、排查问题）
         if "thread_id" not in cols:
             conn.execute("ALTER TABLE llm_calls ADD COLUMN thread_id TEXT")
+        for name in ("run_id", "span_id"):
+            if name not in cols:
+                conn.execute(f"ALTER TABLE llm_calls ADD COLUMN {name} TEXT")
         # 旧数据库补列：Agent 任务类型（review=综述→大纲，write=分节写作）
         cols = {r[1] for r in conn.execute("PRAGMA table_info(agent_threads)")}
         if "kind" not in cols:

@@ -4,12 +4,31 @@ import { CITE_RE, citeStore, citeToken, parseCiteBody, type CitePages } from './
 const leaf = (node: any) => {
   if (node.type.name === 'citation') return citeToken(node.attrs.ids ?? [], node.attrs.pages)
   if (node.type.name === 'hardBreak') return '\n'
+  if (node.type.name === 'inlineMath') return `$${node.attrs.latex ?? ''}$`
+  if (node.type.name === 'blockMath') return `$$${node.attrs.latex ?? ''}$$`
+  if (node.type.name === 'image') return `[图片：${node.attrs.caption || node.attrs.alt || '未填写说明'}]`
   return ''
 }
 
 /** 把文档区间序列化成纯文本，引用写成 [@bibkey] */
 export function textBetween(editor: Editor, from: number, to: number): string {
-  return editor.state.doc.textBetween(from, to, '\n\n', leaf)
+  const doc = editor.state.doc
+  const parts: string[] = []
+  let cursor = from
+  doc.forEach((node, pos) => {
+    if (node.type.name !== 'table' || pos < from || pos + node.nodeSize > to) return
+    if (pos > cursor) parts.push(doc.textBetween(cursor, pos, '\n\n', leaf))
+    const rows: string[] = []
+    node.forEach(row => {
+      const cells: string[] = []
+      row.forEach(cell => cells.push(cell.textBetween(0, cell.content.size, ' ', leaf)))
+      rows.push(cells.join('\t'))
+    })
+    parts.push('[表格]\n' + rows.join('\n'))
+    cursor = pos + node.nodeSize
+  })
+  parts.push(doc.textBetween(cursor, to, '\n\n', leaf))
+  return parts.filter(Boolean).join('\n\n')
 }
 
 /** 把含 [@key] 标记的文本转换回 TipTap 内容（引用变回 citation 节点）。 */

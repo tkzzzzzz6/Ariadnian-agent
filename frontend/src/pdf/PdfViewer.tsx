@@ -201,14 +201,14 @@ export function PdfViewer({
     const target = highlight?.page ?? page
     if (!target) return
     const y = highlight?.rects?.length ? Math.min(...highlight.rects.map((r) => r[1])) : 0
-    // 等布局（缩放后的高度）生效再滚
-    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, target), sizes.length), y), 60)
+    // 等布局生效后直接定位；后台标签页可能暂停平滑滚动动画。
+    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, target), sizes.length), y, false), 60)
     return () => window.clearTimeout(t)
   }, [doc, sizes.length, page, highlight, jumpKey, scrollToPage]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!doc || !sizes.length || !focus) return
-    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, focus.page), sizes.length), focus.y ?? 0), 60)
+    const t = window.setTimeout(() => scrollToPage(Math.min(Math.max(1, focus.page), sizes.length), focus.y ?? 0, false), 60)
     return () => window.clearTimeout(t)
   }, [doc, sizes.length, focus?.key]) // eslint-disable-line react-hooks/exhaustive-deps
 

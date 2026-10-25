@@ -24,7 +24,7 @@ export function useAgentStream() {
       await streamSSE(path, body, (event) => {
         runStats.onEvent(event)
         if (event.type === 'status' && event.status === 'stopped') stopped = true
-        if (event?.type !== 'stats') onEvent(event)
+        if (!['stats', 'trace', 'trace_warning'].includes(event?.type)) onEvent(event)
       }, c.signal)
       return stopped ? 'stopped' : 'ok'
     } catch (e: any) {
@@ -43,6 +43,7 @@ export function useAgentStream() {
   const stop = useCallback((threadId: string | null) => {
     if (!threadId) return ctrl.current?.abort()
     setStopping(true)
+    runStats.setStopping()
     // If the stop request itself fails, disconnecting still asks the worker to stop.
     const current = ctrl.current
     api.agentStop(threadId).catch(() => current?.abort())

@@ -44,7 +44,8 @@ export function outlineFromDoc(editor: Editor): OutlineSection[] {
 }
 
 const isPlaceholder = (n: PMNode) =>
-  n.type.name === 'paragraph' && !n.attrs.draft && (!n.textContent.trim() || n.textContent.trim().startsWith('写作要点'))
+  n.type.name === 'paragraph' && !n.attrs.draft && !n.content.content.some(c => c.isLeaf && !c.isText && c.type.name !== 'hardBreak')
+    && (!n.textContent.trim() || n.textContent.trim().startsWith('写作要点'))
 
 /** 章节标题位置，以及这一节结束的位置（下一个同级或更高级标题之前） */
 function sectionRange(doc: PMNode, title: string): { end: number; headEnd: number } | null {
@@ -132,11 +133,13 @@ export function setDraftText(editor: Editor, key: string, text: string, live: bo
   const nodes = findDraft(editor, key)
   if (!nodes.length) return
   const from = nodes[0].pos
-  const last = nodes[nodes.length - 1]
-  const to = last.pos + last.node.nodeSize
   const json = paragraphsJSON(text, key, live)
-  const tr = editor.state.tr.replaceWith(from, to, json.map((j) => editor.state.schema.nodeFromJSON(j)))
-  editor.view.dispatch(tr.setMeta('addToHistory', false))
+  // Replace only this Agent's draft paragraphs, preserving any user blocks
+  // inserted between them (images, tables, formulas or regular paragraphs).
+  let safe = editor.state.tr
+  for (const { pos, node } of [...nodes].reverse()) safe = safe.delete(pos, pos + node.nodeSize)
+  safe = safe.insert(from, json.map(j => editor.state.schema.nodeFromJSON(j)))
+  editor.view.dispatch(safe.setMeta('addToHistory', false))
 }
 
 /** 保留草稿：去掉草稿标记，变成普通正文；同时删掉这一节的「写作要点」和空段落 */

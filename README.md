@@ -10,6 +10,8 @@
   <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat&logo=python&logoColor=white" alt="Python"/>
 </p>
 
+**在线体验：[agent.tanke.asia](https://agent.tanke.asia/)** · [通过 Cloudflare Tunnel 开放公网访问](docs/cloudflare-tunnel.md)
+
 Ariadne 是一个帮你**快速走进一个陌生研究领域**的研究报告写作助手。它不替你写，而是把「读懂一个领域」拆成三步，让理解留在你自己脑子里：
 
 1. **AI 检索，搭出骨架**：输入感兴趣的主题，综述 Agent 检索论文、提炼要点，给出一份带出处的大纲。
@@ -44,8 +46,10 @@ Ariadne 是一个帮你**快速走进一个陌生研究领域**的研究报告�
 | **分节写作 Agent** | 大纲确认后点「逐节写作」，或在「Agent」首页选分节写作；勾选要写的章节，选「逐节确认 / 连续写完 / 并行写」，可选「总编统稿」 | 草稿流式写进正文对应标题下（紫色草稿标记 + 光标），你可以直接在正文里改，最后保留或删除；并行模式用 LangGraph `Send` 给每节派一个子 Agent 同时写，总编 Agent 通读后只改衔接、重复和前后不一致，每处修改在正文里逐处呈现；每节单独检索（指定文献优先 + 你的笔记），引用只能来自本节证据，写完逐段核查引用、能改的先改，剩下的成为页边批注 |
 | **审稿 Agent** | 「Agent」首页选审稿 → 意见挂在正文旁边 → 逐条标「已修改 / 不改（附理由）」→ 再审一轮 | 审稿人只挑逻辑和论据问题（推理跳跃、论据不足、结论过度、结构），每条意见摘录原句定位到正文；第 2 轮起先逐条复查上一轮（解决 / 部分 / 未解决），再只补充新的主要问题，最多 N 轮保证收敛；论据类问题附上文献库里可能用得上的文献 |
 | **Agent 交互** | 三个 Agent 共用一个启动页；顶部「历史」可回到这篇文档以前的任何任务 | 运行中可以「停止」，之后从 LangGraph 检查点「继续」（停在请求半路时会把你最后一次的选择补发出去）；Agent 停下来等你、而你没在看面板时，图标栏和页签出红点并弹出提示 |
+| **图片、表格与公式** | 顶部「插入」或段落开头输入 `/`；选中内容后出现编辑操作 | PNG/JPEG 上传、粘贴截图、图题与宽度；规则表格与 Excel/TSV 粘贴；LaTeX 行内/独立公式和实时预览；保存、撤销与重做；Word 保留图片、原生表格和可编辑公式，LaTeX/Markdown 导出包含图片与参考文献的 ZIP。[使用与验收说明](docs/rich-content.md) |
 | **导出** | 顶栏「导出」 | **Word**（pandoc + citeproc，参考文献按 GB/T 7714-2015 顺序编码 / 著者-出版年或 APA 排版，中文版式模板：宋体 / Times New Roman 小四、1.5 倍行距、首行缩进）；LaTeX + refs.bib（可直接传 Overleaf）、Markdown（pandoc 引用语法）、BibTeX |
 | **Agent 运行统计** | Agent 面板底部的状态条：步数 · 调用次数 · 输出速度（tok/s），总 token · 缓存命中率，上下文占用（圆环）；悬停看明细 | 每次模型调用按任务归属（contextvar，子 Agent 并行写作的调用也算在同一个任务里），随 SSE 实时推送；运行中按收到的片段估算实时速度，结束后用服务返回的 token 数校正；上下文占用 = 单次调用最大输入 / 模型窗口（LiteLLM 模型信息）；停下、继续都接着累计，存进任务记录，历史列表也显示每个任务的 token 总量 |
+| **Agent 运行详情** | 底部状态条或任务历史中的「运行详情」 | 按次回看节点、工具和模型调用，区分并行、等待与停止恢复；展开查看耗时、用量和异常，可复制脱敏诊断摘要。详细输入输出及模型返回的推理信息默认不采集，可在记录设置中开启；[使用与验收说明](docs/agent-observability.md) |
 | **用量统计** | 设置 →「用量统计」 | 每次调用记录耗时、首 token、token 数和缓存命中；按 DeepSeek / Kimi 官网价格折算人民币（含 DeepSeek 高峰分时价和缓存价），其他模型可在页面里填单价；展示每日趋势、各档 P50/P95 延迟和各模型费用 |
 
 **防止编造引用**是贯穿各个功能的原则：大纲里的 bibkey 会和文献库核对，库里没有的直接丢弃；改写结果里的 `[@key]` 只有在文献库中存在才会变回引用；引用核查会对照被引文献的原文逐条检查。
@@ -230,6 +234,30 @@ MinerU 官方没有发布现成镜像，需要先按 [MinerU 的说明](https://
 
 > 目前所有人共用**同一个文献库和论文列表**，适合自己或信任的小团队使用；也就是说，有密码的人都能看到、修改彼此的论文。多人账号和数据隔离在路线图里。Basic 认证的密码在 HTTP 下是明文传输的，公网部署请务必开 HTTPS。
 
+## 公网访问（Cloudflare Tunnel）
+
+当前体验站使用名为 `agent` 的 Cloudflare Tunnel，将 **`agent.tanke.asia` → `http://127.0.0.1:8000`**。应用仍在运行 Ariadne 的电脑上，访问者通过固定的 HTTPS 域名进入，无需处于同一局域网。
+
+已有隧道及配置时，日常演示只需打开两个 PowerShell 终端：
+
+```powershell
+# 终端 1：启动应用
+cd D:\code\Ariadnian-agent
+npm start
+```
+
+```powershell
+# 终端 2：启动现有 agent 隧道
+cd D:\code\Ariadnian-agent
+.\tools\cloudflared.exe tunnel run agent
+```
+
+首次设置见 [Cloudflare Tunnel 公网访问指南](docs/cloudflare-tunnel.md)：包括下载工具、授权和创建隧道、绑定 DNS、`config.yml` 示例、访问密码、验收及排错。其他人自行部署时，需要使用自己的域名、隧道 UUID 和凭据路径。
+
+本机启动方式在 `backend/.env` 中配置 `ARIA_PASSWORD` 和 `ARIA_LOCK_SETTINGS=1`，修改后重启应用；Docker 部署则使用 `deploy/ariadne.env`。电脑、应用和隧道都要保持运行，关机、休眠或停止任一服务都会中断访问。访问入口提供 HTTPS，不代表每位用户有独立的数据空间，也不保证中国大陆所有网络的访问质量。
+
+Agent、改写等功能依赖 SSE 流式输出，因此使用正式的命名隧道；[Cloudflare 官方说明](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/#limitations)中的临时 Quick Tunnel 不支持 SSE，不适合作为完整体验入口。
+
 ## CI/CD
 
 GitHub Actions 配置在 `.github/workflows/`：
@@ -354,7 +382,7 @@ frontend/
 - [ ] 测评扩展：更多学科的中文段落、全文片段级的引用核查、端到端写作任务
 - [x] GROBID / MinerU 解析（可选服务），提升复杂排版、公式和中文 PDF 的解析质量
 - [x] Word 导出（pandoc，GB/T 7714 / APA 参考文献）
-- [ ] 图表与公式节点：编辑器里插入图片、表格、LaTeX 公式，导出 Word 和 LaTeX 时保留
+- [x] 图表与公式节点：图片、规则表格、行内/独立公式，Word 与 LaTeX/Markdown 资源包导出（见 [说明](docs/rich-content.md)）
 - [ ] 网页版多人账号：每人独立的文献库和论文，按人统计用量
 - [x] 原文阅读：抽屉阅读、检索预览、依据句定位（附测评）、划线引用与笔记
 - [x] 分屏对照模式（左写右读，多篇论文标签页，原文目录，选中原文引用 / 问 AI / 记笔记）

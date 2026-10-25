@@ -35,6 +35,10 @@ export function useGhostCompletion(editor: Editor | null, enabled: boolean, titl
       const { state } = editor
       const { from, empty, $from } = state.selection
       if (!empty || !$from.parent.isTextblock || $from.parent.type.name === 'codeBlock') return
+      if (Array.from({ length: $from.depth }, (_, i) => $from.node(i + 1).type.name).some(n => ['tableCell', 'tableHeader'].includes(n))) return
+      let hasMath = false
+      $from.parent.descendants(n => { if (n.type.name === 'inlineMath') hasMath = true })
+      if (hasMath) return
       const after = $from.parent.textBetween($from.parentOffset, $from.parent.content.size)
       if (after.trim().length > 0 && !/^\s/.test(after)) return // 光标在词中间
       const before = textBetween(editor, Math.max(0, from - 2000), from)

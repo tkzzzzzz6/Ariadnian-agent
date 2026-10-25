@@ -36,6 +36,10 @@ interface State {
   running: boolean
   /** 收到最近一条统计的时间：运行中据此让耗时继续走 */
   at: number
+  status?: string
+  step?: string
+  warning?: string
+  runId?: string
 }
 
 let state: State = { threadId: null, stats: null, running: false, at: 0 }
@@ -48,16 +52,26 @@ const set = (patch: Partial<State>) => {
 export const runStats = {
   /** 流里的事件：status 带 thread_id 时切到这个任务；stats 更新数字 */
   onEvent(e: any) {
-    if (e?.type === 'status' && e.thread_id && e.thread_id !== state.threadId) set({ threadId: e.thread_id, stats: null })
+    if (e?.type === 'status') {
+      if (e.thread_id && e.thread_id !== state.threadId) set({ threadId: e.thread_id, stats: null, step: '', warning: '' })
+      set({ status: e.status, ...(e.run_id ? { runId: e.run_id } : {}) })
+    }
     else if (e?.type === 'stats') set({ stats: e.stats, at: Date.now() })
+    else if (e?.type === 'progress' && e.message) set({ step: e.message })
+    else if (e?.type === 'trace' && e.kind === 'node' && e.status === 'running') set({ step: e.label })
+    else if (e?.type === 'trace_warning') set({ warning: e.message })
+    else if (e?.type === 'done') set({ status: 'done' })
+    else if (e?.type === 'error') set({ status: 'error' })
   },
   setRunning(running: boolean) {
     if (running !== state.running) set({ running, at: Date.now() })
+    if (!running && ['running', 'stopping'].includes(state.status ?? '')) set({ status: 'disconnected' })
   },
+  setStopping() { set({ status: 'stopping' }) },
   /** 打开历史任务 / 回到首页：读取保存的统计，null 表示清空 */
   focus(threadId: string | null) {
     if (threadId === state.threadId && (state.stats || !threadId)) return
-    set({ threadId, stats: null })
+    set({ threadId, stats: null, step: '', warning: '', status: undefined })
     if (threadId)
       api
         .agentStats(threadId)
