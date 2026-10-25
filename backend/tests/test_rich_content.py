@@ -164,3 +164,25 @@ def test_word_headerless_table_preserves_data_rows_without_a_fake_header(empty_m
     assert values[-1] == ["Baseline", "0.8"]
     if empty_middle:
         assert values[1] == ["", ""]
+
+
+
+def test_word_preserves_new_text_formats_and_safe_links():
+    md = '[underline]{.underline} ~~removed~~ ^sup^ ~sub~ [mark]{.aria-highlight data-color="#c8e6c9"} [site](https://example.com)'
+    response = client.post('/api/export/docx', json={'markdown': md})
+    assert response.status_code == 200, response.text[:300] if response.status_code != 200 else ''
+    with zipfile.ZipFile(io.BytesIO(response.content)) as z:
+        root = ET.fromstring(z.read('word/document.xml'))
+        styles = ET.fromstring(z.read('word/styles.xml'))
+        relations = z.read('word/_rels/document.xml.rels').decode()
+    ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+    assert root.findall('.//w:u', ns)
+    assert root.findall('.//w:strike', ns)
+    assert {n.get('{'+ns['w']+'}val') for n in root.findall('.//w:vertAlign', ns)} >= {'superscript', 'subscript'}
+    assert any(n.get('{'+ns['w']+'}fill') == 'C8E6C9' for n in styles.findall('.//w:shd', ns))
+    assert 'https://example.com' in relations
+
+
+@pytest.mark.parametrize('url', ['javascript:alert(1)', 'data:text/html,hello', 'file:///secret'])
+def test_word_rejects_executable_link_schemes(url):
+    assert client.post('/api/export/docx', json={'markdown': f'[link]({url})'}).status_code == 422

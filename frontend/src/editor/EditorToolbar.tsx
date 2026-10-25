@@ -2,8 +2,6 @@ import type { Editor } from '@tiptap/core'
 import { useState } from 'react'
 import { useEditorState } from '@tiptap/react'
 import { Box, Button, IconButton, Menu, MenuItem, Tooltip, Typography } from '@mui/material'
-import FormatBoldIcon from '@mui/icons-material/FormatBold'
-import FormatItalicIcon from '@mui/icons-material/FormatItalic'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered'
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote'
@@ -11,6 +9,8 @@ import UndoIcon from '@mui/icons-material/Undo'
 import RedoIcon from '@mui/icons-material/Redo'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import { brand, shadow } from '../theme'
+import { FormatActions } from './FormatActions'
+import { insertBlock, formatAllowed } from '../lib/formatting'
 import { INSERT_ITEMS, type InsertKind } from '../lib/richContent'
 
 function TB({ title, active, onClick, children, disabled }: { title: string; active?: boolean; onClick: () => void; children: React.ReactNode; disabled?: boolean }) {
@@ -50,12 +50,13 @@ export function EditorToolbar({ editor, onInsert }: { editor: Editor; onInsert: 
       bullet: e.isActive('bulletList'),
       ordered: e.isActive('orderedList'),
       quote: e.isActive('blockquote'),
+      allowed: formatAllowed(e.state),
       canUndo: e.can().undo(),
       canRedo: e.can().redo(),
     }),
   })
   const H = ({ level }: { level: 1 | 2 | 3 }) => (
-    <TB title={`${level} 级标题`} active={s[`h${level}`]} onClick={() => editor.chain().focus().toggleHeading({ level }).run()}>
+    <TB title={`${level} 级标题`} active={s[`h${level}`]} disabled={!s.allowed} onClick={() => editor.chain().focus().toggleHeading({ level }).run()}>
       <Typography sx={{ fontWeight: 600, fontSize: 12.5 }}>H{level}</Typography>
     </TB>
   )
@@ -74,25 +75,23 @@ export function EditorToolbar({ editor, onInsert }: { editor: Editor; onInsert: 
           <RedoIcon />
         </TB>
         <Sep />
+        <Button size="small" sx={{minWidth:42}} onMouseDown={e=>e.preventDefault()} onClick={()=>insertBlock(editor,'paragraph')}>正文</Button>
         <H level={1} />
         <H level={2} />
         <H level={3} />
         <Sep />
-        <TB title="加粗 (Ctrl+B)" active={s.bold} onClick={() => editor.chain().focus().toggleBold().run()}>
-          <FormatBoldIcon />
-        </TB>
-        <TB title="斜体 (Ctrl+I)" active={s.italic} onClick={() => editor.chain().focus().toggleItalic().run()}>
-          <FormatItalicIcon />
-        </TB>
-        <TB title="无序列表" active={s.bullet} onClick={() => editor.chain().focus().toggleBulletList().run()}>
+        <FormatActions editor={editor} />
+        <TB title="无序列表" active={s.bullet} onClick={() => insertBlock(editor,'bulletList')}>
           <FormatListBulletedIcon />
         </TB>
-        <TB title="有序列表" active={s.ordered} onClick={() => editor.chain().focus().toggleOrderedList().run()}>
+        <TB title="有序列表" active={s.ordered} onClick={() => insertBlock(editor,'orderedList')}>
           <FormatListNumberedIcon />
         </TB>
-        <TB title="引用块" active={s.quote} onClick={() => editor.chain().focus().toggleBlockquote().run()}>
+        <TB title="引用块" active={s.quote} onClick={() => insertBlock(editor,'blockquote')}>
           <FormatQuoteIcon />
         </TB>
+        <Button size="small" aria-label="增加列表缩进" disabled={!editor.can().sinkListItem('listItem')} onMouseDown={e=>e.preventDefault()} onClick={()=>editor.chain().focus().sinkListItem('listItem').run()}>缩进</Button>
+        <Button size="small" aria-label="减少列表缩进" disabled={!editor.can().liftListItem('listItem')} onMouseDown={e=>e.preventDefault()} onClick={()=>editor.chain().focus().liftListItem('listItem').run()}>减少缩进</Button>
         <Sep />
         <Button aria-label="插入内容" aria-haspopup="menu" aria-expanded={!!insertAnchor} onMouseDown={e => e.preventDefault()} onClick={e => setInsertAnchor(e.currentTarget)} sx={{ minWidth: 52 }}>插入</Button>
         <Menu anchorEl={insertAnchor} open={!!insertAnchor} onClose={() => setInsertAnchor(null)}>

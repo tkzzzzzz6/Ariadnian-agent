@@ -1,5 +1,7 @@
 import type { JSONContent } from '@tiptap/core'
 import { citeStore, citeToken, collectCitationOrder, pageLabel } from './citations'
+import { codeLanguage, codeLanguageLabel } from './codeLanguages'
+import { HIGHLIGHTS, safeLink } from './formatting'
 import { imageFilename } from './richContent'
 
 const mdEsc = (text: string) => text.replace(/[\\`*_{}\[\]<>#$|]/g, '\\$&')
@@ -34,6 +36,16 @@ function mdInline(nodes: JSONContent[] = [], inTable = false): string {
         else if (m.type === 'italic') t = `*${t}*`
         else if (m.type === 'code') t = `\`${t}\``
         else if (m.type === 'strike') t = `~~${t}~~`
+        else if (m.type === 'underline') t = `[${t}]{.underline}`
+        else if (m.type === 'superscript') t = `^${t.replace(/ /g, '\\ ')}^`
+        else if (m.type === 'subscript') t = `~${t.replace(/ /g, '\\ ')}~`
+        else if (m.type === 'highlight') {
+          const color=HIGHLIGHTS.find(c=>c===m.attrs?.color)||HIGHLIGHTS[0]
+          t = `[${t}]{.aria-highlight data-color="${color}"}`
+        } else if (m.type === 'link') {
+          const href=safeLink(m.attrs?.href||'')
+          if(href) t=`[${t}](${href.replace(/[()]/g,c=>c==='('?'%28':'%29')})`
+        }
       }
       return t
     })
@@ -61,7 +73,7 @@ function mdBlock(n: JSONContent, indent = ''): string {
       return (() => {
         const raw = (n.content ?? []).map(c => c.text ?? '').join('')
         const fence = '`'.repeat(Math.max(3, ...(raw.match(/`+/g) ?? []).map(m => m.length + 1)))
-        return fence + (n.attrs?.language ?? '') + '\n' + raw + '\n' + fence
+        return fence + (codeLanguage(n.attrs?.language) ?? '') + '\n' + raw + '\n' + fence
       })()
     case 'horizontalRule':
       return '---'
@@ -116,6 +128,12 @@ function texInline(nodes: JSONContent[] = []): string {
         if (m.type === 'bold') t = `\\textbf{${t}}`
         else if (m.type === 'italic') t = `\\emph{${t}}`
         else if (m.type === 'code') t = `\\texttt{${t}}`
+        else if (m.type === 'underline') t = `\\underline{${t}}`
+        else if (m.type === 'strike') t = `\\sout{${t}}`
+        else if (m.type === 'superscript') t = `\\textsuperscript{${t}}`
+        else if (m.type === 'subscript') t = `\\textsubscript{${t}}`
+        else if (m.type === 'highlight') t = `\\colorbox[HTML]{${(HIGHLIGHTS.find(c=>c===m.attrs?.color)||HIGHLIGHTS[0]).slice(1).toUpperCase()}}{${t}}`
+        else if (m.type === 'link') { const href=safeLink(m.attrs?.href||''); if(href) t=`\\href{${esc(href)}}{${t}}` }
       }
       return t
     })
@@ -139,7 +157,7 @@ function texBlock(n: JSONContent): string {
       return `\\begin{${env}}\n${items}\n\\end{${env}}`
     }
     case 'codeBlock':
-      return `\\begin{verbatim}\n${(n.content ?? []).map((c) => c.text).join('')}\n\\end{verbatim}`
+      return `${n.attrs?.language ? `{\\small\\texttt{${esc(codeLanguageLabel(n.attrs.language))}}}\n` : ''}\\begin{verbatim}\n${(n.content ?? []).map((c) => c.text).join('')}\n\\end{verbatim}`
     case 'horizontalRule':
       return '\\medskip\\hrule\\medskip'
     case 'image': {
@@ -167,7 +185,8 @@ export function toLatex(doc: JSONContent, title: string): string {
   const zh = /[一-鿿]/.test(body + title)
   return `\\documentclass[11pt]{${zh ? 'ctexart' : 'article'}}
 \\usepackage[margin=2.5cm]{geometry}
-\\usepackage{hyperref}
+\\usepackage{hyperref,xcolor}
+\\usepackage[normalem]{ulem}
 \\usepackage{graphicx,amsmath,amssymb,longtable,array}
 \\usepackage[numbers,sort&compress]{natbib}
 

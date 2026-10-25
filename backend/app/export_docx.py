@@ -7,6 +7,10 @@
 from __future__ import annotations
 
 import os
+import io
+import zipfile
+from xml.dom import minidom
+from urllib.parse import urlsplit
 import json
 import re
 import shutil
@@ -70,8 +74,21 @@ def to_docx(markdown: str, paper_ids: list[str], style: str = "gbt-numeric", ref
         document = json.loads(parsed.stdout)
         document["meta"] = {k: v for k, v in document.get("meta", {}).items() if k in {"title", "author", "date", "lang"}}
 
+        highlight_styles: dict[str, str] = {}
+
         def check(node):
             if isinstance(node, dict):
+                if node.get("t") == "Link":
+                    url = node["c"][-1][0]
+                    if not (url.startswith("#") or urlsplit(url).scheme.lower() in {"https", "http", "mailto"}):
+                        raise ValueError("链接地址无效，仅支持网页、邮件和文档锚点")
+                if node.get("t") == "Span" and "aria-highlight" in node["c"][0][1]:
+                    color = dict(node["c"][0][2]).get("data-color", "#fff59d").lower()
+                    if color not in {"#fff59d", "#c8e6c9", "#bbdefb"}:
+                        raise ValueError("不支持的高亮颜色")
+                    name = "AriaHighlight" + color[1:].upper()
+                    highlight_styles[name] = color[1:].upper()
+                    node["c"][0] = ["", [], [["custom-style", name]]]
                 if node.get("t") == "Image":
                     src = node["c"][-1][0]
                     if src not in (assets or {}):
@@ -95,4 +112,37 @@ def to_docx(markdown: str, paper_ids: list[str], style: str = "gbt-numeric", ref
             raise RuntimeError(f"pandoc 转换失败：{(r.stderr or r.stdout).strip()[:500]}")
         if re.search(r"could not convert.*(?:tex|math)|could not fetch resource", r.stderr, re.I):
             raise ValueError(f"部分公式或图片无法转换：{r.stderr.strip()[:500]}")
-        return (d / "out.docx").read_bytes()
+        output = (d / "out.docx").read_bytes()
+        if highlight_styles:
+            output = _highlight_docx(output, highlight_styles)
+        return output
+
+
+def _highlight_docx(data: bytes, styles: dict[str, str]) -> bytes:
+    """Use native Word character shading; retain all other archive entries."""
+    ns = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+    result = io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(data)) as source, zipfile.ZipFile(result, "w", zipfile.ZIP_DEFLATED) as target:
+        # Preserve all namespace declarations, including mc:Ignorable prefixes.
+        root = minidom.parseString(source.read("word/styles.xml"))
+        for name, color in styles.items():
+            style = next((s for s in root.getElementsByTagNameNS(ns, "style") if s.getAttributeNS(ns, "styleId") == name), None)
+            if style is None:
+                style = root.createElementNS(ns, "w:style")
+                style.setAttributeNS(ns, "w:type", "character")
+                style.setAttributeNS(ns, "w:styleId", name)
+                label = root.createElementNS(ns, "w:name")
+                label.setAttributeNS(ns, "w:val", name)
+                style.appendChild(label)
+                root.documentElement.appendChild(style)
+            candidates = style.getElementsByTagNameNS(ns, "rPr")
+            properties = candidates[0] if candidates else root.createElementNS(ns, "w:rPr")
+            if not candidates:
+                style.appendChild(properties)
+            shading = root.createElementNS(ns, "w:shd")
+            for key, value in {"val": "clear", "color": "auto", "fill": color}.items():
+                shading.setAttributeNS(ns, "w:" + key, value)
+            properties.appendChild(shading)
+        for entry in source.infolist():
+            target.writestr(entry, root.toxml(encoding="utf-8") if entry.filename == "word/styles.xml" else source.read(entry.filename))
+    return result.getvalue()

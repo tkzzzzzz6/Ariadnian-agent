@@ -1,10 +1,12 @@
 import type { JSONContent } from '@tiptap/core'
 import type { Node as PMNode } from '@tiptap/pm/model'
+import { BLOCK_ITEMS, type BlockKind } from './formatting'
 import { TextSelection, type EditorState } from '@tiptap/pm/state'
 import { closeHistory } from '@tiptap/pm/history'
 
-export type InsertKind = 'image' | 'table' | 'inlineMath' | 'blockMath'
+export type InsertKind = 'image' | 'table' | 'inlineMath' | 'blockMath' | BlockKind
 export const INSERT_ITEMS: { kind: InsertKind; label: string; keywords: string; description: string }[] = [
+  ...BLOCK_ITEMS,
   { kind: 'image', label: '图片', keywords: 'image picture tupian', description: '上传图片或粘贴截图' },
   { kind: 'table', label: '表格', keywords: 'table biaoge', description: '插入规则行列表格' },
   { kind: 'inlineMath', label: '行内公式', keywords: 'math formula gongshi', description: '公式与文字放在同一行' },

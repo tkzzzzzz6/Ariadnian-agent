@@ -8,7 +8,10 @@ import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { closeHistory } from '@tiptap/pm/history'
 import Suggestion, { exitSuggestion } from '@tiptap/suggestion'
 import { INSERT_ITEMS, parseTSV, pasteTable, richStructureError, tableJSON, type InsertKind } from '../../lib/richContent'
+import { hasMarkdown, markdownToContent } from '../../lib/markdown'
+import { formatAllowed } from '../../lib/formatting'
 import { brand } from '../../theme'
+import { mathInputRules, mathPasteTransaction, syntaxShortcutTransaction } from '../../lib/mathShortcuts'
 import 'katex/dist/katex.min.css'
 
 export interface RichActions {
@@ -20,6 +23,7 @@ export interface RichActions {
 }
 
 export function richExtensions(actions: RichActions) {
+  let plainPasteUntil = 0
   function ImageView({ node, selected, getPos, editor }: ReactNodeViewProps) {
     const [failed, setFailed] = useState(false)
     useEffect(() => setFailed(false), [node.attrs.src])
@@ -70,12 +74,13 @@ export function richExtensions(actions: RichActions) {
             })
             if (!props.items.length) menu.textContent = '没有匹配的插入操作'
             const rect = props.clientRect?.()
-            if (rect) { menu.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - 328))}px`; menu.style.top = `${Math.max(8, Math.min(rect.bottom + 5, window.innerHeight - 205))}px` }
+            if (rect) { menu.style.left = `${Math.max(8, Math.min(rect.left, window.innerWidth - 328))}px`; menu.style.top = `${Math.max(8, Math.min(rect.bottom + 5, window.innerHeight - Math.min(menu.scrollHeight + 8, 420)))}px` }
+            menu.querySelector('[aria-selected="true"]')?.scrollIntoView({block:'nearest'})
           }
           return {
             onStart: props => {
               active = 0; menu = document.createElement('div'); menu.setAttribute('role', 'listbox'); menu.setAttribute('aria-label', '插入内容')
-              menu.style.cssText = `position:fixed;z-index:1500;width:min(320px,calc(100vw - 16px));padding:4px;background:white;border:1px solid ${brand.line};border-radius:8px;box-shadow:0 4px 20px #0002`
+              menu.style.cssText = `position:fixed;z-index:1500;width:min(320px,calc(100vw - 16px));padding:4px;max-height:min(420px,calc(100vh - 16px));overflow-y:auto;background:white;border:1px solid ${brand.line};border-radius:8px;box-shadow:0 4px 20px #0002`
               document.body.appendChild(menu); draw(props)
             },
             onUpdate: props => { active = 0; draw(props) },
@@ -103,11 +108,14 @@ export function richExtensions(actions: RichActions) {
         return true
       },
       props: {
+        handleKeyDown: (_view,event) => { if((event.ctrlKey||event.metaKey)&&event.shiftKey&&event.key.toLowerCase()==='v') plainPasteUntil=Date.now()+1500; return false },
         handlePaste: (view, event) => {
+          if (plainPasteUntil > Date.now()) return false
           const files = [...(event.clipboardData?.files ?? [])]
           if (files.length) { if (files.length > 1) actions.warn('请一次插入一张图片'); else actions.upload(files[0]); return true }
           if (/<img\b/i.test(event.clipboardData?.getData('text/html') ?? '')) { actions.warn('请粘贴截图或上传本地图片，暂不支持外链图片'); return true }
           try {
+            if (!formatAllowed(view.state)) return false
             const rows = parseTSV(event.clipboardData?.getData('text/plain') ?? '')
             if (!rows) return false
             const inside = Array.from({ length: view.state.selection.$from.depth }, (_, i) => view.state.selection.$from.node(i + 1).type.name).includes('table')
@@ -130,6 +138,43 @@ export function richExtensions(actions: RichActions) {
       },
     })] },
   })
+  const MathShortcuts = Extension.create({
+    name: 'mathShortcuts',
+    addInputRules() { return mathInputRules(this.editor.schema.nodes.inlineMath, this.editor.schema.nodes.blockMath, this.editor.schema.nodes.codeBlock) },
+    addProseMirrorPlugins() { return [new Plugin({ props: {
+      handleKeyDown:(view,event)=>{
+        if(event.isComposing||event.ctrlKey||event.metaKey||event.altKey)return false
+        const result=syntaxShortcutTransaction(view.state,event.key)
+        if(!result)return false
+        view.dispatch(result.tr)
+        view.dispatch(closeHistory(view.state.tr).setMeta('addToHistory',false))
+        if(result.consume)event.preventDefault()
+        return result.consume
+      },
+      handlePaste: (view, event) => {
+        if (plainPasteUntil > Date.now()) { plainPasteUntil=0; return false }
+        if (!formatAllowed(view.state) || view.state.selection.$from.parent.type.spec.code || view.state.selection.$from.marks().some(m=>m.type.spec.code)) return false
+        // Let the normal HTML pipeline preserve existing rich formatting/nodes.
+        if (event.clipboardData?.getData('text/html')) return false
+        const text=event.clipboardData?.getData('text/plain') ?? ''
+        if (hasMarkdown(text)) {
+          const inCell=Array.from({length:view.state.selection.$from.depth},(_,i)=>view.state.selection.$from.node(i+1).type.name).some(n=>['tableCell','tableHeader'].includes(n))
+          if (inCell) return false
+          try {
+            const nodes=markdownToContent(text)
+            this.editor.chain().focus().command(({tr})=>{closeHistory(tr);return true}).insertContent(nodes).run()
+            view.dispatch(closeHistory(view.state.tr).setMeta('addToHistory',false))
+            return true
+          } catch(e:any) { actions.warn(e.message); return false }
+        }
+        const tr = mathPasteTransaction(view.state, text)
+        if (!tr) return false
+        view.dispatch(tr)
+        view.dispatch(closeHistory(view.state.tr).setMeta('addToHistory', false))
+        return true
+      },
+    } })] },
+  })
   return [ReportImage,
     Table.configure({ resizable: false, allowTableNodeSelection: false }), TableRow,
     TableCell.extend({ content: 'paragraph+' }), TableHeader.extend({ content: 'paragraph+' }),
@@ -138,5 +183,5 @@ export function richExtensions(actions: RichActions) {
     }),
     BlockMath.extend({ addInputRules: () => [], addPasteRules: () => [] }).configure({
       onClick: (_node, pos) => actions.editMath(pos), katexOptions: { trust: false, throwOnError: false, maxExpand: 1000 },
-    }), Slash, Clipboard]
+    }), Slash, Clipboard, MathShortcuts]
 }

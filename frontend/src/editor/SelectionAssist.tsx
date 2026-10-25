@@ -15,6 +15,7 @@ import { useApp } from '../lib/appContext'
 import { contentFromText, textBetween } from '../lib/editorText'
 import { brand } from '../theme'
 import { DiffView } from './DiffView'
+import { FormatActions } from './FormatActions'
 import { containsRich } from '../lib/richContent'
 
 const ACTIONS: { key: string; label: string; tip: string }[] = [
@@ -59,9 +60,9 @@ export function SelectionAssist({ editor }: { editor: Editor }) {
     const { from, to, empty } = editor.state.selection
     if (empty || sessionRef.current || !editor.isEditable || !editor.isFocused) return setMenu(null)
     const text = textBetween(editor, from, to)
-    if (text.trim().length < 2) return setMenu(null)
+    if (text.trim().length < 1) return setMenu(null)
     const r = rectOf(editor, from, to)
-    setMenu({ top: Math.max(8, r.top - 46), left: Math.max(8, Math.min(r.left, window.innerWidth - 560)) })
+    setMenu({ top: Math.max(8, r.top - 84), left: Math.max(8, Math.min(r.left, window.innerWidth - 600)) })
   }, [editor])
 
   useEffect(() => {
@@ -195,11 +196,12 @@ export function SelectionAssist({ editor }: { editor: Editor }) {
           onMouseDown={(e) => e.preventDefault()}
           sx={{
             position: 'fixed', top: menu.top, left: menu.left, zIndex: 1400, display: 'flex', alignItems: 'center',
-            px: 0.5, py: 0.25, border: `1px solid ${brand.line}`, borderRadius: 1.5,
+            flexWrap: 'wrap', width: 580, maxWidth: 'calc(100vw - 16px)', gap: 0.25, px: 0.5, py: 0.25, border: `1px solid ${brand.line}`, borderRadius: 1.5,
           }}
         >
+          <Box sx={{width:'100%',display:'flex',alignItems:'center',borderBottom:`1px solid ${brand.lineSoft}`,pb:0.25}}><FormatActions editor={editor}/><Typography sx={{fontSize:11,color:brand.faint,ml:1}}>文字格式</Typography></Box>
           <AutoFixHighIcon sx={{ fontSize: 16, color: brand.blue, mx: 0.75 }} />
-          <ButtonGroup variant="text" size="small" sx={{ '& .MuiButton-root': { px: 1, color: brand.ink, borderColor: 'transparent !important' } }}>
+          <ButtonGroup variant="text" size="small" sx={{ overflowX: 'auto', maxWidth: 'calc(100% - 40px)', '& .MuiButton-root': { flexShrink: 0, whiteSpace: 'nowrap', px: 1, color: brand.ink, borderColor: 'transparent !important' } }}>
             {ACTIONS.map((a) => (
               <Tooltip key={a.key} title={a.tip} describeChild>
                 <Button onClick={() => start(a.key)}>{a.label}</Button>
@@ -225,7 +227,7 @@ export function SelectionAssist({ editor }: { editor: Editor }) {
           data-selection-assist
           elevation={8}
           sx={{
-            position: 'fixed', top: panelPos.top, left: panelPos.left, zIndex: 1400, width: 600, maxHeight: 360,
+            position: 'fixed', top: panelPos.top, left: panelPos.left, zIndex: 1400, width: 600, maxWidth: 'calc(100vw - 16px)', maxHeight: 360,
             display: 'flex', flexDirection: 'column', border: `1px solid ${brand.line}`, borderTop: `3px solid ${brand.blue}`,
           }}
         >

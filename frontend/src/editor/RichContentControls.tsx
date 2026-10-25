@@ -9,6 +9,7 @@ import katex from 'katex'
 import { api } from '../lib/api'
 import { tableJSON, unsafeTex, type InsertKind } from '../lib/richContent'
 import { useApp } from '../lib/appContext'
+import { BLOCK_ITEMS, insertBlock, type BlockKind } from '../lib/formatting'
 import { brand } from '../theme'
 
 export interface RichContentHandle {
@@ -66,7 +67,12 @@ export const RichContentControls = forwardRef<RichContentHandle, { editor: Edito
   }
   const resetFields = () => { setError(''); setFile(null); setCaption(''); setAlt(''); setWidth('100'); setSource(''); setRows('3'); setCols('3'); setHeader(true) }
   const insert = (kind: InsertKind, range?: Range) => {
-    if (pending.current || !allowed(kind)) return
+    if (pending.current) return
+    if (BLOCK_ITEMS.some(i=>i.kind===kind)) {
+      if (!insertBlock(editor,kind as BlockKind,range)) notify('当前位置无法转换此内容，请选择普通正文或先保留草稿','info')
+      return
+    }
+    if (!allowed(kind)) return
     resetFields()
     target.current = { kind, from: range?.from ?? editor.state.selection.from, to: range?.to ?? editor.state.selection.to, edit: false }
     setMode(kind)
@@ -177,6 +183,7 @@ export const RichContentControls = forwardRef<RichContentHandle, { editor: Edito
         {(mode === 'inlineMath' || mode === 'blockMath') && <>
           <TextField autoFocus fullWidth multiline minRows={3} label="LaTeX 公式源码" value={source} onChange={e => setSource(e.target.value)} placeholder="例如：\frac{a}{b}" sx={{ mt: 1 }} slotProps={{ htmlInput: { maxLength: 8000 } }} />
           <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', mt: 1 }}>{templates.map(([label, code]) => <Button key={label} onClick={() => setSource(code)}>{label}</Button>)}</Box>
+          <Typography sx={{ mt: 1, fontSize: 12, color: brand.muted }}>正文快捷输入：$公式$ 为行内公式；独立段落中的 $$公式$$ 为独立公式。</Typography>
           <Typography sx={{ mt: 1, fontSize: 12, color: brand.muted }}>实时预览</Typography>
           {preview.error ? <Alert severity="warning" sx={{ overflowWrap: 'anywhere' }}>{preview.error}</Alert> : <Box sx={{ p: 2, bgcolor: brand.subtle, overflowX: 'auto', minHeight: 70 }} dangerouslySetInnerHTML={{ __html: preview.html }} />}
         </>}
