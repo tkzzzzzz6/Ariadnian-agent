@@ -10,6 +10,8 @@
   <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat&logo=python&logoColor=white" alt="Python"/>
 </p>
 
+**在线体验：[agent.tanke.asia](https://agent.tanke.asia/)** · [通过 Cloudflare Tunnel 开放公网访问](docs/cloudflare-tunnel.md)
+
 Ariadne 是一个帮你**快速走进一个陌生研究领域**的研究报告写作助手。它不替你写，而是把「读懂一个领域」拆成三步，让理解留在你自己脑子里：
 
 1. **AI 检索，搭出骨架**：输入感兴趣的主题，综述 Agent 检索论文、提炼要点，给出一份带出处的大纲。
@@ -229,6 +231,30 @@ MinerU 官方没有发布现成镜像，需要先按 [MinerU 的说明](https://
 其他细节：容器以普通用户（uid 10001）运行；默认限制 2 GB 内存、2 个 CPU；带健康检查（`/api/health`，不需要密码）。数据卷是 Docker 的命名卷 `ariadne_ariadne-data`，备份可以用 `docker run --rm -v ariadne_ariadne-data:/data -v $PWD:/backup busybox tar czf /backup/ariadne-data.tgz /data`。
 
 > 目前所有人共用**同一个文献库和论文列表**，适合自己或信任的小团队使用；也就是说，有密码的人都能看到、修改彼此的论文。多人账号和数据隔离在路线图里。Basic 认证的密码在 HTTP 下是明文传输的，公网部署请务必开 HTTPS。
+
+## 公网访问（Cloudflare Tunnel）
+
+当前体验站使用名为 `agent` 的 Cloudflare Tunnel，将 **`agent.tanke.asia` → `http://127.0.0.1:8000`**。应用仍在运行 Ariadne 的电脑上，访问者通过固定的 HTTPS 域名进入，无需处于同一局域网。
+
+已有隧道及配置时，日常演示只需打开两个 PowerShell 终端：
+
+```powershell
+# 终端 1：启动应用
+cd D:\code\Ariadnian-agent
+npm start
+```
+
+```powershell
+# 终端 2：启动现有 agent 隧道
+cd D:\code\Ariadnian-agent
+.\tools\cloudflared.exe tunnel run agent
+```
+
+首次设置见 [Cloudflare Tunnel 公网访问指南](docs/cloudflare-tunnel.md)：包括下载工具、授权和创建隧道、绑定 DNS、`config.yml` 示例、访问密码、验收及排错。其他人自行部署时，需要使用自己的域名、隧道 UUID 和凭据路径。
+
+本机启动方式在 `backend/.env` 中配置 `ARIA_PASSWORD` 和 `ARIA_LOCK_SETTINGS=1`，修改后重启应用；Docker 部署则使用 `deploy/ariadne.env`。电脑、应用和隧道都要保持运行，关机、休眠或停止任一服务都会中断访问。访问入口提供 HTTPS，不代表每位用户有独立的数据空间，也不保证中国大陆所有网络的访问质量。
+
+Agent、改写等功能依赖 SSE 流式输出，因此使用正式的命名隧道；[Cloudflare 官方说明](https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/#limitations)中的临时 Quick Tunnel 不支持 SSE，不适合作为完整体验入口。
 
 ## CI/CD
 
