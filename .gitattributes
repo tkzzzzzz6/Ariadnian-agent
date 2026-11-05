@@ -1,0 +1,10 @@
+# 统一换行符：仓库里的文本文件一律以 LF 保存，检出到 Windows 时也保持 LF，
+# 避免 CRLF / LF 混用导致整份文件都显示为改动。二进制文件由 Git 自动识别。
+* text=auto eol=lf
+
+# 这些是二进制文件，不做换行符转换
+*.png binary
+*.jpg binary
+*.ico binary
+*.pdf binary
+*.docx binary

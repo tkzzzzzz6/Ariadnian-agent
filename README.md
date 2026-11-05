@@ -372,6 +372,8 @@ backend/
   publicbench/        固定版本的独立公开长上下文基准、官方指标与全上下文/预算对照
   tests/
 package.json         一键命令（setup / dev / demo / start / test / eval / desktop）
+AGENTS.md            Agent 协作规则：本地数据、证据标注、Issue → PR 流程（CLAUDE.md 引用它）
+CONTRIBUTING.md      贡献指南：开发环境、测试、分支与 PR、label
 scripts/             启动脚本，只用 Node 内置模块，Windows / macOS / Linux 通用
 Dockerfile           网页版镜像（前端构建 + FastAPI），docker-compose.yml 一键部署
 deploy/              部署配置：ariadne.env.example、Caddyfile（HTTPS）
@@ -407,3 +409,7 @@ frontend/
 - [x] 阅读记录首期：手动阅读状态与读至页码、划线/笔记数、当前文档引用次数；对多次引用且未确认已读的文献提示，并区分未知与未读（[范围与验收](docs/issue-7-reading-progress.md)）
 - [ ] 成本控制：Agent 开始前估算 token 和费用并请你确认；检索改写、自查等粗活交给小模型
 - [ ] 可观测性：每次 Agent 运行的节点耗时、token、失败节点和输入输出做成 trace 页面，出问题时能复现（调用已按任务记录 thread_id）
+
+## 参与贡献
+
+所有改动都走 **Issue → PR**：先提 issue 写清楚要做什么和验收标准，在独立分支上实现，提交 PR 审阅后合并。开发环境、测试命令和提交约定见 [CONTRIBUTING.md](CONTRIBUTING.md)；Agent（Codex、Claude Code 等）的协作细则见 [AGENTS.md](AGENTS.md)。
