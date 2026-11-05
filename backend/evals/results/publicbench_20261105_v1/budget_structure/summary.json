@@ -1,0 +1,719 @@
+{
+  "protocol_version": "ariadne-publicbench-v1",
+  "mode": "live_public_benchmark",
+  "model": "openai/deepseek-flash",
+  "tier": "write",
+  "thinking": "disabled",
+  "strategy": "structure",
+  "context_tokens": 8192,
+  "tokenizer": {
+    "path": "D:\\code\\Ariadnian-agent\\backend\\longdoc_sources\\.cache\\public_v1\\tokenizer.json",
+    "artifact_sha256": {
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+    },
+    "add_special_tokens": false,
+    "network_downloads": false
+  },
+  "selected_ids": [
+    "longbench-v1:gov_report:e6030e255f6b8c70f7b3c9faf0320d4f7729b4eddacf727f",
+    "longbench-v1:gov_report:c325a40777333d0e9c79489ab40a509f45e261d2054ea3d7",
+    "longbench-v1:gov_report:490f14d293ac1c261a07bd50aeac2e86a9e76c726d7883a2",
+    "longbench-v1:gov_report:e71b3d540d7b0914ca85538c147331f50a7ebfa0d639cdbd",
+    "longbench-v1:gov_report:d83f991dcb7c0f3caf4d1f675d4c46e1345881cc66d25fff",
+    "longbench-v1:hotpotqa:ef245cc27251f559f3cd900c11c7bf9f303eec3c4b346802",
+    "longbench-v1:hotpotqa:4636487a1855382398fe1e54284cb7dd3d7b8d178ac4a476",
+    "longbench-v1:hotpotqa:21849142d27a4c8410bf8e8042f016054a0a0493e0e8b6e6",
+    "longbench-v1:hotpotqa:88b095fb93df1d962625daa1796a46ce4721c316b0ab819b",
+    "longbench-v1:hotpotqa:f1c0b9a9ec47ccda8ba4b1be0ca7083b961ba0f06b2a4df7",
+    "longbench-v1:multifieldqa_zh:8a39a9ba5708412747dd4e2f5c23183db601405f06cd1a2b",
+    "longbench-v1:multifieldqa_zh:ab232381202b5616f6d30abde4950fb649b32b0a36527b18",
+    "longbench-v1:multifieldqa_zh:4d2b8aaf0836b00cdac1b2793bb8b875a1095340e2ff21df",
+    "longbench-v1:multifieldqa_zh:18b84ab65f0d863cbe42164ae64d18fb2a240cc5dfb2b8be",
+    "longbench-v1:multifieldqa_zh:5e79fdf76e929e1ac2c2db3e4bd1b274de7b117a30104ae4",
+    "longbench-v1:passage_retrieval_en:40d1b9a01d766f2f30c52a4522a1f486a888156e7ec03da4",
+    "longbench-v1:passage_retrieval_en:d0db7a73ecaae05359aebc5f4ef6d5332a3c7ac4abec1172",
+    "longbench-v1:passage_retrieval_en:2f113c2299ebd2bf8712cfdacc3c9226457e410a058c51f5",
+    "longbench-v1:passage_retrieval_en:41cd55851459af4c3ca72a2c4949451777794cc162e3f4d8",
+    "longbench-v1:passage_retrieval_en:217dd9395f0fd6ad9ca2520ab3e1688a89832450c291b7ec",
+    "longbench-v1:qasper:3b3fcd0ee773501a21c5eb6159746fa29bdc3498329525e5",
+    "longbench-v1:qasper:9694f6b846301d401e87c4d0456a400913361db16c05503c",
+    "longbench-v1:qasper:51b9066a5f2845e2fdf0d1dcde6833f70ae49ed01aa306db",
+    "longbench-v1:qasper:6a78dbe4f8e30d35c13ea1f80e52df286f9e1f664f9c3d98",
+    "longbench-v1:qasper:89a4fd3fce6114c3401790c6f9b5243fda094597657f348a",
+    "longbench-v1:trec:58103d85701e317b63815561b012e302ba0d2b49f14e84e5",
+    "longbench-v1:trec:a057710d15bc87687798011aa9051bdbd1664b8b1936a524",
+    "longbench-v1:trec:2f004723bf6ff8379370d9ce35852a6694627bb15f4a3dfe",
+    "longbench-v1:trec:e05426365861e1d2e2a6b56027ca3af108e4944390b0d7db",
+    "longbench-v1:trec:53314ceb95fb9a488c88d21402e09c826d927f9c7402d0cf"
+  ],
+  "selected_records_sha256": "b29d8fac80f841707b637314008b71a69732a35afbab42e7d7b391325c1d8f0a",
+  "implementation_sha256": {
+    "publicbench/data.py": "d654717d7c0668912aebc3c6cb5bfc596d34d0e3199e68e3388643b807f0237e",
+    "publicbench/metrics.py": "f92e8a36a2ee6c723f4c96d1e28fd879afcbc1f753c2d8b8a16109ae0435d6c3",
+    "publicbench/runner.py": "f45a154444c05f8405c7b60d99ef38ecc4bc1e7117bf98900eb2e4ab6c40aa14",
+    "publicbench/__init__.py": "f83ffeb92c8ebb24d12fb4b3053e7ea769b68d0bcfd64e62ad44a5ba38d4aab2",
+    "publicbench/__main__.py": "89642438b48fb5584461285e91eb0a14c0c9317e34cd55c517493fee844f5b1c",
+    "longeval/live.py": "0b665a88f072f28115a25b79e01512d37442da924ec6166ef1b1db8a7384652e",
+    "longeval/core.py": "5dfd4209447e9a59c6b6060570808a0965f9cbecc857b74e9a63ed0772376800",
+    "longeval/tokenizer.py": "2e8e80921de3acd6e44ee5e9dd472dd8c80ad533563e3e18f3666413b726170d",
+    "app/llm.py": "152c3305dfe9820fa8d72718e998b8b798e02aea8d61af260c1a56c09a9bcb1b",
+    "app/config.py": "ae2f85f628221729a57734f0403254064b9f0eabd6a8f2fb9aa937daf620fe73"
+  },
+  "protocols": {
+    "modified_context_or_generation_budget_subset": 30
+  },
+  "metrics": {
+    "n": 30,
+    "successful": 30,
+    "failed_or_missing": 0,
+    "coverage": 1.0,
+    "mean_score": 0.5616969090138105,
+    "score_percent": 56.16969090138105,
+    "by_benchmark": {
+      "longbench-v1": {
+        "n": 30,
+        "successful": 30,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.5616969090138105,
+        "score_percent": 56.16969090138105,
+        "macro_task_score": 0.5616969090138105,
+        "macro_task_score_percent": 56.16969090138105
+      }
+    },
+    "by_task": {
+      "gov_report": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.32637193027333933,
+        "score_percent": 32.637193027333936
+      },
+      "hotpotqa": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.49333333333333335,
+        "score_percent": 49.333333333333336
+      },
+      "multifieldqa_zh": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.7333333333333333,
+        "score_percent": 73.33333333333333
+      },
+      "passage_retrieval_en": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 1.0,
+        "score_percent": 100.0
+      },
+      "qasper": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.6171428571428572,
+        "score_percent": 61.71428571428572
+      },
+      "trec": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.2,
+        "score_percent": 20.0
+      }
+    },
+    "by_domain": {
+      "gov_report": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.32637193027333933,
+        "score_percent": 32.637193027333936
+      },
+      "hotpotqa": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.49333333333333335,
+        "score_percent": 49.333333333333336
+      },
+      "multifieldqa_zh": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.7333333333333333,
+        "score_percent": 73.33333333333333
+      },
+      "passage_retrieval_en": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 1.0,
+        "score_percent": 100.0
+      },
+      "qasper": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.6171428571428572,
+        "score_percent": 61.71428571428572
+      },
+      "trec": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.2,
+        "score_percent": 20.0
+      }
+    },
+    "by_language": {
+      "en": {
+        "n": 25,
+        "successful": 25,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.527369624149906,
+        "score_percent": 52.73696241499059
+      },
+      "zh": {
+        "n": 5,
+        "successful": 5,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.7333333333333333,
+        "score_percent": 73.33333333333333
+      }
+    },
+    "metric_implementation": "adapted_official_LongBench_task_specific_v1_and_strict_v2",
+    "dependency_versions": {
+      "jieba": "0.42.1",
+      "rouge": "1.0.1",
+      "fuzzywuzzy": null
+    },
+    "failed_cases_score_zero": true,
+    "official_full_run": false,
+    "note": "Small-sample protocol; inspect task/benchmark scores. Cross-benchmark mean is intentionally omitted."
+  },
+  "usage": {
+    "prompt_tokens": 182730,
+    "prompt_tokens_known_calls": 30,
+    "completion_tokens": 2853,
+    "completion_tokens_known_calls": 30,
+    "total_tokens": 185583,
+    "total_tokens_known_calls": 30,
+    "cached_tokens": 140158,
+    "cached_tokens_known_calls": 30,
+    "reasoning_tokens": null,
+    "reasoning_tokens_known_calls": 0,
+    "cost_usd": null,
+    "cost_usd_known_calls": 0
+  },
+  "statuses": {
+    "ok": 30
+  },
+  "transport_calls_attempted": 30,
+  "official_full_dataset_run": false,
+  "limits": {
+    "max_output_tokens_override": null,
+    "timeout": 60.0,
+    "one_transport_call_per_case": true,
+    "transport_retries": 0,
+    "fallbacks": []
+  },
+  "limitations": [
+    "A source-fixed official prompt and metric on a sampled subset is not a full official leaderboard result.",
+    "Full-context cases exceeding the declared reference-token guard remain skipped in the denominator; original text is never silently truncated.",
+    "BM25/structure/truncate replace the original context and are a modified budget protocol, reported separately from full context.",
+    "Reference-tokenizer counts are not this API model's native tokens; provider usage is recorded separately.",
+    "The reference context budget excludes question/instruction/chat-template overhead; provider window errors are failures, not hidden truncations.",
+    "Benchmark references are never added to the request; official few-shot examples already in source context remain intact.",
+    "No evidence-span gold is assumed and no citation-JSON output is required.",
+    "No training or weight updates were performed."
+  ],
+  "created_utc": "2026-11-05T03:50:35.564865+00:00",
+  "input_file_sha256": "5832786e7d493808cb343cdd2df85f093d221e148739344ce936521e727fd70a",
+  "input_records_total": 42,
+  "selected_records": 30,
+  "sampling_manifest": {
+    "protocol_version": "ariadne-publicbench-v1",
+    "created_utc": "2026-11-05T03:47:13.589925+00:00",
+    "seed": 13,
+    "records": 42,
+    "selected_records_sha256": "5832786e7d493808cb343cdd2df85f093d221e148739344ce936521e727fd70a",
+    "source_manifests": [
+      {
+        "schema_version": "publicbench-sample-v1",
+        "benchmark": "longbench-v1",
+        "source": {
+          "url": "https://huggingface.co/datasets/zai-org/LongBench/resolve/5e628be450b7e67fb7ae6e201bd6d8f7056f7672/data.zip",
+          "sha256": "cb45b11a4133c6bc1d6a44b0f8e701335ff1e543195db1103472e575857f7f64",
+          "bytes": 113932529,
+          "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\raw\\data.zip"
+        },
+        "source_repository": "zai-org/LongBench",
+        "source_revision": "5e628be450b7e67fb7ae6e201bd6d8f7056f7672",
+        "source_card": {
+          "url": "https://huggingface.co/datasets/zai-org/LongBench/resolve/5e628be450b7e67fb7ae6e201bd6d8f7056f7672/README.md",
+          "sha256": "5c648f2d0f5f1953f9361fdd3dcda23077f103b4028599095a31f03b74fe6458",
+          "bytes": 16038,
+          "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\raw\\longbench-v1.README.md"
+        },
+        "dataset_card_license": null,
+        "license": "not-unified-upstream-per-task",
+        "official_code_repository": "THUDM/LongBench",
+        "official_code_revision": "2e00731f8d0bff23dc4325161044d0ed8af94c1e",
+        "official_code_license": "MIT",
+        "official_assets": {
+          "LICENSE": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LICENSE",
+            "sha256": "bf7f05f274d65931bdf14f060b6855f1c359b8424eb74fd3091d25de89d700c3",
+            "bytes": 1075,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LICENSE"
+          },
+          "LongBench/README.md": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/README.md",
+            "sha256": "1e16429a4c8ef3da202855b9e1242943d3987b09b64fc7b8a1c7725a445ab8d5",
+            "bytes": 16674,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\README.md"
+          },
+          "LongBench/metrics.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/metrics.py",
+            "sha256": "e22e2a2662e0f7e683137fa3541f64edb6a801e9138d16d2f3459a6ab9941323",
+            "bytes": 5190,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\metrics.py"
+          },
+          "LongBench/eval.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/eval.py",
+            "sha256": "1a3acfc25d9b053e9bb75c479f7e385d0cb9989f0f7115346b7d632655967721",
+            "bytes": 3776,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\eval.py"
+          },
+          "LongBench/config/dataset2prompt.json": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/config/dataset2prompt.json",
+            "sha256": "56d22ad4f382169c2b8a11ff4c982a4a1bea096c8152b0f0b85b64686b157c30",
+            "bytes": 5437,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\config\\dataset2prompt.json"
+          },
+          "LongBench/config/dataset2maxlen.json": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/config/dataset2maxlen.json",
+            "sha256": "72966b3c0933e214591637fb085798c5e687ebff4ddaab5d99bbc31120532022",
+            "bytes": 459,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\config\\dataset2maxlen.json"
+          },
+          "pred.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/pred.py",
+            "sha256": "ab63f77866a1c0dc770582bc3fe6b014c3b4be4667399b0ee267075780c6a138",
+            "bytes": 7229,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\pred.py"
+          },
+          "result.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/result.py",
+            "sha256": "b6675c1c0b72090c01e12c94d3b176c4991fe38ceed9a301d24d22b1997465bd",
+            "bytes": 1428,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\result.py"
+          },
+          "prompts/0shot.txt": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/prompts/0shot.txt",
+            "sha256": "68a162252bc9ff71d5d7abca3d69bb31aac3c35f832d657a2866f2018b8a6950",
+            "bytes": 262,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\prompts\\0shot.txt"
+          }
+        },
+        "implementation_sha256": {
+          "__init__.py": "f83ffeb92c8ebb24d12fb4b3053e7ea769b68d0bcfd64e62ad44a5ba38d4aab2",
+          "__main__.py": "89642438b48fb5584461285e91eb0a14c0c9317e34cd55c517493fee844f5b1c",
+          "data.py": "d654717d7c0668912aebc3c6cb5bfc596d34d0e3199e68e3388643b807f0237e",
+          "metrics.py": "f92e8a36a2ee6c723f4c96d1e28fd879afcbc1f753c2d8b8a16109ae0435d6c3",
+          "runner.py": "9704ff9c3f3e922b345c771e1736b15cb8ce693cea4ea1ce09d3219da60d45a9"
+        },
+        "seed": 13,
+        "n_per_group": 5,
+        "grouping": "official_task",
+        "requested_tasks_or_domains": [
+          "qasper",
+          "multifieldqa_zh",
+          "hotpotqa",
+          "gov_report",
+          "trec",
+          "passage_retrieval_en"
+        ],
+        "source_counts_before_filter": {
+          "gov_report": 200,
+          "hotpotqa": 200,
+          "multifieldqa_zh": 200,
+          "passage_retrieval_en": 200,
+          "qasper": 200,
+          "trec": 200
+        },
+        "eligible_counts": {
+          "gov_report": 200,
+          "hotpotqa": 200,
+          "multifieldqa_zh": 200,
+          "passage_retrieval_en": 200,
+          "qasper": 200,
+          "trec": 200
+        },
+        "length_rejected_counts": {},
+        "max_reference_context_tokens": 65536,
+        "reference_tokenizer": {
+          "path": "D:\\code\\Ariadnian-agent\\backend\\longdoc_sources\\.cache\\public_v1\\tokenizer.json",
+          "artifact_sha256": {
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+          },
+          "add_special_tokens": false,
+          "network_downloads": false
+        },
+        "selection_method": "fixed_seed_SHA256_rank_by_official_ID_after_preinference_eligibility",
+        "selection_frozen_before_inference": true,
+        "resampling_after_failure": false,
+        "selected_examples": 30,
+        "selected_ids": [
+          "longbench-v1:gov_report:e6030e255f6b8c70f7b3c9faf0320d4f7729b4eddacf727f",
+          "longbench-v1:gov_report:c325a40777333d0e9c79489ab40a509f45e261d2054ea3d7",
+          "longbench-v1:gov_report:490f14d293ac1c261a07bd50aeac2e86a9e76c726d7883a2",
+          "longbench-v1:gov_report:e71b3d540d7b0914ca85538c147331f50a7ebfa0d639cdbd",
+          "longbench-v1:gov_report:d83f991dcb7c0f3caf4d1f675d4c46e1345881cc66d25fff",
+          "longbench-v1:hotpotqa:ef245cc27251f559f3cd900c11c7bf9f303eec3c4b346802",
+          "longbench-v1:hotpotqa:4636487a1855382398fe1e54284cb7dd3d7b8d178ac4a476",
+          "longbench-v1:hotpotqa:21849142d27a4c8410bf8e8042f016054a0a0493e0e8b6e6",
+          "longbench-v1:hotpotqa:88b095fb93df1d962625daa1796a46ce4721c316b0ab819b",
+          "longbench-v1:hotpotqa:f1c0b9a9ec47ccda8ba4b1be0ca7083b961ba0f06b2a4df7",
+          "longbench-v1:multifieldqa_zh:8a39a9ba5708412747dd4e2f5c23183db601405f06cd1a2b",
+          "longbench-v1:multifieldqa_zh:ab232381202b5616f6d30abde4950fb649b32b0a36527b18",
+          "longbench-v1:multifieldqa_zh:4d2b8aaf0836b00cdac1b2793bb8b875a1095340e2ff21df",
+          "longbench-v1:multifieldqa_zh:18b84ab65f0d863cbe42164ae64d18fb2a240cc5dfb2b8be",
+          "longbench-v1:multifieldqa_zh:5e79fdf76e929e1ac2c2db3e4bd1b274de7b117a30104ae4",
+          "longbench-v1:passage_retrieval_en:40d1b9a01d766f2f30c52a4522a1f486a888156e7ec03da4",
+          "longbench-v1:passage_retrieval_en:d0db7a73ecaae05359aebc5f4ef6d5332a3c7ac4abec1172",
+          "longbench-v1:passage_retrieval_en:2f113c2299ebd2bf8712cfdacc3c9226457e410a058c51f5",
+          "longbench-v1:passage_retrieval_en:41cd55851459af4c3ca72a2c4949451777794cc162e3f4d8",
+          "longbench-v1:passage_retrieval_en:217dd9395f0fd6ad9ca2520ab3e1688a89832450c291b7ec",
+          "longbench-v1:qasper:3b3fcd0ee773501a21c5eb6159746fa29bdc3498329525e5",
+          "longbench-v1:qasper:9694f6b846301d401e87c4d0456a400913361db16c05503c",
+          "longbench-v1:qasper:51b9066a5f2845e2fdf0d1dcde6833f70ae49ed01aa306db",
+          "longbench-v1:qasper:6a78dbe4f8e30d35c13ea1f80e52df286f9e1f664f9c3d98",
+          "longbench-v1:qasper:89a4fd3fce6114c3401790c6f9b5243fda094597657f348a",
+          "longbench-v1:trec:58103d85701e317b63815561b012e302ba0d2b49f14e84e5",
+          "longbench-v1:trec:a057710d15bc87687798011aa9051bdbd1664b8b1936a524",
+          "longbench-v1:trec:2f004723bf6ff8379370d9ce35852a6694627bb15f4a3dfe",
+          "longbench-v1:trec:e05426365861e1d2e2a6b56027ca3af108e4944390b0d7db",
+          "longbench-v1:trec:53314ceb95fb9a488c88d21402e09c826d927f9c7402d0cf"
+        ],
+        "selected_official_ids": [
+          "e6030e255f6b8c70f7b3c9faf0320d4f7729b4eddacf727f",
+          "c325a40777333d0e9c79489ab40a509f45e261d2054ea3d7",
+          "490f14d293ac1c261a07bd50aeac2e86a9e76c726d7883a2",
+          "e71b3d540d7b0914ca85538c147331f50a7ebfa0d639cdbd",
+          "d83f991dcb7c0f3caf4d1f675d4c46e1345881cc66d25fff",
+          "ef245cc27251f559f3cd900c11c7bf9f303eec3c4b346802",
+          "4636487a1855382398fe1e54284cb7dd3d7b8d178ac4a476",
+          "21849142d27a4c8410bf8e8042f016054a0a0493e0e8b6e6",
+          "88b095fb93df1d962625daa1796a46ce4721c316b0ab819b",
+          "f1c0b9a9ec47ccda8ba4b1be0ca7083b961ba0f06b2a4df7",
+          "8a39a9ba5708412747dd4e2f5c23183db601405f06cd1a2b",
+          "ab232381202b5616f6d30abde4950fb649b32b0a36527b18",
+          "4d2b8aaf0836b00cdac1b2793bb8b875a1095340e2ff21df",
+          "18b84ab65f0d863cbe42164ae64d18fb2a240cc5dfb2b8be",
+          "5e79fdf76e929e1ac2c2db3e4bd1b274de7b117a30104ae4",
+          "40d1b9a01d766f2f30c52a4522a1f486a888156e7ec03da4",
+          "d0db7a73ecaae05359aebc5f4ef6d5332a3c7ac4abec1172",
+          "2f113c2299ebd2bf8712cfdacc3c9226457e410a058c51f5",
+          "41cd55851459af4c3ca72a2c4949451777794cc162e3f4d8",
+          "217dd9395f0fd6ad9ca2520ab3e1688a89832450c291b7ec",
+          "3b3fcd0ee773501a21c5eb6159746fa29bdc3498329525e5",
+          "9694f6b846301d401e87c4d0456a400913361db16c05503c",
+          "51b9066a5f2845e2fdf0d1dcde6833f70ae49ed01aa306db",
+          "6a78dbe4f8e30d35c13ea1f80e52df286f9e1f664f9c3d98",
+          "89a4fd3fce6114c3401790c6f9b5243fda094597657f348a",
+          "58103d85701e317b63815561b012e302ba0d2b49f14e84e5",
+          "a057710d15bc87687798011aa9051bdbd1664b8b1936a524",
+          "2f004723bf6ff8379370d9ce35852a6694627bb15f4a3dfe",
+          "e05426365861e1d2e2a6b56027ca3af108e4944390b0d7db",
+          "53314ceb95fb9a488c88d21402e09c826d927f9c7402d0cf"
+        ],
+        "selected_records_sha256": "d14d5d3d8a65f081ab57039a800bc31c9879d7bd492d8ad04d03a1848c00e7bd",
+        "remote_dataset_scripts_executed": false,
+        "source_python_files_executed": false,
+        "evaluation_only": true,
+        "official_full_run": false,
+        "protocol": "length-filtered_official-template_small-subset",
+        "limitations": [
+          "This fixed small subset is not a full official benchmark score.",
+          "LongBench v1 combines upstream tasks; repository MIT code license is not a blanket data license.",
+          "Source-provided lengths are not local/model input token counts.",
+          "Reference context eligibility excludes template, question, chat and output overhead.",
+          "No model calls, training, generated references or human-verification claims are made by fetching."
+        ],
+        "prompt_rendering": "v1 official format(context,input); v2 official pred.py strip and sequential replace($DOC$,$Q$,$C_A$,$C_B$,$C_C$,$C_D$)",
+        "placeholder_literal_audit": {
+          "source_context_counts_in_selected_examples": {
+            "$DOC$": 0,
+            "$Q$": 0,
+            "$C_A$": 0,
+            "$C_B$": 0,
+            "$C_C$": 0,
+            "$C_D$": 0
+          },
+          "potentially_affected_selected_ids": [],
+          "note": "Official v2 sequential replacement behavior is intentionally preserved, not corrected; original records remain intact."
+        },
+        "pre_inference_metadata_refresh": {
+          "created_utc": "2026-11-05T03:48:37.656045+00:00",
+          "method": "rebuild_selected_examples_from_unchanged_raw_record_with_current_pinned_assets",
+          "previous_selected_records_sha256": "d14d5d3d8a65f081ab57039a800bc31c9879d7bd492d8ad04d03a1848c00e7bd",
+          "previous_implementation_sha256": {
+            "__init__.py": "f83ffeb92c8ebb24d12fb4b3053e7ea769b68d0bcfd64e62ad44a5ba38d4aab2",
+            "__main__.py": "c740f5f5f103e5f94984bfabaa3c9d737c34a940b18ff69f9956c3ac89eed62b",
+            "data.py": "ced5e84a251b78b98df4a0bbb2cf855c54f3434ed217f5a5785d3ca925c75cb6",
+            "metrics.py": "f92e8a36a2ee6c723f4c96d1e28fd879afcbc1f753c2d8b8a16109ae0435d6c3",
+            "runner.py": "4ab6c059c7c6068435029c7d912056af14e43fadeb90733b1b4a9bff544ff175"
+          },
+          "selection_ids_and_order_unchanged": true,
+          "contexts_and_official_answers_unchanged": true,
+          "actual_rendered_prompts_unchanged": true,
+          "reference_context_tokens_preserved_without_recount": true,
+          "full_source_refetch_or_retokenization": false,
+          "model_calls": 0
+        }
+      },
+      {
+        "schema_version": "publicbench-sample-v1",
+        "benchmark": "longbench-v2",
+        "source": {
+          "url": "https://huggingface.co/datasets/zai-org/LongBench-v2/resolve/2b48e494f2c7a2f0af81aae178e05c7e1dde0fe9/data.json",
+          "sha256": "15d61c22d92c96900b3c4948b6aeea218d3214b676a65df48e7b8555604c7fe2",
+          "bytes": 465490535,
+          "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\raw\\data.json"
+        },
+        "source_repository": "zai-org/LongBench-v2",
+        "source_revision": "2b48e494f2c7a2f0af81aae178e05c7e1dde0fe9",
+        "source_card": {
+          "url": "https://huggingface.co/datasets/zai-org/LongBench-v2/resolve/2b48e494f2c7a2f0af81aae178e05c7e1dde0fe9/README.md",
+          "sha256": "9fdd1a3ebe86507253c124a18e9f78c898ce6341c12990af17ab868b8f600c35",
+          "bytes": 4626,
+          "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\raw\\longbench-v2.README.md"
+        },
+        "dataset_card_license": "apache-2.0",
+        "license": "Apache-2.0",
+        "official_code_repository": "THUDM/LongBench",
+        "official_code_revision": "2e00731f8d0bff23dc4325161044d0ed8af94c1e",
+        "official_code_license": "MIT",
+        "official_assets": {
+          "LICENSE": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LICENSE",
+            "sha256": "bf7f05f274d65931bdf14f060b6855f1c359b8424eb74fd3091d25de89d700c3",
+            "bytes": 1075,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LICENSE"
+          },
+          "LongBench/README.md": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/README.md",
+            "sha256": "1e16429a4c8ef3da202855b9e1242943d3987b09b64fc7b8a1c7725a445ab8d5",
+            "bytes": 16674,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\README.md"
+          },
+          "LongBench/metrics.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/metrics.py",
+            "sha256": "e22e2a2662e0f7e683137fa3541f64edb6a801e9138d16d2f3459a6ab9941323",
+            "bytes": 5190,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\metrics.py"
+          },
+          "LongBench/eval.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/eval.py",
+            "sha256": "1a3acfc25d9b053e9bb75c479f7e385d0cb9989f0f7115346b7d632655967721",
+            "bytes": 3776,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\eval.py"
+          },
+          "LongBench/config/dataset2prompt.json": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/config/dataset2prompt.json",
+            "sha256": "56d22ad4f382169c2b8a11ff4c982a4a1bea096c8152b0f0b85b64686b157c30",
+            "bytes": 5437,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\config\\dataset2prompt.json"
+          },
+          "LongBench/config/dataset2maxlen.json": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench/config/dataset2maxlen.json",
+            "sha256": "72966b3c0933e214591637fb085798c5e687ebff4ddaab5d99bbc31120532022",
+            "bytes": 459,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\LongBench\\config\\dataset2maxlen.json"
+          },
+          "pred.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/pred.py",
+            "sha256": "ab63f77866a1c0dc770582bc3fe6b014c3b4be4667399b0ee267075780c6a138",
+            "bytes": 7229,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\pred.py"
+          },
+          "result.py": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/result.py",
+            "sha256": "b6675c1c0b72090c01e12c94d3b176c4991fe38ceed9a301d24d22b1997465bd",
+            "bytes": 1428,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\result.py"
+          },
+          "prompts/0shot.txt": {
+            "url": "https://raw.githubusercontent.com/THUDM/LongBench/2e00731f8d0bff23dc4325161044d0ed8af94c1e/prompts/0shot.txt",
+            "sha256": "68a162252bc9ff71d5d7abca3d69bb31aac3c35f832d657a2866f2018b8a6950",
+            "bytes": 262,
+            "local_path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\official\\prompts\\0shot.txt"
+          }
+        },
+        "implementation_sha256": {
+          "__init__.py": "f83ffeb92c8ebb24d12fb4b3053e7ea769b68d0bcfd64e62ad44a5ba38d4aab2",
+          "__main__.py": "89642438b48fb5584461285e91eb0a14c0c9317e34cd55c517493fee844f5b1c",
+          "data.py": "d654717d7c0668912aebc3c6cb5bfc596d34d0e3199e68e3388643b807f0237e",
+          "metrics.py": "f92e8a36a2ee6c723f4c96d1e28fd879afcbc1f753c2d8b8a16109ae0435d6c3",
+          "runner.py": "9704ff9c3f3e922b345c771e1736b15cb8ce693cea4ea1ce09d3219da60d45a9"
+        },
+        "seed": 13,
+        "n_per_group": 2,
+        "grouping": "official_domain",
+        "requested_tasks_or_domains": null,
+        "source_counts_before_filter": {
+          "Code Repository Understanding": 50,
+          "Long In-context Learning": 81,
+          "Long Structured Data Understanding": 33,
+          "Long-dialogue History Understanding": 39,
+          "Multi-Document QA": 125,
+          "Single-Document QA": 175
+        },
+        "eligible_counts": {
+          "Code Repository Understanding": 6,
+          "Long In-context Learning": 13,
+          "Long Structured Data Understanding": 2,
+          "Long-dialogue History Understanding": 20,
+          "Multi-Document QA": 66,
+          "Single-Document QA": 77
+        },
+        "length_rejected_counts": {
+          "Code Repository Understanding": 44,
+          "Long In-context Learning": 68,
+          "Long Structured Data Understanding": 31,
+          "Long-dialogue History Understanding": 19,
+          "Multi-Document QA": 59,
+          "Single-Document QA": 98
+        },
+        "max_reference_context_tokens": 65536,
+        "reference_tokenizer": {
+          "path": "D:\\code\\Ariadnian-agent\\backend\\longdoc_sources\\.cache\\public_v1\\tokenizer.json",
+          "artifact_sha256": {
+            "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+          },
+          "add_special_tokens": false,
+          "network_downloads": false
+        },
+        "selection_method": "fixed_seed_SHA256_rank_by_official_ID_after_preinference_eligibility",
+        "selection_frozen_before_inference": true,
+        "resampling_after_failure": false,
+        "selected_examples": 12,
+        "selected_ids": [
+          "longbench-v2:longbench-v2:66ecf139821e116aacb1e0e1",
+          "longbench-v2:longbench-v2:6708a096bb02136c067d1789",
+          "longbench-v2:longbench-v2:66f578fa821e116aacb33c58",
+          "longbench-v2:longbench-v2:66f2aac2821e116aacb2a9de",
+          "longbench-v2:longbench-v2:67062a63bb02136c067cf5ac",
+          "longbench-v2:longbench-v2:66ed2c87821e116aacb1f149",
+          "longbench-v2:longbench-v2:671b13f5bb02136c067d4ee3",
+          "longbench-v2:longbench-v2:6719bce5bb02136c067d4447",
+          "longbench-v2:longbench-v2:66eecc45821e116aacb225c3",
+          "longbench-v2:longbench-v2:66f245cc821e116aacb28698",
+          "longbench-v2:longbench-v2:66ebd5125a08c7b9b35e0616",
+          "longbench-v2:longbench-v2:66fe8eb3bb02136c067ca35f"
+        ],
+        "selected_official_ids": [
+          "66ecf139821e116aacb1e0e1",
+          "6708a096bb02136c067d1789",
+          "66f578fa821e116aacb33c58",
+          "66f2aac2821e116aacb2a9de",
+          "67062a63bb02136c067cf5ac",
+          "66ed2c87821e116aacb1f149",
+          "671b13f5bb02136c067d4ee3",
+          "6719bce5bb02136c067d4447",
+          "66eecc45821e116aacb225c3",
+          "66f245cc821e116aacb28698",
+          "66ebd5125a08c7b9b35e0616",
+          "66fe8eb3bb02136c067ca35f"
+        ],
+        "selected_records_sha256": "fe21accb751688a6e52e82aad55f647b6703c827c8a52eb9bf41a2d590ca30ba",
+        "remote_dataset_scripts_executed": false,
+        "source_python_files_executed": false,
+        "evaluation_only": true,
+        "official_full_run": false,
+        "protocol": "length-filtered_official-template_small-subset",
+        "limitations": [
+          "This fixed small subset is not a full official benchmark score.",
+          "LongBench v1 combines upstream tasks; repository MIT code license is not a blanket data license.",
+          "Source-provided lengths are not local/model input token counts.",
+          "Reference context eligibility excludes template, question, chat and output overhead.",
+          "No model calls, training, generated references or human-verification claims are made by fetching."
+        ],
+        "prompt_rendering": "v1 official format(context,input); v2 official pred.py strip and sequential replace($DOC$,$Q$,$C_A$,$C_B$,$C_C$,$C_D$)",
+        "placeholder_literal_audit": {
+          "source_context_counts_in_selected_examples": {
+            "$DOC$": 0,
+            "$Q$": 0,
+            "$C_A$": 0,
+            "$C_B$": 0,
+            "$C_C$": 0,
+            "$C_D$": 0
+          },
+          "potentially_affected_selected_ids": [],
+          "note": "Official v2 sequential replacement behavior is intentionally preserved, not corrected; original records remain intact."
+        },
+        "pre_inference_metadata_refresh": {
+          "created_utc": "2026-11-05T03:48:37.656045+00:00",
+          "method": "rebuild_selected_examples_from_unchanged_raw_record_with_current_pinned_assets",
+          "previous_selected_records_sha256": "2423dc7e43e22464bc9a2d5840b6d9186eface2a5a48ad567abad2e6370d2520",
+          "previous_implementation_sha256": {
+            "__init__.py": "f83ffeb92c8ebb24d12fb4b3053e7ea769b68d0bcfd64e62ad44a5ba38d4aab2",
+            "__main__.py": "c740f5f5f103e5f94984bfabaa3c9d737c34a940b18ff69f9956c3ac89eed62b",
+            "data.py": "ced5e84a251b78b98df4a0bbb2cf855c54f3434ed217f5a5785d3ca925c75cb6",
+            "metrics.py": "f92e8a36a2ee6c723f4c96d1e28fd879afcbc1f753c2d8b8a16109ae0435d6c3",
+            "runner.py": "4ab6c059c7c6068435029c7d912056af14e43fadeb90733b1b4a9bff544ff175"
+          },
+          "selection_ids_and_order_unchanged": true,
+          "contexts_and_official_answers_unchanged": true,
+          "actual_rendered_prompts_unchanged": true,
+          "reference_context_tokens_preserved_without_recount": true,
+          "full_source_refetch_or_retokenization": false,
+          "model_calls": 0
+        }
+      }
+    ],
+    "official_full_dataset": false,
+    "length_filter_requested": 65536,
+    "reference_tokenizer": {
+      "path": "D:\\code\\Ariadnian-agent\\backend\\longdoc_sources\\.cache\\public_v1\\tokenizer.json",
+      "artifact_sha256": {
+        "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+      },
+      "add_special_tokens": false,
+      "network_downloads": false
+    },
+    "pre_inference_metadata_refresh": {
+      "created_utc": "2026-11-05T03:48:37.656045+00:00",
+      "previous_selected_records_file_sha256": "20685ceba1c99e65a5fab2540ffb84e022ddb77da5d0525cfd874ea87b543b34",
+      "previous_fetch_manifest_file_sha256": "2d326dbd09d269e73aac7954ad067c765d23bf34132829b4ba7e841aed8d6794",
+      "method": "metadata-only selected-record reconstruction; no resampling, tokenization, network fetch, or inference",
+      "records": 42,
+      "actual_prompt_changes": 0,
+      "all_ids_order_contexts_answers_and_reference_counts_unchanged": true
+    }
+  },
+  "sampling_manifest_sha256": "1a52f945572ff8b87cdceb0833d413ea67dbe3d479bfd1fed165216084064b55",
+  "storage_redaction": {
+    "applied_after_scoring": true,
+    "scope": "all outgoing prediction/metadata/example strings"
+  }
+}

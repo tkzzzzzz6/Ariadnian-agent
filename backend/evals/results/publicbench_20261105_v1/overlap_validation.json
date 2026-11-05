@@ -1,0 +1,25 @@
+{
+  "selected_records": 42,
+  "reference_token_context_limit": 65536,
+  "input_file_sha256": "5832786e7d493808cb343cdd2df85f093d221e148739344ce936521e727fd70a",
+  "normalization": "collapse whitespace and strip; SHA256 of whole context vs double-newline-joined original document blocks",
+  "comparisons": [
+    {
+      "corpus": "public_v1/documents.jsonl",
+      "documents": 493,
+      "normalized_whole_context_exact_matches": 0,
+      "corpus_sha256": "3e5e90c85bac958c90ee42b57fa3f8d2e056f5ccac1b4b00b6c6d6548c9af25d"
+    },
+    {
+      "corpus": "pipeline_v1/corpus.jsonl",
+      "documents": 350,
+      "normalized_whole_context_exact_matches": 0,
+      "corpus_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3"
+    }
+  ],
+  "limitations": [
+    "Exact whole-text overlap only; does not rule out excerpts, paraphrases or base-model pretraining contamination."
+  ],
+  "evaluation_only": true,
+  "trained_on_public_benchmarks": false
+}

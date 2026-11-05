@@ -3,7 +3,7 @@
 // 启动流程：申请单实例锁 → 显示「正在启动」窗口 → 分配空闲端口 → 启动 Python 后端
 // （打包版是 resources/server/ariadne-server，开发时用 uv 运行 desktop/server.py）
 // → 等 /api/health 就绪 → 加载页面。关闭窗口时结束后端，不留后台进程。
-const { app, BrowserWindow, Menu, shell } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron')
 const { spawn, spawnSync } = require('node:child_process')
 const fs = require('node:fs')
 const http = require('node:http')
@@ -31,6 +31,33 @@ const log = (...a) => {
 let win = null
 let server = null
 let quitting = false
+
+// 界面缩放：Chromium 自带的页面缩放（和浏览器里按 Ctrl + = 一样，弹出菜单、提示的位置都准确），
+// 记在数据目录里，下次启动沿用。设置 → 外观 通过 preload.js 调整，Ctrl + = / − / 0 也可以
+const ZOOM_FILE = path.join(DATA_DIR, 'electron', 'zoom.json')
+const ZOOM_STEPS = [0.8, 0.9, 1, 1.1, 1.25, 1.5]
+const clampZoom = (f) => (Number.isFinite(f) ? Math.min(1.5, Math.max(0.8, Math.round(f * 100) / 100)) : 1)
+let zoom = 1
+try {
+  zoom = clampZoom(JSON.parse(fs.readFileSync(ZOOM_FILE, 'utf8')).factor)
+} catch {
+  /* 第一次启动没有记录 */
+}
+function setZoom(f) {
+  zoom = clampZoom(f)
+  if (win && !win.isDestroyed()) {
+    win.webContents.setZoomFactor(zoom)
+    win.webContents.send('zoom:changed', zoom)
+  }
+  try {
+    fs.writeFileSync(ZOOM_FILE, JSON.stringify({ factor: zoom }))
+  } catch (e) {
+    log(`保存缩放失败：${e.message}`)
+  }
+  return zoom
+}
+ipcMain.handle('zoom:get', () => zoom)
+ipcMain.handle('zoom:set', (_e, f) => setZoom(Number(f)))
 
 if (!app.requestSingleInstanceLock()) {
   app.quit() // 已经有一个在运行：交给它把窗口调到前台
@@ -131,7 +158,21 @@ async function main() {
     icon: path.join(__dirname, 'build', 'icon.png'),
     backgroundColor: '#ffffff',
     show: false,
-    webPreferences: { contextIsolation: true, sandbox: true, spellcheck: false },
+    webPreferences: { contextIsolation: true, sandbox: true, spellcheck: false, preload: path.join(__dirname, 'preload.js') },
+  })
+  // 每次加载页面（启动、刷新）都套用保存的缩放
+  win.webContents.on('did-finish-load', () => win && win.webContents.setZoomFactor(zoom))
+  // Ctrl + = / − / 0 缩放界面（Windows / Linux 没有菜单栏，这些快捷键要自己处理）
+  win.webContents.on('before-input-event', (e, input) => {
+    if (input.type !== 'keyDown' || !(input.control || input.meta) || input.alt) return
+    const k = input.key
+    if (!['=', '+', '-', '_', '0'].includes(k)) return
+    e.preventDefault()
+    if (k === '0') return setZoom(1)
+    const down = k === '-' || k === '_'
+    // 下一档：比当前大（小）的第一档；已经到头就不变
+    const next = down ? [...ZOOM_STEPS].reverse().find((z) => z < zoom - 0.001) : ZOOM_STEPS.find((z) => z > zoom + 0.001)
+    setZoom(next ?? zoom)
   })
   win.once('ready-to-show', () => win.show())
   win.on('closed', () => {

@@ -22,6 +22,8 @@ from pathlib import Path
 
 import httpx
 
+from .provenance import file_record, stable_id
+
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
 CACHE = HERE / ".cache"
@@ -85,6 +87,8 @@ class Bundle:
     zh_claims: dict[str, str] = field(default_factory=dict)  # 英文论断 → 中文译文
     citeworthy: list[dict] = field(default_factory=list)
     source: str = "scifact"
+    source_files: list[dict] = field(default_factory=list)
+    reviewed_negatives: list[dict] = field(default_factory=list)
 
     @property
     def passages(self) -> list[str]:
@@ -101,14 +105,59 @@ def _jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def load(source: str = "scifact") -> Bundle:
+def _cache_path(name: str) -> Path:
+    return CACHE / Path(SOURCES[name]).name.replace(".", f"_{name}.", 1)
+
+
+def load_reviewed_negatives(path: Path) -> list[dict]:
+    """Load explicitly human-reviewed negative pairs, never promote draft labels.
+
+    Unreviewed, ambiguous and supported rows are retained in the file but not
+    scored. An asserted negative without the required review metadata is an error.
+    Stable IDs bind the review to the exact claim + evidence content.
+    """
+    rows = _jsonl(path)
+    out: dict[str, dict] = {}
+    seen: dict[str, str | None] = {}
+    for line, row in enumerate(rows, 1):
+        if not isinstance(row, dict):
+            raise ValueError(f"reviewed negatives line {line}: expected an object")
+        label = row.get("label")
+        if label not in (None, "", "not_supported", "supports", "ambiguous"):
+            raise ValueError(f"reviewed negatives line {line}: invalid label")
+        if label in (None, ""):
+            continue
+        claim, evidence = row.get("claim"), row.get("evidence")
+        if not isinstance(claim, str) or not claim.strip() or not isinstance(evidence, str) or not evidence.strip():
+            raise ValueError(f"reviewed negatives line {line}: claim and evidence are required")
+        cid = stable_id("negative", claim, evidence)
+        if row.get("candidate_id") != cid:
+            raise ValueError(f"reviewed negatives line {line}: candidate_id does not match content")
+        if cid in seen and seen[cid] != label:
+            raise ValueError(f"reviewed negatives line {line}: conflicting labels for {cid}")
+        seen[cid] = label
+        if label != "not_supported":
+            continue
+        if (row.get("review_status") != "human_reviewed" or not isinstance(row.get("reviewer"), str)
+                or not row["reviewer"].strip()):
+            raise ValueError(f"reviewed negatives line {line}: not_supported requires human_reviewed and reviewer")
+        out[cid] = {"candidate_id": cid, "claim": claim, "evidence": evidence, "label": label,
+                    "review_status": "human_reviewed", "reviewer": str(row["reviewer"]),
+                    "review_note": str(row.get("review_note") or ""),
+                    "independent_review": row.get("independent_review") is True}
+    return list(out.values())
+
+
+def load(source: str = "scifact", reviewed_negatives: Path | None = None) -> Bundle:
     zh = {d["claim_en"]: d["claim_zh"] for d in _jsonl(DATA / "zh_claims.jsonl")}
     cw = _jsonl(DATA / "zh_citeworthy.jsonl")
     if source == "fixture":
         rows = _jsonl(DATA / "fixture.jsonl")
         pairs = [Pair(r["claim"], r["evidence"], r["supported"]) for r in rows]
         zh_fix = {r["claim"]: r["claim_zh"] for r in rows if r.get("claim_zh")}
-        return Bundle(pairs, [], zh_fix, cw[:3], source)
+        bundle = Bundle(pairs, [], zh_fix, cw[:3], source,
+                        [file_record(DATA / "fixture.jsonl"), file_record(DATA / "zh_citeworthy.jsonl")])
+        return _with_reviews(bundle, reviewed_negatives)
 
     seen: set[tuple[str, str]] = set()
     pairs: list[Pair] = []
@@ -124,7 +173,20 @@ def load(source: str = "scifact") -> Bundle:
         if line.strip():
             distractors.append(" ".join(json.loads(line).get("evidence") or []).strip())
     distractors = [d for d in dict.fromkeys(distractors) if len(d) > 40]
-    return Bundle(pairs, distractors, zh, cw, source)
+    files = [file_record(_cache_path(name), origin=url) for name, url in SOURCES.items()]
+    files += [file_record(DATA / name) for name in ("zh_claims.jsonl", "zh_citeworthy.jsonl")]
+    return _with_reviews(Bundle(pairs, distractors, zh, cw, source, files), reviewed_negatives)
+
+
+def _with_reviews(bundle: Bundle, path: Path | None) -> Bundle:
+    if path is not None:
+        bundle.reviewed_negatives = load_reviewed_negatives(path)
+        positives = {(p.claim, p.evidence) for p in bundle.pairs if p.supported}
+        if any((r["claim"], r["evidence"]) in positives for r in bundle.reviewed_negatives):
+            raise ValueError("reviewed negative conflicts with a dataset positive")
+        bundle.source_files.append(file_record(path, name="reviewed_negatives"))
+        bundle.distractors = list(dict.fromkeys(bundle.distractors + [r["evidence"] for r in bundle.reviewed_negatives]))
+    return bundle
 
 
 def sample(items: list, limit: int | None, seed: int = 13) -> list:

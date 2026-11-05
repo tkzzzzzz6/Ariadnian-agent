@@ -1,0 +1,131 @@
+{
+  "date": "2026-11-05",
+  "timezone": "Asia/Shanghai",
+  "scope": "P0-P2; no CPT",
+  "raw_documents": 493,
+  "raw_reference_tokens": 5237486,
+  "processed_documents": 350,
+  "processed_reference_tokens": 3153588,
+  "corpus_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "snapshot_and_formal_corpus_identical": true,
+  "controlled_tasks": 540,
+  "extractive_qa_candidates": 60,
+  "natural_qa_candidates": 6,
+  "independent_human_verified_tasks": 0,
+  "semantic_audit": {
+    "method": "ai_assisted",
+    "reviewed": 6,
+    "initial_pass": 3,
+    "initial_concern": 3,
+    "revised": 3
+  },
+  "model_inference_usage": {
+    "prompt_tokens": 415361,
+    "completion_tokens": 22198,
+    "total_tokens": 437559,
+    "cached_tokens": 100096,
+    "completed_calls": 36,
+    "successful_predictions": 35
+  },
+  "successful_generation_usage": {
+    "prompt_tokens": 18648,
+    "prompt_tokens_known_calls": 6,
+    "completion_tokens": 5930,
+    "completion_tokens_known_calls": 6,
+    "total_tokens": 24578,
+    "total_tokens_known_calls": 6,
+    "cached_tokens": 1280,
+    "cached_tokens_known_calls": 6,
+    "cost_usd": null,
+    "cost_usd_known_calls": 0
+  },
+  "interrupted_generation_usage": {
+    "prompt_tokens": 11959,
+    "completion_tokens": 16384,
+    "total_tokens": 28343
+  },
+  "unreported_interrupted_request_usage": "unknown",
+  "cost_usd": null,
+  "tests": {
+    "command": "uv run pytest -q --tb=short",
+    "passed": 239,
+    "seconds": 98.22
+  },
+  "artifacts": {
+    "source_manifest.json": {
+      "sha256": "1789fb98bddde363bf3c0ce879385d39d5f84bcf0d4c2070909acfde479c0f3d",
+      "bytes": 1924
+    },
+    "corpus_manifest.json": {
+      "sha256": "745f07c2cd75bc9f01cb1c24a97d5fd6a8e9e6102a1de0f39880b88875c7c98e",
+      "bytes": 8874
+    },
+    "assessment.json": {
+      "sha256": "543c809aeeed5bbaa329fac9dfa8f13dc03b610e175bd514f7ae482b0707905e",
+      "bytes": 5862
+    },
+    "mixing_report.json": {
+      "sha256": "5b005ae047a32281aaa74d3fb1e0bfc36756fcffed8b81102421ccacfd433a42",
+      "bytes": 5481
+    },
+    "study_manifest.json": {
+      "sha256": "930cbb5d6106060508d98fb0836a8806d67f548a2279a491c432d3fd8050ab4d",
+      "bytes": 655
+    },
+    "generation_manifest.json": {
+      "sha256": "2e510d4dbd4558cc6ab3feede68b86f723a32690b38a715be8274aa11210a567",
+      "bytes": 3270
+    },
+    "interrupted_generation_manifest.json": {
+      "sha256": "991d6de853db23df3b424532d2d047be4528aff06fa163db6b191627bb5a6be7",
+      "bytes": 758
+    },
+    "controlled_diagnostics.jsonl": {
+      "sha256": "21b4be67788430cd036350f3963d552c108b29a0abdf345dd734785f1b1ca6ef",
+      "bytes": 636097
+    },
+    "controlled_dedup_cases.jsonl": {
+      "sha256": "ef9a2e815215e6aa99e97ad5c8a536bfdb43354783609367b71986db9f197773",
+      "bytes": 39544
+    },
+    "controlled_quality_cases.jsonl": {
+      "sha256": "d20ddec3f9e0dd53c3d529b1e50d47d5e76c6663761ab2b2325ec046e3d7aac0",
+      "bytes": 16740
+    },
+    "extractive_qa_candidates.jsonl": {
+      "sha256": "2b85c22921d0ebf13391b4896430d61c254c945c00c01312c68ab239c9a89be2",
+      "bytes": 591235
+    },
+    "natural_qa_original.jsonl": {
+      "sha256": "2971887596fc3ef4f71b315d30d1f2e6a0644d32ddf893de8244e577bc5e9d94",
+      "bytes": 47635
+    },
+    "natural_qa_corrected.jsonl": {
+      "sha256": "eeb734642a3c609e3497238eb83a98096503bcaff774575d04e93e12ad75a847",
+      "bytes": 43597
+    },
+    "ai_semantic_review.jsonl": {
+      "sha256": "203c360fe4573da8bd64f5bd564988f30ffb7f3ff84f65c075d802da19a1da21",
+      "bytes": 15445
+    },
+    "structure_review_queue.jsonl": {
+      "sha256": "8d4b7051d5ec048b8490259891b0b3e68dc06243e196aa7bc87f0acb981c08bc",
+      "bytes": 50886
+    },
+    "generation_calls.jsonl": {
+      "sha256": "993f7f6fffa7730b042b2efbb0029e9b4722873746cee26f0473a7917b7aa9b3",
+      "bytes": 71855
+    },
+    "interrupted_generation_calls.jsonl": {
+      "sha256": "7d50c8c6a98508b98643489c311b666430f4edbcba37df6b5da1489222223800",
+      "bytes": 30771
+    }
+  },
+  "limitations": [
+    "Controlled quotation-location scores are not reasoning accuracy.",
+    "All natural QA still requires human review.",
+    "Heuristic filtering is uncalibrated and changes domain composition.",
+    "Reference tokenizer counts are not API-native tokens.",
+    "No CPT, weights update or training benefit has been measured."
+  ]
+}

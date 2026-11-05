@@ -1,5 +1,9 @@
 :root {
+  /* 正文外观：默认值，设置 → 外观 会在 <html> 上覆盖（lib/appearance.ts） */
   --paper-font: Roboto, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans CJK SC', Arial, sans-serif;
+  --paper-size: 16px;
+  --paper-line: 1.9;
+  --paper-indent: 0;
   --blue: #0078d4;
   --line: rgba(0, 0, 0, 0.1);
   --sash-hover-size: 2px;
@@ -25,8 +29,8 @@ body,
 .paper-body {
   outline: none;
   font-family: var(--paper-font);
-  font-size: 16px;
-  line-height: 1.9;
+  font-size: var(--paper-size);
+  line-height: var(--paper-line);
   color: #333;
   min-height: 360px;
 }
@@ -35,7 +39,7 @@ body,
 .paper-body .report-image.is-selected { outline: 2px solid #8764b8; outline-offset: 4px; }
 .paper-body .report-image figcaption { font-size: 13px; color: #616161; margin-top: 8px; line-height: 1.5; }
 .paper-body .rich-image-edit { font: inherit; font-size: 12px; border: 1px solid #ddd; background: white; color: #0078d4; border-radius: 4px; padding: 4px 8px; cursor: pointer; }
-.paper-body table { border-collapse: collapse; table-layout: fixed; width: 100%; margin: 1em 0; font-size: 14px; }
+.paper-body table { border-collapse: collapse; table-layout: fixed; width: 100%; margin: 1em 0; font-size: 0.875em; }
 .paper-body td, .paper-body th { border: 1px solid #bdbdbd; padding: 7px 9px; vertical-align: top; min-width: 35px; position: relative; overflow-wrap: anywhere; }
 .paper-body th { background: #f3f5f7; font-weight: 600; }
 .paper-body td p, .paper-body th p { margin: 0; text-indent: 0; }
@@ -46,6 +50,13 @@ body,
 .paper-body .tiptap-mathematics-render[data-type="block-math"] { overflow-x: auto; margin: 1em 0; padding: 8px; }
 .paper-body p {
   margin: 0 0 1em;
+  text-indent: var(--paper-indent);
+}
+/* 段首缩进只给正文段落：列表、引用块、图注、表格里不缩进 */
+.paper-body li p,
+.paper-body blockquote p,
+.paper-body figcaption {
+  text-indent: 0;
 }
 .paper-body h1,
 .paper-body h2,
@@ -55,15 +66,15 @@ body,
   font-weight: 700;
 }
 .paper-body h1 {
-  font-size: 22px;
+  font-size: 1.375em;
   margin: 1.5em 0 0.55em;
 }
 .paper-body h2 {
-  font-size: 18px;
+  font-size: 1.125em;
   margin: 1.3em 0 0.5em;
 }
 .paper-body h3 {
-  font-size: 16px;
+  font-size: 1em;
   margin: 1.1em 0 0.4em;
 }
 .paper-body > :first-child {
@@ -92,7 +103,8 @@ body,
   color: #b0b0b0;
   pointer-events: none;
   height: 0;
-  font-size: 15px;
+  font-size: 0.94em;
+  text-indent: 0;
 }
 
 /* ---------- 引用标记 ---------- */
@@ -298,3 +310,11 @@ body,
 .report-code .hljs-title,.answer-code .hljs-title,.report-code .hljs-built_in,.answer-code .hljs-built_in { color:#8250df; }
 .report-code .hljs-type,.answer-code .hljs-type,.report-code .hljs-tag,.answer-code .hljs-tag { color:#116329; }
 .report-code .hljs-meta,.answer-code .hljs-meta { color:#953800; }
+
+/* ---------- 专注模式：编辑时淡化光标所在段落以外的内容 ---------- */
+.focus-mode .paper-body:focus > * {
+  transition: opacity 0.2s;
+}
+.focus-mode .paper-body:focus > :not(.has-focus) {
+  opacity: 0.32;
+}

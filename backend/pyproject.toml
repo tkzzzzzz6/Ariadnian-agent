@@ -21,6 +21,7 @@ dependencies = [
     "numpy>=1.26",
     "pypandoc-binary>=1.13",  # 自带 pandoc，用于 Word 导出
     "pillow>=11,<13",
+    "rouge>=1.0.1,<2",
 ]
 
 [dependency-groups]

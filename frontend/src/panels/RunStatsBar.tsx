@@ -2,6 +2,7 @@
  * Agent 面板底部的运行统计条：步数 / 调用次数 / 输出速度 · 总 token / 缓存命中 · 上下文占用。
  * 运行中实时刷新（耗时在本地继续走），历史任务显示保存下来的统计。悬停每一项看明细。
  */
+import { useAppearance } from '../lib/appearance'
 import { useEffect, useState, type ReactNode } from 'react'
 import { Box, Button, CircularProgress, Tooltip, Typography } from '@mui/material'
 import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined'
@@ -50,6 +51,7 @@ function Item({ icon, children, tip }: { icon?: ReactNode; children: ReactNode; 
 
 export function RunStatsBar() {
   const { threadId, stats: s, running, at, step, status, warning } = useRunStats()
+  const look = useAppearance()
   const [details, setDetails] = useState(false)
   const [now, setNow] = useState(Date.now())
   useEffect(() => {
@@ -57,7 +59,7 @@ export function RunStatsBar() {
     const t = setInterval(() => setNow(Date.now()), 1000)
     return () => clearInterval(t)
   }, [running])
-  if (!s) return null
+  if (!s || !look.runStats) return null
 
   const elapsed = s.elapsed_ms + (running ? Math.max(0, now - at) : 0)
   const speed = running && s.live_tok_s ? s.live_tok_s : s.tok_s

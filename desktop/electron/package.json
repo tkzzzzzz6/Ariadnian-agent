@@ -25,6 +25,7 @@
     },
     "files": [
       "main.js",
+      "preload.js",
       "loading.html",
       "build/icon.png"
     ],

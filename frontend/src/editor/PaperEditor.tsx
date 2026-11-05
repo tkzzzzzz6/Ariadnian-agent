@@ -1,3 +1,5 @@
+import { PAPER_WIDTH, useAppearance } from '../lib/appearance'
+import { FocusParagraph } from './extensions/FocusParagraph'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react'
 import Highlight from '@tiptap/extension-highlight'
@@ -78,7 +80,7 @@ function Counts({ editor }: { editor: any }) {
 }
 
 /** 根据可用宽度决定：目录（完整 / 短横线 / 隐藏）、页边批注列宽度、正文宽度 */
-function useColumns(el: HTMLElement | null) {
+function useColumns(el: HTMLElement | null, maxPaper = 760) {
   const [w, setW] = useState(1200)
   useEffect(() => {
     if (!el) return
@@ -92,7 +94,7 @@ function useColumns(el: HTMLElement | null) {
   const marginW = w >= 960 ? (w >= 1240 ? 300 : 260) : 0
   const gap = w >= 1240 ? 48 : w >= 760 ? 32 : 16
   // 分屏对照时正文区可能只有 500px 左右：收窄边距，正文列最少 300px
-  const paperW = Math.max(300, Math.min(760, w - tocW - marginW - gap * 2 - (w >= 760 ? 48 : 20)))
+  const paperW = Math.max(300, Math.min(maxPaper, w - tocW - marginW - gap * 2 - (w >= 760 ? 48 : 20)))
   return { toc, tocW, marginW, paperW, gap }
 }
 
@@ -118,7 +120,8 @@ export function PaperEditor({ docId }: { docId: string }) {
   const saveTimer = useRef<number | undefined>(undefined)
   const titleTimer = useRef<number | undefined>(undefined)
   const loadingDoc = useRef(false)
-  const cols = useColumns(scrollEl)
+  const look = useAppearance()
+  const cols = useColumns(scrollEl, PAPER_WIDTH[look.width].px)
 
   const editor = useEditor({
     extensions: [
@@ -133,6 +136,7 @@ export function PaperEditor({ docId }: { docId: string }) {
       GhostText,
       ReviewMarks,
       DraftParagraph,
+      FocusParagraph,
       ...richExtensions({
         insert: (kind, range) => rich.current?.insert(kind, range), upload: (file, pos) => rich.current?.upload(file, pos),
         editImage: pos => rich.current?.editImage(pos), editMath: pos => rich.current?.editMath(pos),
@@ -187,7 +191,7 @@ export function PaperEditor({ docId }: { docId: string }) {
     return () => setEditor(null)
   }, [editor, setEditor])
 
-  const { loading } = useGhostCompletion(editor, copilot, docTitle)
+  const { loading } = useGhostCompletion(editor, copilot, docTitle, look.ghostDelay)
   const rv = useMarginReview(editor, docId, docTitle, review && loaded)
   const crit = useCritiqueNotes(editor)
   // 审稿意见不受「页边建议」开关影响：它是你主动发起的
@@ -348,7 +352,7 @@ export function PaperEditor({ docId }: { docId: string }) {
               placeholder="论文标题"
               multiline
               fullWidth
-              sx={{ fontSize: 30, fontWeight: 700, lineHeight: 1.3, color: brand.ink, mb: 1.5, p: 0, letterSpacing: -0.2 }}
+              sx={{ fontFamily: 'var(--paper-font)', fontSize: 'calc(var(--paper-size) * 1.875)', fontWeight: 700, lineHeight: 1.3, color: brand.ink, mb: 1.5, p: 0, letterSpacing: -0.2 }}
             />
             {!loaded && <CircularProgress size={18} sx={{ my: 3 }} />}
             <EditorContent editor={editor} />
@@ -358,6 +362,8 @@ export function PaperEditor({ docId }: { docId: string }) {
             <Box sx={{ pt: '28px', pb: 12 }}>
               <MarginNotes
                 editor={editor}
+                expandAll={look.marginMode === 'expanded'}
+                relayoutKey={`${look.fontSize}/${look.lineHeight}/${look.fontFamily}/${look.width}/${look.indent}`}
                 notes={cards}
                 active={active}
                 setActive={setActive}

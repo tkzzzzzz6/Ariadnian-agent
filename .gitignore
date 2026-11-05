@@ -253,3 +253,46 @@ docs/posters/
 docs/presentations/
 docs/design-assets/
 docs/ariadne-tables/
+
+# Downloaded/processed assessment data stay on this computer. These exclusions
+# affect Git staging only; agents can read the exact paths or use rg --no-ignore.
+# Keep source catalogs/locks, code, small fixtures and aggregate reports in Git.
+/backend/longdoc_sources/.cache/
+/backend/publicbench/.cache/
+
+# P0 v2 result JSON embeds individual claims/evidence. Its timestamp format is
+# seconds + microseconds; the six older, tracked aggregate JSONs are unaffected.
+/backend/evals/results/????????-??????-??????_*.json
+!/backend/evals/results/????????-??????-??????_*.summary.json
+/backend/evals/results/**/*.negative-candidates.jsonl
+
+# Long-document and public-benchmark records, exported tasks and predictions.
+# Scope the rules to generated results; backend/evals/data small fixtures remain
+# available for offline tests in a fresh checkout.
+/backend/evals/results/longdoc_*/**/*.jsonl
+/backend/evals/results/longdoc_*/**/*.jsonl.gz
+/backend/evals/results/longdoc_*/**/*.parquet
+/backend/evals/results/longdoc_*/**/*.arrow
+/backend/evals/results/longdoc_*/**/*.zip
+/backend/evals/results/longdoc_*/**/*.json
+/backend/evals/results/publicbench_*/**/*.jsonl
+/backend/evals/results/publicbench_*/**/*.jsonl.gz
+/backend/evals/results/publicbench_*/**/*.parquet
+/backend/evals/results/publicbench_*/**/*.arrow
+/backend/evals/results/publicbench_*/**/*.zip
+/backend/evals/results/publicbench_*/**/*.json
+
+# Small manifests, aggregate metrics, source locks and validation summaries are
+# reviewable provenance, not raw dataset exports. No parent directory is ignored.
+!/backend/evals/results/longdoc_*/**/*manifest.json
+!/backend/evals/results/longdoc_*/**/*summary.json
+!/backend/evals/results/longdoc_*/**/*report.json
+!/backend/evals/results/longdoc_*/**/*validation.json
+!/backend/evals/results/longdoc_*/**/*.lock.json
+!/backend/evals/results/longdoc_*/**/assessment.json
+!/backend/evals/results/longdoc_*/**/quality_threshold_sweep.json
+!/backend/evals/results/publicbench_*/**/*manifest.json
+!/backend/evals/results/publicbench_*/**/*summary.json
+!/backend/evals/results/publicbench_*/**/*report.json
+!/backend/evals/results/publicbench_*/**/*validation.json
+!/backend/evals/results/publicbench_*/**/*.lock.json

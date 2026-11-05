@@ -1,0 +1,31 @@
+{
+  "protocol_version": "ariadne-publicbench-v1",
+  "mode": "live_public_benchmark",
+  "status": "complete",
+  "model": "openai/deepseek-flash",
+  "thinking": "disabled",
+  "strategy": "full",
+  "completed": 42,
+  "total": 42,
+  "active_id": null,
+  "active_request_usage_unknown": false,
+  "transport_calls_attempted": 42,
+  "usage": {
+    "prompt_tokens": 580650,
+    "prompt_tokens_known_calls": 42,
+    "completion_tokens": 3482,
+    "completion_tokens_known_calls": 42,
+    "total_tokens": 584132,
+    "total_tokens_known_calls": 42,
+    "cached_tokens": 0,
+    "cached_tokens_known_calls": 42,
+    "reasoning_tokens": null,
+    "reasoning_tokens_known_calls": 0,
+    "cost_usd": null,
+    "cost_usd_known_calls": 0
+  },
+  "last_id": "longbench-v2:longbench-v2:66fe8eb3bb02136c067ca35f",
+  "selected_records_sha256": "e553e874dab81f7cfae3553a085a0d6130285b8085d114d1c10e65e51a015b42",
+  "input_file_sha256": "5832786e7d493808cb343cdd2df85f093d221e148739344ce936521e727fd70a",
+  "updated_utc": "2026-11-05T03:50:47.775043+00:00"
+}

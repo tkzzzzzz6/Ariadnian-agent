@@ -1,0 +1,58 @@
+{
+  "schema_version": "longdoc-acquisition-v1",
+  "created_utc": "2026-11-05T02:55:56.803244+00:00",
+  "catalog_sha256": "f7905d74985ae1d0700d8e98ca5cf6bc108f06aa025c42fd92f3ec432075e98f",
+  "source_lock_sha256": "010e79faa09f1bc175b0df2704b976eb13321ea909ad22cc2e3da8bdc2d6135c",
+  "documents_sha256": "3e5e90c85bac958c90ee42b57fa3f8d2e056f5ccac1b4b00b6c6d6548c9af25d",
+  "min_tokens": 4096,
+  "implementation_sha256": {
+    "parsing.py": "af5d8fe305ca2eb7eb4c9cc71c01035f769664b5ac8171e247e6814be39dcb8d",
+    "study.py": "c999433360b2ecf8abc2081302cb2a680a16e756260502b6cad600e3cde98f99",
+    "__init__.py": "0aa840f0831b69f9cd701a66b0c4e753d38fae09cf0ae8dbb03421e304d14e1e",
+    "__main__.py": "5ae3375e6bb82d148c43579478a4cfd3b13eb35a3e1952f28ad170de92466b38"
+  },
+  "documents": 493,
+  "unique_families": 451,
+  "tokens": 5237486,
+  "tokenizer": {
+    "repo": "Qwen/Qwen2.5-0.5B",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "filename": "tokenizer.json",
+    "license": "Apache-2.0",
+    "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+  },
+  "by_language": {
+    "en": 424,
+    "zh": 69
+  },
+  "by_domain": {
+    "agriculture": 40,
+    "life_sciences": 40,
+    "machine_learning": 206,
+    "numerical_computing": 22,
+    "data_science": 27,
+    "programming": 135,
+    "mathematics": 23
+  },
+  "by_kind": {
+    "research_article": 80,
+    "textbook": 153,
+    "technical_documentation": 260
+  },
+  "by_length_tokens": {
+    "4096-8191": 277,
+    "8192-16383": 143,
+    "16384-32767": 59,
+    "32768+": 14
+  },
+  "audit_statuses": {
+    "below_min_tokens": 1232,
+    "license_not_in_assessment_allowlist": 46
+  },
+  "human_verified_documents": 0,
+  "limitations": [
+    "source_markup_and_XML_only_not_real_PDF_layout_benchmark",
+    "all_document_quality_reviews_pending",
+    "not_CPT_training_results"
+  ]
+}

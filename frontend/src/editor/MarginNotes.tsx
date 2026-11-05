@@ -1,5 +1,5 @@
 import type { Editor } from '@tiptap/core'
-import { useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
 import { Box, Button, ButtonBase, IconButton, Tooltip, Typography } from '@mui/material'
 import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore'
 import CloseIcon from '@mui/icons-material/Close'
@@ -39,7 +39,7 @@ function NoteCard({
   editor: Editor
   /** 组内第一条：右上角放「收起」 */
   first: boolean
-  onClose: () => void
+  onClose?: () => void
   onHover: (k: string | null) => void
   onDismiss: () => void
   onAcceptRewrite: (annotation: PlacedAnnotation) => void
@@ -63,7 +63,7 @@ function NoteCard({
         bgcolor: kind.bgcolor, position: 'relative',
       }}
     >
-      {first && (
+      {first && onClose && (
         <Tooltip title="收起">
           <IconButton aria-label="收起" onClick={onClose} sx={{ position: 'absolute', top: 4, right: 4, p: 0.25, color: brand.faint, zIndex: 1 }}>
             <CloseIcon sx={{ fontSize: 14 }} />
@@ -199,7 +199,7 @@ export function NoteGroupCard({
 }: {
   editor: Editor
   notes: PlacedAnnotation[]
-  onClose: () => void
+  onClose?: () => void
   onHover: (k: string | null) => void
   onDismiss: (k: string) => void
   onAcceptRewrite: (annotation: PlacedAnnotation) => void
@@ -271,8 +271,12 @@ interface Layout {
  * - 离原句太远的收进「还有 N 条」，点开再看。
  */
 export function MarginNotes({
-  editor, notes, active, setActive, onHover, onDismiss, onAcceptRewrite, columnRef, isHandled,
+  editor, notes, active, setActive, onHover, onDismiss, onAcceptRewrite, columnRef, isHandled, expandAll = false, relayoutKey,
 }: {
+  /** 外观设置「批注默认全部展开」：每组都显示完整卡片，按 Google Docs 评论栏的方式依次让开 */
+  expandAll?: boolean
+  /** 正文字号、行距等变化时重新对齐（这些变化不会触发编辑器 update） */
+  relayoutKey?: string
   editor: Editor
   notes: PlacedAnnotation[]
   active: string | null
@@ -288,6 +292,13 @@ export function MarginNotes({
   const [tick, setTick] = useState(0)
   const groups = useMemo(() => groupNotes(notes, isHandled), [notes, isHandled])
   const activeGroup = groups.find((g) => g.notes.some((n) => n.key === active))?.key ?? null
+  const isOpen = (key: string) => expandAll || key === activeGroup
+
+  useEffect(() => {
+    // 字体变化后等浏览器重新排版完再量
+    const t = window.setTimeout(() => setTick((x) => x + 1), 60)
+    return () => window.clearTimeout(t)
+  }, [relayoutKey, expandAll])
 
   useLayoutEffect(() => {
     const bump = () => setTick((t) => t + 1)
@@ -313,7 +324,7 @@ export function MarginNotes({
         continue
       }
       const measured = refs.current.get(g.key)?.offsetHeight
-      items.push({ key: g.key, want, h: g.key === activeGroup ? measured ?? 220 : COMPACT_H })
+      items.push({ key: g.key, want, h: isOpen(g.key) ? measured ?? 220 : COMPACT_H })
     }
     const place = (list: { key: string; want: number; h: number }[]): number[] => {
       const tops = list.map((x) => x.want)
@@ -334,7 +345,8 @@ export function MarginNotes({
     items.forEach((x, i) => {
       // 展开的那组把下面的卡片推开是正常的，这部分距离不算「漂远」
       const allowance = ai >= 0 && i > ai ? items[ai].h : 0
-      const far = x.key !== activeGroup && first[i] - x.want > MAX_DRIFT + allowance
+      // 全部展开时不收起：卡片依次往下排（和 Google Docs 一样），离原句远一些也保留
+      const far = !expandAll && x.key !== activeGroup && first[i] - x.want > MAX_DRIFT + allowance
       const last = merged[merged.length - 1]
       if (far && last && last.members.length && last.key.startsWith('cluster:')) last.members.push(x.key)
       else if (far) merged.push({ key: `cluster:${x.key}`, want: x.want, h: 28, members: [x.key] })
@@ -352,14 +364,14 @@ export function MarginNotes({
       next.clusters.length === layout.clusters.length &&
       next.clusters.every((c, i) => c.key === layout.clusters[i].key && Math.abs(c.top - layout.clusters[i].top) < 0.5 && c.groups.length === layout.clusters[i].groups.length)
     if (!same) setLayout(next)
-  }, [groups, activeGroup, tick, editor, columnRef, layout])
+  }, [groups, activeGroup, tick, editor, columnRef, layout, expandAll]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const hidden = new Set(layout.clusters.flatMap((c) => c.groups))
   return (
     <Box ref={columnRef} sx={{ position: 'relative', minHeight: '100%' }}>
       {groups.map((g) => {
         if (hidden.has(g.key)) return null
-        const open = g.key === activeGroup
+        const open = isOpen(g.key)
         return (
           <Box
             key={g.key}
@@ -373,7 +385,10 @@ export function MarginNotes({
             }}
           >
             {open ? (
-              <NoteGroupCard editor={editor} notes={g.notes} onClose={() => setActive(null)} onHover={onHover} onDismiss={onDismiss} onAcceptRewrite={onAcceptRewrite} sx={{ transform: 'translateX(-4px)' }} />
+              <NoteGroupCard
+                editor={editor} notes={g.notes} onClose={expandAll ? undefined : () => setActive(null)} onHover={onHover} onDismiss={onDismiss} onAcceptRewrite={onAcceptRewrite}
+                sx={g.key === activeGroup ? { transform: 'translateX(-4px)' } : expandAll ? { boxShadow: 'none', border: `1px solid ${brand.lineSoft}` } : undefined}
+              />
             ) : (
               <CompactCard g={g} handled={g.notes.every(isHandled)} onOpen={() => setActive(g.notes[0].key)} onHover={onHover} />
             )}

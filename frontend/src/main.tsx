@@ -9,6 +9,10 @@ import './index.css'
 import App from './App'
 import { AppProvider } from './lib/appContext'
 import { theme } from './theme'
+import { applyAppearance } from './lib/appearance'
+
+// 先套用外观设置再渲染，避免先按默认字号闪一下
+applyAppearance()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,0 +1,69 @@
+{
+  "runs": [
+    {
+      "run": "official_full",
+      "records": 42,
+      "same_frozen_ID_order": true,
+      "source_hashes_match": true,
+      "offline_rescore_matches": true,
+      "no_hidden_retries": true,
+      "reference_budget_respected": true
+    },
+    {
+      "run": "budget_bm25",
+      "records": 30,
+      "same_frozen_ID_order": true,
+      "source_hashes_match": true,
+      "offline_rescore_matches": true,
+      "no_hidden_retries": true,
+      "reference_budget_respected": true
+    },
+    {
+      "run": "budget_structure",
+      "records": 30,
+      "same_frozen_ID_order": true,
+      "source_hashes_match": true,
+      "offline_rescore_matches": true,
+      "no_hidden_retries": true,
+      "reference_budget_respected": true
+    },
+    {
+      "run": "budget_truncate",
+      "records": 30,
+      "same_frozen_ID_order": true,
+      "source_hashes_match": true,
+      "offline_rescore_matches": true,
+      "no_hidden_retries": true,
+      "reference_budget_respected": true
+    }
+  ],
+  "total_calls": 132,
+  "all_run_implementation_hashes_identical": true,
+  "bm25_structure_same_contexts": 30,
+  "bm25_structure_same_predictions": 18,
+  "data_removed_or_uploaded": false,
+  "postrun_strict_source_and_prompt_validation_passed": true,
+  "git_ignore_audit": {
+    "raw_and_record_paths_checked": 16,
+    "all_ignored": true,
+    "small_metadata_paths_checked": 12,
+    "all_versionable": true,
+    "existing_tracked_files_became_ignored": 0
+  },
+  "independent_result_review": {
+    "official_scores_recomputed": 132,
+    "prompt_and_message_hashes_checked": true,
+    "report_tables_match": true,
+    "bm25_structure_same_contexts": 30,
+    "bm25_structure_same_predictions": 18
+  },
+  "final_backend_test_suite": {
+    "command": "uv run pytest -q",
+    "passed": 280,
+    "failed": 0,
+    "elapsed_seconds": 105.69
+  },
+  "wrapper_help_smoke_passed": true,
+  "dependency_lock_check_passed": true,
+  "documentation_relative_links_valid": true
+}

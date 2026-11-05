@@ -106,7 +106,7 @@ interface AppCtx {
   askAI: (question: string) => void
 }
 
-export type SettingsTab = 'model' | 'search' | 'embedding' | 'parse' | 'usage'
+export type SettingsTab = 'appearance' | 'model' | 'search' | 'embedding' | 'parse' | 'usage'
 
 const Ctx = createContext<AppCtx | null>(null)
 

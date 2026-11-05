@@ -1,0 +1,31 @@
+{
+  "protocol_version": "ariadne-publicbench-v1",
+  "mode": "live_public_benchmark",
+  "status": "complete",
+  "model": "openai/deepseek-flash",
+  "thinking": "disabled",
+  "strategy": "truncate",
+  "completed": 30,
+  "total": 30,
+  "active_id": null,
+  "active_request_usage_unknown": false,
+  "transport_calls_attempted": 30,
+  "usage": {
+    "prompt_tokens": 182532,
+    "prompt_tokens_known_calls": 30,
+    "completion_tokens": 2814,
+    "completion_tokens_known_calls": 30,
+    "total_tokens": 185346,
+    "total_tokens_known_calls": 30,
+    "cached_tokens": 44414,
+    "cached_tokens_known_calls": 30,
+    "reasoning_tokens": null,
+    "reasoning_tokens_known_calls": 0,
+    "cost_usd": null,
+    "cost_usd_known_calls": 0
+  },
+  "last_id": "longbench-v1:trec:53314ceb95fb9a488c88d21402e09c826d927f9c7402d0cf",
+  "selected_records_sha256": "b29d8fac80f841707b637314008b71a69732a35afbab42e7d7b391325c1d8f0a",
+  "input_file_sha256": "5832786e7d493808cb343cdd2df85f093d221e148739344ce936521e727fd70a",
+  "updated_utc": "2026-11-05T03:50:34.826934+00:00"
+}

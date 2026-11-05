@@ -1,0 +1,794 @@
+{
+  "schema_version": "publicbench-comparison-v1",
+  "model": "openai/deepseek-flash",
+  "provider_response_models": [
+    "deepseek-flash"
+  ],
+  "thinking": "disabled",
+  "temperature": 0,
+  "v2_upstream_non_CoT_temperature": 0.1,
+  "official_full_dataset": false,
+  "evaluation_only": true,
+  "no_training_performed": true,
+  "input_file_sha256": "5832786e7d493808cb343cdd2df85f093d221e148739344ce936521e727fd70a",
+  "runs": {
+    "official_full": {
+      "n": 42,
+      "summary_sha256": "886f835e7c40bb400b6d733b118d6b09749639efe4691938ba0c66c7d5e64820",
+      "predictions_sha256": "a0763f91032789d72e9507d2046b84a5605955d5b5d452441310092ea16165d5",
+      "metrics": {
+        "n": 42,
+        "successful": 42,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": null,
+        "score_percent": null,
+        "by_benchmark": {
+          "longbench-v1": {
+            "n": 30,
+            "successful": 30,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5269580755613564,
+            "score_percent": 52.69580755613564,
+            "macro_task_score": 0.5269580755613564,
+            "macro_task_score_percent": 52.69580755613564
+          },
+          "longbench-v2": {
+            "n": 12,
+            "successful": 12,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.4166666666666667,
+            "score_percent": 41.66666666666667,
+            "macro_task_score": 0.4166666666666667,
+            "macro_task_score_percent": 41.66666666666667
+          }
+        },
+        "by_task": {
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.31793892955861514,
+            "score_percent": 31.793892955861512
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.49333333333333335,
+            "score_percent": 49.333333333333336
+          },
+          "longbench-v2": {
+            "n": 12,
+            "successful": 12,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.4166666666666667,
+            "score_percent": 41.66666666666667
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 1.0,
+            "score_percent": 100.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6171428571428572,
+            "score_percent": 61.71428571428572
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.0,
+            "score_percent": 0.0
+          }
+        },
+        "by_domain": {
+          "Code Repository Understanding": {
+            "n": 2,
+            "successful": 2,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.0,
+            "score_percent": 0.0
+          },
+          "Long In-context Learning": {
+            "n": 2,
+            "successful": 2,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5,
+            "score_percent": 50.0
+          },
+          "Long Structured Data Understanding": {
+            "n": 2,
+            "successful": 2,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5,
+            "score_percent": 50.0
+          },
+          "Long-dialogue History Understanding": {
+            "n": 2,
+            "successful": 2,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.0,
+            "score_percent": 0.0
+          },
+          "Multi-Document QA": {
+            "n": 2,
+            "successful": 2,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 1.0,
+            "score_percent": 100.0
+          },
+          "Single-Document QA": {
+            "n": 2,
+            "successful": 2,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5,
+            "score_percent": 50.0
+          },
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.31793892955861514,
+            "score_percent": 31.793892955861512
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.49333333333333335,
+            "score_percent": 49.333333333333336
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 1.0,
+            "score_percent": 100.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6171428571428572,
+            "score_percent": 61.71428571428572
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.0,
+            "score_percent": 0.0
+          }
+        },
+        "by_language": {
+          "en": {
+            "n": 37,
+            "successful": 37,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.463299340545244,
+            "score_percent": 46.3299340545244
+          },
+          "zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          }
+        },
+        "metric_implementation": "adapted_official_LongBench_task_specific_v1_and_strict_v2",
+        "dependency_versions": {
+          "jieba": "0.42.1",
+          "rouge": "1.0.1",
+          "fuzzywuzzy": null
+        },
+        "failed_cases_score_zero": true,
+        "official_full_run": false,
+        "note": "Small-sample protocol; inspect task/benchmark scores. Cross-benchmark mean is intentionally omitted."
+      },
+      "usage": {
+        "prompt_tokens": 580650,
+        "prompt_tokens_known_calls": 42,
+        "completion_tokens": 3482,
+        "completion_tokens_known_calls": 42,
+        "total_tokens": 584132,
+        "total_tokens_known_calls": 42,
+        "cached_tokens": 0,
+        "cached_tokens_known_calls": 42,
+        "reasoning_tokens": null,
+        "reasoning_tokens_known_calls": 0,
+        "cost_usd": null,
+        "cost_usd_known_calls": 0
+      },
+      "finish_reasons": {
+        "length": 9,
+        "stop": 33
+      }
+    },
+    "budget_bm25": {
+      "n": 30,
+      "summary_sha256": "d224fb2df333f0894556685a247d824a765cb41e015a6c27185efa6326e8fbf3",
+      "predictions_sha256": "f7de2fe554c75e730f4a55e88279fbc5c5aa72f71d468bd1dc6187a7842809e6",
+      "metrics": {
+        "n": 30,
+        "successful": 30,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.5670515670199681,
+        "score_percent": 56.705156701996806,
+        "by_benchmark": {
+          "longbench-v1": {
+            "n": 30,
+            "successful": 30,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5670515670199681,
+            "score_percent": 56.705156701996806,
+            "macro_task_score": 0.5670515670199681,
+            "macro_task_score_percent": 56.705156701996806
+          }
+        },
+        "by_task": {
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.3182068380172442,
+            "score_percent": 31.82068380172442
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5599999999999999,
+            "score_percent": 55.99999999999999
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 1.0,
+            "score_percent": 100.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5907692307692308,
+            "score_percent": 59.07692307692308
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.2,
+            "score_percent": 20.0
+          }
+        },
+        "by_domain": {
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.3182068380172442,
+            "score_percent": 31.82068380172442
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5599999999999999,
+            "score_percent": 55.99999999999999
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 1.0,
+            "score_percent": 100.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5907692307692308,
+            "score_percent": 59.07692307692308
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.2,
+            "score_percent": 20.0
+          }
+        },
+        "by_language": {
+          "en": {
+            "n": 25,
+            "successful": 25,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.533795213757295,
+            "score_percent": 53.379521375729496
+          },
+          "zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          }
+        },
+        "metric_implementation": "adapted_official_LongBench_task_specific_v1_and_strict_v2",
+        "dependency_versions": {
+          "jieba": "0.42.1",
+          "rouge": "1.0.1",
+          "fuzzywuzzy": null
+        },
+        "failed_cases_score_zero": true,
+        "official_full_run": false,
+        "note": "Small-sample protocol; inspect task/benchmark scores. Cross-benchmark mean is intentionally omitted."
+      },
+      "usage": {
+        "prompt_tokens": 182730,
+        "prompt_tokens_known_calls": 30,
+        "completion_tokens": 2856,
+        "completion_tokens_known_calls": 30,
+        "total_tokens": 185586,
+        "total_tokens_known_calls": 30,
+        "cached_tokens": 9472,
+        "cached_tokens_known_calls": 30,
+        "reasoning_tokens": null,
+        "reasoning_tokens_known_calls": 0,
+        "cost_usd": null,
+        "cost_usd_known_calls": 0
+      },
+      "finish_reasons": {
+        "length": 6,
+        "stop": 24
+      }
+    },
+    "budget_structure": {
+      "n": 30,
+      "summary_sha256": "5063698df0b15741ccde3a3c9f83c8ff3bc95ba050a1ef627c9744ff53922c0e",
+      "predictions_sha256": "ddf54131ec66920bc419ee4109a110ceb5f89326b7d219e863a9f22735bcc5d3",
+      "metrics": {
+        "n": 30,
+        "successful": 30,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.5616969090138105,
+        "score_percent": 56.16969090138105,
+        "by_benchmark": {
+          "longbench-v1": {
+            "n": 30,
+            "successful": 30,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5616969090138105,
+            "score_percent": 56.16969090138105,
+            "macro_task_score": 0.5616969090138105,
+            "macro_task_score_percent": 56.16969090138105
+          }
+        },
+        "by_task": {
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.32637193027333933,
+            "score_percent": 32.637193027333936
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.49333333333333335,
+            "score_percent": 49.333333333333336
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 1.0,
+            "score_percent": 100.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6171428571428572,
+            "score_percent": 61.71428571428572
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.2,
+            "score_percent": 20.0
+          }
+        },
+        "by_domain": {
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.32637193027333933,
+            "score_percent": 32.637193027333936
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.49333333333333335,
+            "score_percent": 49.333333333333336
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 1.0,
+            "score_percent": 100.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6171428571428572,
+            "score_percent": 61.71428571428572
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.2,
+            "score_percent": 20.0
+          }
+        },
+        "by_language": {
+          "en": {
+            "n": 25,
+            "successful": 25,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.527369624149906,
+            "score_percent": 52.73696241499059
+          },
+          "zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          }
+        },
+        "metric_implementation": "adapted_official_LongBench_task_specific_v1_and_strict_v2",
+        "dependency_versions": {
+          "jieba": "0.42.1",
+          "rouge": "1.0.1",
+          "fuzzywuzzy": null
+        },
+        "failed_cases_score_zero": true,
+        "official_full_run": false,
+        "note": "Small-sample protocol; inspect task/benchmark scores. Cross-benchmark mean is intentionally omitted."
+      },
+      "usage": {
+        "prompt_tokens": 182730,
+        "prompt_tokens_known_calls": 30,
+        "completion_tokens": 2853,
+        "completion_tokens_known_calls": 30,
+        "total_tokens": 185583,
+        "total_tokens_known_calls": 30,
+        "cached_tokens": 140158,
+        "cached_tokens_known_calls": 30,
+        "reasoning_tokens": null,
+        "reasoning_tokens_known_calls": 0,
+        "cost_usd": null,
+        "cost_usd_known_calls": 0
+      },
+      "finish_reasons": {
+        "length": 5,
+        "stop": 25
+      }
+    },
+    "budget_truncate": {
+      "n": 30,
+      "summary_sha256": "64642e002c53f978a4f5eb1c4dbd3bcf1b3c8aa04afb1dc50fedf2d8b934c1a9",
+      "predictions_sha256": "c501eceedc243b29cac482f292f6326105a66cb146400379ce4a8c1c888dfa33",
+      "metrics": {
+        "n": 30,
+        "successful": 30,
+        "failed_or_missing": 0,
+        "coverage": 1.0,
+        "mean_score": 0.4738222214654601,
+        "score_percent": 47.38222214654601,
+        "by_benchmark": {
+          "longbench-v1": {
+            "n": 30,
+            "successful": 30,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.4738222214654601,
+            "score_percent": 47.38222214654601,
+            "macro_task_score": 0.4738222214654601,
+            "macro_task_score_percent": 47.38222214654601
+          }
+        },
+        "by_task": {
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.3076952335546654,
+            "score_percent": 30.76952335546654
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5885714285714286,
+            "score_percent": 58.85714285714286
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6,
+            "score_percent": 60.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6133333333333334,
+            "score_percent": 61.33333333333334
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.0,
+            "score_percent": 0.0
+          }
+        },
+        "by_domain": {
+          "gov_report": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.3076952335546654,
+            "score_percent": 30.76952335546654
+          },
+          "hotpotqa": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.5885714285714286,
+            "score_percent": 58.85714285714286
+          },
+          "multifieldqa_zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          },
+          "passage_retrieval_en": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6,
+            "score_percent": 60.0
+          },
+          "qasper": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.6133333333333334,
+            "score_percent": 61.33333333333334
+          },
+          "trec": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.0,
+            "score_percent": 0.0
+          }
+        },
+        "by_language": {
+          "en": {
+            "n": 25,
+            "successful": 25,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.42191999909188543,
+            "score_percent": 42.191999909188546
+          },
+          "zh": {
+            "n": 5,
+            "successful": 5,
+            "failed_or_missing": 0,
+            "coverage": 1.0,
+            "mean_score": 0.7333333333333333,
+            "score_percent": 73.33333333333333
+          }
+        },
+        "metric_implementation": "adapted_official_LongBench_task_specific_v1_and_strict_v2",
+        "dependency_versions": {
+          "jieba": "0.42.1",
+          "rouge": "1.0.1",
+          "fuzzywuzzy": null
+        },
+        "failed_cases_score_zero": true,
+        "official_full_run": false,
+        "note": "Small-sample protocol; inspect task/benchmark scores. Cross-benchmark mean is intentionally omitted."
+      },
+      "usage": {
+        "prompt_tokens": 182532,
+        "prompt_tokens_known_calls": 30,
+        "completion_tokens": 2814,
+        "completion_tokens_known_calls": 30,
+        "total_tokens": 185346,
+        "total_tokens_known_calls": 30,
+        "cached_tokens": 44414,
+        "cached_tokens_known_calls": 30,
+        "reasoning_tokens": null,
+        "reasoning_tokens_known_calls": 0,
+        "cost_usd": null,
+        "cost_usd_known_calls": 0
+      },
+      "finish_reasons": {
+        "length": 6,
+        "stop": 24
+      }
+    }
+  },
+  "usage": {
+    "prompt_tokens": 1128642,
+    "prompt_tokens_known_calls": 132,
+    "completion_tokens": 12005,
+    "completion_tokens_known_calls": 132,
+    "total_tokens": 1140647,
+    "total_tokens_known_calls": 132,
+    "cached_tokens": 194044,
+    "cached_tokens_known_calls": 132,
+    "reasoning_tokens": null,
+    "reasoning_tokens_known_calls": 0,
+    "cost_usd": null,
+    "cost_usd_known_calls": 0
+  },
+  "transport_calls": 132,
+  "statuses": {
+    "ok": 132
+  },
+  "bm25_structure_same_contexts": 30,
+  "bm25_structure_same_predictions": 18,
+  "paired_v1_examples": 30,
+  "v1_per_task": 5,
+  "v2_per_domain": 2,
+  "limitations": [
+    "Small length-filtered subset; not a full official leaderboard result.",
+    "V1 tasks have different metrics; the mean is descriptive only.",
+    "All 30 BM25/structure inputs are identical: observed score differences are repeat-inference variation, not evidence for structure weighting.",
+    "API temperature=0 does not establish deterministic serving.",
+    "V2 upstream non-CoT code uses temperature=0.1; this run uses 0 consistently.",
+    "Fixed-model inference does not measure CPT training-data gains.",
+    "Benchmark appearances in base-model training are unknown."
+  ]
+}

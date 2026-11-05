@@ -1,3 +1,6 @@
+import TextFieldsIcon from '@mui/icons-material/TextFields'
+import { AppearancePanel } from './AppearancePanel'
+import { resetAppearance } from '../lib/appearance'
 import { useCallback, useEffect, useMemo, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react'
 import {
   Autocomplete, Box, Button, Checkbox, Chip, CircularProgress, Collapse, Dialog, FormControlLabel, IconButton, InputAdornment,
@@ -336,6 +339,7 @@ export function SettingsDialog() {
   }
 
   const NAV: [SettingsTab, string, ReactNode][] = [
+    ['appearance', '外观', <TextFieldsIcon fontSize="small" />],
     ['model', '模型', <SmartToyOutlinedIcon fontSize="small" />],
     ['search', '文献检索', <TravelExploreIcon fontSize="small" />],
     ['embedding', '向量检索', <HubOutlinedIcon fontSize="small" />],
@@ -355,6 +359,8 @@ export function SettingsDialog() {
       onClose={closeSettings}
       maxWidth={false}
       slotProps={{
+        // 外观页：背景几乎不遮挡，调的时候能直接看到背后正文的变化
+        backdrop: settingsTab === 'appearance' ? { sx: { bgcolor: 'rgba(0,0,0,0.06)' } } : undefined,
         paper: {
           sx: {
             width: size.w, height: size.h, maxWidth: 'none', maxHeight: 'none', m: 2, overflow: 'hidden', position: 'relative',
@@ -395,7 +401,9 @@ export function SettingsDialog() {
             </IconButton>
           </Box>
           <Box sx={{ flex: 1, overflow: 'auto', px: 3.5, pb: 2 }}>
-            {!view ? (
+            {settingsTab === 'appearance' ? (
+              <AppearancePanel />
+            ) : !view ? (
               <CircularProgress size={20} />
             ) : settingsTab === 'model' ? (
               <>
@@ -750,6 +758,15 @@ export function SettingsDialog() {
 
           {/* 底部 */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 3.5, py: 1.5, borderTop: `1px solid ${brand.lineSoft}` }}>
+            {settingsTab === 'appearance' ? (
+              <>
+                <Typography noWrap sx={{ fontSize: 11.5, color: brand.faint, flex: 1, minWidth: 0 }}>
+                  外观保存在这台设备上（每个浏览器各自一套），改动立即生效
+                </Typography>
+                <Button onClick={resetAppearance}>恢复默认</Button>
+                <Button variant="contained" onClick={closeSettings}>完成</Button>
+              </>
+            ) : (<>
             {view?.locked ? (
               <Typography noWrap sx={{ fontSize: 11.5, color: brand.faint, flex: 1, minWidth: 0 }}>
                 管理员已锁定设置：这里只能查看，修改请联系部署者
@@ -763,6 +780,7 @@ export function SettingsDialog() {
             <Button variant="contained" onClick={save} disabled={!dirty || saving || !!view?.locked} startIcon={saving ? <CircularProgress size={14} color="inherit" /> : undefined}>
               保存
             </Button>
+            </>)}
           </Box>
         </Box>
       </Box>

@@ -1,0 +1,167 @@
+{
+  "config": {
+    "cases_per_type_requested": 20,
+    "near_action": "candidate-only",
+    "near_threshold": 0.92,
+    "sequence_length": 8192
+  },
+  "controlled_dedup": {
+    "by_case_type": {
+      "different_protected_table": {
+        "auto_removed": 0,
+        "candidate_generated": 20,
+        "cases": 20,
+        "correct": 20
+      },
+      "exact_copy": {
+        "auto_removed": 20,
+        "candidate_generated": 20,
+        "cases": 20,
+        "correct": 20
+      },
+      "near_copy_small_typo": {
+        "auto_removed": 0,
+        "candidate_generated": 20,
+        "cases": 20,
+        "correct": 20
+      },
+      "shared_template_distinct_records": {
+        "auto_removed": 0,
+        "candidate_generated": 20,
+        "cases": 20,
+        "correct": 0
+      }
+    },
+    "cases": 80,
+    "limitations": [
+      "Controlled variants sharing source documents are not independent natural samples.",
+      "A small textual near-copy label denotes provenance similarity, not scientific equivalence.",
+      "Different record identities with shared templates stress false candidates even at high lexical similarity.",
+      "Default candidate-only mode does not automatically remove near matches; an explicit remove-mode run measures its removal risk."
+    ],
+    "negative_false_candidate_rate": 0.5,
+    "negative_false_removal_rate": 0.0,
+    "positive_auto_removal_recall": 0.5,
+    "positive_candidate_recall": 1.0,
+    "positive_threshold_detection_recall": 1.0,
+    "scope": "constructed textual copies and synthetic record identities; not natural-pair gold",
+    "source_documents_used": 20
+  },
+  "controlled_quality": {
+    "by_case_type": {
+      "repeated_paragraphs_injected": {
+        "cases": 20,
+        "evaluable": 20,
+        "sensitive": 20
+      },
+      "replacement_characters_injected": {
+        "cases": 20,
+        "evaluable": 20,
+        "sensitive": 20
+      }
+    },
+    "cases": 40,
+    "evaluable_cases": 40,
+    "scope": "paired sensitivity to injected corruption; NOT semantic quality accuracy",
+    "score_floor_inconclusive_cases": 0,
+    "sensitive_cases": 40
+  },
+  "files": {
+    "controlled_dedup_cases.jsonl": {
+      "records": 80,
+      "sha256": "ef9a2e815215e6aa99e97ad5c8a536bfdb43354783609367b71986db9f197773"
+    },
+    "controlled_pair_documents.jsonl": {
+      "records": 160,
+      "sha256": "b6e633405c14e57b36930cd973c3ce2971e166a1c594a96e62ff561a9d9ceea4"
+    },
+    "controlled_quality_cases.jsonl": {
+      "records": 40,
+      "sha256": "d20ddec3f9e0dd53c3d529b1e50d47d5e76c6663761ab2b2325ec046e3d7aac0"
+    },
+    "dedup_review_template.jsonl": {
+      "records": 10581,
+      "sha256": "4248b3e3d89cf98b968a6f919d0b7bd8ece7872f3bc7d6e54dd217797e9ed951"
+    },
+    "quality_review_template.jsonl": {
+      "records": 350,
+      "sha256": "43b7a0c0adb37300730a156cf863aceb3e14b9d4eadc25b38722e5240139746e"
+    }
+  },
+  "implementation_sha256": {
+    "__init__.py": "e886ea99e7ac9d0503a12759c1bf63769e353ec6c2f5d998ac5cde5acd1235f4",
+    "__main__.py": "73753499be2f2d93414a3f188c55b73878801460c5daaab2dca54efb424a4b48",
+    "assessment.py": "6a4f1937489071a9dcdc9b6c5764eb2a87563a3857c10a7fa48bf704bc470def",
+    "pipeline.py": "6583c966d615d11fc8b4731ef921f85ff4b86724c34b4bcdeb927d5294a5eff9"
+  },
+  "input_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "limitations": [
+    "Candidate-only review cannot measure missed natural duplicate pairs; add independently sampled noncandidate pairs for natural recall.",
+    "No PDF parsing accuracy, human quality accuracy, training effect or model-context capability is measured here."
+  ],
+  "natural_review": {
+    "coverage": 0.0,
+    "dedup_candidate_pairs": 10581,
+    "note": "Blank fields mean unreviewed. Natural candidates are not controlled gold. No source is automatically approved.",
+    "quality_documents": 350,
+    "reviewed_pairs": 0,
+    "reviewed_quality_documents": 0
+  },
+  "schema_version": "longdoc-assessment-v1",
+  "seed": 17,
+  "structure_integrity": {
+    "emitted_blocks": 44752,
+    "errors": [],
+    "integrity_errors": 0,
+    "oversize_audit": [
+      {
+        "block_id": "b00021",
+        "chars": 27940,
+        "document_id": "PMC12222179",
+        "limit": 8192,
+        "reason": "atomic_block_exceeds_limit_no_truncation",
+        "token_count": 10088,
+        "token_unit": "model_tokens"
+      },
+      {
+        "block_id": "b00050",
+        "chars": 31938,
+        "document_id": "PMC13375304",
+        "limit": 8192,
+        "reason": "atomic_block_exceeds_limit_no_truncation",
+        "token_count": 12472,
+        "token_unit": "model_tokens"
+      }
+    ],
+    "oversized_blocks_explicitly_excluded": 2,
+    "scope": "structured-input preservation and serialized source spans; NOT real PDF extraction gold",
+    "sequence_limit": 8192,
+    "source_blocks": 44754,
+    "source_blocks_by_type": {
+      "code": 4116,
+      "formula": 1106,
+      "heading": 5342,
+      "paragraph": 33985,
+      "table": 205
+    },
+    "supported_types_observed": [
+      "code",
+      "formula",
+      "heading",
+      "paragraph",
+      "table"
+    ],
+    "supported_types_unobserved": [],
+    "token_unit": "model_tokens"
+  },
+  "tokenizer": {
+    "add_special_tokens": false,
+    "kind": "huggingface-tokenizers-json",
+    "note": "Counts apply to this exact local tokenizer, without BOS/EOS. Training must budget special tokens separately.",
+    "padding": false,
+    "path": "D:\\code\\Ariadnian-agent\\backend\\longdoc_sources\\.cache\\public_v1\\tokenizer.json",
+    "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "truncation": false,
+    "unit": "model_tokens"
+  }
+}

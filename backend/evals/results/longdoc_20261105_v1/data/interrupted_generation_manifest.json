@@ -1,0 +1,18 @@
+{
+  "status": "interrupted_after_repeated_output_token_limit_failures",
+  "requested_anchor_limit": 6,
+  "completed_calls": 4,
+  "accepted_candidates": 0,
+  "max_output_tokens": 4096,
+  "thinking": "provider_default",
+  "unreported_inflight_call_usage": "unknown; process interrupted between checkpoints",
+  "usage_for_completed_calls": {
+    "prompt_tokens": 11959,
+    "completion_tokens": 16384,
+    "total_tokens": 28343
+  },
+  "cost_usd": null,
+  "input_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "official_mode_documentation": "https://api-docs.deepseek.com/guides/thinking_mode/",
+  "note": "Failure checkpoints preserved; successful generation will use a separate explicitly non-thinking run."
+}

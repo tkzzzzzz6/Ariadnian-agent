@@ -1,0 +1,19 @@
+{
+  "version": "2026-11-05.1",
+  "description": "Assessment corpus; repository licensing observations are not document-level training approval.",
+  "github": [
+    {"repo":"d2l-ai/d2l-en","ref":"master","prefix":"chapter_","suffix":".md","language":"en","domain":"machine_learning","kind":"textbook","license":"CC-BY-SA-4.0 AND MIT-0","license_paths":["LICENSE","config.ini"],"family_prefix":"d2l","max_files":180},
+    {"repo":"d2l-ai/d2l-zh","ref":"master","prefix":"chapter_","suffix":".md","language":"zh","domain":"machine_learning","kind":"textbook","license":"CC-BY-SA-4.0 AND MIT-0","license_paths":["LICENSE","config.ini"],"family_prefix":"d2l","max_files":180},
+    {"repo":"python/cpython","ref":"3.13","prefix":"Doc/","suffix":".rst","language":"en","domain":"programming","kind":"technical_documentation","license":"PSF-2.0","license_paths":["LICENSE","Doc/license.rst"],"max_files":210},
+    {"repo":"scikit-learn/scikit-learn","ref":"main","prefix":"doc/","suffix":".rst","language":"en","domain":"machine_learning","kind":"technical_documentation","license":"BSD-3-Clause","license_paths":["COPYING"],"max_files":110},
+    {"repo":"pandas-dev/pandas","ref":"main","prefix":"doc/source/","suffix":".rst","language":"en","domain":"data_science","kind":"technical_documentation","license":"BSD-3-Clause","license_paths":["LICENSE"],"max_files":110},
+    {"repo":"numpy/numpy","ref":"main","prefix":"doc/source/","suffix":".rst","language":"en","domain":"numerical_computing","kind":"technical_documentation","license":"BSD-3-Clause","license_paths":["LICENSE.txt"],"max_files":80},
+    {"repo":"scipy/scipy","ref":"main","prefix":"doc/source/","suffix":".rst","language":"en","domain":"numerical_computing","kind":"technical_documentation","license":"BSD-3-Clause","license_paths":["LICENSE.txt"],"max_files":80},
+    {"repo":"sympy/sympy","ref":"master","prefix":"doc/src/","suffix":".rst","language":"en","domain":"mathematics","kind":"technical_documentation","license":"BSD-3-Clause","license_paths":["LICENSE"],"max_files":120}
+  ],
+  "europe_pmc": [
+    {"domain":"agriculture","query":"OPEN_ACCESS:Y AND IN_EPMC:Y AND (TITLE:crop OR TITLE:agricultural OR TITLE:soil) AND FIRST_PDATE:[2022-01-01 TO 2025-12-31]","max_articles":40},
+    {"domain":"life_sciences","query":"OPEN_ACCESS:Y AND IN_EPMC:Y AND (TITLE:genome OR TITLE:protein OR TITLE:microbiome) AND FIRST_PDATE:[2022-01-01 TO 2025-12-31]","max_articles":40}
+  ],
+  "tokenizer":{"repo":"Qwen/Qwen2.5-0.5B","revision":"060db6499f32faf8b98477b0a26969ef7d8b9987","filename":"tokenizer.json","license":"Apache-2.0"}
+}

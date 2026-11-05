@@ -1,0 +1,96 @@
+{
+  "scope": "descriptive retention only; uncalibrated heuristic, no semantic quality or training-effect claim",
+  "input_sha256": "88ea285f5fffa812afec782018fa4040842361489cd8b6c9f7d683f4bada307c",
+  "rows": [
+    {
+      "threshold": 0,
+      "documents": 493,
+      "tokens": 5089078,
+      "by_domain": {
+        "agriculture": 40,
+        "life_sciences": 40,
+        "machine_learning": 206,
+        "numerical_computing": 22,
+        "data_science": 27,
+        "programming": 135,
+        "mathematics": 23
+      },
+      "by_language": {
+        "en": 424,
+        "zh": 69
+      }
+    },
+    {
+      "threshold": 0.7,
+      "documents": 487,
+      "tokens": 5046925,
+      "by_domain": {
+        "agriculture": 40,
+        "life_sciences": 40,
+        "machine_learning": 205,
+        "numerical_computing": 20,
+        "data_science": 24,
+        "programming": 135,
+        "mathematics": 23
+      },
+      "by_language": {
+        "en": 418,
+        "zh": 69
+      }
+    },
+    {
+      "threshold": 0.9,
+      "documents": 416,
+      "tokens": 4025685,
+      "by_domain": {
+        "agriculture": 40,
+        "life_sciences": 36,
+        "machine_learning": 200,
+        "numerical_computing": 14,
+        "data_science": 6,
+        "programming": 100,
+        "mathematics": 20
+      },
+      "by_language": {
+        "en": 347,
+        "zh": 69
+      }
+    },
+    {
+      "threshold": 0.95,
+      "documents": 350,
+      "tokens": 3153588,
+      "by_domain": {
+        "agriculture": 35,
+        "life_sciences": 32,
+        "machine_learning": 182,
+        "numerical_computing": 12,
+        "data_science": 4,
+        "programming": 65,
+        "mathematics": 20
+      },
+      "by_language": {
+        "en": 281,
+        "zh": 69
+      }
+    },
+    {
+      "threshold": 0.99,
+      "documents": 243,
+      "tokens": 2001686,
+      "by_domain": {
+        "agriculture": 22,
+        "life_sciences": 22,
+        "machine_learning": 163,
+        "numerical_computing": 8,
+        "data_science": 1,
+        "programming": 14,
+        "mathematics": 13
+      },
+      "by_language": {
+        "en": 176,
+        "zh": 67
+      }
+    }
+  ]
+}

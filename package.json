@@ -10,6 +10,13 @@
     "start": "node scripts/start.mjs",
     "test": "node scripts/test.mjs",
     "eval": "node scripts/eval.mjs",
+    "data:fetch": "node scripts/longdoc.mjs fetch",
+    "data:build": "node scripts/longdoc.mjs build",
+    "data:assess": "node scripts/longdoc.mjs assess",
+    "data:study": "node scripts/longdoc.mjs study",
+    "data:synthesize": "node scripts/longdoc.mjs synthesize",
+    "eval:long": "node scripts/longdoc.mjs eval",
+    "eval:public": "node scripts/longdoc.mjs public",
     "desktop": "node scripts/desktop.mjs"
   },
   "engines": {

@@ -1,3 +1,4 @@
+import { getAppearance, stepFontSize } from './lib/appearance'
 import { useEffect, useRef, useState } from 'react'
 import { Allotment, type AllotmentHandle } from 'allotment'
 import 'allotment/dist/style.css'
@@ -249,7 +250,7 @@ function TopBar() {
           </IconButton>
         </Tooltip>
         <ExportButton />
-        <Tooltip title="设置：模型、文献检索、向量检索">
+        <Tooltip title="设置：外观、模型、文献检索、PDF 解析">
           <IconButton aria-label="设置" onClick={() => openSettings('model')} sx={{ color: brand.muted }}>
             <SettingsOutlinedIcon fontSize="small" />
           </IconButton>
@@ -309,7 +310,7 @@ function Rail() {
 
 // ------------------------------------------------------------------ 主布局：图标栏 | 正文（目录 + 页边批注）| 助手抽屉
 export default function App() {
-  const { docId, drawerOpen, setDrawerOpen, reader, rightTab, split } = useApp()
+  const { docId, drawerOpen, setDrawerOpen, reader, rightTab, split, notify } = useApp()
   useBootstrapDoc()
   const splitRef = useRef<AllotmentHandle>(null)
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -331,9 +332,10 @@ export default function App() {
     if (!total) return
     const drawer = drawerOpen ? 400 : 0
     if (split) {
-      // 1:1；打开抽屉后空间不够时优先保证正文至少 600px，原文区再窄也有 360px
+      // 默认 1:1（外观设置可改成写作区 6:4）；打开抽屉后空间不够时优先保证正文至少 600px，原文区再窄也有 360px
       const avail = total - drawer
-      const editor = Math.round(Math.max(avail / 2, Math.min(600, avail - 360)))
+      const share = getAppearance().splitRatio === 'editor' ? 0.6 : 0.5
+      const editor = Math.round(Math.min(avail - 360, Math.max(avail * share, Math.min(600, avail - 360))))
       splitRef.current?.resize([editor, avail - editor, drawer])
     } else splitRef.current?.resize([total - drawer, 0, drawer])
   }
@@ -352,10 +354,16 @@ export default function App() {
         e.preventDefault()
         setDrawerOpen(!drawerOpen)
       }
+      // Ctrl + ] / [：正文字号（和 Word 一样）。Ctrl + = / − 留给整个界面的缩放
+      if ((e.ctrlKey || e.metaKey) && !e.altKey && (e.key === ']' || e.key === '[')) {
+        e.preventDefault()
+        const size = stepFontSize(e.key === ']' ? 1 : -1)
+        notify(size ? `正文字号 ${size}px` : `正文字号已经是${e.key === '[' ? '最小' : '最大'}了`, 'info')
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [drawerOpen, setDrawerOpen])
+  }, [drawerOpen, setDrawerOpen, notify])
 
   return (
     <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', bgcolor: '#fff' }}>

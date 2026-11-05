@@ -1,0 +1,207 @@
+{
+  "config": {
+    "allowed_licenses": [],
+    "min_quality_score": 0.95,
+    "mix_token_budget": 1000000,
+    "mix_weights": {},
+    "near_action": "candidate-only",
+    "near_threshold": 0.92,
+    "purpose": "assessment",
+    "seed": 17,
+    "sequence_length": 8192,
+    "tokenizer_path": "longdoc_sources\\.cache\\public_v1\\tokenizer.json"
+  },
+  "counts": {
+    "changed_blocks": 46405,
+    "cleaned_documents": 493,
+    "compared_duplicate_candidates": 13114,
+    "document_sequences": 498,
+    "duplicates_removed": 0,
+    "mixed_documents": 87,
+    "mixed_sequences": 148,
+    "oversize_blocks": 2,
+    "quality_rejected": 143,
+    "random_sequences": 481,
+    "raw_documents": 493,
+    "retained_documents": 350
+  },
+  "dedup_policy": "literal cleaned block content/type/section-path exact; normalized bottom-32 uint64 BLAKE2 shingle candidates then fingerprint Jaccard; near matches are candidate-only by default but always linked for split assignment; protected structural differences prevent automatic removal even in explicit remove mode; near recall unmeasured",
+  "files": {
+    "cleaned.jsonl": {
+      "records": 493,
+      "sha256": "88ea285f5fffa812afec782018fa4040842361489cd8b6c9f7d683f4bada307c"
+    },
+    "cleaning_audit.jsonl": {
+      "records": 46405,
+      "sha256": "df6776329c87473f82da9e8be4380ff273560fed3dd7034dea5f50273e0afb3c"
+    },
+    "corpus.jsonl": {
+      "records": 350,
+      "sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3"
+    },
+    "dedup_candidates.jsonl": {
+      "records": 13114,
+      "sha256": "63600fb14c72f2a787002c630a129da5d16bd2ad4e67d0680cfa153fe4811744"
+    },
+    "dedup_removed.jsonl": {
+      "records": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "deduped.jsonl": {
+      "records": 493,
+      "sha256": "88ea285f5fffa812afec782018fa4040842361489cd8b6c9f7d683f4bada307c"
+    },
+    "mixed_documents.jsonl": {
+      "records": 87,
+      "sha256": "db4c29b2ce720189c8cc98ee05e7edb5879ac96a2e39266a0a4cba3fc51edeea"
+    },
+    "mixed_oversize_blocks.jsonl": {
+      "records": 2,
+      "sha256": "322cd07a9441dc99383a5213c3813c2f3f59cb5be754b33c786a982a8bd4edec"
+    },
+    "mixing_report.json": {
+      "sha256": "5b005ae047a32281aaa74d3fb1e0bfc36756fcffed8b81102421ccacfd433a42"
+    },
+    "oversize_blocks.jsonl": {
+      "records": 2,
+      "sha256": "322cd07a9441dc99383a5213c3813c2f3f59cb5be754b33c786a982a8bd4edec"
+    },
+    "packed_document.jsonl": {
+      "records": 498,
+      "sha256": "6aa796ad28e3abecfd901ef29eaa34d553a5a8876556510442138d7bc1071341"
+    },
+    "packed_mixed.jsonl": {
+      "records": 148,
+      "sha256": "9d2a46a72dd9eb3a7cc83e370ae92ef12dea29b5023312395d60b05c6ece45ce"
+    },
+    "packed_random.jsonl": {
+      "records": 481,
+      "sha256": "421ca63ab237079c91b00b2dc8c3513dd366fb58dcd3012735067733c9a7c9ef"
+    },
+    "quality_rejected.jsonl": {
+      "records": 143,
+      "sha256": "0acc9a4428a1726a16ed499fc3fbcb45396534acc4d6763b268e1d70b3979b09"
+    },
+    "raw.jsonl": {
+      "records": 493,
+      "sha256": "5bf8b4188c143a099c28eb5f8cd2c536d8484468f966b3d2f474a9175884ea8d"
+    },
+    "split_assignments.jsonl": {
+      "records": 493,
+      "sha256": "3b3f6e17bfb5a62df5a375dba6c2e90156ece7ce35bcf91173cdae9246034ec7"
+    },
+    "training_gate.jsonl": {
+      "records": 493,
+      "sha256": "55f59f61c1b8efba08a90536e57a0908805d5ce3f89d14e45df2582aa460f0fb"
+    }
+  },
+  "implementation_sha256": {
+    "__init__.py": "e886ea99e7ac9d0503a12759c1bf63769e353ec6c2f5d998ac5cde5acd1235f4",
+    "__main__.py": "73753499be2f2d93414a3f188c55b73878801460c5daaab2dca54efb424a4b48",
+    "assessment.py": "6a4f1937489071a9dcdc9b6c5764eb2a87563a3857c10a7fa48bf704bc470def",
+    "pipeline.py": "6583c966d615d11fc8b4731ef921f85ff4b86724c34b4bcdeb927d5294a5eff9"
+  },
+  "input_sha256": "3e5e90c85bac958c90ee42b57fa3f8d2e056f5ccac1b4b00b6c6d6548c9af25d",
+  "limitations": [
+    "Heuristic quality is not independent human verification.",
+    "Assessment outputs are not permission to train or redistribute source documents.",
+    "Near-dedup removal candidates require human audit; no accuracy claim has been measured.",
+    "Splitting an oversized document at block boundaries can shorten long-range dependencies.",
+    "Random packs shuffle document segments; document packs preserve source-block order. Neither implements semantic document ordering.",
+    "No continued-pretraining or benchmark improvement is claimed by this pipeline."
+  ],
+  "packing_metrics": {
+    "document": {
+      "emitted_blocks": 44752,
+      "emitted_sequence_units_including_separators": 3130970,
+      "max_fill_ratio": 1.0,
+      "mean_fill_ratio": 0.7674668400163153,
+      "min_fill_ratio": 0.0166015625,
+      "note": "Source block/document counts and emitted counts have different separators and may not be additive under a model tokenizer. Order breaks count backward source-block moves across emitted sequences.",
+      "oversized_atomic_block_units": 22560,
+      "oversized_blocks": 2,
+      "retained_source_block_units": 3115609,
+      "sequences": 498,
+      "sequences_with_multiple_documents": 31,
+      "source_block_order_breaks": 0,
+      "source_block_units_before_packing": 3138169,
+      "source_document_units_before_packing": 3153588,
+      "token_unit": "model_tokens",
+      "within_sequence_document_boundaries": 31
+    },
+    "mixed": {
+      "emitted_blocks": 14619,
+      "emitted_sequence_units_including_separators": 975405,
+      "max_fill_ratio": 1.0,
+      "mean_fill_ratio": 0.8045134673247466,
+      "min_fill_ratio": 0.0750732421875,
+      "note": "Source block/document counts and emitted counts have different separators and may not be additive under a model tokenizer. Order breaks count backward source-block moves across emitted sequences.",
+      "oversized_atomic_block_units": 22560,
+      "oversized_blocks": 2,
+      "retained_source_block_units": 971107,
+      "sequences": 148,
+      "sequences_with_multiple_documents": 12,
+      "source_block_order_breaks": 0,
+      "source_block_units_before_packing": 993667,
+      "source_document_units_before_packing": 997988,
+      "token_unit": "model_tokens",
+      "within_sequence_document_boundaries": 12
+    },
+    "random": {
+      "emitted_blocks": 44752,
+      "emitted_sequence_units_including_separators": 3130971,
+      "max_fill_ratio": 1.0,
+      "mean_fill_ratio": 0.794591701452053,
+      "min_fill_ratio": 0.067138671875,
+      "note": "Source block/document counts and emitted counts have different separators and may not be additive under a model tokenizer. Order breaks count backward source-block moves across emitted sequences.",
+      "oversized_atomic_block_units": 22560,
+      "oversized_blocks": 2,
+      "retained_source_block_units": 3115609,
+      "sequences": 481,
+      "sequences_with_multiple_documents": 44,
+      "source_block_order_breaks": 94,
+      "source_block_units_before_packing": 3138169,
+      "source_document_units_before_packing": 3153588,
+      "token_unit": "model_tokens",
+      "within_sequence_document_boundaries": 48
+    }
+  },
+  "packing_policy": "block-boundary splits only; explicit oversized-block rejects; per-split; no BOS/EOS or padding; exact re-tokenization of emitted text",
+  "purpose": "assessment",
+  "retained_counts_by_split": {
+    "dev": 41,
+    "test": 28,
+    "train": 281
+  },
+  "retained_units_by_domain": {
+    "agriculture": 530805,
+    "data_science": 20572,
+    "life_sciences": 484363,
+    "machine_learning": 1251358,
+    "mathematics": 154534,
+    "numerical_computing": 129677,
+    "programming": 582279
+  },
+  "retained_units_by_language": {
+    "en": 2712366,
+    "zh": 441222
+  },
+  "retained_units_by_split": {
+    "dev": 304625,
+    "test": 253141,
+    "train": 2595822
+  },
+  "schema_version": "longdoc-v1",
+  "split_policy": "family/duplicate/declared-cluster/source-ancestry connected components; declared document/source splits preserved and conflicts rejected; otherwise SHA256(seed:component), expected 80/10/10; missing parents linked by declared identity and audited; no exact counts or stratification",
+  "tokenizer": {
+    "add_special_tokens": false,
+    "kind": "huggingface-tokenizers-json",
+    "note": "Counts apply to this exact local tokenizer, without BOS/EOS. Training must budget special tokens separately.",
+    "padding": false,
+    "path": "D:\\code\\Ariadnian-agent\\backend\\longdoc_sources\\.cache\\public_v1\\tokenizer.json",
+    "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "truncation": false,
+    "unit": "model_tokens"
+  },
+  "training_export_allowed": false
+}

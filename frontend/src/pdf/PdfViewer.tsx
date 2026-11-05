@@ -2,6 +2,7 @@
  * PDF 阅读器（pdf.js）：逐页画到 canvas，上面叠透明文本层（可选中复制）和高亮层。
  * 只渲染滚动到附近的页面，长论文也不卡；缩放默认「适应宽度」，随抽屉宽度变化。
  */
+import { getAppearance } from '../lib/appearance'
 import { memo, useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Box, CircularProgress, IconButton, InputBase, Tooltip, Typography } from '@mui/material'
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore'
@@ -113,7 +114,7 @@ export function PdfViewer({
   const [sizes, setSizes] = useState<Size[]>([])
   const [error, setError] = useState<string | null>(null)
   const [width, setWidth] = useState(0)
-  const [zoom, setZoom] = useState<'fit' | number>('fit')
+  const [zoom, setZoom] = useState<'fit' | number>(() => getAppearance().pdfZoom)
   const [current, setCurrent] = useState(1)
   const [pageInput, setPageInput] = useState('1')
 
