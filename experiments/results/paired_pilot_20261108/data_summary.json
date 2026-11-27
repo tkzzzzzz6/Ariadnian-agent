@@ -1,0 +1,68 @@
+{
+  "schema_version": "paired-review-candidates-v1",
+  "counts": {
+    "train": 32,
+    "dev": 8
+  },
+  "directions": {
+    "train": {
+      "crossdoc": 4,
+      "table_condition": 8,
+      "evidence_local_qa": 9,
+      "multihop": 11
+    },
+    "dev": {
+      "crossdoc": 3,
+      "table_condition": 1,
+      "multihop": 2,
+      "evidence_local_qa": 2
+    }
+  },
+  "connected_families": {
+    "train": 8,
+    "dev": 2
+  },
+  "source_documents": 12,
+  "languages": {
+    "en": 32,
+    "zh": 8
+  },
+  "domains": {
+    "agriculture": 2,
+    "life_sciences": 1,
+    "machine_learning": 4,
+    "programming": 5
+  },
+  "target_counts": {
+    "train": 128,
+    "dev": 32
+  },
+  "deficit_counts": {
+    "train": 96,
+    "dev": 24
+  },
+  "approved_pairs": 0,
+  "training_ready": false,
+  "test_sources_selected": 0,
+  "quarantined_source_count": 97,
+  "selected_quarantined_sources": 0,
+  "native_chat_tokens_verified": false,
+  "token_count_scope": "Pinned Gemma native tokenizer, message content only; full MS-SWIFT template verification is still mandatory.",
+  "token_ranges": {
+    "short": [
+      303,
+      1103
+    ],
+    "long": [
+      4394,
+      7463
+    ]
+  },
+  "limitations": [
+    "AI-authored candidate answers are not human-verified gold.",
+    "Direction labels describe the intended task, not independently demonstrated reasoning validity.",
+    "Chapter/file and DOI family isolation does not mean entire books or software repositories are held out.",
+    "Real source windows preserve repeated framework examples already in the source; no text was duplicated to pad length.",
+    "This is a reduced pilot, not the full 128/32 design; task proportions are reported rather than forced."
+  ]
+}

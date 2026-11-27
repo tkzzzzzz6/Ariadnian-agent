@@ -1,0 +1,51 @@
+{
+  "schema_version": "paired-implementation-validation-v1",
+  "checks": [
+    {
+      "name": "experiments-ms-swift-and-common",
+      "command": "uv run pytest",
+      "passed": 296,
+      "failed": 0
+    },
+    {
+      "name": "colab-runner",
+      "command": "uv run pytest ../colab/tests",
+      "passed": 20,
+      "failed": 0
+    },
+    {
+      "name": "known-answer-official-scorers",
+      "passed": 7,
+      "failed": 0,
+      "model_calls": 0
+    },
+    {
+      "name": "visual-report",
+      "command": "python -m unittest discover -s experiments/analysis/tests -p test_paired_report.py -v",
+      "passed": 6,
+      "failed": 0,
+      "environment": "system Python with matplotlib"
+    }
+  ],
+  "environment_failure_retained": {
+    "command": "uv run pytest ../colab/tests ../analysis/tests/test_paired_report.py",
+    "passed": 23,
+    "failed": 1,
+    "reason": "matplotlib absent from minimal MS-SWIFT preparation environment",
+    "resolution": "plot renderer and tests run in separate system Python with matplotlib; no backend/training dependency added"
+  },
+  "code_sha256": {
+    "experiments/ms_swift/pilot_eval/acquire.py": "460baab096740fc372e34766f2fca54fc4349ff9fc4def8cfc6c9629c77877f7",
+    "experiments/ms_swift/pilot_eval/freeze.py": "68751de3ee5d4009d2a63f6e945c6114ae8b35f1a0fa88256d5409b86131815c",
+    "experiments/ms_swift/pilot_eval/scoring.py": "1344b98563fc4c18660e8805801204fbc992d9fd6f4d56098d25d8110914dcb9",
+    "experiments/ms_swift/pilot_eval/ruler_lineage.py": "c007001b98d851ff5aff5e575a356192ad4c8fd7fdf8460cd24e3b751d80b821",
+    "experiments/colab/paired_job.py": "419360194082c87cb408de84ca1fddf0a73f28c556eff9ea29752235ea4505e0",
+    "experiments/colab/training_audit.py": "5d9df555c21bbee644f32c25733f6043602a74cf77992576319a3ec830f16974"
+  },
+  "frozen_eval_requests_ready": 250,
+  "data_ignored_by_git": true,
+  "aggregate_source_lock_versionable": true,
+  "gpu_execution_verified": false,
+  "real_swift_chat_verification": false,
+  "total_test_cases_passed": 322
+}

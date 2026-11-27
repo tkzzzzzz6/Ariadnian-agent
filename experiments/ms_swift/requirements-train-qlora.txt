@@ -1,0 +1,5 @@
+# Install in the isolated Linux/CUDA training environment, not backend/.venv.
+-r requirements-train.txt
+bitsandbytes==0.50.0
+# NF4/double quant targets supported linear modules. Embeddings and PLE are not
+# assumed to use 4-bit storage; measure the actual modules and memory at runtime.

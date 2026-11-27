@@ -1,0 +1,103 @@
+{
+  "schema_version": "paired-visual-report-v1",
+  "created_utc": "2026-11-08T11:24:14.221730+00:00",
+  "renderer_sha256": "3d27cbbd82355513750354802bb2c8b9ba793dfb9cd6bf9e0b74f8e2d35aa8c1",
+  "source_hashes": {
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/data.lock.json": {
+      "sha256": "3a9375b7413056bd1fa738de960c63ab210b887c77963c5947b95f98b6441fe6",
+      "bytes": 4760
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/long.jsonl": {
+      "sha256": "9376cf08ceeaccd6aa94697ef40c5b34bbb6bd85992b3e8a79fa737fd6f3d0d1",
+      "bytes": 814225
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/long_reviews.pending.jsonl": {
+      "sha256": "6b78ed38f37696178ebdeaf8ad0dff0d5ca82a47f07d2e8d30a72891f61710c1",
+      "bytes": 15683
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/pairs.jsonl": {
+      "sha256": "e92111e54d35332d8b41fffab471a9fca916f2e03086e5597a40f9bd624adc4b",
+      "bytes": 160134
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/short.jsonl": {
+      "sha256": "881b5783245a2c2929fe55089871574591a2a6d9a0bc6c5d340dd9d0fd687062",
+      "bytes": 108372
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/short_reviews.pending.jsonl": {
+      "sha256": "02e059189f248db171f940bf9aabcb7b9cde219ccd5db0d60ae4d48c6c419ee1",
+      "bytes": 15683
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/source_reviews.pending.jsonl": {
+      "sha256": "df48155da67fc36a5871bf465bf9ca6c95dade992d48c046c76f88db41b2464b",
+      "bytes": 3769
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/sources.jsonl": {
+      "sha256": "750f4de734e6029d3dab9f18612ffbc46af72553fe7e4c215b4eb1e1402676b1",
+      "bytes": 1370188
+    },
+    "experiments/ms_swift/.cache/paired_pilot_20261108_v1/review_v2/summary.json": {
+      "sha256": "bdd5758d668f66c60d3ce5f655319659026fb184a37d872b36fe391456a20ed2",
+      "bytes": 1774
+    },
+    "experiments/ms_swift/.cache/model_assets/gemma4-e2b/model.lock.json": {
+      "sha256": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e",
+      "bytes": 3077
+    },
+    "experiments/ms_swift/cpt/swift_verify.py": {
+      "sha256": "805be2c32ffd9204ee8a4bd359ef1bc45c1a63d4da770dc92f5ef69036965a66",
+      "bytes": 21477
+    },
+    "experiments/ms_swift/gemma_eval/chat.py": {
+      "sha256": "5ec141ac5888f48cf76d33fd0f04a4c32f9bb8ecd3430677aca63b11662c7adc",
+      "bytes": 9101
+    },
+    "experiments/ms_swift/.cache/pilot_eval_20261108_v1/frozen_v1/records.jsonl": {
+      "sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+      "bytes": 16821485
+    },
+    "experiments/ms_swift/.cache/pilot_eval_20261108_v1/frozen_v1/eval_manifest.json": {
+      "sha256": "c2381ea7ec8a041c3be863a314c5d5ca1cfd9374cd9476181c6d22120ebc2639",
+      "bytes": 15426
+    },
+    "experiments/ms_swift/.cache/pilot_eval_20261108_v1/frozen_v1/summary.json": {
+      "sha256": "6ed734961ab7fb7f27f92ab3af5cac484dd1e6877a2e15b600201524810dc038",
+      "bytes": 2333
+    }
+  },
+  "outputs": {
+    "report.html": "46fd30bef1ec43348d97d58d1e27ed8bf068d76de5819020858eae9b4bf56b00",
+    "figures/paired_lengths.png": "bdf73e9a0f67edbb297191dd3bcdb557b47ad44d9d828e4fbe7e0a8b75a6828b",
+    "figures/paired_lengths.svg": "75828686530be11fb0f7dd3cd7a985b2799b815bff70a91adfb373740f6a18f9",
+    "figures/task_source_mix.png": "f46aa68175e09bec71f811418d4289cd855c4021647b1b7fefa038b48c9e2913",
+    "figures/task_source_mix.svg": "a54a488e65fba1ce81ee34e08287358e7a1d6cf1e09339fafae430b8be1f61cf",
+    "figures/public_lengths.png": "f7e9a4e95558c30082bb3fb9281f2c128b8626b2277dcafdcc3ea6be6961f3be",
+    "figures/public_lengths.svg": "a370d768897659922e2883edbb503dcba96f22f2a741d003ac4cfb83740b3982"
+  },
+  "counts": {
+    "train": 32,
+    "dev": 8
+  },
+  "approved_pairs": 0,
+  "native_full_sft_precomputed_ranges": {
+    "short": [
+      314,
+      1114
+    ],
+    "long": [
+      4405,
+      7474
+    ]
+  },
+  "actual_swift_template_verified": false,
+  "quality_improvement_measured": false,
+  "resource_status_counts": {
+    "not_run": 7
+  },
+  "training_arms_with_evidence": [],
+  "evaluation_arms_with_evidence": [],
+  "public_eval_records": 250,
+  "bound_score_summary_supplied": false,
+  "blocker": "当前按用户选择仅完成本地准备；Colab 登录、远程资源验证与训练暂缓。40 组配对数据及来源保持待审核，人工批准数为 0。此前 invalid_grant 作为历史记录保留。",
+  "record_content_exported": false,
+  "semantics": "Missing results are not_run, never zero accuracy. CPU token precomputation is not real SWIFT execution."
+}

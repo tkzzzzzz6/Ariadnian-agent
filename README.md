@@ -306,7 +306,9 @@ Release 说明由 GitHub 自动生成，分类规则写在 `.github/release.yml`
 
 ## 测评
 
-新增 **长文数据构建与多方向评测**：公开原文版本固定、结构保留、可追溯清洗、内容去重候选、质量筛选、按 token 构造序列与配比，以及跨章/跨文档证据评测。见[复现说明](docs/long-context-data.md)与[2026-11-05 实测报告](docs/long-context-data-results-20261105.md)。当前覆盖 P0–P2；CPT 等算力确定后再做。
+Gemma 4 E2B 的[配对 SFT 操作入口](docs/gemma-sft-best-tmux.md)提供 tmux 观察、dev loss 选优和完整 best 的 Drive 保存。40组数据已批准内部训练；本轮 A100 分配仍不可用，真实 SFT 与250题比较尚未执行。见[当前记录](experiments/results/issue13_sft_20261127/README.md)。
+
+新增 **长文数据构建与多方向评测**：公开原文版本固定、结构保留、可追溯清洗、内容去重候选、质量筛选、按 token 构造序列与配比，以及跨章/跨文档证据评测。见[复现说明](docs/long-context-data.md)与[2026-11-05 实测报告](docs/long-context-data-results-20261105.md)。当前覆盖 P0–P2；Gemma 4 E2B 的 [MS-SWIFT CPT 入口](docs/ms-swift-gemma4.md)已加入审核、原生分词预览和显式启动流程，真实训练等数据审核与算力确定后进行。训练代码、配置、脚本和测试集中于独立的 [experiments/](experiments/README.md)，不加载到应用后端。
 
 另接入 **独立公开长上下文基准**：LongBench v1 的论文问答、多文档问答、中文问答、摘要、分类、段落检索，以及 LongBench v2 的六类场景，使用固定来源、官方题目和任务指标。入口为 `npm run eval:public -- ...`，见[方法与复现](docs/public-benchmarks.md)及[公开基准实测](docs/public-benchmark-results-20261105.md)。抽样结果与自建诊断分开报告。
 
@@ -371,6 +373,10 @@ backend/
   longeval/           跨章/跨文档长文评测、证据与答案评分、显式开启的真实模型验证
   publicbench/        固定版本的独立公开长上下文基准、官方指标与全上下文/预算对照
   tests/
+experiments/
+  common/            纯标准库的文档校验、读取与家族/来源划分共享包
+  ms_swift/          独立训练实验项目：cpt/、configs/、scripts/、tests/ 与独立依赖
+  results/           训练准备和迁移的小型汇总；原始数据与权重不提交
 package.json         一键命令（setup / dev / demo / start / test / eval / desktop）
 AGENTS.md            Agent 协作规则：本地数据、证据标注、Issue → PR 流程（CLAUDE.md 引用它）
 CONTRIBUTING.md      贡献指南：开发环境、测试、分支与 PR、label

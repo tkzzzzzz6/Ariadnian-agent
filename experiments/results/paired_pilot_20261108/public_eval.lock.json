@@ -1,0 +1,68 @@
+{
+  "schema_version": "gemma-eval-input-v1",
+  "records_sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+  "records": 250,
+  "source_manifests": [
+    {
+      "benchmark": "longbench-v1",
+      "dataset_repo": "zai-org/LongBench",
+      "revision": "5e628be450b7e67fb7ae6e201bd6d8f7056f7672",
+      "raw_sha256": "cb45b11a4133c6bc1d6a44b0f8e701335ff1e543195db1103472e575857f7f64",
+      "code_revision": "2e00731f8d0bff23dc4325161044d0ed8af94c1e",
+      "prompt_sha256": "56d22ad4f382169c2b8a11ff4c982a4a1bea096c8152b0f0b85b64686b157c30",
+      "maxlen_sha256": "72966b3c0933e214591637fb085798c5e687ebff4ddaab5d99bbc31120532022",
+      "score_source_sha256": "e22e2a2662e0f7e683137fa3541f64edb6a801e9138d16d2f3459a6ab9941323"
+    },
+    {
+      "benchmark": "ruler",
+      "repo": "NVIDIA/RULER",
+      "revision": "db43f92ff634bbce1c33d1fb15858aec4bba509a",
+      "acquisition_sha256": "fa806996068ca3eac0e8e32cf9278a61bb56b88b131b6b6daa573456e04c2a9e",
+      "generation_sha256": "d50002fb3f3fa36e7e521e929659967f23dcb382d8664544e1e8a55088916873",
+      "score_source_sha256": "6740467c17b8dc06b6b30f4f97e54ce8de81db0dd879f1538d0b6b5727f4bd5f"
+    },
+    {
+      "benchmark": "boolq",
+      "repo": "google/boolq",
+      "revision": "35b264d03638db9f4ce671b711558bf7ff0f80d5",
+      "raw_sha256": "52355d11524b4b874a9b9dcc278feb10f672d52c4f4eff9872e695ede59820f8",
+      "license": "CC-BY-SA-3.0",
+      "scoring_protocol": "custom generative whole-answer yes/no; whitespace/terminal punctuation permitted; explanations score zero"
+    }
+  ],
+  "selection_seed": 17011,
+  "selection": {
+    "longbench": "fixed task order, SHA256(seed:id) order; one example per source component across tasks",
+    "boolq": "SHA256(seed:id) order; one example per identical passage component",
+    "ruler": "unchanged official generators; seed17011; ten examples per task/length; qa_1 first ten answerable SQuAD questions, clustered by article",
+    "answer_or_model_score_dependent_selection": false
+  },
+  "protocol": {
+    "version": "gemma4-nothinking-eval-v1",
+    "template": "gemma4_nothinking",
+    "template_source": "https://github.com/modelscope/ms-swift/blob/ad818a2cdfafaf4305ac40c4acd892a211978bc2/swift/template/templates/gemma.py",
+    "swift_commit": "ad818a2cdfafaf4305ac40c4acd892a211978bc2",
+    "mode": "transformers",
+    "system": null,
+    "turns": "one user message, open assistant turn; no answer included",
+    "bos_token_id": 2,
+    "stop_token_ids": [
+      1,
+      106,
+      50
+    ],
+    "pad_token_id": 0,
+    "do_sample": false,
+    "num_beams": 1,
+    "seed": 17,
+    "truncation": "none; retain over-budget records as skipped_context_limit",
+    "budget": "native chat input tokens plus source max_new_tokens <= context_length",
+    "runtime_verification": "all inputs must equal pinned SWIFT inference template before weight loading"
+  },
+  "pilot_only": true,
+  "official_full_run": false,
+  "confirmation_reserve_sha256": "55112accf72fba7fb05212d42011682c6567cd1b3b927260a6303286b336f814",
+  "training_sources_sha256": "750f4de734e6029d3dab9f18612ffbc46af72553fe7e4c215b4eb1e1402676b1",
+  "scorer_sha256": "1344b98563fc4c18660e8805801204fbc992d9fd6f4d56098d25d8110914dcb9",
+  "frozen_eval_manifest_sha256": "c2381ea7ec8a041c3be863a314c5d5ca1cfd9374cd9476181c6d22120ebc2639"
+}

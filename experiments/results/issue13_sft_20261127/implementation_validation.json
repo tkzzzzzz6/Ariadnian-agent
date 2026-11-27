@@ -1,0 +1,71 @@
+{
+  "schema_version": "issue13-engineering-validation-v1",
+  "created_utc": "2026-11-27T05:13:58.562971+00:00",
+  "checks": {
+    "npm_test": {
+      "passed": true,
+      "backend_pytest": 280,
+      "experiments_pytest": 333,
+      "experiments_skipped": 1,
+      "experiments_subtests": 24,
+      "frontend_regressions": 74,
+      "entrypoint_node_tests": 13,
+      "frontend_tsc": true
+    },
+    "vite_build": {
+      "passed": true,
+      "limitation": "Existing chunk size warning"
+    },
+    "offline_fixture": {
+      "passed": true,
+      "real_model": false
+    },
+    "analysis_unittest": {
+      "passed": 7,
+      "matplotlib": "3.10.7"
+    },
+    "uv_sync_locked": true,
+    "linux_cpu_tmux": {
+      "passed": true,
+      "version": "3.4",
+      "windows": [
+        "train",
+        "status",
+        "gpu"
+      ],
+      "captured_stdout": true,
+      "exit_code_preserved": 3
+    },
+    "linux_cpu_process_group": {
+      "passed": true,
+      "sigterm_ignoring_descendant_alive_after_timeout": false
+    }
+  },
+  "human_review": {
+    "additional_data_approval_requested": false,
+    "existing_approval_bound": true
+  },
+  "fresh_branch_review": {
+    "critical": 0,
+    "important": 2,
+    "minor": 1,
+    "important_fixed_with_regressions": 2,
+    "minor_fixed": true
+  },
+  "cloud": {
+    "requested": "A100",
+    "allocation": "Service Unavailable",
+    "training_started": false,
+    "model_results_available": false
+  },
+  "source_snapshot": {
+    "files": 159,
+    "sha256": "a71ab4d490596c3af570e883e21af3d86a161b72910cb240a6e86b72fc0e3223",
+    "original_workspace_edited": false
+  },
+  "limits": [
+    "One skipped test requires actual pinned SWIFT stack",
+    "Native GPU best retention/reload and quality gains unverified",
+    "Historic generated reports/SVG whitespace retained for provenance; not reformatted"
+  ]
+}

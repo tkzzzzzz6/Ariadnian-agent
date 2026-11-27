@@ -1,0 +1,53 @@
+{
+  "schema_version": "selected-native-budget-v1",
+  "corpus_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "review_queue_sha256": "73b991087d145e1c8b5c00bf1d814b59d1f6fbeb4a1923e1a6c67db53282988d",
+  "tokenizer": {
+    "kind": "native-model-tokenizer",
+    "repository": "google/gemma-4-E2B",
+    "revision": "433813a669639fd7eaa83155828e9000ed357d53",
+    "unit": "gemma4_native_tokens",
+    "native_context_tokens": 131072,
+    "vocab_size": 262144,
+    "bos_token_id": 2,
+    "eos_token_id": 1,
+    "pad_token_id": 0,
+    "model_lock_sha256": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e",
+    "tokenizer_sha256": "9cad58a1ba9824a35574be51e8c9dcc2164a662cdfe56b1b008e06a231f80f0b",
+    "config_sha256": "e5faef0dd1a8f2437f6010721146b85433eaa90e679ef011e803c7ffefae73b8",
+    "tokenizer_config_sha256": "12754e3442e47c1a1c55d550b617fc47ae227e8156ed1b1de0d8428195768b5c",
+    "asset_directory": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\model_assets\\gemma4-e2b",
+    "processor_metadata": {
+      "processor_class": "Gemma4Processor",
+      "inline_components": [
+        "feature_extractor",
+        "image_processor",
+        "video_processor"
+      ],
+      "referenced_metadata_files": [],
+      "separate_preprocessor_config_in_pinned_snapshot": false
+    },
+    "add_special_tokens": false,
+    "truncation": false,
+    "padding": false,
+    "special_tokens_budget": 2,
+    "special_tokens_budget_note": "Conservative export allowance, not a claim that every SWIFT PT template adds exactly two tokens; check actual runtime encoding.",
+    "scope": "source/native tokenizer verified; no model weights loaded or training/inference runtime verified"
+  },
+  "by_split": {
+    "train": {
+      "documents": 24,
+      "native_body_tokens": 226127
+    },
+    "dev": {
+      "documents": 7,
+      "native_body_tokens": 45008
+    }
+  },
+  "approved_documents": 0,
+  "training_ready": false,
+  "limitations": [
+    "Unchunked cleaned document body tokens only; no SWIFT template, packing, masking or repeated training exposure.",
+    "The corpus and pending review records have not been changed."
+  ]
+}

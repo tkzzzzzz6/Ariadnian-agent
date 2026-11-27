@@ -1,0 +1,65 @@
+{
+  "schema_version": "cpt-dependency-resolution-diagnostic-v1",
+  "date": "2026-11-05",
+  "target": {
+    "python": "3.12",
+    "platform": "x86_64-unknown-linux-gnu",
+    "torch_backend": "cu128"
+  },
+  "resolver": "uv 0.8.12 (36151df0e 2025-08-18)",
+  "original_requirements": {
+    "path": "experiments/ms_swift/requirements-train.txt",
+    "sha256": "04ef9f071d2e12b03d8aecc1bcf7c94fe17ddcbbcd49fb951410117b5694a875",
+    "modified": false,
+    "fixed_swift_git_commit": "ad818a2cdfafaf4305ac40c4acd892a211978bc2"
+  },
+  "fixed_git_resolution": {
+    "status": "incomplete",
+    "reason": "Git fetch remained at Updating without metadata resolution; stopped. Official same-commit GitHub archive also did not complete and was stopped."
+  },
+  "pypi_substitution_diagnostic": {
+    "status": "resolved",
+    "exit_code": 0,
+    "elapsed_seconds": 12.66,
+    "substitution": "temporary input replaces only fixed Git ms-swift requirement with ms-swift==4.6.0 from official PyPI; not proof exact Git source resolves",
+    "package_count": 136,
+    "torch_pins": {
+      "torch": "2.8.0+cu128",
+      "torchaudio": "2.8.0+cu128",
+      "torchvision": "0.23.0+cu128"
+    },
+    "indexes": [
+      "https://pypi.org/simple",
+      "https://download.pytorch.org/whl/cu128"
+    ],
+    "lock_sha256": "b461400843dd6e0f6411df5e754aa1f1740280492bcff86f6166b474e271eca8"
+  },
+  "limitations": [
+    "Not an exact Git-source lock.",
+    "Metadata resolution only; no Torch installation, CUDA runtime/GPU test, model weights download or training.",
+    "oss2 requires sdist metadata, so --no-build-only diagnostic fails by policy; source-metadata-enabled diagnostic succeeds.",
+    "No final requirements-train.lock.txt was published."
+  ],
+  "artifacts": {
+    "compile-metadata-diagnostic-source-enabled.log": {
+      "bytes": 1164,
+      "sha256": "4a2c61c9cd9eee401983fddf596592b4ab157090816ea94e1e0549f1b509bba3"
+    },
+    "compile-metadata-diagnostic.log": {
+      "bytes": 128869,
+      "sha256": "437dad590a62eb678c70ce1bcfb6f64773521024e2d38a25669866af82682072"
+    },
+    "pypi-ms-swift-4.6.0-metadata.json": {
+      "bytes": 1263,
+      "sha256": "1260050f8b48d64ff7005a708fe766edbf765efa05af2217a318a4a660aa41d3"
+    },
+    "requirements-metadata-diagnostic.lock.txt": {
+      "bytes": 14155,
+      "sha256": "b461400843dd6e0f6411df5e754aa1f1740280492bcff86f6166b474e271eca8"
+    },
+    "requirements-metadata-diagnostic.txt": {
+      "bytes": 774,
+      "sha256": "fcd935fb88a99165149526c88c33012059d526fac7280e5986576f26ca955a6a"
+    }
+  }
+}

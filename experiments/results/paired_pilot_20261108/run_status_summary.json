@@ -1,0 +1,53 @@
+{
+  "schema_version": "paired-pilot-work-status-v1",
+  "date": "2026-11-08",
+  "training_pairs": 32,
+  "validation_pairs": 8,
+  "human_approved_pairs": 0,
+  "public_eval_records_per_checkpoint": 250,
+  "planned_checkpoints": [
+    "base",
+    "short",
+    "long"
+  ],
+  "gpu_sessions_created_this_round": 0,
+  "resource_probe_status": "deferred_by_user_local_preparation_only",
+  "sft_status": "deferred_by_user_pending_human_review",
+  "model_evaluation_status": "deferred_by_user_with_remote_execution",
+  "current_scope": "local_preparation_only",
+  "user_decisions": {
+    "colab_login": "暂时不登录，先完成本地准备",
+    "training_and_review": "暂不训练，保留待审核",
+    "review_packet_sha256": "16966dc52c4c3fc942636337c9dfdaa10d3e2221d86c93c4fe3e1d2b5edccdba",
+    "approval_granted": false,
+    "resume_remote_execution": "requires a subsequent user instruction to resume"
+  },
+  "improvement_measured": false,
+  "colab_cli_version": "0.7.5",
+  "auth_check": {
+    "operation": "sessions",
+    "status": "failed",
+    "exception": "RefreshError",
+    "reason": "invalid_grant: Bad Request"
+  },
+  "auth_check_scope": "Historical failed check retained; login and session checks were not retried after the user deferred them.",
+  "runtime_upper_bound_seconds": 21600,
+  "proposal_amendment": {
+    "train": {
+      "proposed": 128,
+      "prepared": 32
+    },
+    "dev": {
+      "proposed": 32,
+      "prepared": 8
+    },
+    "optimizer_steps_per_arm": 8,
+    "epochs_per_arm": 2,
+    "seed": 17
+  },
+  "formal_narrativeqa_reserve": {
+    "eligible_records": 12,
+    "proposed_records": 50,
+    "status": "insufficient_before_confirmation_design"
+  }
+}

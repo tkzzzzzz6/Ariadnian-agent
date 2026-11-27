@@ -48,6 +48,10 @@ ENV UV_DEFAULT_INDEX=${PYPI_INDEX} \
 WORKDIR /app/backend
 # 先只装依赖，代码改动时可以复用这一层缓存
 COPY backend/pyproject.toml ./
+# The backend's assessment pipeline shares only this stdlib data package.
+# Training code, experiment environments, corpora and weights stay outside.
+COPY experiments/common/pyproject.toml experiments/common/README.md /app/experiments/common/
+COPY experiments/common/ariadne_data/ /app/experiments/common/ariadne_data/
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --no-dev --no-install-project
 

@@ -1,0 +1,148 @@
+{
+  "schema_version": "cpt-prepared-v1",
+  "mode": "preview",
+  "training_ready": false,
+  "input_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "sequence_length": 8192,
+  "special_tokens_budget": 2,
+  "seed": 17,
+  "documents": 350,
+  "approved_documents": 0,
+  "exported_documents": {
+    "train": 279,
+    "dev": 41
+  },
+  "test_documents_exported": 0,
+  "quarantined_documents": 2,
+  "counts": {
+    "train_ordered": {
+      "sequences": 441,
+      "body_tokens": 2664268,
+      "max_body_tokens": 8190
+    },
+    "train_shuffled": {
+      "sequences": 441,
+      "body_tokens": 2664268,
+      "max_body_tokens": 8189
+    },
+    "dev_ordered": {
+      "sequences": 56,
+      "body_tokens": 324917,
+      "max_body_tokens": 8182
+    },
+    "dev_shuffled": {
+      "sequences": 56,
+      "body_tokens": 324917,
+      "max_body_tokens": 8187
+    }
+  },
+  "comparison": {
+    "content_spans_equal": true,
+    "strict_equal_token_budget": false,
+    "note": "Native BPE counts and sequence counts can change with block order. Report both; do not claim equal token/compute budgets."
+  },
+  "swift_template_verified": false,
+  "artifacts": {
+    "train_ordered": {
+      "path": "train_ordered.preview.jsonl",
+      "sha256": "68f5617c1e5a7523e5aaa9a53d808577b4691797e0642d34af3d4736d96b249a"
+    },
+    "train_shuffled": {
+      "path": "train_shuffled.preview.jsonl",
+      "sha256": "68c8f9f9bbf59d5d1e3e7eeecbdce4798c92ed962450ad63ac976878618acda6"
+    },
+    "dev_ordered": {
+      "path": "dev_ordered.preview.jsonl",
+      "sha256": "8c29f023e96b94c1ed240d25c925bfa38bdbe234703341b046ea8bd906281288"
+    },
+    "dev_shuffled": {
+      "path": "dev_shuffled.preview.jsonl",
+      "sha256": "cba36dd78164e264db185047e758e43e706e9bcd0f0acd6e20a082f381f40e64"
+    },
+    "sequence_lineage.jsonl": {
+      "path": "sequence_lineage.jsonl",
+      "sha256": "063966965f8cf2ab7f8f144b0882bdefe55e23f8b53f2b0d883dd40531cf6fb2"
+    },
+    "quarantine.jsonl": {
+      "path": "quarantine.jsonl",
+      "sha256": "83d0c1bf0c639fe4bc0cee9b2d432c299f5a74ce95c5ec0cad5b553b27427f26"
+    },
+    "admission_report.jsonl": {
+      "path": "admission_report.jsonl",
+      "sha256": "5961763dc6335252ac91d9b1f7bdda6884672b7f2aa6d8b77f4025e797fef181"
+    },
+    "split_assignments.jsonl": {
+      "path": "split_assignments.jsonl",
+      "sha256": "f35f5684d1c7766b7f842f59befa6611fe4d8cff77a7f1145e3663d2b22578d6"
+    }
+  },
+  "date": "2026-11-05",
+  "report_scope": "Native-tokenizer text preparation preview; not training or model evaluation",
+  "source_dimensions": {
+    "language": {
+      "en": 281,
+      "zh": 69
+    },
+    "domain": {
+      "agriculture": 35,
+      "data_science": 4,
+      "life_sciences": 32,
+      "machine_learning": 182,
+      "mathematics": 20,
+      "numerical_computing": 12,
+      "programming": 65
+    },
+    "kind": {
+      "research_article": 67,
+      "technical_documentation": 130,
+      "textbook": 153
+    },
+    "license": {
+      "BSD-3-Clause": 65,
+      "CC-BY-4.0": 67,
+      "CC-BY-SA-4.0 AND MIT-0": 153,
+      "PSF-2.0": 65
+    }
+  },
+  "model": {
+    "repository": "google/gemma-4-E2B",
+    "revision": "433813a669639fd7eaa83155828e9000ed357d53",
+    "native_context_tokens": 131072,
+    "model_lock_sha256": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e"
+  },
+  "quarantined_ids": [
+    "PMC12222179",
+    "PMC13375304"
+  ],
+  "verification": {
+    "source_unchanged": true,
+    "every_sequence_reconstructed_from_source_spans": true,
+    "every_body_token_count_recomputed": true,
+    "source_spans_complete_without_overlap": true,
+    "source_span_hashes": {
+      "train_ordered": "f8fff36c4f90b4375b9c971462c527b39779e7f9a36b68317926084d96a79af0",
+      "train_shuffled": "f8fff36c4f90b4375b9c971462c527b39779e7f9a36b68317926084d96a79af0",
+      "dev_ordered": "715c7dc7d3e6a65dcd57f5621aee6b4debaba9fa2dc9fa39c22c50e51cff4382",
+      "dev_shuffled": "715c7dc7d3e6a65dcd57f5621aee6b4debaba9fa2dc9fa39c22c50e51cff4382"
+    },
+    "test_documents_absent": true,
+    "launch_default_executed": false,
+    "plans_training_ready": false
+  },
+  "limitations": [
+    "All 350 source documents remain unreviewed; no training admission was fabricated.",
+    "No weights downloaded, MS-SWIFT runtime installed, GPU training, SFT, quantization, local inference, or CPT model evaluation.",
+    "Equal observed body-token totals do not prove identical loss-token identities or equal training exposure.",
+    "Full public-benchmark context decontamination and matched exposure remain prerequisites for a formal causal comparison."
+  ],
+  "software_checks": {
+    "backend_tests": {
+      "command": "cd backend && uv run pytest -q",
+      "passed": 393,
+      "duration_seconds": 101.72
+    },
+    "npm_cli_help_passed": true,
+    "git_ignore_verified": true,
+    "real_swift_gpu_integration_tested": false
+  }
+}

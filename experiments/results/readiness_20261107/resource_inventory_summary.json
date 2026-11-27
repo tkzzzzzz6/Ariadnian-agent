@@ -1,0 +1,39 @@
+{
+  "schema_version": "resource-inventory-v1",
+  "time_utc": "2026-11-07T00:47:15.344175+00:00",
+  "platform": "Windows",
+  "python": "3.13.1",
+  "interpreter": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.venv\\Scripts\\python.exe",
+  "packages": {
+    "torch": null,
+    "torchvision": null,
+    "transformers": null,
+    "accelerate": null,
+    "peft": null,
+    "bitsandbytes": null,
+    "ms-swift": null,
+    "datasets": null,
+    "trl": null,
+    "tokenizers": "0.23.3"
+  },
+  "gpu_sample": {
+    "time_utc": "2026-11-07T00:47:15.445585+00:00",
+    "gpus": [
+      {
+        "index": 0.0,
+        "name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+        "driver_version": "617.42",
+        "memory.total": 8188.0,
+        "memory.used": 1386.0,
+        "memory.free": 6563.0,
+        "utilization.gpu": 10.0,
+        "power.draw": 3.98
+      }
+    ],
+    "error": null
+  },
+  "disk_free_bytes": 64484839424,
+  "training_tested": false,
+  "inference_tested": false,
+  "note": "Inventory only. Installed versions do not prove CUDA kernels or model compatibility."
+}

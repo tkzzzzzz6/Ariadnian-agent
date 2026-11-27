@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ariadne-ms-swift-experiments"
+version = "0.1.0"
+description = "Independent CPU preparation and guarded MS-SWIFT CPT experiments"
+requires-python = ">=3.11"
+dependencies = [
+    "ariadne-data-core>=0.1.0",
+    "requests>=2.31",
+    "tokenizers>=0.22,<0.24",
+]
+
+[project.scripts]
+ariadne-cpt = "cpt.__main__:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[tool.uv.sources]
+ariadne-data-core = { path = "../common", editable = true }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cpt*", "gemma_eval*", "paired_data*", "pilot_eval*"]
+
+[tool.setuptools.package-data]
+gemma_eval = ["model_weights.lock.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "../common/tests", "../colab/tests"]
+filterwarnings = ["ignore::SyntaxWarning", "ignore::DeprecationWarning"]

@@ -1,0 +1,75 @@
+{
+  "schema_version": "training-visualization-manifest-v1",
+  "created_utc": "2026-11-08T10:25:58.316373+00:00",
+  "generator": {
+    "path": "experiments/analysis/plot_training_run.py",
+    "sha256": "7ad9808cba78fafbce00112baf414a47e6609a1f3d20164ed886ad5886f91a9d",
+    "python": "3.12.6",
+    "matplotlib": "3.10.8"
+  },
+  "sources": {
+    "summary": {
+      "path": "experiments/results/colab_sft_20261108/summary.json",
+      "sha256": "0e26e75316cbc3c108cc590789953a2db122ecf2339e0260379520e63678ef54"
+    },
+    "trainer_state.json": {
+      "path": "experiments/ms_swift/.cache/colab_20261108/artifacts_v1/experiments/ms_swift/.cache/colab/training/plan/checkpoints/v0-20261108-101259/checkpoint-20/trainer_state.json",
+      "sha256": "e0e49d448a874d53552aedc1821c46505d9689479ac6e11426da8c6537ea5be2",
+      "verified_against_existing_summary": true
+    },
+    "logging.jsonl": {
+      "path": "experiments/ms_swift/.cache/colab_20261108/artifacts_v1/experiments/ms_swift/.cache/colab/training/plan/checkpoints/v0-20261108-101259/logging.jsonl",
+      "sha256": "74ad5afa143af95b7b5f3e5890f6b7ab7929a4909628db0cdf0dab9b41e140b3",
+      "verified_against_existing_summary": true
+    },
+    "resource_summary.json": {
+      "path": "experiments/ms_swift/.cache/colab_20261108/artifacts_v1/experiments/ms_swift/.cache/colab/training/profile/resource_summary.json",
+      "sha256": "fcc2eb64d1febee12a88262282c0fa5d44ce51b9a2bc18f53ea87587ba9c8478",
+      "verified_against_existing_summary": true
+    },
+    "template_verification.json": {
+      "path": "experiments/ms_swift/.cache/colab_20261108/artifacts_v1/experiments/ms_swift/.cache/colab/training/plan/template_verification.json",
+      "sha256": "a1c49bb6b68004b0b6d2c2cde72c7ec956688381fac7f19a3383d2bd7e1c236a",
+      "verified_against_existing_summary": true
+    },
+    "gpu_samples.jsonl": {
+      "path": "experiments/ms_swift/.cache/colab_20261108/artifacts_v1/experiments/ms_swift/.cache/colab/training/profile/gpu_samples.jsonl",
+      "sha256": "edfda9814ce73cb5e8b9ce5891cca04f8b6e433fa39c184e8356736f856bd3b1",
+      "verified_against_existing_summary": false,
+      "cross_checked": "row count, failure count and board-memory maximum"
+    }
+  },
+  "outputs": {
+    "figures/sft_overview.png": {
+      "bytes": 329373,
+      "sha256": "8dfd06433c13c45cf23281bb8127d57e3d3b7df064b5c707484fd9a0f99055c3"
+    },
+    "figures/sft_overview.svg": {
+      "bytes": 193689,
+      "sha256": "c2379cfe86f63a01d0932c953bc44b0e76a5b9197452e53465e31e5369961609"
+    },
+    "visualization_series_summary.json": {
+      "bytes": 13714,
+      "sha256": "7b20842f6e837b6c93ba116501a36694b07b92c04210270ed471f0d9b17f80a7"
+    },
+    "report.html": {
+      "bytes": 200989,
+      "sha256": "5b2bbd2211060c0b0aa26be695b55e5c7cae8b07edc7ce628c3d7c32b0a01da2"
+    }
+  },
+  "checks": {
+    "training_steps": 20,
+    "observed_dev_points": 1,
+    "gpu_samples": 73,
+    "failed_gpu_samples": 0,
+    "all_bound_source_hashes_match": true,
+    "raw_dataset_text_exported": false
+  },
+  "limitations": [
+    "unsmoothed per-optimizer-step logs; log y axis; dev shown only at observed steps",
+    "teacher-forced token accuracy, not free-generation answer accuracy",
+    "discrete whole-board samples; distinct from the separately reported SWIFT memory metric",
+    "full SWIFT template input min/max, not declared context capacity",
+    "loss decline and this tiny dev set cannot establish generalization or long-context gains"
+  ]
+}

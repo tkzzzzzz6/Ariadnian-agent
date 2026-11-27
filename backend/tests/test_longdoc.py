@@ -195,10 +195,18 @@ def test_build_reproducible_and_default_is_explicit_byte_assessment(tmp_path):
     two = build(source, tmp_path / "two", BuildConfig(sequence_length=100))
     assert one == two
     import hashlib
+    from ariadne_data import documents as shared_documents
 
     package_dir = Path(__file__).resolve().parents[1] / "longdoc"
-    assert one["implementation_sha256"] == {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                                            for p in sorted(package_dir.glob("*.py"))}
+    shared_dir = Path(shared_documents.__file__).parent
+    expected = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                for p in sorted(package_dir.glob("*.py"))}
+    expected.update({f"ariadne_data/{p.name}": hashlib.sha256(p.read_bytes()).hexdigest()
+                     for p in sorted(shared_dir.glob("*.py"))})
+    assert one["implementation_sha256"] == expected
+    assert read_documents is shared_documents.read_documents
+    assert assign_splits is shared_documents.assign_splits
+    assert UnionFind is shared_documents.UnionFind
     assert one["tokenizer"]["unit"] == "utf8_bytes" and not one["training_export_allowed"]
     assert "NOT model tokens" in one["tokenizer"]["note"]
     assert all(not row["training_eligible"] for row in records(tmp_path / "one" / "training_gate.jsonl"))

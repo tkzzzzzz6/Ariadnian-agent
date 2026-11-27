@@ -259,6 +259,29 @@ docs/ariadne-tables/
 # Keep source catalogs/locks, code, small fixtures and aggregate reports in Git.
 /backend/longdoc_sources/.cache/
 /backend/publicbench/.cache/
+# Legacy cache path remains ignored if an older checkout recreates it.
+/backend/cpt/.cache/
+/experiments/ms_swift/.cache/
+/experiments/*/build/
+
+# Experiment exports/review receipts/checkpoints stay local. Keep only small
+# aggregate provenance under experiments/results; never force-add source text.
+/experiments/results/**/*.jsonl
+/experiments/results/**/*.jsonl.gz
+/experiments/results/**/*.safetensors
+/experiments/results/**/*.bin
+/experiments/results/**/*.pt
+/experiments/results/**/*.arrow
+/experiments/results/**/*.parquet
+/experiments/results/**/*.zip
+/experiments/results/**/*.json
+!/experiments/results/**/*manifest.json
+!/experiments/results/**/*summary.json
+!/experiments/results/**/*report.json
+!/experiments/results/**/*validation.json
+!/experiments/results/**/*.lock.json
+!/experiments/results/paired_pilot_20261108/data_source_lock.json
+!/experiments/results/paired_pilot_20261108/data_mechanical_audit.json
 
 # P0 v2 result JSON embeds individual claims/evidence. Its timestamp format is
 # seconds + microseconds; the six older, tracked aggregate JSONs are unaffected.

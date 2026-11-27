@@ -21,6 +21,8 @@ Agent 或 Python 通过明确路径读取。项目代码、小型离线 fixture�
 | 处理后完整语料与清洗审计 | `backend/longdoc_sources/.cache/pipeline_v1/` |
 | QA 候选、AI 抽审、受控题、长文编排 | `backend/longdoc_sources/.cache/` 对应子目录 |
 | 公开 benchmark 下载与本地导入 | `backend/publicbench/.cache/` |
+| CPT 原生分词资产、待审凭据、预览/训练导出、计划与检查点 | `experiments/ms_swift/.cache/` |
+| CPT 准备与目录迁移的小型汇总 | `experiments/results/`；正文、逐条记录与权重仍被忽略 |
 | 长文运行的逐题数据和预测 | `backend/evals/results/longdoc_*/` |
 | 公开 benchmark 的逐题数据和预测 | `backend/evals/results/publicbench_*/` |
 | P0 待复核负例与含逐条证据的新结果 JSON | `backend/evals/results/` 中的 `.negative-candidates.jsonl` 和带秒/微秒时间戳的 v2 JSON |
@@ -30,12 +32,19 @@ Agent 或 Python 通过明确路径读取。项目代码、小型离线 fixture�
 或来源锁的小型 JSON 放行。缓存目录整体保持本地，其 manifest 若需要版本化，
 应使用结果目录中已有的小型元数据快照。Markdown 报告与脚本不受这些数据规则影响。
 
+训练实验位于独立的 `experiments/ms_swift/`，共享文档规则在 `experiments/common/`。
+旧 `backend/cpt/.cache/` 已迁至 `experiments/ms_swift/.cache/`，文件内容保留；
+其中 `preview_v1` 与旧计划仍包含迁移前绝对路径，仅作为历史记录，新路径下重新生成导出和计划。
+训练汇总从 `backend/evals/results/cpt_20261105_v1/` 迁到 `experiments/results/cpt_20261105_v1/`；
+历史 JSON 原样保留，迁移验证另存于 `experiments/results/cpt_layout_20261105/`。
+
 从项目根目录可以直接查找和读取已有数据：
 
 ```powershell
 rg --files --no-ignore backend/longdoc_sources/.cache -g '*.jsonl'
 rg --files --no-ignore backend/evals/results/longdoc_20261105_v1 -g '*predictions.jsonl'
 git check-ignore -v backend/longdoc_sources/.cache/pipeline_v1/corpus.jsonl
+git check-ignore -v experiments/ms_swift/.cache/model_assets/gemma4-e2b/tokenizer.json
 
 $record = Get-Content -LiteralPath backend/longdoc_sources/.cache/pipeline_v1/corpus.jsonl -TotalCount 1 | ConvertFrom-Json
 $record.id

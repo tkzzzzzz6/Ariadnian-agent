@@ -4,6 +4,13 @@
 !**/.env.example
 backend/data/
 backend/.venv/
+**/.venv/
+**/.cache/
+**/.pytest_cache/
+experiments/ms_swift/
+experiments/results/
+experiments/common/tests/
+experiments/common/*.egg-info/
 backend/evals/
 backend/tests/
 **/__pycache__/
@@ -16,3 +23,4 @@ deploy/
 .git/
 .github/
 *.md
+!experiments/common/README.md

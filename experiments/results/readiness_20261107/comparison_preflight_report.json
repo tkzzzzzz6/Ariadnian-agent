@@ -1,0 +1,57 @@
+{
+  "schema_version": "cpt-comparison-preflight-v1",
+  "executed_training": false,
+  "plans": [
+    {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\plans\\ordered_v2\\launch_plan.json",
+      "sha256": "23396c1dbccc39bc98c1a536bc58a646ca90ce2b30fbb174f1c4a1ac3d71a3e6"
+    },
+    {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\plans\\shuffled_v2\\launch_plan.json",
+      "sha256": "34bdf5a215742161e61df888ff43dd5a66050bc1d012b11fc16969285ea03b9e"
+    }
+  ],
+  "source_coverage": {
+    "left": {
+      "documents": 279,
+      "document_hashes_sha256": "c17b1d7b75625af252ef6c368a37dc9fff7bcba7d37c535916a3404888f360be",
+      "source_coverage_sha256": "bd9c7c7630d981964a7f24e2c44a00739fd44aa1b743b3821d30337f7885cc63",
+      "source_character_exposures": 9506427
+    },
+    "right": {
+      "documents": 279,
+      "document_hashes_sha256": "c17b1d7b75625af252ef6c368a37dc9fff7bcba7d37c535916a3404888f360be",
+      "source_coverage_sha256": "bd9c7c7630d981964a7f24e2c44a00739fd44aa1b743b3821d30337f7885cc63",
+      "source_character_exposures": 9506427
+    }
+  },
+  "template_audits": [
+    null,
+    null
+  ],
+  "checks": {
+    "opposite_structure_arms": true,
+    "same_model": true,
+    "same_training_recipe": true,
+    "same_source_coverage": true,
+    "same_validation_data": true,
+    "both_training_admitted": false,
+    "both_native_template_encodings_verified": false,
+    "same_encoded_loss_budget_one_pass": null,
+    "same_encoded_loss_token_histogram_one_pass": null,
+    "actual_training_loss_token_exposure_verified": false
+  },
+  "unresolved": [
+    "both_training_admitted",
+    "both_native_template_encodings_verified",
+    "same_encoded_loss_budget_one_pass",
+    "same_encoded_loss_token_histogram_one_pass",
+    "actual_training_loss_token_exposure_verified"
+  ],
+  "strict_equal_training_exposure": false,
+  "limitations": [
+    "One-pass encoding and source coverage are preparation evidence, not actual training exposure.",
+    "Equal optimizer steps can consume different labels. Do not infer equal-token causal effects.",
+    "This tool does not establish cross-split decontamination, model quality, or statistical significance."
+  ]
+}

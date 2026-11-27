@@ -1,0 +1,14 @@
+{
+  "schema_version": "cpt-audit-v1",
+  "training_ready": false,
+  "input_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "documents": 350,
+  "splits": {
+    "train": 281,
+    "dev": 41,
+    "test": 28
+  },
+  "approved_documents": 0,
+  "pending_queue_sha256": "0628634d72ad5c5c2643979d60df5b2462b20afc4341daaf4d567c51238ecfae",
+  "note": "Pending queue is not an approval or a training dataset."
+}

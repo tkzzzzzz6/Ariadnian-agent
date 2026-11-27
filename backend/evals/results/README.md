@@ -2,6 +2,9 @@
 
 由 `npm run eval`（或 `cd backend && uv run python -m evals`）生成。说明见 [../README.md](../README.md)。
 
+Gemma 4 E2B / MS-SWIFT 的[数据与训练准备记录](../../../experiments/results/cpt_20261105_v1/README.md)已移至独立的 `experiments/results/`。
+该记录包含原生分词预览，尚无 CPT 训练或模型能力测评结果，不纳入下表。
+
 v2 与历史 v1 分开呈现：v1 的负例 unknown 可能计入正确，`Recall@k` 实为 `Hit@k`，自动负例未独立核实。
 v2 的 unknown / 非法 / 异常均不正确；中文只评分已有支持标签的译文正例；假引用检出只评分明确人工复核的负例。
 历史 JSON 保持原样，不能把两种协议的数字直接当作提升对比。

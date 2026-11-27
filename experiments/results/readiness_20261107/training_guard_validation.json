@@ -1,0 +1,11 @@
+{
+  "schema_version": "training-negative-guard-v1",
+  "real_preview_plan_tested": true,
+  "execute_requested": true,
+  "worker_executed": false,
+  "status": "blocked_by_data_or_plan",
+  "blockers": [
+    "exported_document_not_admitted",
+    "preview_or_unapproved_data"
+  ]
+}

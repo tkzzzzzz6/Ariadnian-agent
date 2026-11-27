@@ -1,0 +1,40 @@
+{
+  "schema_version": "gemma-evaluation-preparation-summary-v1",
+  "plans": {
+    "profile": {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\gemma_eval_20261107_v1\\profile\\plan.json",
+      "sha256": "44d4119a8f8ce0e590294652ee69820e6b59b21782d1bf29c91713031264d84a",
+      "kind": "profile",
+      "total_records": 3,
+      "counts": {
+        "ready": 3
+      },
+      "protocol": "synthetic_repeated_seed_token_ids_exact_input_lengths; no quality metric; cold first case",
+      "executed": false
+    },
+    "benchmark_8k": {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\gemma_eval_20261107_v1\\benchmark_8k\\plan.json",
+      "sha256": "c892c856a4d42228a7a14055a1ca64939f02adcf5b4fce3d7f10e72747ce3180",
+      "kind": "benchmark",
+      "total_records": 42,
+      "counts": {
+        "skipped_context_limit": 30,
+        "ready": 12
+      },
+      "protocol": "frozen_public_prompts_base_completion_no_chat; overflow kept as failure; no truncation",
+      "executed": false
+    },
+    "nll_dev_2k": {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\gemma_eval_20261107_v1\\nll_dev_2k\\plan.json",
+      "sha256": "fa21262ebb11964a971c0d41e5a1f4dae08650d6cd08ef83eb83f88dad26d378",
+      "kind": "nll",
+      "total_records": 41,
+      "counts": {
+        "ready": 41
+      },
+      "protocol": "nonoverlapping_targets_with_one_previous_token; reset_KV_each_window; BOS_and_EOS; no_padding",
+      "executed": false
+    }
+  },
+  "quality_results_available": false
+}

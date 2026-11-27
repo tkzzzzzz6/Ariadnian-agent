@@ -1,0 +1,54 @@
+{
+  "schema_version": "cpt-recipe-v1",
+  "model": {
+    "repo": "google/gemma-4-E2B",
+    "revision": "433813a669639fd7eaa83155828e9000ed357d53"
+  },
+  "trainer": {
+    "name": "ms-swift",
+    "version": "4.6.0"
+  },
+  "method": "sft_lora",
+  "parameters": {
+    "model_type": "gemma4",
+    "torch_dtype": "bfloat16",
+    "tuner_type": "lora",
+    "template": "gemma4_nothinking",
+    "use_chat_template": true,
+    "loss_scale": "default",
+    "target_modules": [
+      "all-linear"
+    ],
+    "freeze_vit": true,
+    "freeze_aligner": true,
+    "freeze_llm": false,
+    "strict": true,
+    "truncation_strategy": "delete",
+    "packing": false,
+    "padding_free": false,
+    "streaming": false,
+    "load_args": false,
+    "split_dataset_ratio": 0.0,
+    "max_length": 4096,
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "per_device_train_batch_size": 1,
+    "per_device_eval_batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "gradient_checkpointing": true,
+    "learning_rate": 0.0001,
+    "max_steps": 20,
+    "seed": 17,
+    "attn_impl": "sdpa",
+    "report_to": [
+      "none"
+    ],
+    "logging_steps": 1,
+    "save_steps": 20,
+    "eval_steps": 20,
+    "save_total_limit": 1,
+    "data_seed": 17,
+    "save_strategy": "steps",
+    "eval_strategy": "steps"
+  }
+}
