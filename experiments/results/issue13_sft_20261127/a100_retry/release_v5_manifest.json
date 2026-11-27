@@ -1,0 +1,21 @@
+{
+  "schema_version": "issue13-notebook-release-v5",
+  "notebook": {
+    "filename": "Gemma_A100_SFT_tmux_v5.ipynb",
+    "sha256": "8cf3462825c4d14d88f9c0d2b3ed897a56186ac748beb1e58d8b311b1ee65ea9",
+    "bytes": 6989,
+    "executed_as_whole_notebook": false,
+    "drive_file_id": "1JSl8uq1SQfUZbLUt7SnYHL-dWaswAoOE",
+    "colab_url": "https://colab.research.google.com/drive/1JSl8uq1SQfUZbLUt7SnYHL-dWaswAoOE"
+  },
+  "bundle": {
+    "filename": "paired_sft_best_tmux_v4.zip",
+    "sha256": "73e5d0be4a9fc23ef5683cd2448f78ed0810e87431b218a60edafbf75483e1b7",
+    "drive_file_id": "1ayOnZm9CAqLGJyvsoiZJ0bscQj1D9y3i",
+    "reused_without_duplicate_upload": true
+  },
+  "flush_timeout_ms": 60000,
+  "on_flush_failure": "Keep runtime; no unassign.",
+  "notebook_builder_sha256": "dd5369d14510b12572620ceaba505522821a8a2cb4aa7dc77090a13dacb7fa9b",
+  "scope": "New entry only. Actual model runs still use preserved v2 plus hash-bound recovery drivers."
+}

@@ -72,7 +72,7 @@ assert hashlib.sha256(artifact.read_bytes()).hexdigest() == receipt['sha256']
 print('归档读回 SHA256 已验证；训练成功与否以上方真实状态为准。')
 # 结束前 flush；失败则保留 runtime，不能把 FUSE 读回当成云端已落盘。
 from google.colab import drive, runtime
-drive.flush_and_unmount()
+drive.flush_and_unmount(timeout_ms=60000)
 subprocess.run(['tmux', 'kill-session', '-t', 'ariadne-sft-' + run_id], check=False, timeout=15)
 runtime.unassign()
 '''

@@ -48,7 +48,7 @@ Drive `MyDrive/Ariadne/experiments/RUN/` 下保存：
 - `artifacts/<sha256>.zip`：每阶段不可变轻量归档，包含失败、分母、日志、计划和评测结果，排除 checkpoint 目录，避免重复保存模型。
 - `latest_archive.json`、`supervisor_exit.json`：最新完整归档哈希与最终退出记录。观察器等待后者，再核验归档并 flush Drive。
 
-FUSE 的读回哈希是完整性检查，不保证云端已经持久落盘。结束时 `drive.flush_and_unmount()` 成功后才停止本轮 runtime；同步失败保留 VM 取回本地文件。CLI 操作也须先下载/核验再 `colab stop -s`，只操作本轮明确创建的 session。不会向 Colab 传递 GitHub 写入密钥，不自动公开 HF 数据。
+FUSE 的读回哈希是完整性检查，不保证云端已经持久落盘。结束时 `drive.flush_and_unmount(timeout_ms=60000)` 成功后才停止本轮 runtime，显式限制60秒，避免使用Colab默认24小时等待；同步失败或超时保留 VM 取回本地文件。CLI 操作也须先下载/核验再 `colab stop -s`，只操作本轮明确创建的 session。不会向 Colab 传递 GitHub 写入密钥，不自动公开 HF 数据。
 
 ## 统一评测与图表
 

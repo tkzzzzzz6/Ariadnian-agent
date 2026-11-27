@@ -20,6 +20,6 @@
 
 私有 Drive [本轮实验目录](https://drive.google.com/drive/folders/1smSbS8yeJm_TYYGrGcuG2kWIadhydyJ3)保存输入、完整best、轻量归档和进度。完整模型状态不放GitHub，轻量归档也不重复包含模型。最终还需验证归档并完成Drive flush后释放本轮runtime。
 
-新 [v4 notebook](https://colab.research.google.com/drive/1c7OQLbUpdj0CP3pz93jLF2KEQsN0JIz8)及输入/源码ZIP已放[私有发布目录](https://drive.google.com/drive/folders/1suFe0Kxi5yWIZqBq4HT5ZrD55v4igSAx)。SHA与发布元数据见 [release_v4_manifest.json](release_v4_manifest.json)。v4修复缓存路径、失败样本编排与过短的评测工程时限。本轮实际运行使用保留的v2包加独立恢复驱动，v4尚未从头执行；v3中间发布记录保留。
+新 [v5 notebook](https://colab.research.google.com/drive/1JSl8uq1SQfUZbLUt7SnYHL-dWaswAoOE)与输入/源码ZIP已放[私有发布目录](https://drive.google.com/drive/folders/1suFe0Kxi5yWIZqBq4HT5ZrD55v4igSAx)。v5复用v4 ZIP，不重复上传数据包，结束时flush显式限制60秒；发布记录见 [release_v5_manifest.json](release_v5_manifest.json)，数据/源码包指纹沿用 [release_v4_manifest.json](release_v4_manifest.json)。本轮实际运行使用保留的v2包加独立恢复驱动，v5尚未从头执行；旧发布记录保留。
 
 数据、逐题预测、审核原文和权重保持Git忽略；本轮内部SFT批准不包含公开HF数据集发布。未执行CPT或消费级8GB显卡量化推理测试，尚未实测跨VM完整训练恢复。
