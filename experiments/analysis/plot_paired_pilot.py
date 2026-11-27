@@ -71,7 +71,9 @@ def validate_scores(summary, records_sha256, total):
         if arm is None or arm in normalized:
             raise ValueError("score labels must uniquely identify Base/short/long")
         names[label] = arm
-        if not rows or sum(row["records"] for row in rows) != total:
+        # scorer 同时输出长度分桶和 all_lengths 汇总；只累计互斥分桶。
+        bucket_rows = [row for row in rows if row["length_bucket"] != "all_lengths"]
+        if not bucket_rows or sum(row["records"] for row in bucket_rows) != total:
             raise ValueError("score task groups lost records from their denominator")
         seen = set()
         for row in rows:
@@ -83,6 +85,19 @@ def validate_scores(summary, records_sha256, total):
                     or type(value) not in (int, float) or not math.isfinite(value) or not 0 <= value <= 100):
                 raise ValueError("invalid score group or failed-call denominator")
             seen.add(key)
+        aggregates = {(r['benchmark'], r['task'], r['metric']): r for r in rows if r['length_bucket'] == 'all_lengths'}
+        tasks = {(r['benchmark'], r['task'], r['metric']) for r in bucket_rows}
+        if aggregates:
+            if set(aggregates) != tasks:
+                raise ValueError('aggregate task denominator is incomplete')
+            for task, aggregate in aggregates.items():
+                buckets = [r for r in bucket_rows if (r['benchmark'], r['task'], r['metric']) == task]
+                statuses = Counter()
+                for bucket in buckets:
+                    statuses.update(bucket['statuses'])
+                if (aggregate['records'] != sum(r['records'] for r in buckets)
+                        or Counter(aggregate['statuses']) != statuses):
+                    raise ValueError('aggregate status denominator differs from its length buckets')
         normalized[arm] = rows
     if not normalized or set(names) != set(summary.get("labels", [])):
         raise ValueError("score labels/groups disagree")
@@ -502,8 +517,9 @@ def render_html(data, figures, output, blocker):
         row = data["evaluation"].get(arm)
         score_groups = (data.get("scores") or {}).get("groups", {}).get(arm)
         if row is None and score_groups:
-            successful = sum(group["statuses"].get("ok", 0) for group in score_groups)
-            total = sum(group["records"] for group in score_groups)
+            buckets = [group for group in score_groups if group['length_bucket'] != 'all_lengths']
+            successful = sum(group["statuses"].get("ok", 0) for group in buckets)
+            total = sum(group["records"] for group in buckets)
             row = {"status": "已有绑定评分汇总", "total": total, "successful": successful,
                    "failed_or_skipped": total - successful}
         values = [ARM_NAMES[arm], row["status"] if row else "尚未执行",

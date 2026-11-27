@@ -153,6 +153,25 @@ class ReportTests(unittest.TestCase):
         self.assertIn("见分任务指标图", text)
         self.assertNotIn("尚无准确率结果", text)
 
+    def test_scorer_all_lengths_rows_do_not_double_count_denominator(self):
+        score = self.score_fixture()
+        for rows in score['groups'].values():
+            aggregate = copy.deepcopy(rows[0])
+            aggregate['length_bucket'] = 'all_lengths'
+            rows.append(aggregate)
+        normalized = report.validate_scores(score, 'a' * 64, 250)
+        self.assertEqual(len(normalized['groups']['short']), 2)
+        data = self.collect()
+        data['scores'] = normalized
+        page = report.render_html(data, {}, self.root / 'lengths.html', 'fixture only')
+        text = page.read_text(encoding='utf-8')
+        self.assertIn('<td>250</td><td>240</td><td>10</td>', text)
+        self.assertNotIn('<td>500</td>', text)
+        changed = copy.deepcopy(score)
+        changed['groups']['long'][1]['statuses'] = {'ok': 250}
+        with self.assertRaisesRegex(ValueError, 'aggregate.*denominator'):
+            report.validate_scores(changed, 'a' * 64, 250)
+
 
 if __name__ == "__main__":
     unittest.main()

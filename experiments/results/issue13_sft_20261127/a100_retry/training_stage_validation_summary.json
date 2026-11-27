@@ -1,0 +1,64 @@
+{
+  "schema_version": "paired-sft-training-stage-v1",
+  "actual_training_completed": true,
+  "public_evaluation_pending": true,
+  "arms": {
+    "short": {
+      "training": {
+        "schema_version": "paired-training-exposure-v1",
+        "optimizer_steps": 8,
+        "consumed_sequences": 64,
+        "input_tokens": 38092,
+        "supervised_tokens": 7084,
+        "ordered_consumed_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "peak_allocated_bytes": 11492419072,
+        "peak_reserved_bytes": 12966690816,
+        "observed_optimizer_wall_seconds": 39.889161960000365,
+        "optimizer_steps_sha256": "896130debc6c81d9b2f9ac754e68ba22e25a51e8a2d269d06c4672395b8e6a39",
+        "quality_improvement_measured": false,
+        "total_completed_steps": 8,
+        "best_step": 8,
+        "selected_consumed_sequences": 64,
+        "selected_input_tokens": 38092,
+        "selected_supervised_tokens": 7084,
+        "selected_ordered_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "note": "Equal full-run budgets do not imply equal selected checkpoint exposure.",
+        "best_eval_loss": 1.33265424
+      },
+      "complete_best_step": 8,
+      "complete_best_file_count": 10,
+      "complete_best_bytes": 316604531,
+      "finite_cuda_reload": true,
+      "plan_sha256": "f9a246ae2e10bbc03cf73ec3d478f25dee94422031e5e5fa0f4a1dfbb66af9d4"
+    },
+    "long": {
+      "training": {
+        "schema_version": "paired-training-exposure-v1",
+        "optimizer_steps": 8,
+        "consumed_sequences": 64,
+        "input_tokens": 371796,
+        "supervised_tokens": 7084,
+        "ordered_consumed_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "peak_allocated_bytes": 19563112448,
+        "peak_reserved_bytes": 33950793728,
+        "observed_optimizer_wall_seconds": 209.59852327900126,
+        "optimizer_steps_sha256": "4dc4bb64d5f032d7462d46b6d59fba41cd5bcf3b1bbf3a7404a3db9fa9c445d0",
+        "quality_improvement_measured": false,
+        "total_completed_steps": 8,
+        "best_step": 8,
+        "selected_consumed_sequences": 64,
+        "selected_input_tokens": 371796,
+        "selected_supervised_tokens": 7084,
+        "selected_ordered_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "note": "Equal full-run budgets do not imply equal selected checkpoint exposure.",
+        "best_eval_loss": 1.43616521
+      },
+      "complete_best_step": 8,
+      "complete_best_file_count": 10,
+      "complete_best_bytes": 316604521,
+      "finite_cuda_reload": true,
+      "plan_sha256": "2b74e7c1e7575b6534cf0595230d53494615dd3763ede08ac592cfca2a043ebd"
+    }
+  },
+  "equal_full_run_supervised_order_and_exposure": true
+}
