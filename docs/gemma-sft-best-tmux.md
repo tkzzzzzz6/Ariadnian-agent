@@ -36,7 +36,7 @@ tmux capture-pane -p -t ariadne-sft-RUN:train -S -100
 
 RUN 换成实际生成的小写 run_id；只允许全新目录，重复启动被拒绝。三个窗口分别显示阶段输出、已完成更新/loss/dev/best、GPU 状态。`Ctrl-b n` 切换窗口；详细 stdout 位于本地 `evidence/*.log`。CLI 0.7.5 的 ssh 不支持附加 CMD；Agent 用 `colab exec -s SESSION -f local_capture.py`，脚本中通过 `subprocess.run([...])` 调用上述命令。用户可通过自己的交互终端进入会话。
 
-supervisor 设置6小时总墙钟上限；每个子阶段另有限时。终止信号进入清理流程，只结束自己启动的进程组。tmux 抵御终端断开，不能防止 Colab runtime 被回收；无人工保活承诺。
+supervisor 设置6小时总墙钟上限；每臂完整250题评测最多90分钟，外层额外60秒用于清理，仍受原六小时总预算截断。真实adapter解码慢于Base，原45分钟不足；新入口只提高工程时限，题目与逐题生成预算不变。终止信号进入清理流程，只结束自己启动的进程组。tmux 抵御终端断开，不能防止 Colab runtime 被回收；无人工保活承诺。
 
 ## 持久化与结束
 

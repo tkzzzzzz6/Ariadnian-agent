@@ -504,7 +504,7 @@ def evaluate(root, arm):
         command(root, "eval_prepare_" + chosen, argv, timeout=300, cwd=work)
         try:
             command(root, "eval_" + chosen, [python, "-m", "gemma_eval.bounded", "--plan", output / "plan/plan.json",
-                    "--output", output / "run", "--max-seconds", "2700", "--execute"], timeout=2760, cwd=work)
+                    "--output", output / "run", "--max-seconds", "5400", "--execute"], timeout=5460, cwd=work)
         except RuntimeError:
             # CLI 对样本失败也返回1；仅完整、有模型、哈希一致的结果可继续比较。
             from gemma_eval.core import load_plan

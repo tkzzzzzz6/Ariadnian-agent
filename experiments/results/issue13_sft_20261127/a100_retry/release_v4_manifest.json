@@ -1,0 +1,34 @@
+{
+  "sha256": "73e5d0be4a9fc23ef5683cd2448f78ed0810e87431b218a60edafbf75483e1b7",
+  "bytes": 10425888,
+  "files": 47,
+  "records_approved": false,
+  "gpu_started": false,
+  "notebook": {
+    "filename": "Gemma_A100_SFT_tmux_v4.ipynb",
+    "sha256": "2fb765aaf5ac701f66c4aaeb5b02343dca34be6818086fa85e6e0d0bf02606d6",
+    "bytes": 6973,
+    "executed_as_whole_notebook": false,
+    "drive_file_id": "1c7OQLbUpdj0CP3pz93jLF2KEQsN0JIz8",
+    "colab_url": "https://colab.research.google.com/drive/1c7OQLbUpdj0CP3pz93jLF2KEQsN0JIz8"
+  },
+  "filename": "paired_sft_best_tmux_v4.zip",
+  "scope": "Internal approved40pairs only; no public dataset release.",
+  "transport_flag_note": "records_approved=false and gpu_started=false describe the transport builder only. Separate human approval and actual runtime evidence are recorded independently.",
+  "changes": [
+    "HF_HOME/hub cache path",
+    "Complete case-failure outcome validation",
+    "Per-arm evaluation engineering wall limit5400s, original cumulative6h limit retained"
+  ],
+  "actual_execution_note": "Current actual run uses immutable v2 plus hash-bound recovery drivers. This v4 transport/notebook is a new reproducible entry, not a retrospective replacement of executed code.",
+  "all_file_hashes_verified": true,
+  "drive_folder_id": "1suFe0Kxi5yWIZqBq4HT5ZrD55v4igSAx",
+  "explicit_human_approval_sha256": "993b2c8bdddcec608f1ff662b4d88cab27520775d99233ea4eb3b9eb6b62282a",
+  "drive_bundle_file_id": "1ayOnZm9CAqLGJyvsoiZJ0bscQj1D9y3i",
+  "drive_metadata_readback": {
+    "files_private": true,
+    "bundle_bytes": 10425888,
+    "notebook_bytes": 6973,
+    "verified_against_local_sizes": true
+  }
+}

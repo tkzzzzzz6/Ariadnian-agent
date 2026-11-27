@@ -38,6 +38,15 @@ class PairedTests(unittest.TestCase):
         argv = command.call_args_list[0].args[2]
         self.assertEqual(Path(argv[argv.index('--cache-dir') + 1]), root / 'hf_cache/hub')
 
+    def test_whole_suite_has_bounded_adapter_decode_budget(self):
+        root = Path('/content/ariadne_paired_budget_fixture')
+        with patch.object(job, 'command') as command:
+            job.evaluate(root, 'base')
+        launch = command.call_args_list[1]
+        argv = launch.args[2]
+        self.assertEqual(argv[argv.index('--max-seconds') + 1], '5400')
+        self.assertEqual(launch.kwargs['timeout'], 5460)
+
     def test_terminated_group_leader_does_not_skip_descendant_kill(self):
         proc = unittest.mock.Mock(pid=12345)
         proc.wait.return_value = 0
