@@ -330,13 +330,19 @@ def plots(data, output):
         for extension in ("png", "svg"):
             path = output / f"{name}.{extension}"
             fig.savefig(path, dpi=170, bbox_inches="tight", metadata={"Creator": "Ariadne paired pilot evidence renderer"})
+            if extension == "svg":
+                # Matplotlib path 行尾空格不影响图形；新产物固定 LF 后再计算发布指纹。
+                svg = "\n".join(line.rstrip() for line in path.read_text(encoding="utf-8").splitlines()) + "\n"
+                path.write_text(svg, encoding="utf-8", newline="\n")
             files[f"{name}.{extension}"] = path
         plt.close(fig)
 
     fig, axes = plt.subplots(1, 2, figsize=(13.4, 5.7), sharey=True, gridspec_kw={"width_ratios": [3, 1]})
     fig.subplots_adjust(left=.07, right=.98, bottom=.24, top=.80, wspace=.15)
     fig.suptitle("同一答案、不同上下文：长短配对输入", x=.07, y=.96, ha="left", fontsize=21, fontweight="bold")
-    fig.text(.07, .875, "Gemma 原生分词器 + 固定 SFT 格式的 CPU 预计算；真实 SWIFT 编码仍待核验", color="#64748b", fontsize=11)
+    template_status = ("本轮全部配对已通过真实 SWIFT 编码核验"
+                       if data.get("actual_swift_template_verified") is True else "真实 SWIFT 编码仍待核验")
+    fig.text(.07, .875, "Gemma 原生分词器 + 固定 SFT 格式的 CPU 预计算；" + template_status, color="#64748b", fontsize=11)
     for ax, split, title in zip(axes, ("train", "dev"), ("训练候选", "验证候选")):
         selected = sorted((r for r in data["lengths"]["pairs"] if r["split"] == split), key=lambda r: r["long"])
         x = list(range(1, len(selected) + 1))

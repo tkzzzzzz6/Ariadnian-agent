@@ -1,0 +1,344 @@
+{
+  "schema_version": "paired-gpu-visual-report-v1",
+  "candidate_summary_approved_pairs_at_generation": 0,
+  "effective_internal_training_admission": {
+    "pairs": 40,
+    "scope": [
+      "internal_sft_pilot"
+    ],
+    "receipt_sha256": "993b2c8bdddcec608f1ff662b4d88cab27520775d99233ea4eb3b9eb6b62282a",
+    "public_dataset_publication_approved": false
+  },
+  "actual_swift_template_verified": true,
+  "actual_sft_and_reload_verified": true,
+  "public_metric_comparison_measured": true,
+  "formal_improvement_demonstrated": false,
+  "initial_base_load_failures": 250,
+  "prior_short_timeout": {
+    "status": "timeout",
+    "total": 250,
+    "successful": 158,
+    "failed_or_skipped": 92,
+    "statuses": {
+      "ok": 158,
+      "interrupted_timeout": 1,
+      "not_attempted_after_timeout": 91
+    },
+    "child_completed_records": 158,
+    "predictions_sha256": "a9227afc279eff7f0f28121b04bec0d5af7faa6fcee704ceee76c681a88cece1",
+    "wrapper_wall_seconds": 2700.2652766379997,
+    "max_seconds": 2700,
+    "summary_sha256": "4ea5f3609aac73f97d1caeb596baccce608dab620f7652764ac2016340f8fb5c"
+  },
+  "retry_prefix_reproducibility": {
+    "previous_completed_records": 158,
+    "identical_prediction_and_status": 158,
+    "identical_generation_config_hash": 158,
+    "original_predictions_sha256": "a9227afc279eff7f0f28121b04bec0d5af7faa6fcee704ceee76c681a88cece1",
+    "note": "Post-run reproducibility diagnostic only; never used to select an answer or checkpoint."
+  },
+  "boolq_format_diagnostics": {
+    "base": {
+      "total": 40,
+      "empty_or_failed": 6,
+      "invalid_format": 34,
+      "valid_wrong": 0,
+      "valid_correct": 0
+    },
+    "short": {
+      "total": 40,
+      "empty_or_failed": 1,
+      "invalid_format": 39,
+      "valid_wrong": 0,
+      "valid_correct": 0
+    },
+    "long": {
+      "total": 40,
+      "empty_or_failed": 0,
+      "invalid_format": 40,
+      "valid_wrong": 0,
+      "valid_correct": 0
+    }
+  },
+  "primary_comparison_records_per_arm": 250,
+  "training": {
+    "short": {
+      "schema_version": "paired-training-exposure-v1",
+      "optimizer_steps": 8,
+      "consumed_sequences": 64,
+      "input_tokens": 38092,
+      "supervised_tokens": 7084,
+      "ordered_consumed_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+      "peak_allocated_bytes": 11492419072,
+      "peak_reserved_bytes": 12966690816,
+      "observed_optimizer_wall_seconds": 39.889161960000365,
+      "optimizer_steps_sha256": "896130debc6c81d9b2f9ac754e68ba22e25a51e8a2d269d06c4672395b8e6a39",
+      "quality_improvement_measured": false,
+      "total_completed_steps": 8,
+      "best_step": 8,
+      "selected_consumed_sequences": 64,
+      "selected_input_tokens": 38092,
+      "selected_supervised_tokens": 7084,
+      "selected_ordered_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+      "note": "Equal full-run budgets do not imply equal selected checkpoint exposure.",
+      "best_eval_loss": 1.33265424
+    },
+    "long": {
+      "schema_version": "paired-training-exposure-v1",
+      "optimizer_steps": 8,
+      "consumed_sequences": 64,
+      "input_tokens": 371796,
+      "supervised_tokens": 7084,
+      "ordered_consumed_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+      "peak_allocated_bytes": 19563112448,
+      "peak_reserved_bytes": 33950793728,
+      "observed_optimizer_wall_seconds": 209.59852327900126,
+      "optimizer_steps_sha256": "4dc4bb64d5f032d7462d46b6d59fba41cd5bcf3b1bbf3a7404a3db9fa9c445d0",
+      "quality_improvement_measured": false,
+      "total_completed_steps": 8,
+      "best_step": 8,
+      "selected_consumed_sequences": 64,
+      "selected_input_tokens": 371796,
+      "selected_supervised_tokens": 7084,
+      "selected_ordered_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+      "note": "Equal full-run budgets do not imply equal selected checkpoint exposure.",
+      "best_eval_loss": 1.43616521
+    }
+  },
+  "source_hashes": {
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\data.lock.json": {
+      "sha256": "3a9375b7413056bd1fa738de960c63ab210b887c77963c5947b95f98b6441fe6",
+      "bytes": 4760
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\long.jsonl": {
+      "sha256": "9376cf08ceeaccd6aa94697ef40c5b34bbb6bd85992b3e8a79fa737fd6f3d0d1",
+      "bytes": 814225
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\long_reviews.pending.jsonl": {
+      "sha256": "6b78ed38f37696178ebdeaf8ad0dff0d5ca82a47f07d2e8d30a72891f61710c1",
+      "bytes": 15683
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\pairs.jsonl": {
+      "sha256": "e92111e54d35332d8b41fffab471a9fca916f2e03086e5597a40f9bd624adc4b",
+      "bytes": 160134
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\short.jsonl": {
+      "sha256": "881b5783245a2c2929fe55089871574591a2a6d9a0bc6c5d340dd9d0fd687062",
+      "bytes": 108372
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\short_reviews.pending.jsonl": {
+      "sha256": "02e059189f248db171f940bf9aabcb7b9cde219ccd5db0d60ae4d48c6c419ee1",
+      "bytes": 15683
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\source_reviews.pending.jsonl": {
+      "sha256": "df48155da67fc36a5871bf465bf9ca6c95dade992d48c046c76f88db41b2464b",
+      "bytes": 3769
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\sources.jsonl": {
+      "sha256": "750f4de734e6029d3dab9f18612ffbc46af72553fe7e4c215b4eb1e1402676b1",
+      "bytes": 1370188
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\review_v2\\summary.json": {
+      "sha256": "bdd5758d668f66c60d3ce5f655319659026fb184a37d872b36fe391456a20ed2",
+      "bytes": 1774
+    },
+    "experiments/ms_swift/.cache/model_assets/gemma4-e2b/model.lock.json": {
+      "sha256": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e",
+      "bytes": 3077
+    },
+    "experiments/ms_swift/cpt/swift_verify.py": {
+      "sha256": "805be2c32ffd9204ee8a4bd359ef1bc45c1a63d4da770dc92f5ef69036965a66",
+      "bytes": 21477
+    },
+    "experiments/ms_swift/gemma_eval/chat.py": {
+      "sha256": "5ec141ac5888f48cf76d33fd0f04a4c32f9bb8ecd3430677aca63b11662c7adc",
+      "bytes": 9101
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/inputs/eval_records.jsonl": {
+      "sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+      "bytes": 16821485
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/inputs/eval_manifest.json": {
+      "sha256": "c2381ea7ec8a041c3be863a314c5d5ca1cfd9374cd9476181c6d22120ebc2639",
+      "bytes": 15426
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_train_4096_result.json": {
+      "sha256": "5ffa3f461327ef3ed59ad51fd19b1b95616667816239566fddb374f147a5e16b",
+      "bytes": 17488
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_train_4096.json": {
+      "sha256": "747e2db3197f8dabea7e4d98b1e57bf992973420af4aaa9dc52cd166c8e1f863",
+      "bytes": 591
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_train_8192_result.json": {
+      "sha256": "57601fb48692c9edc12cfdb14a9aad9da550a0c92e11330eb622b65d9c437db1",
+      "bytes": 17486
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_train_8192.json": {
+      "sha256": "d25b1a36fa0b528521075a64540561653f39e5bc9598fbc81ae5364f4a90d706",
+      "bytes": 591
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_train_16384_result.json": {
+      "sha256": "9e9221c26efd0048eef7cf17697a60feda7ac986d669a85a9649c91834a3fc8e",
+      "bytes": 17237
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_train_16384.json": {
+      "sha256": "9160e116c3e9258fc2a9b09c866d5a52f911c0d3a8ca15c92d29427c35dc8c6b",
+      "bytes": 621
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_4096_result.json": {
+      "sha256": "7f009fe82238db6e4002e2e72af8af0b315063467768c94ea8a6b3fe94aa04c2",
+      "bytes": 1557
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_4096.json": {
+      "sha256": "da9f9f1ef4b4e66ca544bdcab12b8755a434dd4dbc8544f13837da34dff72149",
+      "bytes": 586
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_8192_result.json": {
+      "sha256": "beab5bd891107ff31178607a432a9f3a18b64ee720a684e58b198291052823e1",
+      "bytes": 1558
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_8192.json": {
+      "sha256": "95af857e487b1d5c5e076e9dc1ac2ed8d951da7704fdc5e84bc29577523e9a06",
+      "bytes": 591
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_16384_result.json": {
+      "sha256": "81d5365d0ef06fb44c8ed940fd4ca7b4130829df9147ef9fadb6317bb446645f",
+      "bytes": 1560
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_16384.json": {
+      "sha256": "f64dfb8aee115024452c0fa43628e41ff417219bb54409136d9316877872f89a",
+      "bytes": 593
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_32768_result.json": {
+      "sha256": "589da343f14deac378b058fed3722543d51a84ed2570b226abdba9fd4fc702b1",
+      "bytes": 1992
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/evidence/probe_infer_32768.json": {
+      "sha256": "e8841cbca5726bdf66ff3959707355c08ee010b3eef2639b8c66536c0f6f1378",
+      "bytes": 622
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/short/plan/launch_receipt.json": {
+      "sha256": "500a9720553c98cc888f794ab9944966daec4350a3e8ebf75f006e5e562bc98c",
+      "bytes": 3036
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/short/plan/training_audit/optimizer_steps.jsonl": {
+      "sha256": "896130debc6c81d9b2f9ac754e68ba22e25a51e8a2d269d06c4672395b8e6a39",
+      "bytes": 6603
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/short/plan/training_audit/summary.json": {
+      "sha256": "add580d6cf210507522b56e194b6a0df4ea6c1ad4ca68f7cae4e11c53c7c096d",
+      "bytes": 925
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/short/plan/training_audit/metrics.jsonl": {
+      "sha256": "2889f18dc6b06ae608c12377c7384b8f69d13d7d05de44f3a6155c5dffb49525",
+      "bytes": 2533
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/long/plan/launch_receipt.json": {
+      "sha256": "ee106e2bbf9f167797435c2265d80a16f5c0ff7c5452369a9cd82695ddce56d6",
+      "bytes": 3033
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/long/plan/training_audit/optimizer_steps.jsonl": {
+      "sha256": "4dc4bb64d5f032d7462d46b6d59fba41cd5bcf3b1bbf3a7404a3db9fa9c445d0",
+      "bytes": 6614
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/long/plan/training_audit/summary.json": {
+      "sha256": "5f540510ebd657965e1e81f76e27a73b8f8be7a39389b0d4425006a9ca2d355a",
+      "bytes": 927
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/long/plan/training_audit/metrics.jsonl": {
+      "sha256": "f7ad7af5bcec0f241c0f59af29b83753bf411e096dc14da8f707099ae2795165",
+      "bytes": 2549
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/evaluation/base_cachefix1/run/summary.json": {
+      "sha256": "c3e0281b725541d5ce7a2f5b3332aac6871db90930c4aef6a2529c7a595076cd",
+      "bytes": 16241
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/evaluation/short_cachefix3/run/summary.json": {
+      "sha256": "b84dd8c40d46f6b198624cfcd401dad37b5cb15da71417b79478654c96389f2b",
+      "bytes": 16241
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_artifacts/experiments/ms_swift/.cache/paired/evaluation/long_cachefix3/run/summary.json": {
+      "sha256": "4531d032b979b63bce21bef61552cea77f5d45f204b58557dc057e8e9a2cab4d",
+      "bytes": 16204
+    },
+    "experiments/ms_swift/.cache/colab_retry_20261127-093523/final_visual_v2/scoring/summary.json": {
+      "sha256": "9425fe8eff1fffddae147da8038f214616dd76305a4a8cef1842bbfad6132e24",
+      "bytes": 132941
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\pilot_eval_20261108_v1\\frozen_v1\\summary.json": {
+      "sha256": "6ed734961ab7fb7f27f92ab3af5cac484dd1e6877a2e15b600201524810dc038",
+      "bytes": 2333
+    },
+    "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\paired_pilot_20261108_v1\\human_approval_20261127_v1\\approval.json": {
+      "sha256": "993b2c8bdddcec608f1ff662b4d88cab27520775d99233ea4eb3b9eb6b62282a",
+      "bytes": 1234
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\evidence\\final_validation_summary.json": {
+      "sha256": "0bcd0ca817363dfebd9de3de36d1aa20c4a2e736ddc7524bdb52638cf6d5fc41",
+      "bytes": 9814
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\analysis\\report_issue13_sft.py": {
+      "sha256": "f301e2ca526e8f556dd5a8a4e9f0b26e0629658345475c8913e4fd75d2fb999a",
+      "bytes": 15506
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\analysis\\plot_paired_pilot.py": {
+      "sha256": "c78085d3f804c15c6557da1337388293134e8e9966bc771461d31d021733f6e8",
+      "bytes": 46628
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\pilot_eval\\scoring.py": {
+      "sha256": "1344b98563fc4c18660e8805801204fbc992d9fd6f4d56098d25d8110914dcb9",
+      "bytes": 26319
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\official_metrics\\longbench_metrics.py": {
+      "sha256": "e22e2a2662e0f7e683137fa3541f64edb6a801e9138d16d2f3459a6ab9941323",
+      "bytes": 5190
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\official_metrics\\ruler_constants.py": {
+      "sha256": "6740467c17b8dc06b6b30f4f97e54ce8de81db0dd879f1538d0b6b5727f4bd5f",
+      "bytes": 1531
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\short\\plan\\training_audit\\metrics.jsonl": {
+      "sha256": "2889f18dc6b06ae608c12377c7384b8f69d13d7d05de44f3a6155c5dffb49525",
+      "bytes": 2533
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\short\\plan\\training_audit\\dev_evaluations.jsonl": {
+      "sha256": "38bc61e9417fcde6d3ecbf3b7b7c0103f058778ca56b66bf24521645699d91a4",
+      "bytes": 148
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\long\\plan\\training_audit\\metrics.jsonl": {
+      "sha256": "f7ad7af5bcec0f241c0f59af29b83753bf411e096dc14da8f707099ae2795165",
+      "bytes": 2549
+    },
+    "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\long\\plan\\training_audit\\dev_evaluations.jsonl": {
+      "sha256": "8e02bfa08c9a39e07b6084f587cea62ed22e675d0a626a13a307cc5d0d2bf044",
+      "bytes": 148
+    }
+  },
+  "final_runtime_proof_sha256": "0bcd0ca817363dfebd9de3de36d1aa20c4a2e736ddc7524bdb52638cf6d5fc41",
+  "outputs": {
+    "report.html": "560aa3ddae0925080169a09e2d98de641238d51dfd460868e849c6c458627a01",
+    "figures/paired_lengths.png": "f2a1f181195592a4286595d23caa53192c679e5eb53246ed416a6369a1e5c2d9",
+    "figures/paired_lengths.svg": "5e5801d8f2c508c219b753d55a6e4a83febe0e6710ea9c4f0ea58d03c2b09fe9",
+    "figures/public_lengths.png": "475f56e04d22222cf1e064cb9c75c0d4edca63e0d95073ff2b2125163a1eaa68",
+    "figures/public_lengths.svg": "1579b7ede52017e2cc2e4e75f4d1d012404c2643b8ee60d6abdad5e66de4d9c5",
+    "figures/resource_measurements.png": "0fc45880037d34c1f0cf10a9e1072f570356e9e9c35c3c34524bdbb4e4bc7e6c",
+    "figures/resource_measurements.svg": "f280deebe6f581c1c7fd553c61f66d3be18ac26192594b294749837841cc7cbf",
+    "figures/short_long_deltas.png": "e8e243cfc0550644d669be87740f32785189f6116f9f1a1218b540d108b13c09",
+    "figures/short_long_deltas.svg": "6882ade12b0832135408d1937f6c3abb1c6317aa08741b072a8c9dc5cc3b7000",
+    "figures/task_scores.png": "ed7227dbde25c3351fb37119fd12e123e45dc07fe0a4a7027dc017ab4aa7d9ff",
+    "figures/task_scores.svg": "482cf086f80650b0024e798f82d49527cee11b2247768308b555ebfafc370fd2",
+    "figures/task_source_mix.png": "a84cd8f8de5eed0a6fb8667b9c506b020f18bd727572ee5bd816b8f0350b577b",
+    "figures/task_source_mix.svg": "de2852dc7182fc9ca0268d6d68e232327a6ea88cc4708e69ae5bcc787ea6f792",
+    "figures/training_loss.png": "a488c3ff2c2d9b1ffd38f8abd4193db0c7c465304889c896c8214e421fce1469",
+    "figures/training_loss.svg": "3c70438394984b2e2836712a48106b5f68a7c6a55cff2a6950d4cde9c949b519",
+    "figures/train_dev_best.png": "266ba99190b194af55592a829c52030ec35569333ccf4567c0e2f9dc9fa24be4",
+    "figures/train_dev_best.svg": "e516266fc5d67f588dd2792de1af087a587d4ccd6f2887c65b3e641a40ac8c60"
+  },
+  "notes": [
+    "Original candidate packet and serialized remote plans remain unchanged.",
+    "Effective human admission and original generation state are separate.",
+    "Selected best exposure may differ even with equal full training budgets.",
+    "Single-source cluster confidence intervals remain unavailable; no pooled cross-benchmark accuracy."
+  ]
+}

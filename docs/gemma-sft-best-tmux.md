@@ -59,3 +59,5 @@ FUSE 的读回哈希是完整性检查，不保证云端已经持久落盘。结
 `analysis/plot_paired_pilot.py` 接收资源目录、两臂 plan、三组评测 summary 与绑定评分 summary，生成自包含 HTML、PNG/SVG、输入哈希和完整/选中曝光表。缺少真实 GPU 或评分结果时标记未运行，不画零准确率。此规模仅为 seed17 预实验；单来源簇、32K缺少质量题等限制沿用冻结套件说明。
 
 官方评分导出同时包含互斥长度分桶与 `all_lengths` 任务汇总。报告只累加长度分桶计算总分母，另验汇总与分桶的条数、失败状态一致；不会把同一250题重复统计为500题。
+
+2026-11-27 已完成两臂实际SFT、三臂各250题公开测评、完整best重载及Drive flush/资源释放，见[实测结果与可视化](../experiments/results/issue13_sft_20261127/a100_retry/README.md)。`analysis/report_issue13_sft.py`从最终核验收据读取相对路径，验证冻结题、预测与人工准入指纹后调用原官方评分器；[CPU复核命令](../experiments/results/issue13_sft_20261127/a100_retry/REPRODUCE.md)不创建runtime。小规模结果有改善也有退化，不能据此宣称正式长文收益；这次保存/重载验证也没有证明跨VM完整训练恢复。

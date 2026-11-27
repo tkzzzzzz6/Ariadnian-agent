@@ -106,12 +106,25 @@ class ReportTests(unittest.TestCase):
             if name.endswith(".png"):
                 self.assertEqual(path.read_bytes()[:8], b"\x89PNG\r\n\x1a\n")
             else:
-                self.assertIn("<svg", path.read_text(encoding="utf-8"))
+                svg = path.read_text(encoding="utf-8")
+                self.assertIn("<svg", svg)
+                self.assertFalse(any(line.rstrip() != line for line in svg.splitlines()))
         output = report.render_html(data, figures, self.root / "report.html", "awaiting review")
         text = output.read_text(encoding="utf-8")
         self.assertEqual(text.count('src="data:image/png;base64,'), 2)
         self.assertNotIn('src="http', text)
         self.assertNotIn("PRIVATE_ANSWER", text)
+
+    def test_actual_template_evidence_changes_plot_caption_without_rewriting_candidate(self):
+        data = self.collect()
+        pending = report.plots(data, self.root / 'pending_figures')
+        self.assertIn('真实 SWIFT 编码仍待核验', pending['paired_lengths.svg'].read_text(encoding='utf-8'))
+        data['actual_swift_template_verified'] = True
+        actual = report.plots(data, self.root / 'actual_figures')
+        text = actual['paired_lengths.svg'].read_text(encoding='utf-8')
+        self.assertTrue('本轮全部配对已通过真实 SWIFT 编码核验' in text)
+        self.assertNotIn('真实 SWIFT 编码仍待核验', text)
+        self.assertFalse(data['summary']['training_ready'])
 
     def score_fixture(self):
         groups = {}

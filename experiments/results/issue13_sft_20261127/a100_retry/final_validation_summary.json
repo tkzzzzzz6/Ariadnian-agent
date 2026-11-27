@@ -1,0 +1,235 @@
+{
+  "schema_version": "paired-gpu-final-validation-v2",
+  "created_unix": 1795785967.7241812,
+  "paired_sft_completed": true,
+  "complete_best_and_drive_verified": true,
+  "frozen_eval_records_sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+  "original_bundle_manifest_sha256": "b19fc3d02ed21ff26ed3e22ac30c894126982517476b7e9d43a1a251d889beb2",
+  "recovery_driver_sha256": "9bc8fbcdc3846ce8ae35c4266cb4d1650f8f413238bef4ff4bd189c2a9b49c28",
+  "validation_driver_sha256": "07f3fce4c3b01b6ec8feeed1612536a07d275c8697345c3954c4b6c0c9641fb2",
+  "actual_template_verified": true,
+  "counts": {
+    "train": 32,
+    "dev": 8
+  },
+  "arms": {
+    "short": {
+      "summary": {
+        "schema_version": "paired-training-exposure-v1",
+        "optimizer_steps": 8,
+        "consumed_sequences": 64,
+        "input_tokens": 38092,
+        "supervised_tokens": 7084,
+        "ordered_consumed_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "peak_allocated_bytes": 11492419072,
+        "peak_reserved_bytes": 12966690816,
+        "observed_optimizer_wall_seconds": 39.889161960000365,
+        "optimizer_steps_sha256": "896130debc6c81d9b2f9ac754e68ba22e25a51e8a2d269d06c4672395b8e6a39",
+        "quality_improvement_measured": false,
+        "total_completed_steps": 8,
+        "best_step": 8,
+        "selected_consumed_sequences": 64,
+        "selected_input_tokens": 38092,
+        "selected_supervised_tokens": 7084,
+        "selected_ordered_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "note": "Equal full-run budgets do not imply equal selected checkpoint exposure.",
+        "best_eval_loss": 1.33265424
+      },
+      "complete_best": {
+        "schema_version": "complete-best-v1",
+        "owner": "plan-f9a246ae2e10bbc03cf73ec3d478f25dee94422031e5e5fa0f4a1dfbb66af9d4",
+        "step": 8,
+        "eval_loss": 1.33265424,
+        "files": {
+          "README.md": {
+            "sha256": "70b6ca98ddd48e3ef926fc6c7361e48a9fa787511b70b0feba18026d23366670",
+            "bytes": 5432
+          },
+          "adapter_config.json": {
+            "sha256": "0fd79dbad96edb01ecf1015eb9d80cd60ee951ca46d963c2102f884a33c81d44",
+            "bytes": 1329
+          },
+          "adapter_model.safetensors": {
+            "sha256": "30d88b4e60d8a7f08b12024a4e68612292afc1fa7dbd03631146717405eec9a9",
+            "bytes": 105415064
+          },
+          "additional_config.json": {
+            "sha256": "c7799462ebedae6557ffad31566029e2d2f958b7b40e46e972cf901bcaf45733",
+            "bytes": 67
+          },
+          "args.json": {
+            "sha256": "5dcb2302865fe7b0b80160877565a943e40554df00d532d0f2dad5bd58217f58",
+            "bytes": 17875
+          },
+          "optimizer.pt": {
+            "sha256": "bbae5e3c3f9c67761718d259afcb8090914f08d65e729f5a8dea1619334426d2",
+            "bytes": 211138395
+          },
+          "rng_state.pth": {
+            "sha256": "925b8d2075490f542fe5cf13c626ce2dc10af99b7a3bd167f9c74e86c3fb0315",
+            "bytes": 14709
+          },
+          "scheduler.pt": {
+            "sha256": "38483ca1f03eba8784467c5504011f807724628a83b0d39f342afe9ef67b5cc9",
+            "bytes": 1401
+          },
+          "trainer_state.json": {
+            "sha256": "5003c345c5357ec55b77ddbe4f5da53184188ea7ee53fdb19cfe4170853e629a",
+            "bytes": 3458
+          },
+          "training_args.bin": {
+            "sha256": "1a592a91774eb66791a8b0e9120d6c26753c9a36d920e825a00e6ae3680a6f55",
+            "bytes": 6801
+          }
+        },
+        "provenance": {
+          "plan_sha256": "f9a246ae2e10bbc03cf73ec3d478f25dee94422031e5e5fa0f4a1dfbb66af9d4"
+        },
+        "durability": "readback verified; Drive flush still required before runtime release"
+      },
+      "checkpoint_reload_verified": true,
+      "plan_sha256": "f9a246ae2e10bbc03cf73ec3d478f25dee94422031e5e5fa0f4a1dfbb66af9d4",
+      "reload_report_sha256": "7d57ebd6e9b7cb493b24292c81a71fa3a3502001c34bba1dcb1f8f1ad05cdada"
+    },
+    "long": {
+      "summary": {
+        "schema_version": "paired-training-exposure-v1",
+        "optimizer_steps": 8,
+        "consumed_sequences": 64,
+        "input_tokens": 371796,
+        "supervised_tokens": 7084,
+        "ordered_consumed_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "peak_allocated_bytes": 19563112448,
+        "peak_reserved_bytes": 33950793728,
+        "observed_optimizer_wall_seconds": 209.59852327900126,
+        "optimizer_steps_sha256": "4dc4bb64d5f032d7462d46b6d59fba41cd5bcf3b1bbf3a7404a3db9fa9c445d0",
+        "quality_improvement_measured": false,
+        "total_completed_steps": 8,
+        "best_step": 8,
+        "selected_consumed_sequences": 64,
+        "selected_input_tokens": 371796,
+        "selected_supervised_tokens": 7084,
+        "selected_ordered_label_hashes_sha256": "fdb5414324022104fd2b288fd769c33225d1233b655dd3f6454842c1955ec382",
+        "note": "Equal full-run budgets do not imply equal selected checkpoint exposure.",
+        "best_eval_loss": 1.43616521
+      },
+      "complete_best": {
+        "schema_version": "complete-best-v1",
+        "owner": "plan-2b74e7c1e7575b6534cf0595230d53494615dd3763ede08ac592cfca2a043ebd",
+        "step": 8,
+        "eval_loss": 1.43616521,
+        "files": {
+          "README.md": {
+            "sha256": "70b6ca98ddd48e3ef926fc6c7361e48a9fa787511b70b0feba18026d23366670",
+            "bytes": 5432
+          },
+          "adapter_config.json": {
+            "sha256": "008233a242ba7f43c4b0c0764b468ae67cf986988c94fc97d4e3363b005f9fc5",
+            "bytes": 1329
+          },
+          "adapter_model.safetensors": {
+            "sha256": "2fcb4eaed3882bd8e9476e69c7982d1479ecb1abbd06a6324252c6e482290273",
+            "bytes": 105415064
+          },
+          "additional_config.json": {
+            "sha256": "c7799462ebedae6557ffad31566029e2d2f958b7b40e46e972cf901bcaf45733",
+            "bytes": 67
+          },
+          "args.json": {
+            "sha256": "9e818c2f214bcac6a0d2f4c62a7bce2c70451ea9189a6a33d45fbbe625709d94",
+            "bytes": 17867
+          },
+          "optimizer.pt": {
+            "sha256": "4ecd78e49ce2b14e405e6c1781ab75da272687d029a0f44fbdb7464922d20e8e",
+            "bytes": 211138395
+          },
+          "rng_state.pth": {
+            "sha256": "d1c60d2bf9eae1afe5c405489859c7d7fb18103134bd72d313718189b69082ef",
+            "bytes": 14709
+          },
+          "scheduler.pt": {
+            "sha256": "38483ca1f03eba8784467c5504011f807724628a83b0d39f342afe9ef67b5cc9",
+            "bytes": 1401
+          },
+          "trainer_state.json": {
+            "sha256": "eddfc27f18e8cab9ee0bcd76a7ba103d9c765668d70589a2cd5106ba9f6d2e57",
+            "bytes": 3456
+          },
+          "training_args.bin": {
+            "sha256": "1906a39339690eff358067b0141647bac0674fe3cafa4f7fa12237bff134883d",
+            "bytes": 6801
+          }
+        },
+        "provenance": {
+          "plan_sha256": "2b74e7c1e7575b6534cf0595230d53494615dd3763ede08ac592cfca2a043ebd"
+        },
+        "durability": "readback verified; Drive flush still required before runtime release"
+      },
+      "checkpoint_reload_verified": true,
+      "plan_sha256": "2b74e7c1e7575b6534cf0595230d53494615dd3763ede08ac592cfca2a043ebd",
+      "reload_report_sha256": "fea0fe7d6f3a2f49322409b91bac2dd9f905017a0d40eb81977562e784346659"
+    }
+  },
+  "evaluation": {
+    "base": {
+      "status": "completed_with_failures",
+      "total": 250,
+      "successful": 244,
+      "failed_or_skipped": 6,
+      "statuses": {
+        "ok": 244,
+        "empty_prediction": 6
+      },
+      "predictions_sha256": "691c5569801f2d277a00fe825e2b613b09b4542d96655df5a708400a833af912",
+      "wrapper_wall_seconds": 2093.090627684,
+      "summary_sha256": "c3e0281b725541d5ce7a2f5b3332aac6871db90930c4aef6a2529c7a595076cd",
+      "relative_run_directory": "experiments/ms_swift/.cache/paired/evaluation/base_cachefix1/run"
+    },
+    "short": {
+      "status": "completed_with_failures",
+      "total": 250,
+      "successful": 249,
+      "failed_or_skipped": 1,
+      "statuses": {
+        "ok": 249,
+        "empty_prediction": 1
+      },
+      "predictions_sha256": "755f98058608b15400d5921da63e5f09620b61b35f9c688f8ea1bb36347f8da9",
+      "wrapper_wall_seconds": 3478.441834876,
+      "summary_sha256": "b84dd8c40d46f6b198624cfcd401dad37b5cb15da71417b79478654c96389f2b",
+      "relative_run_directory": "experiments/ms_swift/.cache/paired/evaluation/short_cachefix3/run"
+    },
+    "long": {
+      "status": "completed",
+      "total": 250,
+      "successful": 250,
+      "failed_or_skipped": 0,
+      "statuses": {
+        "ok": 250
+      },
+      "predictions_sha256": "b6fb3511da80a19672939055226d9307f33ccda7e7b8dc64d3180ab0d955f370",
+      "wrapper_wall_seconds": 3571.4531375099996,
+      "summary_sha256": "4531d032b979b63bce21bef61552cea77f5d45f204b58557dc057e8e9a2cab4d",
+      "relative_run_directory": "experiments/ms_swift/.cache/paired/evaluation/long_cachefix3/run"
+    }
+  },
+  "initial_base_load_failures": 250,
+  "formal_improvement_demonstrated": false,
+  "prior_short_timeout": {
+    "status": "timeout",
+    "total": 250,
+    "successful": 158,
+    "failed_or_skipped": 92,
+    "statuses": {
+      "ok": 158,
+      "interrupted_timeout": 1,
+      "not_attempted_after_timeout": 91
+    },
+    "child_completed_records": 158,
+    "predictions_sha256": "a9227afc279eff7f0f28121b04bec0d5af7faa6fcee704ceee76c681a88cece1",
+    "wrapper_wall_seconds": 2700.2652766379997,
+    "max_seconds": 2700,
+    "summary_sha256": "4ea5f3609aac73f97d1caeb596baccce608dab620f7652764ac2016340f8fb5c"
+  },
+  "retry_contract_sha256": "bb23cf32f393a19661cd66918b6765285d7840e7f2afe3aa5fada610c9cb21a3"
+}
