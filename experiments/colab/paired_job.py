@@ -494,7 +494,7 @@ def evaluate(root, arm):
         argv = [python, "-m", "gemma_eval", "prepare", "--kind", "chat",
                 "--input", root / "inputs/eval_records.jsonl", "--model-assets", work / ".cache/model_assets/gemma4-e2b",
                 "--output", output / "plan", "--context-length", "16384", "--quantization", "bf16",
-                "--cache-dir", root / "hf_cache"]
+                "--cache-dir", root / "hf_cache/hub"]
         if chosen != "base":
             verified_pair(root)
             reload_path = root / f"evidence/{chosen}_checkpoint_reload.json"

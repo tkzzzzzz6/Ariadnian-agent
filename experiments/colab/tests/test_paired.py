@@ -31,6 +31,13 @@ job = load("paired_job")
 
 
 class PairedTests(unittest.TestCase):
+    def test_evaluation_cache_uses_hub_below_hf_home(self):
+        root = Path('/content/ariadne_paired_cache_fixture')
+        with patch.object(job, 'command') as command:
+            job.evaluate(root, 'base')
+        argv = command.call_args_list[0].args[2]
+        self.assertEqual(Path(argv[argv.index('--cache-dir') + 1]), root / 'hf_cache/hub')
+
     def test_terminated_group_leader_does_not_skip_descendant_kill(self):
         proc = unittest.mock.Mock(pid=12345)
         proc.wait.return_value = 0
