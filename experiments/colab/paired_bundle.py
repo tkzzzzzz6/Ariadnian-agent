@@ -44,7 +44,7 @@ def build_bundle(repo, output, *, resource_only=False, **inputs):
                      "experiments/ms_swift/gemma_eval/model_weights.lock.json",
                      "experiments/colab/remote_job.py", "experiments/colab/paired_job.py",
                      "experiments/colab/training_audit.py", "experiments/colab/best_checkpoint.py",
-                     "experiments/colab/tmux_runner.py"):
+                     "experiments/colab/tmux_runner.py", "experiments/colab/evaluation_outcome.py"):
         add(repo / relative)
     for name in ASSET_NAMES:
         add(repo / "experiments/ms_swift/.cache/model_assets/gemma4-e2b" / name)

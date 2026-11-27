@@ -176,6 +176,7 @@ class PairedTests(unittest.TestCase):
                  "experiments/colab/remote_job.py", "experiments/colab/paired_job.py",
                  "experiments/colab/training_audit.py", "experiments/colab/best_checkpoint.py",
                  "experiments/colab/tmux_runner.py",
+                 "experiments/colab/evaluation_outcome.py",
                  "experiments/common/ariadne_data/__init__.py",
                  "experiments/ms_swift/cpt/__init__.py", "experiments/ms_swift/gemma_eval/__init__.py",
                  "backend/.env", "experiments/ms_swift/.cache/reviews.jsonl"]
