@@ -1,0 +1,94 @@
+{
+  "schema_version": "evaluation-source-partition-v2",
+  "seed": 281126,
+  "pool_records": 4820,
+  "regression_records": 250,
+  "eligible_pool_records": 4386,
+  "blocked_regression_records": 255,
+  "blocked_training_records": 0,
+  "blocked_eligible_training_records": 0,
+  "selected_counts": {
+    "demonstration": 2,
+    "development": 39,
+    "confirmation": 150
+  },
+  "shortfalls": {
+    "demonstration": {
+      "boolq:yes_no": 0
+    },
+    "development": {
+      "boolq:yes_no": 0,
+      "longbench-v1:2wikimqa": 0,
+      "longbench-v1:gov_report": 0,
+      "longbench-v1:hotpotqa": 0,
+      "longbench-v1:multi_news": 0,
+      "longbench-v1:multifieldqa_en": 0,
+      "longbench-v1:multifieldqa_zh": 0,
+      "longbench-v1:narrativeqa": 1,
+      "longbench-v1:qasper": 0
+    },
+    "confirmation": {
+      "boolq:yes_no": 0,
+      "longbench-v1:2wikimqa": 0,
+      "longbench-v1:gov_report": 0,
+      "longbench-v1:hotpotqa": 0,
+      "longbench-v1:multi_news": 0,
+      "longbench-v1:multifieldqa_en": 0,
+      "longbench-v1:multifieldqa_zh": 0,
+      "longbench-v1:narrativeqa": 10,
+      "longbench-v1:qasper": 0
+    }
+  },
+  "selection_complete": false,
+  "selection_depends_on_answers_or_model_scores": false,
+  "model_predictions_observed": 0,
+  "overlap_scope": "IDs, declared clusters/families, normalized contexts and complete paragraphs/blocks >=300 chars; not semantic/pretraining contamination proof",
+  "raw_pool_counts": {
+    "longbench-v1:hotpotqa": 200,
+    "longbench-v1:multifieldqa_en": 150,
+    "longbench-v1:narrativeqa": 200,
+    "longbench-v1:gov_report": 200,
+    "longbench-v1:qasper": 200,
+    "longbench-v1:multifieldqa_zh": 200,
+    "longbench-v1:multi_news": 200,
+    "longbench-v1:2wikimqa": 200,
+    "boolq:yes_no": 3270
+  },
+  "eligible_pool_counts": {
+    "longbench-v1:hotpotqa": 117,
+    "longbench-v1:multifieldqa_en": 59,
+    "longbench-v1:narrativeqa": 61,
+    "longbench-v1:gov_report": 85,
+    "longbench-v1:qasper": 197,
+    "longbench-v1:multifieldqa_zh": 200,
+    "longbench-v1:multi_news": 200,
+    "longbench-v1:2wikimqa": 197,
+    "boolq:yes_no": 3270
+  },
+  "length_policy": {
+    "primary_min_input": 8192,
+    "longbench_max_total": 16384,
+    "boolq_max_total": 2048,
+    "truncation": false
+  },
+  "input_hashes": {
+    "longbench_archive": "cb45b11a4133c6bc1d6a44b0f8e701335ff1e543195db1103472e575857f7f64",
+    "official_prompts": "56d22ad4f382169c2b8a11ff4c982a4a1bea096c8152b0f0b85b64686b157c30",
+    "official_output_budgets": "72966b3c0933e214591637fb085798c5e687ebff4ddaab5d99bbc31120532022",
+    "boolq": "a4b213c801e232d24576f40206770525b0e9954a9cb5f02007e908b25aba0afd",
+    "regression": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+    "training_scope": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3"
+  },
+  "source_scope_sha256": "06b859714db77bdbbd0f62f21ff78bf2580173a86ddeafcc06cd1fcba7295d9b",
+  "calibration_cases": 96,
+  "calibration_model_scope": "fixed pinned Base only, bf16, no adapter; selected profile shared by all arms",
+  "calibration_status": "not_run",
+  "confirmation_sealed": false,
+  "training_ready": false,
+  "regression_unchanged": true,
+  "limitations": [
+    "Exact contexts/paragraph overlap audit is not semantic or pretraining contamination proof.",
+    "Old RULER is regression only; independent new RULER is not included.",
+    "Final v2 selected sources must match the audited source scope before sealing."
+  ]
+}

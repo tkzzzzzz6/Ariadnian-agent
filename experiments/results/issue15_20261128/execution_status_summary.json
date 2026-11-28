@@ -1,0 +1,29 @@
+{
+  "schema_version": "issue15-experiment-readiness-v1",
+  "new_gpu_allocated": false,
+  "new_sft_executed": false,
+  "base_calibration_executed": false,
+  "confirmation_executed": false,
+  "actual_swift_template_verified": false,
+  "cpu_calibration_plan": {
+    "records": 96,
+    "statuses": {
+      "ready": 96
+    },
+    "plan_sha256": "e9148b47837c4726ea430bac5bfbfbb788e5935afaf25a406a7f44c1f5d50d33",
+    "plan_file_sha256": "61b3547bcb206fa15ae039d902d2606a5e330acced08f0c231b8ebd8f0749ec9",
+    "input_range": [
+      67,
+      674
+    ]
+  },
+  "public_regression_sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+  "scoring_sha256": "1344b98563fc4c18660e8805801204fbc992d9fd6f4d56098d25d8110914dcb9",
+  "candidate_packet_sha256": "89c446d26681d151c543535d1e0096e716e696e4b408c5b8d9c11c4eb7b4af0b",
+  "delta_review_sha256": "46deafb5144c14355875a682890331547849c61ce3f62a26506a6f5baddb7e03",
+  "human_prerequisite": "New120QA and new36sources await actual content/license approval; prior exact40/12 approval remains valid.",
+  "notes": [
+    "CPU plans are path-bound and must be freshly prepared after Colab relocation.",
+    "A100/Drive runtime work has not started; no claim of new model quality or GPU fit."
+  ]
+}

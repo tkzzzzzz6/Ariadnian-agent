@@ -1,0 +1,46 @@
+{
+  "schema_version": "issue15-local-validation-v1",
+  "platform": "Windows",
+  "controller_python": "3.12.6",
+  "checks": {
+    "npm_test": {
+      "exit_code": 0,
+      "backend_passed": 280,
+      "experiments_passed": 365,
+      "experiments_skipped": 1,
+      "subtests_passed": 29,
+      "frontend_regression_passed": 74,
+      "log_sha256": "1cbe5dd247e9a368c3667091f56165f6f6d2a6f6d864fed301d7d416ef9445fd"
+    },
+    "vite_build": {
+      "exit_code": 0,
+      "log_sha256": "5a7d7021e816adac4a3eeb39dd3a0e66d4ee8a188cbbf08eedb6f9487ce2b818"
+    },
+    "offline_fixture": {
+      "exit_code": 0,
+      "log_sha256": "062ee01c3751f935d1c07674fc83b46d94229066b08f27faf862bb868524f8cf"
+    },
+    "targeted_new_tests": {
+      "passed": 34
+    },
+    "independent_code_review": {
+      "important_findings": 2,
+      "fixed_with_red_green": 2
+    },
+    "visual_report": {
+      "renderer": "Microsoft Edge headless",
+      "visually_inspected": true,
+      "report_sha256": "72c9163b87e027a672e75745b4ee1adac78d1bab46bf99b775ee0a134b1af1ec"
+    },
+    "data": {
+      "candidate_pairs": 160,
+      "final_sources_bound": 48,
+      "old_approval_compatible_pairs": 40,
+      "new_pairs_pending": 120
+    },
+    "historical_scorer_unchanged": true
+  },
+  "new_gpu_started": false,
+  "new_model_results_observed": false,
+  "new_training_admission_granted": false
+}

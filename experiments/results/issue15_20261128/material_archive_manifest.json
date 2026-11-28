@@ -1,0 +1,20 @@
+{
+  "schema_version": "private-material-archive-v3",
+  "archive": "issue15_private_material_v3.zip",
+  "sha256": "fe99d877f164d51af926988db83fc5a807a02a56c0c735bf6a6cb125e7675ed8",
+  "bytes": 11170263,
+  "files": 90,
+  "local_readback_verified": true,
+  "local_html_links_verified": true,
+  "cloud_readback_verified": true,
+  "public_release": false,
+  "gpu_started": false,
+  "supersedes": {
+    "v2_sha256": "fb0999f220ac16ce47065ef785b4cc0ce34fb3411ea994d14ba41ea816d25ee6",
+    "reason": "Preserve local review_v2/review_delta_v1 folder topology so relative review links work after unzip; record bytes unchanged."
+  },
+  "drive_file_id": "1orechLoZRePxVw8K1GxhekUKd2UWtv_O",
+  "drive_url": "https://drive.google.com/file/d/1orechLoZRePxVw8K1GxhekUKd2UWtv_O/view?usp=drivesdk",
+  "drive_folder_url": "https://drive.google.com/drive/folders/1FGW1orPYmm-lZqJerijGVA3sLvSeDoEg",
+  "source_visibility": "private; metadata shared=false; no sharing change"
+}

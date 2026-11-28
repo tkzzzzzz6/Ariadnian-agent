@@ -1,0 +1,355 @@
+{
+  "schema_version": "paired-data-lock-v1",
+  "corpus_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "authored_specs_sha256": "ff1a52a4b105776f76be58217ca4ae1ff38a7b91df3991100a170469f686eb85",
+  "quarantine_sha256": "45cf13e9af6c077d2a8807b1fb01abe639234cea74dfc5cee3d1096b95946c37",
+  "model_lock_sha256": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e",
+  "artifacts": {
+    "long.jsonl": "7fcfa1ad37fd8f71dbb3ff0d2295bf778f36873b0892f7ede8dc47b3588dd4d5",
+    "long_reviews.pending.jsonl": "9b3bdddf136dd2caf025012b37dab2a0f42e47f9366bb4bedf72d3ba8738bb7e",
+    "pairs.jsonl": "fb5b0868d47d8b80cb1626975d5295ea30f95f64ab58342d5548a752421cc743",
+    "short.jsonl": "3dd9516be6599e7e206638cac5cefa6bd7bcba6f31c3b3fdb477c46003028338",
+    "short_reviews.pending.jsonl": "cb57e1273b88d9a25424474665127cfedfaa95579bd14dbc60caf5b07a6603ac",
+    "source_reviews.pending.jsonl": "72398d789745be1db300c3c4a231321d12da2e65e92c1c5b6f7bfa864437892e",
+    "sources.jsonl": "988af1de6b00a24a7df5bad073f1daa69db4e03cfefbb223326dbb82e5c41efd",
+    "summary.json": "5664e1f3eb57a942e0be56b7e4a0595cc14d44684cae339dba1139e8674841dd"
+  },
+  "sources": [
+    {
+      "id": "PMC11413148",
+      "family_id": "10.1007/s11356-024-34784-8",
+      "split": "train",
+      "sha256": "deec68e85778a991672ec5f37fff59f51940281ddbe88f9884d6b23512c57ed2",
+      "connected_family_id": "component-9acd7d17ceee64df"
+    },
+    {
+      "id": "PMC12567402",
+      "family_id": "10.3390/plants14203230",
+      "split": "train",
+      "sha256": "e78ba86e8dd04b9ce13a59e5b8162235f99043af013c7fcced48efa1e19e23ef",
+      "connected_family_id": "component-bf04d3397286b697"
+    },
+    {
+      "id": "PMC12685581",
+      "family_id": "10.4014/jmb.2509.09032",
+      "split": "dev",
+      "sha256": "c87a759faa73c9264fd02cf8bfd552314583ec82185382805be69222ed03918a",
+      "connected_family_id": "component-956fe430e4acb9fd"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_computational-performance/hardware.md",
+      "family_id": "d2l:chapter_computational-performance/hardware.md",
+      "split": "train",
+      "sha256": "68356f11a8ddc6b056050c08c771a0ee043e105267e87595a5899be5338e3bfa",
+      "connected_family_id": "component-e236a78d76969148"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_computational-performance/hybridize.md",
+      "family_id": "d2l:chapter_computational-performance/hybridize.md",
+      "split": "train",
+      "sha256": "bfb651cd17cd0430ebf3032e007eb0271ab45c54c7f5ea2544e1ef283e3a0a24",
+      "connected_family_id": "component-c0f8fefd915c0028"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_computational-performance/multiple-gpus.md",
+      "family_id": "d2l:chapter_computational-performance/multiple-gpus.md",
+      "split": "train",
+      "sha256": "c09aef2cd4ab69c1d88ab854754bd890ba8f6bbd9fc7cc7424ec02e608b0e4d6",
+      "connected_family_id": "component-73955cfc31f3bfce"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_computer-vision/fcn.md",
+      "family_id": "d2l:chapter_computer-vision/fcn.md",
+      "split": "train",
+      "sha256": "fc73e0577b9f29aeba66158379742fafa4e2101da347ee2dca79d2be80779c73",
+      "connected_family_id": "component-189e2ab4c11ac2ed"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_computer-vision/neural-style.md",
+      "family_id": "d2l:chapter_computer-vision/neural-style.md",
+      "split": "train",
+      "sha256": "c83439a14e12512c237d7e50747a9aba5469c5efebca8f7b7a866505778e169b",
+      "connected_family_id": "component-5860db6c13f5d2c1"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_computer-vision/semantic-segmentation-and-dataset.md",
+      "family_id": "d2l:chapter_computer-vision/semantic-segmentation-and-dataset.md",
+      "split": "train",
+      "sha256": "4881f066a04df51ab816aa1894b817404d15f74f553f82aab08bc794323a461e",
+      "connected_family_id": "component-189e2ab4c11ac2ed"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_convolutional-modern/alexnet.md",
+      "family_id": "d2l:chapter_convolutional-modern/alexnet.md",
+      "split": "train",
+      "sha256": "f023760599d659862f9300cc38135083defa1ee1db54777703c08c162a45fb24",
+      "connected_family_id": "component-a647db55d50f6c0f"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_deep-learning-computation/parameters.md",
+      "family_id": "d2l:chapter_deep-learning-computation/parameters.md",
+      "split": "train",
+      "sha256": "6c6a98c54271177f51e9557292f6656f29adb17ff352a58120bba9716bffe208",
+      "connected_family_id": "component-52fd26d4a90e73d4"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_linear-networks/linear-regression-concise.md",
+      "family_id": "d2l:chapter_linear-networks/linear-regression-concise.md",
+      "split": "train",
+      "sha256": "85f7f9b245878ec65c66ab567b25e320e69c3b5ff0a4366e2e65948d16ef9223",
+      "connected_family_id": "component-022e7259de52a182"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_linear-networks/linear-regression-scratch.md",
+      "family_id": "d2l:chapter_linear-networks/linear-regression-scratch.md",
+      "split": "train",
+      "sha256": "0512fdeadcee32dd475a65e2aa498acedacba8f3d7d63c74ec56aaff3b38f37e",
+      "connected_family_id": "component-022e7259de52a182"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_linear-networks/softmax-regression.md",
+      "family_id": "d2l:chapter_linear-networks/softmax-regression.md",
+      "split": "train",
+      "sha256": "978a3ccecfe70617fcdc4fd28e5bf8734d96a865739e81f7094e7291d67fa8d9",
+      "connected_family_id": "component-d3d26a0cd8fa99f4"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_multilayer-perceptrons/dropout.md",
+      "family_id": "d2l:chapter_multilayer-perceptrons/dropout.md",
+      "split": "train",
+      "sha256": "7e5a36d5be07b53b5fa714d8f6ae51d303a81db1ef759c8b850027453a3bfd4c",
+      "connected_family_id": "component-68a50883c2a10a3f"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_multilayer-perceptrons/kaggle-house-price.md",
+      "family_id": "d2l:chapter_multilayer-perceptrons/kaggle-house-price.md",
+      "split": "train",
+      "sha256": "1ba71a090335fc933031d90b65afd7292955fa4fb4f45c5bcf890483fff42551",
+      "connected_family_id": "component-482ed8dec36a9eaa"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_multilayer-perceptrons/mlp.md",
+      "family_id": "d2l:chapter_multilayer-perceptrons/mlp.md",
+      "split": "train",
+      "sha256": "05fb5263d2bf8de51dc401b5b9a279719faa0ba6c332735442a9643e808cc966",
+      "connected_family_id": "component-9a6cfbda4d11d99a"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_multilayer-perceptrons/underfit-overfit.md",
+      "family_id": "d2l:chapter_multilayer-perceptrons/underfit-overfit.md",
+      "split": "train",
+      "sha256": "82195daf8b33b4ce3449c3e9cafd06e103d9f2b18394e0c4bed67ddbe99c157e",
+      "connected_family_id": "component-9d52fb577011a45e"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_multilayer-perceptrons/weight-decay.md",
+      "family_id": "d2l:chapter_multilayer-perceptrons/weight-decay.md",
+      "split": "train",
+      "sha256": "0cc5bf4a4b162bb1c8cb6adcdebcd8701a1c38d4637263bd088a213281df0053",
+      "connected_family_id": "component-b6feb22dfceb95af"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_natural-language-processing-pretraining/bert-dataset.md",
+      "family_id": "d2l:chapter_natural-language-processing-pretraining/bert-dataset.md",
+      "split": "train",
+      "sha256": "ebcd7d916bc44e8205031dd4dee9947d6024219b7a2b68345a08bc226e05164f",
+      "connected_family_id": "component-2907dbb7c85e0c49"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_natural-language-processing-pretraining/bert-pretraining.md",
+      "family_id": "d2l:chapter_natural-language-processing-pretraining/bert-pretraining.md",
+      "split": "train",
+      "sha256": "36040d616d3c11359c5a2ac26e240219c31bfbd49471846bd6f53e06162f4fdc",
+      "connected_family_id": "component-2907dbb7c85e0c49"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_optimization/adam.md",
+      "family_id": "d2l:chapter_optimization/adam.md",
+      "split": "train",
+      "sha256": "0c6c44f34ff7863bfa0d89a7d1e6cba140cdb9dcd372dceb3e3b2b29adc0330e",
+      "connected_family_id": "component-18f00f076b43d1f2"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_optimization/gd.md",
+      "family_id": "d2l:chapter_optimization/gd.md",
+      "split": "train",
+      "sha256": "8d11586e4d0a1774b9992a909abb42a11517b82e8c30ac0ddb15eb4707989fec",
+      "connected_family_id": "component-46e2d894be0b4644"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_optimization/momentum.md",
+      "family_id": "d2l:chapter_optimization/momentum.md",
+      "split": "dev",
+      "sha256": "c0efc51e30a166969d9798d5b291309de46dc8e7c4d86333dcda3b24275109b8",
+      "connected_family_id": "component-545db58298a5d9c9"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_recurrent-neural-networks/bptt.md",
+      "family_id": "d2l:chapter_recurrent-neural-networks/bptt.md",
+      "split": "dev",
+      "sha256": "f3b6a16cfa73fa894036c5a3a96a3c5c5ec8027d76a4ba12f59f9b2c9c93f3ae",
+      "connected_family_id": "component-d8f0601a437bb678"
+    },
+    {
+      "id": "numpy/numpy:doc/source/dev/development_advanced_debugging.rst",
+      "family_id": "numpy/numpy:doc/source/dev/development_advanced_debugging.rst",
+      "split": "dev",
+      "sha256": "9882581c5d0ff8e63e324be2ed4ea7120a18bd3962babbf8598add3dce5ce2fa",
+      "connected_family_id": "component-739ad6ac24db05d0"
+    },
+    {
+      "id": "python/cpython:Doc/builtins/exceptions.rst",
+      "family_id": "python/cpython:Doc/builtins/exceptions.rst",
+      "split": "train",
+      "sha256": "9923fce6c4bfe7c58bb11a965bb170929b2004162ae380600b22b359d35a054b",
+      "connected_family_id": "component-0d42c5c7907d0d45"
+    },
+    {
+      "id": "python/cpython:Doc/howto/regex.rst",
+      "family_id": "python/cpython:Doc/howto/regex.rst",
+      "split": "train",
+      "sha256": "6eb0b8080c4641cec5806e9ee0103dd73347c22fdb1766e5fc1d41e1054d1c45",
+      "connected_family_id": "component-ed1819f7c6174c45"
+    },
+    {
+      "id": "python/cpython:Doc/library/argparse.rst",
+      "family_id": "python/cpython:Doc/library/argparse.rst",
+      "split": "dev",
+      "sha256": "56f7ef34a0aec871cdff3a9e82472a77f509b6f05b508be4d37590a0ba92689a",
+      "connected_family_id": "component-d1860fb4b70832fa"
+    },
+    {
+      "id": "python/cpython:Doc/library/concurrent.futures.rst",
+      "family_id": "python/cpython:Doc/library/concurrent.futures.rst",
+      "split": "train",
+      "sha256": "c8043d85f4ecb2155e801e20a8115af6b12775a62325b41c013703097b428a38",
+      "connected_family_id": "component-2b3848684603ef7e"
+    },
+    {
+      "id": "python/cpython:Doc/library/csv.rst",
+      "family_id": "python/cpython:Doc/library/csv.rst",
+      "split": "train",
+      "sha256": "c2a0a1e86c4993b199bd32bcc9396122d9058542be48c6a00c51b242c28ef016",
+      "connected_family_id": "component-fc4d4a87bfc212ad"
+    },
+    {
+      "id": "python/cpython:Doc/library/dataclasses.rst",
+      "family_id": "python/cpython:Doc/library/dataclasses.rst",
+      "split": "dev",
+      "sha256": "291d865d5d81b659234e4c2332171ba51d3c82cad399d178acb6900a353e7d3b",
+      "connected_family_id": "component-b570b05501f304a9"
+    },
+    {
+      "id": "python/cpython:Doc/library/decimal.rst",
+      "family_id": "python/cpython:Doc/library/decimal.rst",
+      "split": "train",
+      "sha256": "dce78f4b772e160804852cd51d9abe93173cb4f45f1c055abb7f705d59e165a6",
+      "connected_family_id": "component-fc4d4a87bfc212ad"
+    },
+    {
+      "id": "python/cpython:Doc/library/email.compat32-message.rst",
+      "family_id": "python/cpython:Doc/library/email.compat32-message.rst",
+      "split": "train",
+      "sha256": "eda5a36e57bac62c0d8bc375ee340b1fea25e0e9b5c4c703cfd61f8f52540333",
+      "connected_family_id": "component-4677b5b692c9084f"
+    },
+    {
+      "id": "python/cpython:Doc/library/email.message.rst",
+      "family_id": "python/cpython:Doc/library/email.message.rst",
+      "split": "train",
+      "sha256": "ac95150c85f383bfecc881e847d6c72fa22566bb112b7e5747f5e734de8c55f6",
+      "connected_family_id": "component-4677b5b692c9084f"
+    },
+    {
+      "id": "python/cpython:Doc/library/hashlib.rst",
+      "family_id": "python/cpython:Doc/library/hashlib.rst",
+      "split": "train",
+      "sha256": "741ae14ef997c4b60786ca6a85ec7d05a5ee269a5db7efd8342b47e276c7057f",
+      "connected_family_id": "component-eed3d3b64ca4ebc2"
+    },
+    {
+      "id": "python/cpython:Doc/library/ipaddress.rst",
+      "family_id": "python/cpython:Doc/library/ipaddress.rst",
+      "split": "dev",
+      "sha256": "d7320eee805c1b1edc224a4623143b1f6c5ef0d06158559363ff2d789cd7526e",
+      "connected_family_id": "component-d1860fb4b70832fa"
+    },
+    {
+      "id": "python/cpython:Doc/library/locale.rst",
+      "family_id": "python/cpython:Doc/library/locale.rst",
+      "split": "dev",
+      "sha256": "b9adf557c86a8a5bc08cf674e031c6c0cbb13aadf3cb211abdae7994cd06616c",
+      "connected_family_id": "component-d417a8d468631a35"
+    },
+    {
+      "id": "python/cpython:Doc/library/pickle.rst",
+      "family_id": "python/cpython:Doc/library/pickle.rst",
+      "split": "train",
+      "sha256": "9ed06432021cfc6ea1f470af8dfa8b8ae9bfa56061b4fb7fbc95d44210f5152b",
+      "connected_family_id": "component-2b9710ead6cf864e"
+    },
+    {
+      "id": "python/cpython:Doc/library/random.rst",
+      "family_id": "python/cpython:Doc/library/random.rst",
+      "split": "train",
+      "sha256": "119f5e0ca5cc1a7f0fe153f2b509064d919371ac2cb36c6fe5a9ff401b24cbf5",
+      "connected_family_id": "component-38b03eca45a2c42a"
+    },
+    {
+      "id": "python/cpython:Doc/library/socketserver.rst",
+      "family_id": "python/cpython:Doc/library/socketserver.rst",
+      "split": "train",
+      "sha256": "b95b0b01d5d8a8feb6eb7f2e8ca5d765a30726a89996c666e46e401d966cbb36",
+      "connected_family_id": "component-206b60005245ffd3"
+    },
+    {
+      "id": "python/cpython:Doc/library/struct.rst",
+      "family_id": "python/cpython:Doc/library/struct.rst",
+      "split": "train",
+      "sha256": "e1947dad68ebabe747d39b0e9ad9e8cdb1d36da1dba637adde1bfa768603683b",
+      "connected_family_id": "component-8874921f26376193"
+    },
+    {
+      "id": "python/cpython:Doc/library/tempfile.rst",
+      "family_id": "python/cpython:Doc/library/tempfile.rst",
+      "split": "train",
+      "sha256": "a883d33c187024fdb9eef067d3422dc0212a0b1b70d463ff492c419d38a43969",
+      "connected_family_id": "component-31f97b440e674a06"
+    },
+    {
+      "id": "scikit-learn/scikit-learn:doc/common_pitfalls.rst",
+      "family_id": "scikit-learn/scikit-learn:doc/common_pitfalls.rst",
+      "split": "dev",
+      "sha256": "124fe2b112b7a51cf4d461feb5754359034c0a95b22e6aff8e5d24889901abda",
+      "connected_family_id": "component-c7ce66b9eb8f2013"
+    },
+    {
+      "id": "scikit-learn/scikit-learn:doc/model_persistence.rst",
+      "family_id": "scikit-learn/scikit-learn:doc/model_persistence.rst",
+      "split": "dev",
+      "sha256": "f0baea053cc869da8590b9ab6d4c9e1ba0839b0d33f2d7bada503d35a16be052",
+      "connected_family_id": "component-c7ce66b9eb8f2013"
+    },
+    {
+      "id": "scikit-learn/scikit-learn:doc/modules/array_api.rst",
+      "family_id": "scikit-learn/scikit-learn:doc/modules/array_api.rst",
+      "split": "train",
+      "sha256": "e1bf9fb4e4294cb46679141c966932bb33827a704ad85b0619ade4f426a9fe4e",
+      "connected_family_id": "component-2e5d552962b871e6"
+    },
+    {
+      "id": "scipy/scipy:doc/source/dev/api-dev/array_api.rst",
+      "family_id": "scipy/scipy:doc/source/dev/api-dev/array_api.rst",
+      "split": "train",
+      "sha256": "4bb13fd7e5b488ad5d6f130a147dc5eb2c94c7dc19bed6ef5fbc3c59e6f6415e",
+      "connected_family_id": "component-2e5d552962b871e6"
+    },
+    {
+      "id": "scipy/scipy:doc/source/dev/toolchain.rst",
+      "family_id": "scipy/scipy:doc/source/dev/toolchain.rst",
+      "split": "train",
+      "sha256": "894c540666f57c8d65b9855db7ff788bf4b7cd83310ce0902c53388590fd0162",
+      "connected_family_id": "component-381518d7ed2ed1b4"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": "paired-review-candidates-v1",
+  "counts": {
+    "train": 128,
+    "dev": 32
+  },
+  "directions": {
+    "train": {
+      "crossdoc": 24,
+      "table_condition": 10,
+      "evidence_local_qa": 79,
+      "multihop": 15
+    },
+    "dev": {
+      "crossdoc": 7,
+      "table_condition": 2,
+      "multihop": 3,
+      "evidence_local_qa": 20
+    }
+  },
+  "connected_families": {
+    "train": 32,
+    "dev": 8
+  },
+  "source_documents": 48,
+  "languages": {
+    "en": 84,
+    "zh": 76
+  },
+  "languages_by_split": {
+    "train": {
+      "en": 60,
+      "zh": 68
+    },
+    "dev": {
+      "en": 24,
+      "zh": 8
+    }
+  },
+  "crossdoc_families": {
+    "train": 6,
+    "dev": 2
+  },
+  "domains": {
+    "agriculture": 2,
+    "life_sciences": 1,
+    "machine_learning": 25,
+    "numerical_computing": 3,
+    "programming": 17
+  },
+  "target_counts": {
+    "train": 128,
+    "dev": 32
+  },
+  "deficit_counts": {
+    "train": 0,
+    "dev": 0
+  },
+  "approved_pairs": 0,
+  "training_ready": false,
+  "test_sources_selected": 0,
+  "quarantined_source_count": 97,
+  "selected_quarantined_sources": 0,
+  "native_chat_tokens_verified": false,
+  "token_count_scope": "Pinned Gemma native tokenizer, message content only; full MS-SWIFT template verification is still mandatory.",
+  "token_ranges": {
+    "short": [
+      226,
+      1103
+    ],
+    "long": [
+      4394,
+      7463
+    ]
+  },
+  "limitations": [
+    "AI-authored candidate answers are not human-verified gold.",
+    "Direction labels describe the intended task, not independently demonstrated reasoning validity.",
+    "Chapter/file and DOI family isolation does not mean entire books or software repositories are held out.",
+    "Real source windows preserve repeated framework examples already in the source; no text was duplicated to pad length.",
+    "Task proportions and deficits are reported from actual records; target coverage is not a quality claim."
+  ]
+}
