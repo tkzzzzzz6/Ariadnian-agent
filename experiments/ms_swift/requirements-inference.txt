@@ -1,0 +1,9 @@
+# Python 3.12; separate GPU environment. Install CUDA wheels first.
+# uv pip install --python .cache/inference_env/Scripts/python.exe torch==2.8.0 torchvision==0.23.0 --index-url https://download.pytorch.org/whl/cu128
+torch==2.8.0
+torchvision==0.23.0
+transformers==5.12.1
+accelerate==1.12.0
+peft==0.20.0
+bitsandbytes==0.50.0
+# Transitive dependencies are resolved by the installer; retain pip freeze per run.

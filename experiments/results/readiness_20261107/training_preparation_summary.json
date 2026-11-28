@@ -1,0 +1,77 @@
+{
+  "schema_version": "training-preparation-summary-v1",
+  "plans": {
+    "pt_lora_4k_20261107_v1": {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\plans\\pt_lora_4k_20261107_v1\\launch_plan.json",
+      "sha256": "4ecd28c17ec769d386a26ca53e775e598ccc31a1b53702b5d883b46f5b3a6511",
+      "method": "pt_lora",
+      "length": 4096,
+      "training_ready": false,
+      "blockers": [
+        "exported_document_not_admitted",
+        "preview_or_unapproved_data"
+      ],
+      "executed": false
+    },
+    "pt_qlora_4k_20261107_v1": {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\plans\\pt_qlora_4k_20261107_v1\\launch_plan.json",
+      "sha256": "552eedc3ecb733ce84affbd5f08db01fcefcc4c945f0b6637ba39e8044a6d63d",
+      "method": "pt_qlora",
+      "length": 4096,
+      "training_ready": false,
+      "blockers": [
+        "exported_document_not_admitted",
+        "preview_or_unapproved_data"
+      ],
+      "executed": false
+    },
+    "pt_lora_8k_20261107_v1": {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\plans\\pt_lora_8k_20261107_v1\\launch_plan.json",
+      "sha256": "7e4ebbe810efefd5e19aa2c4c3c124ede6333bb26991dbcf089b8ef41a6d4512",
+      "method": "pt_lora",
+      "length": 8192,
+      "training_ready": false,
+      "blockers": [
+        "exported_document_not_admitted",
+        "preview_or_unapproved_data"
+      ],
+      "executed": false
+    },
+    "pt_qlora_8k_20261107_v1": {
+      "path": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\plans\\pt_qlora_8k_20261107_v1\\launch_plan.json",
+      "sha256": "3654d5b0193e43c55f79291f467c0ddc0e61023c1ae84668943d48c373164855",
+      "method": "pt_qlora",
+      "length": 8192,
+      "training_ready": false,
+      "blockers": [
+        "exported_document_not_admitted",
+        "preview_or_unapproved_data"
+      ],
+      "executed": false
+    }
+  },
+  "preview_4k_counts": {
+    "train_ordered": {
+      "sequences": 755,
+      "body_tokens": 2449192,
+      "max_body_tokens": 4094
+    },
+    "train_shuffled": {
+      "sequences": 757,
+      "body_tokens": 2449190,
+      "max_body_tokens": 4094
+    },
+    "dev_ordered": {
+      "sequences": 104,
+      "body_tokens": 324869,
+      "max_body_tokens": 4094
+    },
+    "dev_shuffled": {
+      "sequences": 104,
+      "body_tokens": 324869,
+      "max_body_tokens": 4093
+    }
+  },
+  "training_executed": false,
+  "sft_training_data_approved": false
+}

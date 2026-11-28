@@ -1,0 +1,38 @@
+{
+  "schema_version": "paired-offline-preflight-v1",
+  "frozen_requests": 250,
+  "ready_requests": 250,
+  "official_metric_toy_cases": 7,
+  "passed": true,
+  "model_calls": 0,
+  "model_quality_measured": false,
+  "metric_provenance": {
+    "boolq": {
+      "protocol": "strict whole-response yes/no; whitespace and terminal punctuation allowed",
+      "official_benchmark_score": false
+    },
+    "longbench_v2": {
+      "source": "https://github.com/THUDM/LongBench/tree/2e00731f8d0bff23dc4325161044d0ed8af94c1e/pred.py",
+      "source_sha256": "ab63f77866a1c0dc770582bc3fe6b014c3b4be4667399b0ee267075780c6a138"
+    },
+    "longbench": {
+      "source": "https://github.com/THUDM/LongBench/tree/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench",
+      "metrics_sha256": "e22e2a2662e0f7e683137fa3541f64edb6a801e9138d16d2f3459a6ab9941323",
+      "eval_sha256": "1a3acfc25d9b053e9bb75c479f7e385d0cb9989f0f7115346b7d632655967721",
+      "versions": {
+        "jieba": "0.42.1",
+        "rouge": "1.0.1",
+        "fuzzywuzzy": "0.18.0"
+      },
+      "license": "upstream MIT"
+    },
+    "ruler": {
+      "source": "https://github.com/NVIDIA/RULER/blob/db43f92ff634bbce1c33d1fb15858aec4bba509a/scripts/eval/synthetic/constants.py",
+      "metrics_sha256": "6740467c17b8dc06b6b30f4f97e54ce8de81db0dd879f1538d0b6b5727f4bd5f",
+      "license": "upstream Apache-2.0",
+      "per_record_rounding": "official function rounds percentage to two decimals",
+      "all_semantics": "fraction of reference strings found, not all-or-nothing exact match"
+    }
+  },
+  "note": "Toy scorer contract checks only; no fake model predictions written."
+}

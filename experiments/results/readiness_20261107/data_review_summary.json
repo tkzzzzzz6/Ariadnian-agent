@@ -1,0 +1,314 @@
+{
+  "schema_version": "training-data-review-v1",
+  "training_ready": false,
+  "approved_documents": 0,
+  "source": {
+    "path": "D:\\code\\Ariadnian-agent\\backend\\longdoc_sources\\.cache\\pipeline_v1\\corpus.jsonl",
+    "sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+    "documents": 350,
+    "splits": {
+      "train": 281,
+      "dev": 41,
+      "test": 28
+    },
+    "domains": {
+      "agriculture": 35,
+      "life_sciences": 32,
+      "machine_learning": 182,
+      "numerical_computing": 12,
+      "data_science": 4,
+      "programming": 65,
+      "mathematics": 20
+    },
+    "languages": {
+      "en": 281,
+      "zh": 69
+    },
+    "licenses": {
+      "CC-BY-4.0": 67,
+      "CC-BY-SA-4.0 AND MIT-0": 153,
+      "BSD-3-Clause": 65,
+      "PSF-2.0": 65
+    }
+  },
+  "benchmark": {
+    "path": "D:\\code\\Ariadnian-agent\\backend\\publicbench\\.cache\\selected_v1\\selected_records.jsonl",
+    "sha256": "5832786e7d493808cb343cdd2df85f093d221e148739344ce936521e727fd70a",
+    "records": 42,
+    "evaluation_only": true,
+    "coverage": "Only the frozen supplied contexts; not the complete public benchmark."
+  },
+  "selected": {
+    "documents": 31,
+    "splits": {
+      "dev": 7,
+      "train": 24
+    },
+    "domains": {
+      "agriculture": 4,
+      "life_sciences": 4,
+      "machine_learning": 8,
+      "mathematics": 4,
+      "numerical_computing": 4,
+      "programming": 4,
+      "data_science": 3
+    },
+    "languages": {
+      "en": 27,
+      "zh": 4
+    },
+    "reference_tokens": 263255,
+    "native_gemma_token_budget_verified": false,
+    "documents_with_overlap_candidates": 0,
+    "documents_without_overlap_candidates": 31,
+    "flagged_documents_by_split": {},
+    "missing_dev_domains": [
+      "data_science"
+    ],
+    "selection": {
+      "seed": 17,
+      "strata": [
+        {
+          "split": "dev",
+          "domain": "agriculture",
+          "language": "en",
+          "available": 1,
+          "selected": 1,
+          "quota": 1
+        },
+        {
+          "split": "dev",
+          "domain": "life_sciences",
+          "language": "en",
+          "available": 3,
+          "selected": 1,
+          "quota": 1
+        },
+        {
+          "split": "dev",
+          "domain": "machine_learning",
+          "language": "en",
+          "available": 15,
+          "selected": 1,
+          "quota": 1
+        },
+        {
+          "split": "dev",
+          "domain": "machine_learning",
+          "language": "zh",
+          "available": 9,
+          "selected": 1,
+          "quota": 1
+        },
+        {
+          "split": "dev",
+          "domain": "mathematics",
+          "language": "en",
+          "available": 1,
+          "selected": 1,
+          "quota": 1
+        },
+        {
+          "split": "dev",
+          "domain": "numerical_computing",
+          "language": "en",
+          "available": 2,
+          "selected": 1,
+          "quota": 1
+        },
+        {
+          "split": "dev",
+          "domain": "programming",
+          "language": "en",
+          "available": 10,
+          "selected": 1,
+          "quota": 1
+        },
+        {
+          "split": "train",
+          "domain": "agriculture",
+          "language": "en",
+          "available": 30,
+          "selected": 3,
+          "quota": 3
+        },
+        {
+          "split": "train",
+          "domain": "data_science",
+          "language": "en",
+          "available": 3,
+          "selected": 3,
+          "quota": 3
+        },
+        {
+          "split": "train",
+          "domain": "life_sciences",
+          "language": "en",
+          "available": 26,
+          "selected": 3,
+          "quota": 3
+        },
+        {
+          "split": "train",
+          "domain": "machine_learning",
+          "language": "en",
+          "available": 90,
+          "selected": 3,
+          "quota": 3
+        },
+        {
+          "split": "train",
+          "domain": "machine_learning",
+          "language": "zh",
+          "available": 54,
+          "selected": 3,
+          "quota": 3
+        },
+        {
+          "split": "train",
+          "domain": "mathematics",
+          "language": "en",
+          "available": 17,
+          "selected": 3,
+          "quota": 3
+        },
+        {
+          "split": "train",
+          "domain": "numerical_computing",
+          "language": "en",
+          "available": 10,
+          "selected": 3,
+          "quota": 3
+        },
+        {
+          "split": "train",
+          "domain": "programming",
+          "language": "en",
+          "available": 51,
+          "selected": 3,
+          "quota": 3
+        }
+      ],
+      "ranking": "Fewer lexical overlap candidates, then present license metadata/evidence, then seeded ID hash. Not a quality/license approval or a representative statistical sample.",
+      "test_documents_selected": 0
+    }
+  },
+  "overlap_diagnostic": {
+    "method": "lexical_winnowing_v1",
+    "ngram_tokens": 20,
+    "window_shingles": 12,
+    "guaranteed_detectable_exact_normalized_span_tokens": 31,
+    "token_definition": "Individual U+3400-U+9FFF Han characters; other Unicode alphanumeric runs. NFKC and casefold per token. Punctuation/whitespace ignored. Not Gemma tokens.",
+    "records": 392,
+    "normalized_tokens": 2356864,
+    "distinct_index_hashes": 344941,
+    "candidate_pairs": 158,
+    "pairs_by_comparison": {
+      "cross_split": 158
+    },
+    "pairs_by_split": {
+      "train:dev": 39,
+      "dev:train": 37,
+      "train:test": 32,
+      "test:dev": 4,
+      "test:train": 41,
+      "dev:test": 5
+    },
+    "stored_evidence_per_pair_limit": 3,
+    "candidate_pair_or_scan_limit": null,
+    "hash_matches_verified_by_token_equality": true,
+    "winnowing_detection_guarantee_assumptions": "Aligned normalized tokens and no 64-bit fingerprint collisions; different shingles sharing a hash can collapse to one representative.",
+    "limitations": [
+      "Candidate overlap can be quotations, licenses or boilerplate; human disposition is required.",
+      "Not semantic deduplication or proof of uncontaminated data; shorter spans can be missed.",
+      "Only supplied benchmark contexts are scanned; neither the full benchmark nor unknown base-model pretraining data are covered.",
+      "Within-split corpus pairs are intentionally not compared. Counts are distinct selected shingles, not all repeated occurrences.",
+      "Evidence offsets refer to the cleaned block text joined by two newlines, or to the supplied benchmark context."
+    ],
+    "public_benchmark_candidate_pairs": 0,
+    "corpus_cross_split_candidate_pairs": 158,
+    "corpus_documents_with_candidates": 97,
+    "flagged_corpus_documents_by_split": {
+      "train": 65,
+      "dev": 18,
+      "test": 14
+    },
+    "cross_language_same_filename_family_candidates": 4
+  },
+  "admission": {
+    "schema_version": "cpt-audit-v1",
+    "training_ready": false,
+    "input_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+    "documents": 350,
+    "splits": {
+      "train": 281,
+      "dev": 41,
+      "test": 28
+    },
+    "approved_documents": 0,
+    "pending_queue_sha256": "0628634d72ad5c5c2643979d60df5b2462b20afc4341daaf4d567c51238ecfae",
+    "note": "Pending queue is not an approval or a training dataset."
+  },
+  "original_splits_preserved": true,
+  "split_assignments": 350,
+  "elapsed_seconds": 5.456,
+  "implementation_sha256": "b206f0be6250179c256c9eab5e6e4f0a222903116a2713a4c8dcf619b30a65da",
+  "next_steps": [
+    "Human content/license review and overlap disposition",
+    "Run cpt audit with copied completed receipts against the full unchanged source",
+    "Create a new training export and recheck native loss-token budgets"
+  ],
+  "packet_manifest_sha256": "93abcabb93692d29a52bca86f6ecab8e52e34fce65ac0e2c05f4e595ca30ce82",
+  "local_packet": "D:\\code\\Ariadnian-agent\\experiments\\ms_swift\\.cache\\review_20261107_v2",
+  "artifacts": {
+    "admission/admission_report.jsonl": {
+      "sha256": "5961763dc6335252ac91d9b1f7bdda6884672b7f2aa6d8b77f4025e797fef181",
+      "bytes": 191659
+    },
+    "admission/admission_review.jsonl": {
+      "sha256": "0628634d72ad5c5c2643979d60df5b2462b20afc4341daaf4d567c51238ecfae",
+      "bytes": 212743
+    },
+    "admission/audit_manifest.json": {
+      "sha256": "d67b0c17fac037300ddfc25f4fd56e3f130556c960432bd8b9c6ee3a36883734",
+      "bytes": 443
+    },
+    "admission/split_assignments.jsonl": {
+      "sha256": "f35f5684d1c7766b7f842f59befa6611fe4d8cff77a7f1145e3663d2b22578d6",
+      "bytes": 199587
+    },
+    "candidate_documents.jsonl": {
+      "sha256": "be721de594a9f15db084fb7d872221dd829fa37ae164fc8e60d397d2c1588c01",
+      "bytes": 3212443
+    },
+    "family_review_candidates.jsonl": {
+      "sha256": "9fcae8aeb75b042583cba1ce4fb73f17657005af6f4a3884b55027bac80339bb",
+      "bytes": 106890
+    },
+    "frozen_benchmark.jsonl": {
+      "sha256": "7d43eee2a2228b5596d40ac289e3d117ee5d9c0133ca009b0c7b6adb380d247c",
+      "bytes": 11469
+    },
+    "frozen_corpus.jsonl": {
+      "sha256": "fbe7285cd1a9ea3392a5b2299fdbc6f14788e669c1c346309a721170e5ae9bab",
+      "bytes": 81078
+    },
+    "index.html": {
+      "sha256": "b7553e5589a9c252c4e01e868604d3377d286c0e049cb2b6f50261ecc9f9c0c8",
+      "bytes": 8088
+    },
+    "overlap_candidates.jsonl": {
+      "sha256": "45cf13e9af6c077d2a8807b1fb01abe639234cea74dfc5cee3d1096b95946c37",
+      "bytes": 227906
+    },
+    "selected_reviews.pending.jsonl": {
+      "sha256": "73b991087d145e1c8b5c00bf1d814b59d1f6fbeb4a1923e1a6c67db53282988d",
+      "bytes": 16516
+    },
+    "selection_review.jsonl": {
+      "sha256": "e25ae010309c3b1f5e3aa94731b198dccdafd9dcd950683fc5b068cd37909e5f",
+      "bytes": 14816
+    }
+  },
+  "document_pages": 31
+}

@@ -234,6 +234,7 @@ name = "ariadne-backend"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "ariadne-data-core" },
     { name = "fastapi" },
     { name = "httpx" },
     { name = "jieba" },
@@ -262,6 +263,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "ariadne-data-core", editable = "../experiments/common" },
     { name = "fastapi", specifier = ">=0.115" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "jieba", specifier = ">=0.42" },
@@ -281,6 +283,16 @@ requires-dist = [
     { name = "rouge", specifier = ">=1.0.1,<2" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = ">=8" }]
+
+[[package]]
+name = "ariadne-data-core"
+version = "0.1.0"
+source = { editable = "../experiments/common" }
+
+[package.metadata]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8" }]

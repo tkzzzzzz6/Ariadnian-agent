@@ -1,0 +1,15 @@
+{
+  "schema_version": "bounded-cpu-cleanup-validation-v1",
+  "cpu_only": true,
+  "model_or_gpu_loaded": false,
+  "descendant_pid": 40860,
+  "cleanup": {
+    "worker_pid": 29184,
+    "cleanup_requested": true,
+    "cleanup_success": true,
+    "method": "taskkill_tree",
+    "cleanup_command_returncode": 0,
+    "worker_exit_observed": true
+  },
+  "worker_returncode": 1
+}

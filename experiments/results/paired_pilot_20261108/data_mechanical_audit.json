@@ -1,0 +1,41 @@
+{
+  "schema_version": "paired-candidate-mechanical-audit-v1",
+  "packet_lock_sha256": "16966dc52c4c3fc942636337c9dfdaa10d3e2221d86c93c4fe3e1d2b5edccdba",
+  "pairs_checked": 40,
+  "mechanical_issues": [],
+  "frozen_packet_changed_files": [],
+  "cpt_preview_counts": {
+    "short": {
+      "train": 32,
+      "dev": 8
+    },
+    "long": {
+      "train": 32,
+      "dev": 8
+    }
+  },
+  "cpt_approved_records": {
+    "short": 0,
+    "long": 0
+  },
+  "answer_tokens_range": [
+    68,
+    181
+  ],
+  "dev_answer_tokens_range": [
+    81,
+    171
+  ],
+  "multihop_evidence_start_gap_tokens": {
+    "min": 122,
+    "max": 5131
+  },
+  "multi_evidence_reasoning_claim": "These are intended reasoning tasks, not independently verified reasoning gold; distance alone is not reasoning.",
+  "human_approved_pairs": 0,
+  "quality_cautions": [
+    "One CSV+Decimal train family supplies all 4 train crossdoc candidates; no broad crossdoc generalization claim.",
+    "2 comparison-only candidates are classified evidence_local_qa, subtype multi_evidence_comparison.",
+    "Dev contains English only; sources are file/chapter rather than repository/book held out.",
+    "No discovered mechanical issue does not establish factual/answer correctness."
+  ]
+}

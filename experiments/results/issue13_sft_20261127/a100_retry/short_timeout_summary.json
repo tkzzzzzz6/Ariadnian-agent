@@ -1,0 +1,39 @@
+{
+  "schema_version": "gemma-bounded-summary-v1",
+  "status": "timeout",
+  "kind": "chat",
+  "executed": true,
+  "model": {
+    "repo": "google/gemma-4-E2B",
+    "revision": "433813a669639fd7eaa83155828e9000ed357d53"
+  },
+  "max_seconds": 2700,
+  "wrapper_wall_seconds": 2700.2652766379997,
+  "total": 250,
+  "statuses": {
+    "ok": 158,
+    "interrupted_timeout": 1,
+    "not_attempted_after_timeout": 91
+  },
+  "successful": 158,
+  "failed_or_skipped": 92,
+  "child_completed_records": 158,
+  "predictions_sha256": "a9227afc279eff7f0f28121b04bec0d5af7faa6fcee704ceee76c681a88cece1",
+  "cleanup": {
+    "worker_pid": 44207,
+    "cleanup_requested": true,
+    "cleanup_success": true,
+    "method": "owned_process_group",
+    "worker_exit_observed": true
+  },
+  "notes": [
+    "Completed child predictions are preserved; all planned IDs remain in the denominator.",
+    "Timeout is a wall-clock interruption, not an OOM or a per-case latency measurement.",
+    "The first unfinished ID may have been in model loading or generation; its exact stage is not assumed.",
+    "Cleanup reports only observed command/process evidence; unsuccessful cleanup is explicit.",
+    "The wrapper never changes driver policies or deletes child run evidence."
+  ],
+  "scope": "Original engineering timeout, kept separately from the subsequent complete primary comparison; no answers or rows rewritten.",
+  "private_archive_sha256": "d04666a16dab54f987605b3929f7b72fe879ea4553c87118b11dbac68aa235b3",
+  "summary_sha256": "4ea5f3609aac73f97d1caeb596baccce608dab620f7652764ac2016340f8fb5c"
+}

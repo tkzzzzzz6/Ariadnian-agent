@@ -1,0 +1,90 @@
+{
+  "archive": {
+    "sha256": "2536070819c8ab2efade6f0fa5e8178cebead4570d2b8cca3e5abc55fac92d54",
+    "bytes": 31325754,
+    "relative_path": "artifacts/2536070819c8ab2efade6f0fa5e8178cebead4570d2b8cca3e5abc55fac92d54.zip",
+    "best_stored_separately": true,
+    "flush_required_before_release": true
+  },
+  "parts": [
+    {
+      "name": "part000.bin",
+      "bytes": 2097152,
+      "sha256": "d4302830c02abeecc69317a50045b90392664b1483ec637bddf6d743d8ca1985"
+    },
+    {
+      "name": "part001.bin",
+      "bytes": 2097152,
+      "sha256": "986e6aa7c0edd4feaa6ecbd196e1350dc28c1e56c8133316e97768fb0cfa5083"
+    },
+    {
+      "name": "part002.bin",
+      "bytes": 2097152,
+      "sha256": "3bfec2627296cbeb3d06254be6d0a2cd7f241513fc129ba32014dbbf46fe1972"
+    },
+    {
+      "name": "part003.bin",
+      "bytes": 2097152,
+      "sha256": "21d93c39b689fee0dd212441d33488f96015983d0f3b391ffb4b17e7cfde7071"
+    },
+    {
+      "name": "part004.bin",
+      "bytes": 2097152,
+      "sha256": "27a20ea0ebf17ea196cc94c4e120407bfa549b5fdb1c4c87e68745a10eee0d6f"
+    },
+    {
+      "name": "part005.bin",
+      "bytes": 2097152,
+      "sha256": "451124a1f3f1b992754e7843013ec7776889ae979c78fdf4c266ca2de9fac3d8"
+    },
+    {
+      "name": "part006.bin",
+      "bytes": 2097152,
+      "sha256": "07a71ffe79bd34686fc010a28e6dc0cd735257e85ab28988804b2b865f558e07"
+    },
+    {
+      "name": "part007.bin",
+      "bytes": 2097152,
+      "sha256": "f4bf179c8840da932d37c5e0f746547a7722d1ea3a4d032a318116f4298d0487"
+    },
+    {
+      "name": "part008.bin",
+      "bytes": 2097152,
+      "sha256": "3a768716deb6dfe3a3052f541eea1bcd53f6a3e6c226fcb506f0da5e2908052d"
+    },
+    {
+      "name": "part009.bin",
+      "bytes": 2097152,
+      "sha256": "94dc9da2d82f4e73f2da9df78024bf5fa67591b09d4fadaf7fd5d9483d44e6e1"
+    },
+    {
+      "name": "part010.bin",
+      "bytes": 2097152,
+      "sha256": "e680dbd661ca81ea08065e2391edaab8a22898e07410ffcf2f34c998040ee61d"
+    },
+    {
+      "name": "part011.bin",
+      "bytes": 2097152,
+      "sha256": "1f10eb6d61c7e1e4f3e8d6f70965a81174dffc9438f1ef98a56eeb77b0b49af6"
+    },
+    {
+      "name": "part012.bin",
+      "bytes": 2097152,
+      "sha256": "fdd26d6f31065db4ff53a4c1984a0338562fdb7ff195d8c30e18b6daeee8e6ca"
+    },
+    {
+      "name": "part013.bin",
+      "bytes": 2097152,
+      "sha256": "e825339f7e84a8122edf83ea7b6d5fec12919dacec340c4a7e477651cefaa3bc"
+    },
+    {
+      "name": "part014.bin",
+      "bytes": 1965626,
+      "sha256": "e34dd4331c6e99489146937bebb36ca389cfc80fea275a68dff16eb16d7d1b9e"
+    }
+  ],
+  "remote_folder": "/content/ariadne_paired_sft_20261127_093523_cli/delivery_chunks/2536070819c8ab2efade6f0fa5e8178cebead4570d2b8cca3e5abc55fac92d54",
+  "final_proof_sha256": "0bcd0ca817363dfebd9de3de36d1aa20c4a2e736ddc7524bdb52638cf6d5fc41",
+  "drive_final_proof_readback_verified": true,
+  "note": "Transport chunks only; source archive unchanged."
+}

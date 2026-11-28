@@ -1,0 +1,92 @@
+{
+  "schema_version": "public-pilot-freeze-v1",
+  "records": 250,
+  "by_benchmark": {
+    "longbench-v1": 60,
+    "ruler": 150,
+    "boolq": 40
+  },
+  "by_task": {
+    "hotpotqa": 5,
+    "multifieldqa_en": 5,
+    "narrativeqa": 5,
+    "gov_report": 5,
+    "qasper": 10,
+    "multifieldqa_zh": 10,
+    "multi_news": 10,
+    "2wikimqa": 10,
+    "niah_multikey_1": 30,
+    "niah_multivalue": 30,
+    "vt": 30,
+    "cwe": 30,
+    "qa_1": 30,
+    "yes_no": 40
+  },
+  "by_length_bucket": {
+    "<=16384": 76,
+    "<=8192": 66,
+    "<=4096": 59,
+    "<=2048": 49
+  },
+  "native_input_range": [
+    70,
+    16325
+  ],
+  "all_fit_16k_total_budget": true,
+  "primary_longbench_input_minimum": 8506,
+  "longbench_eligibility": {
+    "hotpotqa": {
+      "eligible_records": 117,
+      "eligible_clusters": 114
+    },
+    "multifieldqa_en": {
+      "eligible_records": 59,
+      "eligible_clusters": 48
+    },
+    "narrativeqa": {
+      "eligible_records": 61,
+      "eligible_clusters": 6
+    },
+    "gov_report": {
+      "eligible_records": 85,
+      "eligible_clusters": 85
+    },
+    "qasper": {
+      "eligible_records": 197,
+      "eligible_clusters": 145
+    },
+    "multifieldqa_zh": {
+      "eligible_records": 200,
+      "eligible_clusters": 140
+    },
+    "multi_news": {
+      "eligible_records": 200,
+      "eligible_clusters": 200
+    },
+    "2wikimqa": {
+      "eligible_records": 197,
+      "eligible_clusters": 83
+    }
+  },
+  "confirmation_primary_eligible_by_task": {
+    "hotpotqa": 111,
+    "multifieldqa_en": 53,
+    "narrativeqa": 12,
+    "gov_report": 80,
+    "qasper": 10,
+    "multifieldqa_zh": 19,
+    "multi_news": 5,
+    "2wikimqa": 33
+  },
+  "reserved_boolq_records": 3210,
+  "quarantined_overlap_clusters": [],
+  "ruler_qa_source_articles": [
+    "Normans"
+  ],
+  "ruler_qa_independent_clusters": 1,
+  "overlap_audit_scope": "exact normalized contexts and complete paragraphs/blocks >=300 chars; not an exhaustive semantic or pretraining-contamination audit",
+  "model_predictions_observed": 0,
+  "records_sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+  "source_manifest_sha256": "c2381ea7ec8a041c3be863a314c5d5ca1cfd9374cd9476181c6d22120ebc2639",
+  "protocol": "gemma4-nothinking-eval-v1"
+}

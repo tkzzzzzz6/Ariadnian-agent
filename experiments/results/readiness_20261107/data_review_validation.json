@@ -1,0 +1,17 @@
+{
+  "schema_version": "data-review-validation-v1",
+  "packet_manifest_sha256": "93abcabb93692d29a52bca86f6ecab8e52e34fce65ac0e2c05f4e595ca30ce82",
+  "artifact_hashes_checked": 43,
+  "local_html_links_checked": 66,
+  "pending_receipts_checked": 31,
+  "frozen_source_documents_checked": 350,
+  "source_unchanged": true,
+  "original_splits_preserved": true,
+  "pending_receipts_cannot_admit_training": true,
+  "engineering_tests": {
+    "command": "uv run python -m pytest tests/test_data_review.py -q",
+    "passed": 14
+  },
+  "training_ready": false,
+  "approved_documents": 0
+}

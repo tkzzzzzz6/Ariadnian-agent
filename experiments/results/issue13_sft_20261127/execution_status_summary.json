@@ -1,0 +1,76 @@
+{
+  "schema_version": "issue13-sft-status-v1",
+  "created_utc": "2026-11-27T05:04:52.155000+00:00",
+  "issue": 13,
+  "model": "google/gemma-4-E2B",
+  "model_revision": "433813a669639fd7eaa83155828e9000ed357d53",
+  "internal_sft_approved": true,
+  "public_dataset_release_approved": false,
+  "review_packet_sha256": "16966dc52c4c3fc942636337c9dfdaa10d3e2221d86c93c4fe3e1d2b5edccdba",
+  "approval_sha256": "993b2c8bdddcec608f1ff662b4d88cab27520775d99233ea4eb3b9eb6b62282a",
+  "local_exports": {
+    "short": {
+      "counts": {
+        "train": 32,
+        "dev": 8
+      },
+      "training_ready": true,
+      "plan_sha256": "27664127c065320cc1ee9e944f8366f79740f1066e6255613e67431a84506034"
+    },
+    "long": {
+      "counts": {
+        "train": 32,
+        "dev": 8
+      },
+      "training_ready": true,
+      "plan_sha256": "1e224c4b27af8cff532af5a668fff4f519c7ffeff0c8ada02e51220642ccce69"
+    }
+  },
+  "frozen_public_records": 250,
+  "frozen_public_records_sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e",
+  "allocation": {
+    "session": "ariadne-sft-a100-20261127-issue13-v2",
+    "requested_gpu": "A100",
+    "started_utc": "2026-11-27T04:56:23.744829+00:00",
+    "returncode": 1,
+    "status": "allocation_failed",
+    "service_unavailable": true,
+    "wall_seconds": 74.18255829811096
+  },
+  "allocation_log_sha256": "d5dc5811d60d15db61a39b7c7bac477bb81b3981bb83399b981d2187a2551f9b",
+  "active_sessions_after_check": 0,
+  "actual_swift_template_verified": false,
+  "actual_gpu_training_started": false,
+  "actual_best_retention_verified": false,
+  "paired_public_evaluation_completed": false,
+  "quality_improvement_measured": false,
+  "engineering_policy": {
+    "native_save_strategy": "best",
+    "eval_steps": 2,
+    "metric": "finite eval_loss; strict minimum; earlier wins ties",
+    "steady_complete_best_per_arm_seed": 1,
+    "temporary_native_save_total_limit": 2,
+    "total_planned_steps_per_arm": 8,
+    "best_step_measured": null,
+    "tmux_actual_linux_session_tested": true
+  },
+  "limitations": [
+    "A100 allocation unavailable; no model tasks started",
+    "CPU tests do not establish GPU save/load or quality improvement",
+    "Drive readback is not cloud flush proof",
+    "Cross-VM full training resume has not been implemented or demonstrated",
+    "Single-seed 40-pair pilot, not a formal confirmation experiment"
+  ],
+  "linux_cpu_observations": {
+    "tmux_version": "3.4",
+    "windows": [
+      "train",
+      "status",
+      "gpu"
+    ],
+    "pane_dead_status": "1:3",
+    "stdout_captured": true,
+    "sigterm_ignoring_descendant_alive_after_timeout": false,
+    "gpu_execution": false
+  }
+}

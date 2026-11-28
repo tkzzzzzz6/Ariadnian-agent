@@ -1,0 +1,673 @@
+{
+  "schema_version": "issue13-versionable-baseline-v1",
+  "created_utc": "2026-11-27T04:36:32.962104+00:00",
+  "repository": "tkzzzzzz6/Ariadnian-agent",
+  "source_workspace": "D:\\code\\Ariadnian-agent",
+  "source_head": "bd76d495fade3fce97f84633c12424eed7319026",
+  "issue_url": "https://github.com/tkzzzzzz6/Ariadnian-agent/issues/13",
+  "files": {
+    ".dockerignore": {
+      "sha256": "72bead7ff57a1e5455445b1e0d5ab92abd3654af48b1e4c7a5c7d3cc825c815a",
+      "bytes": 451
+    },
+    ".github/workflows/ci.yml": {
+      "sha256": "891a52cc030c1287ab58509ec2a568b8fc00a1f1fa8d8389f08083dcc476275b",
+      "bytes": 3094
+    },
+    ".gitignore": {
+      "sha256": "5641b27b290de6ac055d3868e741bfec003490945503b938bf8b3236309a3916",
+      "bytes": 9220
+    },
+    "AGENTS.md": {
+      "sha256": "452d9afa895088e63645071c2a531928e1c4326661d572884cfaf2aa52175643",
+      "bytes": 7919
+    },
+    "Dockerfile": {
+      "sha256": "585016c728394dd738db121873d572907f574421d3421913ef715fa80ce0b40e",
+      "bytes": 3359
+    },
+    "README.md": {
+      "sha256": "e9496ec14fcb15c1562bc69a94f1e62ef5144f364cbc167ceb5b664d30676baf",
+      "bytes": 45444
+    },
+    "backend/evals/results/README.md": {
+      "sha256": "6d2e7ab60328a9bc16ecbf90563611bd4f91b2d0afb23cec91db057cc332b4d5",
+      "bytes": 3251
+    },
+    "backend/longdoc/pipeline.py": {
+      "sha256": "27d65d51a79104b52a7fc057c92d24dde58388521e061bbae36e242625928196",
+      "bytes": 29803
+    },
+    "backend/pyproject.toml": {
+      "sha256": "f81ebed4ee40644bf606430cebe36f4b687e7d2bcf633695c42161670c483a42",
+      "bytes": 1103
+    },
+    "backend/tests/test_longdoc.py": {
+      "sha256": "46c6b8e1bc7d53c732d2bff220aa63643082423a7ca90ca130574b0f5218f0c4",
+      "bytes": 17891
+    },
+    "backend/uv.lock": {
+      "sha256": "b7bcd15018ca8eba298e3a0c72ba9dc6a7e757c33c122f8b3671499bd94378d0",
+      "bytes": 869858
+    },
+    "docs/cpt-device-tiers.md": {
+      "sha256": "b42f36894a1ef42fde1c5abc22e664cf23d9ec5f542a9813532d554d2f4ad50f",
+      "bytes": 9975
+    },
+    "docs/gemma-experiment-workflow.md": {
+      "sha256": "318481bb4ce452e156c15e12f9324d825b424de050b140d7e944853cd12b4d73",
+      "bytes": 10644
+    },
+    "docs/gemma-local-eval.md": {
+      "sha256": "7c1ba9ac4145f6cc829e8ae543c09454539f6abec5eec0deae960797b757a46a",
+      "bytes": 10446
+    },
+    "docs/local-data-access.md": {
+      "sha256": "240164dea2dc3d2f1757a8a14ffc2ed8bb98788fdabbf78aa716f45875ee8c60",
+      "bytes": 4630
+    },
+    "docs/long-context-data.md": {
+      "sha256": "ba4be61d442f3d30333d64181e9b4ffaed879f15561c54ab19c904370518a7a3",
+      "bytes": 10062
+    },
+    "docs/ms-swift-gemma4.md": {
+      "sha256": "c8199f712f5c5f9808ae4201a87ee5a7d9fab973b67adcfcc5b46c4fa724fb60",
+      "bytes": 21943
+    },
+    "docs/training-data-review.md": {
+      "sha256": "077c033cf04defa5ac5d52b75496451824d7ae4f783d1e39c5acff3edc021c94",
+      "bytes": 6919
+    },
+    "experiments/.env.example": {
+      "sha256": "100bfaeb9ec1f06acdc62bb50f87d2f0cb647af1c8c8ba746050cb2675af4b99",
+      "bytes": 592
+    },
+    "experiments/README.md": {
+      "sha256": "4a04bfe15310cab816725c6026429aeed1c2a1ab3dd4e37805f5df1e4576e79b",
+      "bytes": 2850
+    },
+    "experiments/analysis/plot_paired_pilot.py": {
+      "sha256": "3d27cbbd82355513750354802bb2c8b9ba793dfb9cd6bf9e0b74f8e2d35aa8c1",
+      "bytes": 44314
+    },
+    "experiments/analysis/plot_training_run.py": {
+      "sha256": "7ad9808cba78fafbce00112baf414a47e6609a1f3d20164ed886ad5886f91a9d",
+      "bytes": 22195
+    },
+    "experiments/analysis/tests/test_paired_report.py": {
+      "sha256": "2d480a7ec6c5679a33addb5ef4848960bb3fc5e42b1deb1ce865c4c346ac02ba",
+      "bytes": 8465
+    },
+    "experiments/colab/PAIRED_PILOT.md": {
+      "sha256": "de79f424c9121c64392c6390e463b4c3b297cb92be54e1b4ed60ed388791503a",
+      "bytes": 5686
+    },
+    "experiments/colab/README.md": {
+      "sha256": "cbf95fbcde968e2d8ec1c356af25541efdaea6e1d0e0b8bab942b05b968f4e3a",
+      "bytes": 5545
+    },
+    "experiments/colab/bundle.py": {
+      "sha256": "d6a5777cf7a7f17d03b86cc11f7ff11e7d1a8ca5e8377a6e5b9392578ecd6ee6",
+      "bytes": 3834
+    },
+    "experiments/colab/paired_bundle.py": {
+      "sha256": "b528e9241d2609051d19ae9086516af4f52821ff1deddac760f99bc7852a6c59",
+      "bytes": 4116
+    },
+    "experiments/colab/paired_job.py": {
+      "sha256": "419360194082c87cb408de84ca1fddf0a73f28c556eff9ea29752235ea4505e0",
+      "bytes": 31837
+    },
+    "experiments/colab/reauthenticate.py": {
+      "sha256": "cb8dd260279e931826f03301fe168fd7455277cc52d6b134d0632de4cd7c5dcb",
+      "bytes": 1104
+    },
+    "experiments/colab/remote_job.py": {
+      "sha256": "fdcfec508e505446bf7ad4c868683a980de91402f4ca4c37d849341d18c8410c",
+      "bytes": 16474
+    },
+    "experiments/colab/tests/test_paired.py": {
+      "sha256": "949f8b59a40d99e3f2457d37912776de56c8e7a36dde038cc70cac70fbe82fc6",
+      "bytes": 11333
+    },
+    "experiments/colab/tests/test_transport.py": {
+      "sha256": "5c695a60e6b7fa9d8046b728f91947c88138f39a6d1c389750b390871b8d9ddc",
+      "bytes": 4959
+    },
+    "experiments/colab/training_audit.py": {
+      "sha256": "5d9df555c21bbee644f32c25733f6043602a74cf77992576319a3ec830f16974",
+      "bytes": 13188
+    },
+    "experiments/common/.gitignore": {
+      "sha256": "3ec85afb882724f9663821e47e44fc5ac9b3d55d421f7fc79d245537e74fc63c",
+      "bytes": 80
+    },
+    "experiments/common/README.md": {
+      "sha256": "60f9707a31afb23cbd0a407af1abb63c832c5040c9ff87e097b62b43b22e1316",
+      "bytes": 1222
+    },
+    "experiments/common/ariadne_data/__init__.py": {
+      "sha256": "833ec3783a60f75093a375cb21b4c313830c636153d9aba7593eec0cf54f4c01",
+      "bytes": 79
+    },
+    "experiments/common/ariadne_data/documents.py": {
+      "sha256": "11e6281fd9f274459f43b09de301e8712de5bb3ab11282b8f0b509761ed8721a",
+      "bytes": 8768
+    },
+    "experiments/common/pyproject.toml": {
+      "sha256": "503b9d7b6ad51b8efcf49cb0cf902b32cc0140dccff6cc54fc8067eeb0b5cd37",
+      "bytes": 473
+    },
+    "experiments/common/tests/test_documents.py": {
+      "sha256": "8e3661145083e3a34039622b2e10f0e752e7f13b6f96b036e95df46a0a1e48b9",
+      "bytes": 5675
+    },
+    "experiments/ms_swift/README.md": {
+      "sha256": "6bfa1bbf388eff938fed18f0d53c39f1c427ada62b3c29863682503641654ac1",
+      "bytes": 3583
+    },
+    "experiments/ms_swift/colab_smoke_data.py": {
+      "sha256": "8d539953feec19887c257b21f183fcaeb5812ad0ff01afffe0e2fd78eb89f777",
+      "bytes": 15741
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_pt_lora.json": {
+      "sha256": "0c5f6bcef9c0615f5d895214af898b37c77a8a26b8ade1dabb28788a0efe9391",
+      "bytes": 1149
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_pt_lora_4k_smoke.json": {
+      "sha256": "757be4b5db95acd8bc2abda56039b938e66ecea47d175e941fbd496f99a1d632",
+      "bytes": 1331
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_pt_lora_8k_smoke.json": {
+      "sha256": "5b5353050db223e9467adde3a51eb1a830b483b4a59b3f86593361eae215736d",
+      "bytes": 1331
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_pt_qlora_4k_smoke.json": {
+      "sha256": "80a62ba7176a106393c9501d196eabc86f8bf5361362b797b05bd4388a6b1655",
+      "bytes": 1500
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_pt_qlora_8k_smoke.json": {
+      "sha256": "0bc3c509cf0f061d107e6969dfb341319450551b2e5750b60139a4bbf863196d",
+      "bytes": 1500
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_sft_lora_4k_smoke.json": {
+      "sha256": "b5ab50d723c22a0c1f4a4c7851556276805ab44e86e14eeda53f2ce26a19ed99",
+      "bytes": 1335
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_sft_lora_8k_smoke.json": {
+      "sha256": "97c68ce274177730fcc16842a2be23a11ed53cdf4f7d2b074a0152358ea996bf",
+      "bytes": 1335
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_sft_qlora_4k_smoke.json": {
+      "sha256": "30abcceab3b177f7c06002f19f904e2a76fe3a1be1189d2480123e121df2ec9d",
+      "bytes": 1504
+    },
+    "experiments/ms_swift/configs/gemma4_e2b_sft_qlora_8k_smoke.json": {
+      "sha256": "a15521923f1e93f1e9a5ec2e66d5f14ead3f8984a65c6d650618c5c6e44159a9",
+      "bytes": 1504
+    },
+    "experiments/ms_swift/cpt/__init__.py": {
+      "sha256": "fd9d4c7a5979540fe4cf0090543554854b24ec296fdc26a75070089f4ee2e1ef",
+      "bytes": 74
+    },
+    "experiments/ms_swift/cpt/__main__.py": {
+      "sha256": "00e481f4c2b23da33b98dae96ba5da50abfabbd86ab542d111439f05116c17fa",
+      "bytes": 4452
+    },
+    "experiments/ms_swift/cpt/assets.py": {
+      "sha256": "f0389a8a803593a1d7d5ec864f3e94ec4673feec61779ddc4eefb73a495b07e9",
+      "bytes": 10009
+    },
+    "experiments/ms_swift/cpt/compare.py": {
+      "sha256": "5643c7d5d07e292c66f91551dca7c8126e46e6722687236e830be5adf0c01ea2",
+      "bytes": 7868
+    },
+    "experiments/ms_swift/cpt/core.py": {
+      "sha256": "952553e9a553767fc9427effd4cf33841c9f279ca3863a82016283094afd1d74",
+      "bytes": 15281
+    },
+    "experiments/ms_swift/cpt/launch.py": {
+      "sha256": "ab2d9e8a7260d16cd402496e49cda6c015c0646b7c25ad6c46c830b2d3460bd6",
+      "bytes": 16613
+    },
+    "experiments/ms_swift/cpt/profile.py": {
+      "sha256": "b3938b4c8c075642a2f66408a975815476289debd7737ba326ff2547ff60fd12",
+      "bytes": 11323
+    },
+    "experiments/ms_swift/cpt/review.py": {
+      "sha256": "b206f0be6250179c256c9eab5e6e4f0a222903116a2713a4c8dcf619b30a65da",
+      "bytes": 26026
+    },
+    "experiments/ms_swift/cpt/schema.py": {
+      "sha256": "b1b2893e198b0ba7662cc00b722677d32cd2ab2054fedcaf937ed80b684b220e",
+      "bytes": 17117
+    },
+    "experiments/ms_swift/cpt/sft.py": {
+      "sha256": "0cda8aa87ee7647b6cc5a8f82a0dd80b6dc0329e5e8d317908973c73537aed7b",
+      "bytes": 14949
+    },
+    "experiments/ms_swift/cpt/swift_verify.py": {
+      "sha256": "805be2c32ffd9204ee8a4bd359ef1bc45c1a63d4da770dc92f5ef69036965a66",
+      "bytes": 21477
+    },
+    "experiments/ms_swift/gemma_eval/__init__.py": {
+      "sha256": "7f9c4fb8f756e2133fd53f2702b8904a6d992007902844cd26c951ada132560a",
+      "bytes": 76
+    },
+    "experiments/ms_swift/gemma_eval/__main__.py": {
+      "sha256": "880cc2e89656ab0951a884620812a22e841cf3ebcb6685a6c5962c7b61cdf90f",
+      "bytes": 3218
+    },
+    "experiments/ms_swift/gemma_eval/bounded.py": {
+      "sha256": "e8adebf25fe98a192d4e616c505e32fe5c95731703770facf80f8bd42fc7f3aa",
+      "bytes": 12736
+    },
+    "experiments/ms_swift/gemma_eval/chat.py": {
+      "sha256": "5ec141ac5888f48cf76d33fd0f04a4c32f9bb8ecd3430677aca63b11662c7adc",
+      "bytes": 9101
+    },
+    "experiments/ms_swift/gemma_eval/core.py": {
+      "sha256": "eb1c530fb10666dc7ef0cb3657b85169c4c46c7ab9385a3ec32768826fb3bded",
+      "bytes": 18062
+    },
+    "experiments/ms_swift/gemma_eval/model_weights.lock.json": {
+      "sha256": "a952631e793cc58bdd36d6c034a2587997d7218f292ac9b28516689cf71dea47",
+      "bytes": 626
+    },
+    "experiments/ms_swift/gemma_eval/portable.py": {
+      "sha256": "1c5ae1dd33b8f7987cc1b0a1d6db60515be8f7ba58f15272b0b32277a9913f53",
+      "bytes": 5900
+    },
+    "experiments/ms_swift/gemma_eval/runtime.py": {
+      "sha256": "5d548eb958f62a9bed7d1a1b02ace35f971838419eda0ce93fa226f364085840",
+      "bytes": 24253
+    },
+    "experiments/ms_swift/paired_data/README.md": {
+      "sha256": "5a5edf3dbf8adc45eb2b6c4644cbac40bddcb4c2bc4d3123d75884b00d9683a7",
+      "bytes": 3003
+    },
+    "experiments/ms_swift/paired_data/__init__.py": {
+      "sha256": "90171e6345ab1d8dfec67f7da115b24a7da8f96d02c5b2eff2b68daaae61fd99",
+      "bytes": 78
+    },
+    "experiments/ms_swift/paired_data/__main__.py": {
+      "sha256": "554f7afa287a35a918dccb9cfd97eb7f6a357d970a585297df4f177955a58713",
+      "bytes": 32
+    },
+    "experiments/ms_swift/paired_data/build.py": {
+      "sha256": "868c1fcabc577383321e1a4b8cb3e4430544172ecb52a336592104a198e999fd",
+      "bytes": 18886
+    },
+    "experiments/ms_swift/pilot_eval/README.md": {
+      "sha256": "dac0245db56c28e2f45b320a639837c1b0939fc5847c7aaf8a12070789019874",
+      "bytes": 4979
+    },
+    "experiments/ms_swift/pilot_eval/__init__.py": {
+      "sha256": "0084d28e859e21018f300e6ba866964b4e7c0cec37c077a25223202d2865cd54",
+      "bytes": 78
+    },
+    "experiments/ms_swift/pilot_eval/acquire.py": {
+      "sha256": "460baab096740fc372e34766f2fca54fc4349ff9fc4def8cfc6c9629c77877f7",
+      "bytes": 14141
+    },
+    "experiments/ms_swift/pilot_eval/freeze.py": {
+      "sha256": "68751de3ee5d4009d2a63f6e945c6114ae8b35f1a0fa88256d5409b86131815c",
+      "bytes": 17683
+    },
+    "experiments/ms_swift/pilot_eval/ruler_lineage.py": {
+      "sha256": "c007001b98d851ff5aff5e575a356192ad4c8fd7fdf8460cd24e3b751d80b821",
+      "bytes": 4674
+    },
+    "experiments/ms_swift/pilot_eval/scoring.py": {
+      "sha256": "1344b98563fc4c18660e8805801204fbc992d9fd6f4d56098d25d8110914dcb9",
+      "bytes": 26319
+    },
+    "experiments/ms_swift/pyproject.toml": {
+      "sha256": "4aeff9649aa7a7292cb5acbbed4c1f5a60901b29887e99db65063cc198e65067",
+      "bytes": 862
+    },
+    "experiments/ms_swift/requirements-eval.txt": {
+      "sha256": "acf228f62c18908a879a8312f9d808f0cfabd28a10ba9221bd3a2e531caf7c53",
+      "bytes": 312
+    },
+    "experiments/ms_swift/requirements-inference.txt": {
+      "sha256": "b1288795ce64031bd8004b73870be6f5ba9dfb7d7a86a0f43da6b54214841e44",
+      "bytes": 409
+    },
+    "experiments/ms_swift/requirements-train-qlora.txt": {
+      "sha256": "0198d2ac44a7a282d5ff46fe5409e3828b4e2def251b9746bbc56f85d8b85528",
+      "bytes": 287
+    },
+    "experiments/ms_swift/requirements-train.txt": {
+      "sha256": "3a2e3a5ffed16612d28a401a5d5888d6566766cd28d6262dbceabea22f8d7010",
+      "bytes": 896
+    },
+    "experiments/ms_swift/scripts/cpt.mjs": {
+      "sha256": "fa9fdeb454ca018a82dcb67a130ef1ac71d2b60aa9af18f641c6bf286299ddb0",
+      "bytes": 2050
+    },
+    "experiments/ms_swift/scripts/experiment.mjs": {
+      "sha256": "dcef063d7f66af89cfccefde70c630a6f635a2faf6c4ae5ce16c6f1cfc158197",
+      "bytes": 1314
+    },
+    "experiments/ms_swift/scripts/test.mjs": {
+      "sha256": "041bb3ecdcd41cfad8d698c1000e0c6320b19dab2f3b8c1517207cd6af29ccf9",
+      "bytes": 1164
+    },
+    "experiments/ms_swift/tests/entrypoints.test.mjs": {
+      "sha256": "c4d41dd51ec70f7445c694b166af3d6b87055f1ef92b4dec09d119293296ed47",
+      "bytes": 4147
+    },
+    "experiments/ms_swift/tests/test_comparison_preflight.py": {
+      "sha256": "d03e9034c9a818868969530abd0e6a1494a43c916474ec3e4ca721267e0501e5",
+      "bytes": 1464
+    },
+    "experiments/ms_swift/tests/test_cpt_assets.py": {
+      "sha256": "3203fd77704a642729e2aa66a3a015822891bf89f575aae91a2f9ddc3114679e",
+      "bytes": 7579
+    },
+    "experiments/ms_swift/tests/test_cpt_launch.py": {
+      "sha256": "700c3eac6c622c1d8dccba7f7f870fe080a1ecd1b19c46822f2d69d6208e4171",
+      "bytes": 7648
+    },
+    "experiments/ms_swift/tests/test_cpt_regressions.py": {
+      "sha256": "09c22cf7279caf53ef8a088094455b49e6fbc23421aa2249da30c2128f098b09",
+      "bytes": 5751
+    },
+    "experiments/ms_swift/tests/test_cpt_safety.py": {
+      "sha256": "3044114b14b83657da70dca7af79276fea4cb14265a58afae61027f89225cd56",
+      "bytes": 16355
+    },
+    "experiments/ms_swift/tests/test_cpt_schema.py": {
+      "sha256": "8050f077f59629bf9c369bc46647d1e4b957fd486e2fa71827fc04e3c7364ad6",
+      "bytes": 7773
+    },
+    "experiments/ms_swift/tests/test_cpt_swift_verify.py": {
+      "sha256": "fe5700b60726ed16f4d21156bb429d0f153c866f618c7080a84655ec8390bade",
+      "bytes": 10574
+    },
+    "experiments/ms_swift/tests/test_data_review.py": {
+      "sha256": "95bbf8d66a602e25be8e1549ab8f7aab255b59288076ec1f3332cd4b634f1e7a",
+      "bytes": 9965
+    },
+    "experiments/ms_swift/tests/test_gemma_chat_eval.py": {
+      "sha256": "7ba0c1a35a0fce94f3e811794d3a26b7bd62c33cd1012e22e86b2ac6230cdb09",
+      "bytes": 9868
+    },
+    "experiments/ms_swift/tests/test_gemma_eval.py": {
+      "sha256": "e35101c3d0132317ff1eb96c2a25cb3b78486390d9cbc38f876dfdcfe7821355",
+      "bytes": 13105
+    },
+    "experiments/ms_swift/tests/test_gemma_eval_bounded.py": {
+      "sha256": "b87ac0137e1aa68ca566f7fc2c7339a2db40ee641dc736428862906a927209c3",
+      "bytes": 7589
+    },
+    "experiments/ms_swift/tests/test_gemma_portable.py": {
+      "sha256": "468ec401c7c139ef7a47cec6c1a7243b2fa424dee09887a4ac93990360354037",
+      "bytes": 4501
+    },
+    "experiments/ms_swift/tests/test_isolation.py": {
+      "sha256": "4e1b5e3ae895a99bc3743c93fe7ece30f8835db1a079e7bf169122c32fbb3216",
+      "bytes": 1333
+    },
+    "experiments/ms_swift/tests/test_paired_data.py": {
+      "sha256": "e54d8a5709129829a76ae98bbf3a94c97c5c4abd1d0f667ee8687204260355fb",
+      "bytes": 5656
+    },
+    "experiments/ms_swift/tests/test_pilot_freeze.py": {
+      "sha256": "60c84e8533dcb8a2d44c1fe2de311004af15a7691a9f6dfb257bbae2b88538ce",
+      "bytes": 1316
+    },
+    "experiments/ms_swift/tests/test_pilot_scoring.py": {
+      "sha256": "48b3ab69c18c271fb687e1ad67bdbf2b65f6d87f4e157f75a7a791ed3cfb07ec",
+      "bytes": 11689
+    },
+    "experiments/ms_swift/tests/test_resource_profile.py": {
+      "sha256": "f2e1aaaba0d91f52fe5638671ba3411be380ab0e2e3dbbc8135964da4a89a146",
+      "bytes": 4168
+    },
+    "experiments/ms_swift/tests/test_ruler_lineage.py": {
+      "sha256": "ac7354e99536c468cba096d62411fbfc504d9851294bab11fae0a87f489125e7",
+      "bytes": 2824
+    },
+    "experiments/ms_swift/tests/test_training_methods.py": {
+      "sha256": "426a733c813eaba329eb0ebdf8ffd8ec3d77519ee56e043d5838331936097a9a",
+      "bytes": 14952
+    },
+    "experiments/ms_swift/uv.lock": {
+      "sha256": "fb2cc5286e3548ef8df4a93760f66ff1aa49f21246cf923518e85f113e1f3110",
+      "bytes": 94315
+    },
+    "experiments/results/README.md": {
+      "sha256": "fe9598be854a69e5271c707c79ce550136430b23e9f152661307db2c96532c42",
+      "bytes": 1736
+    },
+    "experiments/results/colab_sft_20261108/README.md": {
+      "sha256": "bad0c3c94698e98cbcee1a3a20634ce0286cc571384a2698c149f6d5be6db72b",
+      "bytes": 5060
+    },
+    "experiments/results/colab_sft_20261108/figures/sft_overview.png": {
+      "sha256": "8dfd06433c13c45cf23281bb8127d57e3d3b7df064b5c707484fd9a0f99055c3",
+      "bytes": 329373
+    },
+    "experiments/results/colab_sft_20261108/figures/sft_overview.svg": {
+      "sha256": "c2379cfe86f63a01d0932c953bc44b0e76a5b9197452e53465e31e5369961609",
+      "bytes": 193689
+    },
+    "experiments/results/colab_sft_20261108/report.html": {
+      "sha256": "5b2bbd2211060c0b0aa26be695b55e5c7cae8b07edc7ce628c3d7c32b0a01da2",
+      "bytes": 200989
+    },
+    "experiments/results/colab_sft_20261108/summary.json": {
+      "sha256": "0e26e75316cbc3c108cc590789953a2db122ecf2339e0260379520e63678ef54",
+      "bytes": 8363
+    },
+    "experiments/results/colab_sft_20261108/visualization_manifest.json": {
+      "sha256": "7b7480815344983814f531a83f57f4f44377fed1a64a1fadf66ef0faa2546aa7",
+      "bytes": 3559
+    },
+    "experiments/results/colab_sft_20261108/visualization_series_summary.json": {
+      "sha256": "7b20842f6e837b6c93ba116501a36694b07b92c04210270ed471f0d9b17f80a7",
+      "bytes": 13714
+    },
+    "experiments/results/colab_sft_20261108/visualization_validation.json": {
+      "sha256": "8575e691466a7a764c4354be8ef1e4886c8f6b23edbd318fd89b75ae7ec85d2d",
+      "bytes": 336
+    },
+    "experiments/results/cpt_20261105_v1/README.md": {
+      "sha256": "70c56e0967f55094c890cefcccc07650d33f5c7c7b1193742ee70a02c8ec6bbf",
+      "bytes": 3690
+    },
+    "experiments/results/cpt_20261105_v1/audit_manifest.json": {
+      "sha256": "d67b0c17fac037300ddfc25f4fd56e3f130556c960432bd8b9c6ee3a36883734",
+      "bytes": 443
+    },
+    "experiments/results/cpt_20261105_v1/dependency_resolution_report.json": {
+      "sha256": "02d17b54f0a933764a42b35f0c1f3cbdde33730a973481ab538881b8e9299c39",
+      "bytes": 2611
+    },
+    "experiments/results/cpt_20261105_v1/native_model.lock.json": {
+      "sha256": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e",
+      "bytes": 3077
+    },
+    "experiments/results/cpt_20261105_v1/preparation_summary.json": {
+      "sha256": "dd3a6361f00bf29ef9848fa5dc28ad4a6f71fc48f68a978ebcacc0f0262df9af",
+      "bytes": 5040
+    },
+    "experiments/results/cpt_layout_20261105/README.md": {
+      "sha256": "e215fb30c4b7b9cf653d09d5494c82f9c85b4c350201e2b3bbc3562be0c98b53",
+      "bytes": 3120
+    },
+    "experiments/results/cpt_layout_20261105/layout_validation.json": {
+      "sha256": "ba3ccdb83fdff913d1448f9ae76e26d9a2565a2861bb31a5d4feada8845899b7",
+      "bytes": 5307
+    },
+    "experiments/results/long_context_design_20261108/README.md": {
+      "sha256": "28c6c17406ea54e48b626ba6bdde10134c734385bdf5d14c4356bc46f04a95a0",
+      "bytes": 16518
+    },
+    "experiments/results/paired_pilot_20261108/README.md": {
+      "sha256": "f7ec1ff5641a46d085246ef09ae9728467b0de267a517b4064b2ef5f7e97c4f4",
+      "bytes": 5072
+    },
+    "experiments/results/paired_pilot_20261108/data_mechanical_audit.json": {
+      "sha256": "f026aa3ea7476fa12ab6e8f44d1548a358cbfd075b40e92d88e0467ed25e3ef5",
+      "bytes": 1279
+    },
+    "experiments/results/paired_pilot_20261108/data_source_lock.json": {
+      "sha256": "3a9375b7413056bd1fa738de960c63ab210b887c77963c5947b95f98b6441fe6",
+      "bytes": 4760
+    },
+    "experiments/results/paired_pilot_20261108/data_summary.json": {
+      "sha256": "bdd5758d668f66c60d3ce5f655319659026fb184a37d872b36fe391456a20ed2",
+      "bytes": 1774
+    },
+    "experiments/results/paired_pilot_20261108/figures/paired_lengths.png": {
+      "sha256": "bdf73e9a0f67edbb297191dd3bcdb557b47ad44d9d828e4fbe7e0a8b75a6828b",
+      "bytes": 130783
+    },
+    "experiments/results/paired_pilot_20261108/figures/paired_lengths.svg": {
+      "sha256": "75828686530be11fb0f7dd3cd7a985b2799b815bff70a91adfb373740f6a18f9",
+      "bytes": 138043
+    },
+    "experiments/results/paired_pilot_20261108/figures/public_lengths.png": {
+      "sha256": "f7e9a4e95558c30082bb3fb9281f2c128b8626b2277dcafdcc3ea6be6961f3be",
+      "bytes": 104299
+    },
+    "experiments/results/paired_pilot_20261108/figures/public_lengths.svg": {
+      "sha256": "a370d768897659922e2883edbb503dcba96f22f2a741d003ac4cfb83740b3982",
+      "bytes": 97412
+    },
+    "experiments/results/paired_pilot_20261108/figures/task_source_mix.png": {
+      "sha256": "f46aa68175e09bec71f811418d4289cd855c4021647b1b7fefa038b48c9e2913",
+      "bytes": 148053
+    },
+    "experiments/results/paired_pilot_20261108/figures/task_source_mix.svg": {
+      "sha256": "a54a488e65fba1ce81ee34e08287358e7a1d6cf1e09339fafae430b8be1f61cf",
+      "bytes": 142264
+    },
+    "experiments/results/paired_pilot_20261108/implementation_validation.json": {
+      "sha256": "d1fa1ed29210e19ac52478129648be69442ded7ca095f3ec91f5cdb4507fc68f",
+      "bytes": 2069
+    },
+    "experiments/results/paired_pilot_20261108/local_readiness_validation.json": {
+      "sha256": "00b359034536680816b044764ceefc06d41994cba970d72874ea870234692fee",
+      "bytes": 1373
+    },
+    "experiments/results/paired_pilot_20261108/offline_preflight_validation.json": {
+      "sha256": "e75e370f8463d4b8c33cb4bc079bf9a91715d29a693196e04b9374f6f6d9b4be",
+      "bytes": 1668
+    },
+    "experiments/results/paired_pilot_20261108/public_eval.lock.json": {
+      "sha256": "60eb5e4b0cad60dd8cc6f42f466b96153b8ca7c8797f5196cec4d38731c83dea",
+      "bytes": 3395
+    },
+    "experiments/results/paired_pilot_20261108/public_eval_summary.json": {
+      "sha256": "6ed734961ab7fb7f27f92ab3af5cac484dd1e6877a2e15b600201524810dc038",
+      "bytes": 2333
+    },
+    "experiments/results/paired_pilot_20261108/report.html": {
+      "sha256": "46fd30bef1ec43348d97d58d1e27ed8bf068d76de5819020858eae9b4bf56b00",
+      "bytes": 521640
+    },
+    "experiments/results/paired_pilot_20261108/run_status_summary.json": {
+      "sha256": "970dc6b7dde254d5c6deab8db5db10815cc3f798123d870db0cd00e414cd1b0d",
+      "bytes": 1736
+    },
+    "experiments/results/paired_pilot_20261108/visualization_manifest.json": {
+      "sha256": "ad27f963e97aed0afcf9e4d7d89ddd2b499ef29b1dcb1781cf6f85d3ebed12d2",
+      "bytes": 4839
+    },
+    "experiments/results/readiness_20261107/README.md": {
+      "sha256": "efc5f4a1bb0180878b4920b5b58c208b09fbad8bdfeb03acf06f97a3263f9b2b",
+      "bytes": 4556
+    },
+    "experiments/results/readiness_20261107/bounded_cleanup_validation.json": {
+      "sha256": "fa9d410e495e8015f314bf6c65a50d1710b361fa1a09afd066baf9cba7e60456",
+      "bytes": 386
+    },
+    "experiments/results/readiness_20261107/comparison_preflight_report.json": {
+      "sha256": "b019e3c6ae634b1113d2cb6c61d77f880eaa929f007f0cb2a9ca8773564f62d2",
+      "bytes": 2278
+    },
+    "experiments/results/readiness_20261107/data_review_summary.json": {
+      "sha256": "0541bb8ce4d3b25f16ee04c6b37414b7f0e4baa682fea447e2c7f4c7f2540182",
+      "bytes": 10043
+    },
+    "experiments/results/readiness_20261107/data_review_validation.json": {
+      "sha256": "bc511e86fc4528b324fd442952d20eea1106e4afbedcc0aff2f7eee84ac7e51b",
+      "bytes": 595
+    },
+    "experiments/results/readiness_20261107/evaluation_preparation_summary.json": {
+      "sha256": "31bdb04e691e7491db66d7fb47e21c1d5bfa6c646708664014dcb1214fb00b33",
+      "bytes": 1591
+    },
+    "experiments/results/readiness_20261107/implementation_final_validation.json": {
+      "sha256": "f26784b1d99996824289379bfc43ec19fee42b141581aede8ced35e868bdbfdb",
+      "bytes": 6131
+    },
+    "experiments/results/readiness_20261107/implementation_validation.json": {
+      "sha256": "1ed25c1f7b8ea9cbaea4eb10557574660e417b8bdae826d954dc78c9015994ca",
+      "bytes": 7306
+    },
+    "experiments/results/readiness_20261107/local_gpu_probe_report.json": {
+      "sha256": "bd0f4ada1ae3dde045b81f2849b67eac52b3211b0b68732478adb6926965651f",
+      "bytes": 3123
+    },
+    "experiments/results/readiness_20261107/model_weights.lock.json": {
+      "sha256": "765c3264321ff489cd4418097c40b6511c20f82c153c6933887a23ab0ad4c109",
+      "bytes": 324
+    },
+    "experiments/results/readiness_20261107/resource_inventory_summary.json": {
+      "sha256": "270ad49723276f758ddc1ad614d3d6e997414a8fb6eea5655f04b78612d27681",
+      "bytes": 1113
+    },
+    "experiments/results/readiness_20261107/selected_native_budget_summary.json": {
+      "sha256": "8ff026f43b5aef96adc9d28c057d7e97c240dc928b23d7ccff469c92944b30ad",
+      "bytes": 2225
+    },
+    "experiments/results/readiness_20261107/training_guard_validation.json": {
+      "sha256": "0d790970d2a4e84d48ec1f6ea9deb556230b0160ea1aa8a37ef170d47d632278",
+      "bytes": 288
+    },
+    "experiments/results/readiness_20261107/training_preparation_summary.json": {
+      "sha256": "92f7fbf4cf164ba50c5f1848b84f2d85e9be3e0a4da7472bb4e9009f123a1707",
+      "bytes": 2540
+    },
+    "package.json": {
+      "sha256": "686f69ed6de0a148fac79c1c38611fa3599d70ae6b3613900a9e068f1c793624",
+      "bytes": 1350
+    },
+    "scripts/test.mjs": {
+      "sha256": "833d3015c18ad35454c84e800201852f8b24dab43afd7d9987ab9e44d2917a1d",
+      "bytes": 610
+    }
+  },
+  "integration_paths": [
+    ".dockerignore",
+    ".github/workflows/ci.yml",
+    ".gitignore",
+    "AGENTS.md",
+    "Dockerfile",
+    "README.md",
+    "backend/evals/results/README.md",
+    "backend/longdoc/pipeline.py",
+    "backend/pyproject.toml",
+    "backend/tests/test_longdoc.py",
+    "backend/uv.lock",
+    "docs/local-data-access.md",
+    "docs/long-context-data.md",
+    "package.json",
+    "scripts/test.mjs"
+  ],
+  "new_doc_paths": [
+    "docs/cpt-device-tiers.md",
+    "docs/gemma-experiment-workflow.md",
+    "docs/gemma-local-eval.md",
+    "docs/ms-swift-gemma4.md",
+    "docs/training-data-review.md"
+  ],
+  "excluded": "Ignored caches/data/model weights, real .env, user settings, and unrelated frontend changes.",
+  "integration_note": "This is a baseline snapshot, not permission to blindly overwrite newer origin/main changes. Review and apply integration.patch with three-way merge when needed.",
+  "archive_sha256": "a71ab4d490596c3af570e883e21af3d86a161b72910cb240a6e86b72fc0e3223"
+}

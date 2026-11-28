@@ -1,0 +1,8 @@
+{
+  "drive_flush_and_unmount_succeeded": true,
+  "timeout_ms": 60000,
+  "archive_sha256": "2536070819c8ab2efade6f0fa5e8178cebead4570d2b8cca3e5abc55fac92d54",
+  "final_proof_sha256": "0bcd0ca817363dfebd9de3de36d1aa20c4a2e736ddc7524bdb52638cf6d5fc41",
+  "finished_unix": 1795786853.0962522,
+  "scope": "Only this owned runtime; stop via CLI after receipt is captured locally."
+}

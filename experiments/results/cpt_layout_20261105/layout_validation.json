@@ -1,0 +1,144 @@
+{
+  "schema_version": "cpt-layout-validation-v1",
+  "date": "2026-11-05",
+  "scope": "Training code and environment separation; no model training",
+  "migration": {
+    "cached_files": 21,
+    "all_original_cache_sha256_preserved": true,
+    "historical_plan": {
+      "rejected": true,
+      "exception_type": "FileNotFoundError"
+    },
+    "common_wheel_built": true,
+    "common_wheel_sha256": "e1c1344213170ec3efbe5655e640dd6d9c2c9012c215522e2705aa5f9ae23ecd",
+    "dataset_source_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3"
+  },
+  "historical_json_sha256": {
+    "audit_manifest.json": "d67b0c17fac037300ddfc25f4fd56e3f130556c960432bd8b9c6ee3a36883734",
+    "dependency_resolution_report.json": "02d17b54f0a933764a42b35f0c1f3cbdde33730a973481ab538881b8e9299c39",
+    "native_model.lock.json": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e",
+    "preparation_summary.json": "dd3a6361f00bf29ef9848fa5dc28ad4a6f71fc48f68a978ebcacc0f0262df9af"
+  },
+  "new_preparation": {
+    "manifest_sha256": "bb5b3f87b3e5b0612f0636e0884ff80946e6c890e752c3330c275b3db12c415c",
+    "input_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+    "artifacts_byte_identical_to_v1": true,
+    "artifacts": {
+      "train_ordered": {
+        "path": "train_ordered.preview.jsonl",
+        "sha256": "68f5617c1e5a7523e5aaa9a53d808577b4691797e0642d34af3d4736d96b249a"
+      },
+      "train_shuffled": {
+        "path": "train_shuffled.preview.jsonl",
+        "sha256": "68c8f9f9bbf59d5d1e3e7eeecbdce4798c92ed962450ad63ac976878618acda6"
+      },
+      "dev_ordered": {
+        "path": "dev_ordered.preview.jsonl",
+        "sha256": "8c29f023e96b94c1ed240d25c925bfa38bdbe234703341b046ea8bd906281288"
+      },
+      "dev_shuffled": {
+        "path": "dev_shuffled.preview.jsonl",
+        "sha256": "cba36dd78164e264db185047e758e43e706e9bcd0f0acd6e20a082f381f40e64"
+      },
+      "sequence_lineage.jsonl": {
+        "path": "sequence_lineage.jsonl",
+        "sha256": "063966965f8cf2ab7f8f144b0882bdefe55e23f8b53f2b0d883dd40531cf6fb2"
+      },
+      "quarantine.jsonl": {
+        "path": "quarantine.jsonl",
+        "sha256": "83d0c1bf0c639fe4bc0cee9b2d432c299f5a74ce95c5ec0cad5b553b27427f26"
+      },
+      "admission_report.jsonl": {
+        "path": "admission_report.jsonl",
+        "sha256": "5961763dc6335252ac91d9b1f7bdda6884672b7f2aa6d8b77f4025e797fef181"
+      },
+      "split_assignments.jsonl": {
+        "path": "split_assignments.jsonl",
+        "sha256": "f35f5684d1c7766b7f842f59befa6611fe4d8cff77a7f1145e3663d2b22578d6"
+      }
+    },
+    "counts": {
+      "train_ordered": {
+        "sequences": 441,
+        "body_tokens": 2664268,
+        "max_body_tokens": 8190
+      },
+      "train_shuffled": {
+        "sequences": 441,
+        "body_tokens": 2664268,
+        "max_body_tokens": 8189
+      },
+      "dev_ordered": {
+        "sequences": 56,
+        "body_tokens": 324917,
+        "max_body_tokens": 8182
+      },
+      "dev_shuffled": {
+        "sequences": 56,
+        "body_tokens": 324917,
+        "max_body_tokens": 8187
+      }
+    },
+    "approved_documents": 0,
+    "training_ready": false,
+    "test_documents_exported": 0,
+    "quarantined_documents": 2
+  },
+  "plans": {
+    "ordered": {
+      "plan_sha256": "23396c1dbccc39bc98c1a536bc58a646ca90ce2b30fbb174f1c4a1ac3d71a3e6",
+      "executed": false,
+      "training_ready": false,
+      "blockers": [
+        "exported_document_not_admitted",
+        "preview_or_unapproved_data"
+      ]
+    },
+    "shuffled": {
+      "plan_sha256": "34bdf5a215742161e61df888ff43dd5a66050bc1d012b11fc16969285ea03b9e",
+      "executed": false,
+      "training_ready": false,
+      "blockers": [
+        "exported_document_not_admitted",
+        "preview_or_unapproved_data"
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.13.1",
+    "interpreter_project": "experiments/ms_swift/.venv",
+    "packages": {
+      "ariadne-ms-swift-experiments": "0.1.0",
+      "ariadne-data-core": "0.1.0",
+      "tokenizers": "0.23.3",
+      "requests": "2.34.2",
+      "pytest": "9.2.0"
+    },
+    "torch_installed": false,
+    "backend_import_needed": false
+  },
+  "checks": {
+    "command": "npm test",
+    "backend_python_passed": 280,
+    "experiment_python_passed": 129,
+    "experiment_node_passed": 11,
+    "frontend_node_passed": 74,
+    "frontend_types_passed": true,
+    "root_cpt_help_passed": true,
+    "shared_package_wheel_build_passed": true,
+    "documentation_links_passed": true,
+    "git_ignore_passed": true,
+    "ci_configuration_parsed": true
+  },
+  "container": {
+    "shared_package_copy_and_ignore_rules_updated": true,
+    "image_build_tested": false,
+    "reason": "Local Docker daemon is not running; it was not started."
+  },
+  "limitations": [
+    "No CPT/SFT, model weights download, GPU memory profiling or model quality evaluation.",
+    "Old manifests/plans retain original paths as historical evidence; active plans are regenerated at new paths.",
+    "New preparation remains unreviewed preview data and cannot authorize training.",
+    "GitHub CI jobs have been configured, not remotely executed in this task."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "paired-local-readiness-v1",
+  "scope": "local_preparation_only",
+  "passed": true,
+  "user_deferred_colab_login": true,
+  "user_deferred_training": true,
+  "review_packet": {
+    "pairs": 40,
+    "train": 32,
+    "dev": 8,
+    "sources": 12,
+    "review_receipts": 92,
+    "review_decisions": "all_pending",
+    "license_decisions": "all_pending",
+    "human_approved_pairs": 0,
+    "training_ready": false,
+    "packet_lock_files_verified": 23,
+    "data_lock_files_verified": 8
+  },
+  "public_suite": {
+    "records": 250,
+    "longbench": 60,
+    "ruler": 150,
+    "boolq": 40,
+    "generated_ruler_files_verified": 15
+  },
+  "base_plan": {
+    "ready": 250,
+    "total": 250,
+    "context_length": 16384,
+    "cpu_reencoding_validated": true,
+    "executed": false
+  },
+  "resource_bundle": {
+    "files": 34,
+    "resource_only": true,
+    "crc_verified": true,
+    "manifest_hashes_verified": true,
+    "matches_workspace": true,
+    "sha256": "e05cdee3991a277323b43850306c327ee1c2abca5da3c23e3488a53e7a5e8d73"
+  },
+  "visual_artifacts_verified": 7,
+  "network_or_account_calls": 0,
+  "gpu_execution": false,
+  "model_improvement_measured": false,
+  "note": "Checks cover the existing 32/8 pilot preparation only. Full 128/32 data expansion and confirmation-test deficits remain as documented."
+}

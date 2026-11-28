@@ -19,6 +19,9 @@ Ariadne 在研究报告助手之外增加了独立的长文数据实验模块。
 | `backend/longdoc/` | 可追溯清洗、去重候选、质量分、文档族划分、packing、按 token 配比、数据诊断 |
 | `backend/longeval/` | 长文任务校验、三种上下文策略、证据与答案评分、显式开启的模型调用、外部数据导入 |
 | `backend/publicbench/` | 固定版本 LongBench v1/v2、官方任务评分、全上下文与预算策略的独立对照 |
+| `experiments/common/` | 纯标准库共享文档 schema、读取和来源/家族划分，供数据工具与训练复用 |
+| `experiments/ms_swift/` | 独立环境的 CPT 准备、配置、启动脚本与测试；不导入后端应用 |
+| `experiments/results/` | 训练准备与目录迁移的小型汇总报告；正文、逐条导出与权重忽略 |
 
 所有下载语料与大体积处理中间结果默认放在 `backend/longdoc_sources/.cache/`，
 不进入 Git。实际运行报告和固定来源清单另行保存。`sources.lock.json` 允许复取同一批来源；
@@ -111,6 +114,11 @@ uv run python -m longdoc_sources.synthesize --documents longdoc_sources/.cache/p
 
 ## 后续 CPT
 
-当前只提供 assessment 数据与实验输入，未运行训练。确认算力后，再选择基座和原生窗口，
-固定训练 token、优化设置与测试集，比较结构、清洗筛选、序列组织和配比。
+首个基座已确定为 Gemma 4 E2B Base，使用 [MS-SWIFT 训练流程](ms-swift-gemma4.md)。
+训练实验已从后端迁至独立的 `experiments/ms_swift/`，根目录入口保留 `npm run train:cpt -- ...`，
+传入路径相对于该实验目录；训练准备与应用后端使用不同 Python 环境。
+已完成原生分词预览和待审数据导出，未运行训练。确认数据准入与算力后，
+匹配有效训练 token、优化设置与测试集，比较结构、清洗筛选、序列组织和配比。
 在此之前，可报告数据工程与固定模型推理结果，不报告预训练策略的因果收益。
+
+本地 8GB / 16GB 推理目标、服务器 CPT 选型和训练后量化测评矩阵见[按部署显存分档的实验计划](cpt-device-tiers.md)。其中资源范围为计划估算，尚未完成 CPT 或对应本地模型验收。

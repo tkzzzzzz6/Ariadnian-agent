@@ -1,0 +1,18 @@
+# Dedicated Linux/CUDA training environment; do not install into backend/.venv.
+# Python 3.12. Install the matching CUDA PyTorch wheels first; see
+# docs/ms-swift-gemma4.md. These are source/metadata-checked pins, not a GPU test.
+# MS-SWIFT v4.6.0, tag resolved with git ls-remote on 2026-11-05.
+ms-swift @ git+https://github.com/modelscope/ms-swift.git@ad818a2cdfafaf4305ac40c4acd892a211978bc2
+torch==2.8.0
+torchvision==0.23.0
+torchaudio==2.8.0
+transformers==5.12.1
+peft==0.20.0
+accelerate==1.12.0
+datasets==4.8.4
+trl==0.29.1
+# QLoRA adds requirements-train-qlora.txt (bitsandbytes pinned separately).
+# FlashAttention, Liger, DeepSpeed and serving engines remain optional and are
+# omitted until the actual GPU/kernel combination is profiled.
+# This file pins the main training stack, not every transitive dependency.
+# Retain pip freeze, pip check and the CUDA/driver inventory with each run.

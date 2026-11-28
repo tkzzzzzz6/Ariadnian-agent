@@ -16,6 +16,13 @@ Common local paths:
 - Other `backend/longdoc_sources/.cache/` subdirectories: diagnostics, generated
   QA, AI review candidates and source-linked compilations.
 - `backend/publicbench/.cache/`: downloaded public benchmarks and local imports.
+- `experiments/ms_swift/.cache/`: native tokenizer assets, pending review receipts, text
+  exports, launch plans and checkpoints. Only explicit training exports can be
+  launched; preview exports and AI-only reviews never grant admission.
+  This also contains local Gemma evaluation plans/predictions, model caches,
+  isolated GPU environments and the linked human-review HTML package.
+- `experiments/results/`: versionable aggregate training-preparation and layout
+  migration reports. Record-level exports and checkpoints remain ignored.
 - `backend/evals/results/longdoc_*/` and `publicbench_*/`: run summaries plus local
   record-level data and predictions. Their small manifests/summaries/reports and
   source locks are retained as versionable provenance.
@@ -34,6 +41,27 @@ part of routine code work. Existing small offline fixtures in
 receive ignored data: recreate it using the documented acquisition commands,
 pinned source locks and hashes; report unavailable sources rather than assuming
 that local cached data are present remotely. See `docs/local-data-access.md`.
+
+## Experiment boundaries
+
+CPT training preparation, recipes, launch helpers and their tests live in
+`experiments/ms_swift/`, with an independent Python environment. Run its commands
+from that directory (`uv run python -m cpt`, `uv run pytest`), or use the root
+`npm run train:cpt` and `npm run test:experiments` entry points. The npm training
+entry is for preparation/planning only; real GPU execution uses the explicitly
+activated training environment and `python -m cpt run --execute`.
+
+Shared standard-library document validation and split logic live in the small
+installable package `experiments/common/` (`ariadne_data`). Application-side
+data tools and training preparation import that package; do not copy the rules
+or use `sys.path` edits to find `backend/` from a training module. Keep Torch,
+Transformers and MS-SWIFT out of the application backend environment.
+
+Model locks, prepared manifests and launch plans bind file hashes and sometimes
+absolute paths. Preserve old records as historical evidence. After relocation,
+create a new prepared export and plan at the new paths; never rewrite embedded
+paths/hashes to make an old plan executable. The original `preview_v1` and
+`plans/*_v1` are historical; the migration creates `preview_v2` and `plans/*_v2`.
 
 ## Evidence and labels
 

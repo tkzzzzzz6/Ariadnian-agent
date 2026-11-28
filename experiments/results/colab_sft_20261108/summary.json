@@ -1,0 +1,174 @@
+{
+  "schema_version": "colab-gemma-sft-smoke-result-v1",
+  "created_utc": "2026-11-08T10:18:57.172026+00:00",
+  "status": "completed_and_downloaded",
+  "scope": "human-approved short synthetic engineering smoke only",
+  "skill": {
+    "schema_version": "colab-operator-install-v1",
+    "recorded_utc": "2026-11-08T10:09:42.079092+00:00",
+    "source": "https://github.com/googlecolab/google-colab-cli/tree/main/skills/colab-operator",
+    "observed_upstream_commit": "d2d97794941723ab806c0f3642416691a951ec7d",
+    "installed_skill_sha256": "3e439b80c90bab3a32775bae4aa865a8e6d4511778f2c55d128dca1e420022cf",
+    "cli_version": "0.7.5",
+    "auth": "oauth2_existing_login",
+    "requested_gpu": "A100",
+    "observed_gpu": "NVIDIA A100-SXM4-40GB",
+    "original_user_sessions_touched": false
+  },
+  "model": {
+    "repo": "google/gemma-4-E2B",
+    "revision": "433813a669639fd7eaa83155828e9000ed357d53"
+  },
+  "runtime": {
+    "versions": {
+      "ms-swift": "4.6.0",
+      "torch": "2.8.0+cu128",
+      "torchvision": "0.23.0+cu128",
+      "torchaudio": "2.8.0+cu128",
+      "transformers": "5.12.1",
+      "peft": "0.20.0",
+      "accelerate": "1.12.0",
+      "datasets": "4.8.4",
+      "trl": "0.29.1"
+    },
+    "swift_commit": "ad818a2cdfafaf4305ac40c4acd892a211978bc2",
+    "swift_origin": "https://github.com/modelscope/ms-swift"
+  },
+  "hardware": {
+    "boards": [
+      "NVIDIA A100-SXM4-40GB, 40960 MiB, 580.82.07"
+    ],
+    "expected": "one NVIDIA A100"
+  },
+  "data": {
+    "train_records": 8,
+    "dev_records": 2,
+    "human_approved_records": 10,
+    "original_ai_generated": true,
+    "benchmark_records_used": 0,
+    "rights_scope": "this internal SFT smoke only; no public licensing grant",
+    "template_counts": {
+      "train": {
+        "sha256": "76e2d62e7398ef9e492a8785f37524c5da56f9a19ce6ebe2deeacd185bc20c6b",
+        "records": 8,
+        "encoded_records": 8,
+        "dropped_records": 0,
+        "input_tokens": 853,
+        "loss_tokens": 84,
+        "masked_prompt_tokens": 769,
+        "min_input_length": 95,
+        "max_input_length": 119,
+        "input_and_labels_sha256": "78a6f5755ac7eb4a8b56753696c3de54a959a87029d79b82f95ebb0906bae942",
+        "ordered_loss_token_ids_sha256": "0b9286383cebf0b4b5572dcc5990898780ec98b63536e9074c62dc4e5b7dad0e",
+        "loss_token_histogram_sha256": "c2bc583745f84ea9195bf44729c3450bc289fb5a2324444a6f7e802d1323189f",
+        "loss_contract": "assistant answer and turn suffix only; system/user prompt masked"
+      },
+      "dev": {
+        "sha256": "9294e9275c0cf910c9b63c9b9dc51ed86dd53e5db2ef65fe8177227a6a5e3a8d",
+        "records": 2,
+        "encoded_records": 2,
+        "dropped_records": 0,
+        "input_tokens": 211,
+        "loss_tokens": 17,
+        "masked_prompt_tokens": 194,
+        "min_input_length": 100,
+        "max_input_length": 111,
+        "input_and_labels_sha256": "5b8b57fe97e71bd096baea7efc04ea71dd7922d2476a1f0121e354901f8effa1",
+        "ordered_loss_token_ids_sha256": "22f1bbb4f0835edd9f8ddf31d4c5d3a616f1ccae30f98aabc832a4ad6ccfad9c",
+        "loss_token_histogram_sha256": "835c3ff3f8d87132347e2dc97648958169f4806d7c63db820d46e07e98f138df",
+        "loss_contract": "assistant answer and turn suffix only; system/user prompt masked"
+      }
+    }
+  },
+  "training": {
+    "method": "sft_lora",
+    "precision": "bfloat16",
+    "rank": 16,
+    "alpha": 32,
+    "max_length": 4096,
+    "actual_encoded_length_range": [
+      95,
+      119
+    ],
+    "global_step": 20,
+    "epoch": 20,
+    "batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "trainable_parameters_rounded_millions": 26.3332,
+    "trainable_percent_rounded": 0.5133,
+    "trainer_runtime_seconds": 97.3171,
+    "profile_wall_seconds": 146.11893906500006,
+    "first_logged_step_loss": 3.145531177520752,
+    "last_logged_step_loss": 0.0007460544002242386,
+    "mean_train_loss": 0.48002913272066505,
+    "dev_loss": 0.007150313351303339,
+    "dev_teacher_forced_token_accuracy": 1.0,
+    "swift_reported_memory_gib": 10.072265625,
+    "resource_measurement": {
+      "boards": {
+        "GPU-0b3d0080-97bd-312f-703e-9e41d2533172": {
+          "name": "NVIDIA A100-SXM4-40GB",
+          "samples": 73,
+          "sampled_peak_board_used_mib": 10844.0,
+          "minimum_board_free_mib": 29598.0
+        }
+      },
+      "samples": 73,
+      "failed_samples": 0,
+      "scope": "whole GPU board, includes other processes; discrete samples can miss peaks",
+      "training_peak_allocated_bytes": null,
+      "effective_loss_tokens_per_second": null
+    }
+  },
+  "verification": {
+    "template_verified": true,
+    "model_files_verified": 6,
+    "pip_check_passed": true,
+    "native_bf16_operation_passed": true,
+    "checkpoint_reload_verified": true,
+    "finite_forward_logits": true,
+    "zip_crc_passed": true,
+    "archive_hash_passed": true,
+    "adapter_hash_passed": true,
+    "local_transport_tests_passed": 7
+  },
+  "artifacts": {
+    "archive": "experiments/ms_swift/.cache/colab_20261108/artifacts_v1.zip",
+    "archive_bytes": 293264655,
+    "archive_sha256": "99111455f755d12cf9a8351e2bb3bbc9002e75e668b4656bf9873f03a2bdac76",
+    "adapter": "experiments/ms_swift/.cache/colab_20261108/artifacts_v1/experiments/ms_swift/.cache/colab/training/plan/checkpoints/v0-20261108-101259/checkpoint-20/adapter_model.safetensors",
+    "adapter_bytes": 105415064,
+    "adapter_sha256": "824fca2178430f1abcee9f32b127f892866ebcc51c89bfedf666287f33bea950"
+  },
+  "lifecycle": {
+    "created_session": "ariadne-gemma-sft-20261108",
+    "owned_session_stopped": true,
+    "server_session_list_verified_absent": true,
+    "original_cpu_sessions_untouched": 2,
+    "observed_transient_exec_connection_losses": 2
+  },
+  "evidence_sha256": {
+    "experiments/ms_swift/.cache/colab/training/prepared/prepare_manifest.json": "9d698ddbb3ef238524535ae055e308db35aaaac9d595233a27798ec19ecbe2ce",
+    "experiments/ms_swift/.cache/colab/training/plan/launch_plan.json": "3f50a11afc0c26dd87bd7131a692172fd70c40df582bb5e36d1e583154458cdc",
+    "experiments/ms_swift/.cache/colab/training/plan/launch_receipt.json": "37adbfd4c556a65ea908690fa2045d3d17b6cf8223df493689a0f6c951c923f0",
+    "experiments/ms_swift/.cache/colab/training/plan/template_verification.json": "a1c49bb6b68004b0b6d2c2cde72c7ec956688381fac7f19a3383d2bd7e1c236a",
+    "experiments/ms_swift/.cache/colab/training/profile/resource_summary.json": "fcc2eb64d1febee12a88262282c0fa5d44ce51b9a2bc18f53ea87587ba9c8478",
+    "experiments/ms_swift/.cache/colab/training/plan/checkpoints/v0-20261108-101259/logging.jsonl": "74ad5afa143af95b7b5f3e5890f6b7ab7929a4909628db0cdf0dab9b41e140b3",
+    "experiments/ms_swift/.cache/colab/training/plan/checkpoints/v0-20261108-101259/checkpoint-20/trainer_state.json": "e0e49d448a874d53552aedc1821c46505d9689479ac6e11426da8c6537ea5be2",
+    "evidence/checkpoint_reload_report.json": "b9fac4c33c49d63a18431c483364ed1ea819903bfbd72071bf3161a3269db025",
+    "evidence/pip_freeze.log": "a04a0aaecb4255d4ba58b0398928341feb99f0248600ff02b145278a1c995726",
+    "evidence/model_verification.json": "8ee23737eb231f65bfd8d70f252c68661fba2a2ece379e5c40cf88eccf64454b",
+    "evidence/remote_job.executed.py": "fdcfec508e505446bf7ad4c868683a980de91402f4ca4c37d849341d18c8410c",
+    "evidence/human_approval_receipt.json": "13c66464eebeee99a294276988f1fccfef8bee707bde868b1505655ecf46c75f",
+    "evidence/RIGHTS_CANDIDATE.md": "66ddd29feee7e52e830cd2374c523e39935bb1c038cff368c30a56251afc29b6"
+  },
+  "limitations": [
+    "8 training examples repeated across 20 epochs; dev has only 2 similar synthetic examples.",
+    "4K is a configured cap; actual full template inputs span only 95-119 tokens.",
+    "Dev token accuracy is teacher-forced, not free-generation exact match or benchmark accuracy.",
+    "No pre-training baseline, public benchmark, long-context capability, or CPT gain was measured.",
+    "Discrete board samples are not allocator peaks; SWIFT memory is a separate trainer-reported metric.",
+    "The downloaded artifact is a LoRA adapter, not merged or consumer-GPU quantized model weights.",
+    "Original cloud plans bind cloud absolute paths and are historical; do not rewrite them for local execution."
+  ]
+}

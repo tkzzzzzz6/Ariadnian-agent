@@ -1,0 +1,9 @@
+{
+  "schema_version": "visualization-validation-v1",
+  "numeric_series_checks_passed": true,
+  "altered_source_hash_rejected": true,
+  "html_has_one_embedded_svg": true,
+  "html_external_asset_dependencies": 0,
+  "raw_text_records_exported": false,
+  "png_visual_inspection": "passed; panel labels adjusted to avoid overlap"
+}

@@ -1,0 +1,80 @@
+{
+  "schema_version": "gemma-profile-interruption-v1",
+  "time_utc": "2026-11-07T01:00:15.998356+00:00",
+  "reason": "Stopped the owned process after sustained 4K latency and observed Windows shared GPU system-memory use; pure-8GB-VRAM condition not established.",
+  "controller_action": "identity-checked termination of owned process 42940",
+  "plan_sha256": "44d4119a8f8ce0e590294652ee69820e6b59b21782d1bf29c91713031264d84a",
+  "completed_records": 1,
+  "planned_records": 3,
+  "observed_wall_seconds_since_last_completed_result": 362.4222164154053,
+  "predictions_sha256": "310f7a91e9b5758a6bb359877b9aeacfa76bc3648b00245eeedf058a268a26e1",
+  "cases": [
+    {
+      "id": "profile-2048",
+      "status": "ok",
+      "input_tokens": 2048,
+      "generated_tokens": 32,
+      "generation_seconds": 4.044309200000043,
+      "time_to_first_token_seconds": 2.3361681999999746,
+      "decode_tokens_per_second": 18.15141748517711,
+      "peak_allocated_bytes": 7380352000,
+      "peak_reserved_bytes": 7426015232
+    },
+    {
+      "id": "profile-4096",
+      "status": "interrupted_resource_limit",
+      "quality_score": null
+    },
+    {
+      "id": "profile-8192",
+      "status": "not_attempted_after_interruption",
+      "quality_score": null
+    }
+  ],
+  "windows_memory_observations": [
+    {
+      "schema_version": "windows-process-gpu-memory-observation-v1",
+      "time_utc": "2026-11-07T00:58:21.9203974Z",
+      "process_id": 42940,
+      "phase": "profile_4096_in_progress",
+      "counters": {
+        "Name": "pid_42940_luid_0x00000000_0x0001741F_phys_0",
+        "DedicatedUsage": 7470759936,
+        "SharedUsage": 1688207360,
+        "TotalCommitted": 9158967296
+      },
+      "note": "Point-in-time OS counters, not a sampled peak or proof of the cause of latency."
+    }
+  ],
+  "strict_physical_vram_only_passed": false,
+  "training_executed": false,
+  "quality_benchmark_executed": false,
+  "limitations": [
+    "A synthetic repeated-token resource probe, not an accuracy benchmark.",
+    "2K is one cold observation; no physical-residency counter was sampled for 2K.",
+    "4K interruption is not a CUDA OOM or a completed latency measurement; 8K was not executed.",
+    "Shared-memory counters are point-in-time OS observations; no peak or causal latency attribution is claimed.",
+    "Run began before implementation-hash recording was added; no retroactive runtime capture is claimed."
+  ],
+  "model": {
+    "repo": "google/gemma-4-E2B",
+    "revision": "433813a669639fd7eaa83155828e9000ed357d53"
+  },
+  "quantization": "nf4",
+  "compute_dtype": "bfloat16",
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "total_mib": 8188,
+    "driver": "617.42",
+    "driver_model": "WDDM"
+  },
+  "environment_freeze_sha256": "00d6da92f5e3281cab9897912b6665839e6dc20c2ac332b49c910ffc03f29d66",
+  "runtime_versions": {
+    "python": "3.12.11",
+    "torch": "2.8.0+cu128",
+    "transformers": "5.12.1",
+    "bitsandbytes": "0.50.0"
+  },
+  "framework_cpu_offload": false,
+  "physical_vram_residency_verified": false
+}

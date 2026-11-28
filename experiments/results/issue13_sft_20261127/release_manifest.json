@@ -1,0 +1,37 @@
+{
+  "schema_version": "issue13-sft-release-v1",
+  "bundle": {
+    "sha256": "2596683b674e1b94043a770005a3078a33388115a21df1ac8a29288877fa8104",
+    "bytes": 10424473,
+    "files": 46,
+    "records_approved": false,
+    "gpu_started": false,
+    "filename": "paired_sft_best_tmux_v2.zip",
+    "drive_file_id": "1w3v1rChkiq8lYFgmH7FqncL2jiyEOiNz",
+    "transport_flag_note": "records_approved=false means transport grants no admission; separate human approval and both cpt exports passed."
+  },
+  "notebook": {
+    "filename": "Gemma_A100_SFT_tmux_v2.ipynb",
+    "sha256": "4fd2baf353c83d3db2ee8e7aa08dc0895174b7863672cbb214483a116c84ffae",
+    "bytes": 6973,
+    "executed_on_gpu": false,
+    "drive_file_id": "1HICY_4YdwTInGocd7Qowd2CKpQS5Lqcs",
+    "colab_url": "https://colab.research.google.com/drive/1HICY_4YdwTInGocd7Qowd2CKpQS5Lqcs"
+  },
+  "transport_all_files_verified": true,
+  "explicit_human_approval_sha256": "993b2c8bdddcec608f1ff662b4d88cab27520775d99233ea4eb3b9eb6b62282a",
+  "public_records_unchanged": true,
+  "base_eval_plan_counts": {
+    "ready": 250
+  },
+  "drive_folder_id": "1suFe0Kxi5yWIZqBq4HT5ZrD55v4igSAx",
+  "internal_use_only": true,
+  "source_snapshot_sha256": "a71ab4d490596c3af570e883e21af3d86a161b72910cb240a6e86b72fc0e3223",
+  "drive_metadata_readback": {
+    "files_private": true,
+    "bundle_bytes": 10424473,
+    "notebook_bytes": 6973,
+    "verified_against_local_sizes": true,
+    "scope": "connector upload plus metadata readback, not a runtime Drive mount test"
+  }
+}

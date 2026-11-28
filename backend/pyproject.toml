@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Ariadne 研究报告助手后端：FastAPI + LangGraph"
 requires-python = ">=3.11"
 dependencies = [
+    "ariadne-data-core>=0.1.0",  # shared pure-data schema and split validation
     "fastapi>=0.115",
     "uvicorn[standard]>=0.30",
     "python-multipart>=0.0.9",
@@ -29,6 +30,9 @@ dev = ["pytest>=8"]
 
 [tool.uv]
 package = false
+
+[tool.uv.sources]
+ariadne-data-core = { path = "../experiments/common", editable = true }
 
 [[tool.uv.index]]
 name = "tsinghua"

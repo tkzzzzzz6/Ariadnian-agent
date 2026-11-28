@@ -1,0 +1,28 @@
+{
+  "sha256": "99495c9507decd7228fff17b264897a65c72e01cbe960015b79fa6439915cf2e",
+  "bytes": 10425888,
+  "files": 47,
+  "records_approved": false,
+  "gpu_started": false,
+  "notebook": {
+    "sha256": "2aabfecb2efc52432566f2b3745fcf694fea1b2362345169a7bbe04418dfb71c",
+    "bytes": 6973,
+    "executed_on_gpu": false,
+    "drive_file_id": "1MnjhKsE_yTyHj-BZCuyXwgqLjFtT3hf_",
+    "colab_url": "https://colab.research.google.com/drive/1MnjhKsE_yTyHj-BZCuyXwgqLjFtT3hf_",
+    "filename": "Gemma_A100_SFT_tmux_v3.ipynb"
+  },
+  "note": "New runnable source release after cache-path and case-failure classification fixes. Actual completed training used preserved v2 bundle plus separately hashed recovery drivers; v3 has not been rerun as a whole.",
+  "all_file_hashes_verified": true,
+  "drive_folder_id": "1suFe0Kxi5yWIZqBq4HT5ZrD55v4igSAx",
+  "drive_bundle_file_id": "1VXQBTyZBKX3WJIF6i-qAjo8tKJH7nzCw",
+  "internal_only": true,
+  "explicit_human_approval_sha256": "993b2c8bdddcec608f1ff662b4d88cab27520775d99233ea4eb3b9eb6b62282a",
+  "filename": "paired_sft_best_tmux_v3.zip",
+  "drive_metadata_readback": {
+    "bundle_bytes": 10425888,
+    "notebook_bytes": 6973,
+    "files_private": true,
+    "verified_against_local_sizes": true
+  }
+}

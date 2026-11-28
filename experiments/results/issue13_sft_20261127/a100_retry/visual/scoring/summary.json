@@ -1,0 +1,4561 @@
+{
+  "schema_version": "gemma-pilot-scoring-v1",
+  "protocol": "gemma4-nothinking-eval-v1",
+  "total_frozen_records": 250,
+  "labels": [
+    "base",
+    "short",
+    "long"
+  ],
+  "overall_score": null,
+  "benchmarks": {
+    "base": {
+      "boolq": {
+        "records": 40,
+        "statuses": {
+          "empty_prediction": 6,
+          "ok": 34
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      },
+      "longbench-v1": {
+        "records": 60,
+        "statuses": {
+          "ok": 60
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      },
+      "ruler": {
+        "records": 150,
+        "statuses": {
+          "ok": 150
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      }
+    },
+    "short": {
+      "boolq": {
+        "records": 40,
+        "statuses": {
+          "ok": 39,
+          "empty_prediction": 1
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      },
+      "longbench-v1": {
+        "records": 60,
+        "statuses": {
+          "ok": 60
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      },
+      "ruler": {
+        "records": 150,
+        "statuses": {
+          "ok": 150
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      }
+    },
+    "long": {
+      "boolq": {
+        "records": 40,
+        "statuses": {
+          "ok": 40
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      },
+      "longbench-v1": {
+        "records": 60,
+        "statuses": {
+          "ok": 60
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      },
+      "ruler": {
+        "records": 150,
+        "statuses": {
+          "ok": 150
+        },
+        "score": null,
+        "note": "No pooled score across heterogeneous tasks/metrics."
+      }
+    }
+  },
+  "groups": {
+    "base": [
+      {
+        "benchmark": "boolq",
+        "task": "yes_no",
+        "metric": "boolq_yes_no",
+        "length_bucket": "<=2048",
+        "records": 40,
+        "clusters": 40,
+        "statuses": {
+          "empty_prediction": 6,
+          "ok": 34
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "boolq",
+        "task": "yes_no",
+        "metric": "boolq_yes_no",
+        "length_bucket": "all_lengths",
+        "records": 40,
+        "clusters": 40,
+        "statuses": {
+          "empty_prediction": 6,
+          "ok": 34
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 3,
+        "clusters": 3,
+        "statuses": {
+          "ok": 3
+        },
+        "score_percent": 2.38,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=8192",
+        "records": 7,
+        "clusters": 7,
+        "statuses": {
+          "ok": 7
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.71,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "gov_report",
+        "metric": "rouge_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 30.16,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "gov_report",
+        "metric": "rouge_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 30.16,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "hotpotqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "hotpotqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=2048",
+        "records": 8,
+        "clusters": 8,
+        "statuses": {
+          "ok": 8
+        },
+        "score_percent": 32.25,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=4096",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 23.83,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=8192",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 37.68,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 31.95,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_en",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 7.23,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_en",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 7.23,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=16384",
+        "records": 2,
+        "clusters": 2,
+        "statuses": {
+          "ok": 2
+        },
+        "score_percent": 2.56,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=2048",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=4096",
+        "records": 3,
+        "clusters": 3,
+        "statuses": {
+          "ok": 3
+        },
+        "score_percent": 7.96,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=8192",
+        "records": 4,
+        "clusters": 4,
+        "statuses": {
+          "ok": 4
+        },
+        "score_percent": 1.54,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 3.52,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "narrativeqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 3.06,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "narrativeqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 3.06,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 2.41,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=4096",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 2.51,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=8192",
+        "records": 4,
+        "clusters": 4,
+        "statuses": {
+          "ok": 4
+        },
+        "score_percent": 3.5,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 2.89,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 5.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 1.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 8.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 4.67,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 2.5,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 12.5,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 5.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 1,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 2.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 2.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 4.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 2.67,
+        "all_ids_in_denominator": true
+      }
+    ],
+    "short": [
+      {
+        "benchmark": "boolq",
+        "task": "yes_no",
+        "metric": "boolq_yes_no",
+        "length_bucket": "<=2048",
+        "records": 40,
+        "clusters": 40,
+        "statuses": {
+          "ok": 39,
+          "empty_prediction": 1
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "boolq",
+        "task": "yes_no",
+        "metric": "boolq_yes_no",
+        "length_bucket": "all_lengths",
+        "records": 40,
+        "clusters": 40,
+        "statuses": {
+          "ok": 39,
+          "empty_prediction": 1
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 3,
+        "clusters": 3,
+        "statuses": {
+          "ok": 3
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=8192",
+        "records": 7,
+        "clusters": 7,
+        "statuses": {
+          "ok": 7
+        },
+        "score_percent": 3.36,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 2.35,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "gov_report",
+        "metric": "rouge_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 30.16,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "gov_report",
+        "metric": "rouge_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 30.16,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "hotpotqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "hotpotqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=2048",
+        "records": 8,
+        "clusters": 8,
+        "statuses": {
+          "ok": 8
+        },
+        "score_percent": 36.2,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=4096",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 23.83,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=8192",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 32.78,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 34.62,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_en",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 28.17,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_en",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 28.17,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=16384",
+        "records": 2,
+        "clusters": 2,
+        "statuses": {
+          "ok": 2
+        },
+        "score_percent": 5.27,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=2048",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 17.86,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=4096",
+        "records": 3,
+        "clusters": 3,
+        "statuses": {
+          "ok": 3
+        },
+        "score_percent": 11.56,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=8192",
+        "records": 4,
+        "clusters": 4,
+        "statuses": {
+          "ok": 4
+        },
+        "score_percent": 23.49,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 15.7,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "narrativeqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 3.06,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "narrativeqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 3.06,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=4096",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 2.51,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=8192",
+        "records": 4,
+        "clusters": 4,
+        "statuses": {
+          "ok": 4
+        },
+        "score_percent": 8.04,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 4.47,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 3.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 27.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 11.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 13.67,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 80.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 90.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 100.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 90.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 77.5,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 90.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 80.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 82.5,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 10.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 1,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 3.33,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      }
+    ],
+    "long": [
+      {
+        "benchmark": "boolq",
+        "task": "yes_no",
+        "metric": "boolq_yes_no",
+        "length_bucket": "<=2048",
+        "records": 40,
+        "clusters": 40,
+        "statuses": {
+          "ok": 40
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "boolq",
+        "task": "yes_no",
+        "metric": "boolq_yes_no",
+        "length_bucket": "all_lengths",
+        "records": 40,
+        "clusters": 40,
+        "statuses": {
+          "ok": 40
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 3,
+        "clusters": 3,
+        "statuses": {
+          "ok": 3
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=8192",
+        "records": 7,
+        "clusters": 7,
+        "statuses": {
+          "ok": 7
+        },
+        "score_percent": 4.97,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "2wikimqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 3.48,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "gov_report",
+        "metric": "rouge_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 30.79,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "gov_report",
+        "metric": "rouge_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 30.79,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "hotpotqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "hotpotqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=2048",
+        "records": 8,
+        "clusters": 8,
+        "statuses": {
+          "ok": 8
+        },
+        "score_percent": 36.2,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=4096",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 23.83,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "<=8192",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 33.52,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multi_news",
+        "metric": "rouge_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 34.69,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_en",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 29.25,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_en",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 29.25,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=16384",
+        "records": 2,
+        "clusters": 2,
+        "statuses": {
+          "ok": 2
+        },
+        "score_percent": 2.56,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=2048",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 17.54,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=4096",
+        "records": 3,
+        "clusters": 3,
+        "statuses": {
+          "ok": 3
+        },
+        "score_percent": 11.56,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "<=8192",
+        "records": 4,
+        "clusters": 4,
+        "statuses": {
+          "ok": 4
+        },
+        "score_percent": 13.02,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "multifieldqa_zh",
+        "metric": "qa_f1_zh_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 10.94,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "narrativeqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 3.06,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "narrativeqa",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 3.06,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=16384",
+        "records": 1,
+        "clusters": 1,
+        "statuses": {
+          "ok": 1
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=4096",
+        "records": 5,
+        "clusters": 5,
+        "statuses": {
+          "ok": 5
+        },
+        "score_percent": 17.45,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "<=8192",
+        "records": 4,
+        "clusters": 4,
+        "statuses": {
+          "ok": 4
+        },
+        "score_percent": 5.07,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "longbench-v1",
+        "task": "qasper",
+        "metric": "qa_f1_score",
+        "length_bucket": "all_lengths",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 10.75,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 3.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 15.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 6.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "cwe",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 8.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 100.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 100.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 100.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multikey_1",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 100.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 85.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 92.5,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 92.5,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "niah_multivalue",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 90.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 10.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 30.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 1,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 0.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "qa_1",
+        "metric": "ruler_any",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 1,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 13.33,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=16384",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 6.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=4096",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 2.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "<=8192",
+        "records": 10,
+        "clusters": 10,
+        "statuses": {
+          "ok": 10
+        },
+        "score_percent": 4.0,
+        "all_ids_in_denominator": true
+      },
+      {
+        "benchmark": "ruler",
+        "task": "vt",
+        "metric": "ruler_all",
+        "length_bucket": "all_lengths",
+        "records": 30,
+        "clusters": 10,
+        "statuses": {
+          "ok": 30
+        },
+        "score_percent": 4.0,
+        "all_ids_in_denominator": true
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "boolq",
+      "task": "yes_no",
+      "metric": "boolq_yes_no",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 0.0,
+      "records": 40,
+      "clusters": 40,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "boolq",
+      "task": "yes_no",
+      "metric": "boolq_yes_no",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 40,
+      "clusters": 40,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -2.3809523809523814,
+      "records": 3,
+      "clusters": 3,
+      "ci95_percentage_points": [
+        -7.142857142857144,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 3.361344537815126,
+      "records": 7,
+      "clusters": 7,
+      "ci95_percentage_points": [
+        0.0,
+        10.084033613445378
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 1.6386554621848737,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -2.142857142857143,
+        7.0588235294117645
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "gov_report",
+      "metric": "rouge_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -0.0005225584864043675,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.31488084365370206,
+        0.2637841852814249
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "gov_report",
+      "metric": "rouge_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": -0.0005225584864043675,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.31488084365370206,
+        0.2637841852814249
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "hotpotqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "hotpotqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 3.944064495367746,
+      "records": 8,
+      "clusters": 8,
+      "ci95_percentage_points": [
+        0.0,
+        11.832193486103238
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 0.0,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": -4.903381645042798,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 2.664913431789917,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -1.4710144935128395,
+        9.46575478888259
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_en",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 20.94301251608995,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -1.4341520107206813,
+        49.35365545270345
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_en",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 20.94301251608995,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -1.4341520107206813,
+        49.35365545270345
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 2.7027027027027026,
+      "records": 2,
+      "clusters": 2,
+      "ci95_percentage_points": [
+        0.0,
+        5.405405405405405
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 17.857142857142858,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 3.6036036036036037,
+      "records": 3,
+      "clusters": 3,
+      "ci95_percentage_points": [
+        0.0,
+        10.81081081081081
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 21.947727172895405,
+      "records": 4,
+      "clusters": 4,
+      "ci95_percentage_points": [
+        11.29032258064516,
+        32.60513176514564
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 12.186426776494068,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        5.417443887999027,
+        19.85693267392246
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "narrativeqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "narrativeqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -2.4096385542168677,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 4.538419228161736,
+      "records": 4,
+      "clusters": 4,
+      "ci95_percentage_points": [
+        0.0,
+        9.267431597528686
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 1.5744038358430072,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -0.48192771084337355,
+        4.2866827839390105
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -1.9999999999999998,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -9.0,
+        3.0000000000000004
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 26.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        3.0000000000000004,
+        51.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 3.0000000000000004,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -6.999999999999999,
+        13.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 9.000000000000002,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        2.3333333333333335,
+        16.666666666666664
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 80.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        50.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 90.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        70.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 100.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        100.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 90.0,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        80.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 75.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        52.5,
+        95.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 90.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        77.5,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 67.5,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        37.5,
+        92.5
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 77.5,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        66.66666666666666,
+        86.66666666666667
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 10.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 3.3333333333333335,
+      "records": 30,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -2.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -6.000000000000001,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": -2.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -6.000000000000001,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": -4.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -10.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "short",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": -2.666666666666667,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -4.666666666666667,
+        -0.6666666666666667
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "boolq",
+      "task": "yes_no",
+      "metric": "boolq_yes_no",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 0.0,
+      "records": 40,
+      "clusters": 40,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "boolq",
+      "task": "yes_no",
+      "metric": "boolq_yes_no",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 40,
+      "clusters": 40,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -2.3809523809523814,
+      "records": 3,
+      "clusters": 3,
+      "ci95_percentage_points": [
+        -7.142857142857144,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 4.968944099378882,
+      "records": 7,
+      "clusters": 7,
+      "ci95_percentage_points": [
+        0.0,
+        14.906832298136646
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 2.763975155279503,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -2.142857142857143,
+        10.434782608695652
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "gov_report",
+      "metric": "rouge_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.6337774081333047,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.31488084365370206,
+        2.1503225802714976
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "gov_report",
+      "metric": "rouge_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.6337774081333047,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.31488084365370206,
+        2.1503225802714976
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "hotpotqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "hotpotqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 3.944064495367746,
+      "records": 8,
+      "clusters": 8,
+      "ci95_percentage_points": [
+        0.0,
+        11.832193486103238
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 0.0,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": -4.161606349884384,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 2.7390909613057586,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -1.248481904965315,
+        9.46575478888259
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_en",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 22.019277223410334,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        1.1624857033930616,
+        49.119457296614975
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_en",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 22.019277223410334,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        1.1624857033930616,
+        49.119457296614975
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 2,
+      "clusters": 2,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 17.543859649122805,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 3.6036036036036037,
+      "records": 3,
+      "clusters": 3,
+      "ci95_percentage_points": [
+        0.0,
+        10.81081081081081
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 11.481481481481481,
+      "records": 4,
+      "clusters": 4,
+      "ci95_percentage_points": [
+        0.0,
+        23.333333333333332
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 7.428059638585954,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        1.4814814814814814,
+        13.923186344238974
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "narrativeqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "narrativeqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -2.4096385542168677,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 14.947722980206052,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        2.0602150537634407,
+        29.283050095117254
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 1.5739923506913798,
+      "records": 4,
+      "clusters": 4,
+      "ci95_percentage_points": [
+        -0.27802294792585985,
+        5.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 7.862494574957893,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.5730660020144925,
+        17.302577679137595
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -1.9999999999999998,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -9.0,
+        3.0000000000000004
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 13.999999999999998,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -2.0,
+        35.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": -1.9999999999999998,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -15.0,
+        10.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 3.3333333333333335,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -3.6666666666666665,
+        11.000000000000002
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 100.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        100.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 100.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        100.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 100.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        100.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 100.0,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        100.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 82.5,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        60.0,
+        97.5
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 92.5,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        85.0,
+        100.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 80.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        52.5,
+        97.5
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 85.0,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        74.14583333333333,
+        94.16666666666667
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 10.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 30.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 13.333333333333334,
+      "records": 30,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 4.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -4.0,
+        12.000000000000002
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -6.000000000000001,
+        6.000000000000001
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -6.000000000000001,
+        6.000000000000001
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "base",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 1.3333333333333335,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -2.0000000000000004,
+        4.683333333333243
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "boolq",
+      "task": "yes_no",
+      "metric": "boolq_yes_no",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 0.0,
+      "records": 40,
+      "clusters": 40,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "boolq",
+      "task": "yes_no",
+      "metric": "boolq_yes_no",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 40,
+      "clusters": 40,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 3,
+      "clusters": 3,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 1.6075995615637557,
+      "records": 7,
+      "clusters": 7,
+      "ci95_percentage_points": [
+        -8.476434051881622,
+        14.906832298136646
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "2wikimqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 1.125319693094629,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -7.0588235294117645,
+        10.434782608695652
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "gov_report",
+      "metric": "rouge_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.6342999666197091,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.24742268041237025,
+        2.1503225802714976
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "gov_report",
+      "metric": "rouge_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.6342999666197091,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.24742268041237025,
+        2.1503225802714976
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "hotpotqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "hotpotqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": 0.0,
+      "records": 8,
+      "clusters": 8,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 0.0,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 0.7417752951584144,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multi_news",
+      "metric": "rouge_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.07417752951584144,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        0.22253258854752433
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_en",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 1.0762647073203786,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.815168058592446,
+        3.934426229508196
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_en",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 1.0762647073203786,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        -0.815168058592446,
+        3.934426229508196
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": -2.7027027027027026,
+      "records": 2,
+      "clusters": 2,
+      "ci95_percentage_points": [
+        -5.405405405405405,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=2048",
+      "delta_percentage_points": -0.3132832080200515,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 0.0,
+      "records": 3,
+      "clusters": 3,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": -10.466245691413922,
+      "records": 4,
+      "clusters": 4,
+      "ci95_percentage_points": [
+        -24.850850102498832,
+        -1.3806229335111566
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "multifieldqa_zh",
+      "metric": "qa_f1_zh_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": -4.758367137908115,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -11.667033592971938,
+        -0.5832847783848714
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "narrativeqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "narrativeqa",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 0.0,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 1,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 14.947722980206052,
+      "records": 5,
+      "clusters": 5,
+      "ci95_percentage_points": [
+        2.0602150537634407,
+        29.283050095117254
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": -2.9644268774703555,
+      "records": 4,
+      "clusters": 4,
+      "ci95_percentage_points": [
+        -9.545454545454545,
+        0.6521739130434787
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "longbench-v1",
+      "task": "qasper",
+      "metric": "qa_f1_score",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 6.288090739114885,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -1.9696754732681496,
+        16.19252326848345
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": -12.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -39.0,
+        12.999999999999998
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": -5.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -13.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "cwe",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": -5.666666666666666,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        -15.0,
+        3.666666666666666
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 20.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        50.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 10.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        30.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        0.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multikey_1",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 10.0,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        20.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 7.5,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        22.5
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 2.5,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        7.5
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 12.5,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        30.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "niah_multivalue",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 7.5,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        1.6666666666666667,
+        14.166666666666666
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 10.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 20.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 0.0,
+      "records": 10,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "qa_1",
+      "metric": "ruler_any",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 10.0,
+      "records": 30,
+      "clusters": 1,
+      "ci95_percentage_points": null,
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain",
+      "ci_unavailable_reason": "fewer_than_two_source_clusters"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=16384",
+      "delta_percentage_points": 6.000000000000001,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        12.000000000000002
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=4096",
+      "delta_percentage_points": 2.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        6.000000000000001
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "<=8192",
+      "delta_percentage_points": 4.0,
+      "records": 10,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        0.0,
+        10.0
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    },
+    {
+      "before": "short",
+      "after": "long",
+      "benchmark": "ruler",
+      "task": "vt",
+      "metric": "ruler_all",
+      "length_bucket": "all_lengths",
+      "delta_percentage_points": 4.000000000000001,
+      "records": 30,
+      "clusters": 10,
+      "ci95_percentage_points": [
+        1.3333333333333335,
+        7.333333333333333
+      ],
+      "bootstrap_repetitions": 2000,
+      "seed": 17,
+      "interpretation": "exploratory paired source-cluster bootstrap; not training-seed uncertainty or proof of general capability gain"
+    }
+  ],
+  "metric_provenance": {
+    "boolq": {
+      "protocol": "strict whole-response yes/no; whitespace and terminal punctuation allowed",
+      "official_benchmark_score": false
+    },
+    "longbench_v2": {
+      "source": "https://github.com/THUDM/LongBench/tree/2e00731f8d0bff23dc4325161044d0ed8af94c1e/pred.py",
+      "source_sha256": "ab63f77866a1c0dc770582bc3fe6b014c3b4be4667399b0ee267075780c6a138"
+    },
+    "longbench": {
+      "source": "https://github.com/THUDM/LongBench/tree/2e00731f8d0bff23dc4325161044d0ed8af94c1e/LongBench",
+      "metrics_sha256": "e22e2a2662e0f7e683137fa3541f64edb6a801e9138d16d2f3459a6ab9941323",
+      "eval_sha256": "1a3acfc25d9b053e9bb75c479f7e385d0cb9989f0f7115346b7d632655967721",
+      "versions": {
+        "jieba": "0.42.1",
+        "rouge": "1.0.1",
+        "fuzzywuzzy": "0.18.0"
+      },
+      "license": "upstream MIT"
+    },
+    "ruler": {
+      "source": "https://github.com/NVIDIA/RULER/blob/db43f92ff634bbce1c33d1fb15858aec4bba509a/scripts/eval/synthetic/constants.py",
+      "metrics_sha256": "6740467c17b8dc06b6b30f4f97e54ce8de81db0dd879f1538d0b6b5727f4bd5f",
+      "license": "upstream Apache-2.0",
+      "per_record_rounding": "official function rounds percentage to two decimals",
+      "all_semantics": "fraction of reference strings found, not all-or-nothing exact match"
+    }
+  },
+  "limitations": [
+    "This frozen pilot uses a custom common chat protocol; it is not an official leaderboard submission.",
+    "Missing, failed, interrupted, and overlength cases score zero in every denominator.",
+    "Single training seed and small selected subsets cannot establish robust general long-context gains.",
+    "Bootstrap intervals are exploratory, source-cluster paired, and uncorrected for multiple comparisons.",
+    "RULER per-record bootstrap values inherit official rounding; group scores use the full official metric call."
+  ],
+  "exploratory_composites": [
+    {
+      "name": "longbench_primary_four_task_macro",
+      "benchmark": "longbench-v1",
+      "exploratory_composite": true,
+      "mixed_metrics": true,
+      "definition": "equal mean of hotpotqa F1, multifieldqa_en F1, narrativeqa F1, and gov_report ROUGE-L",
+      "warning": "Mixed-metric exploratory composite, not a homogeneous accuracy or formal success criterion; inspect every task.",
+      "scores_percent": {
+        "base": 10.113659089494337,
+        "short": 15.349281578895225,
+        "long": 15.776922747380246
+      },
+      "comparisons": [
+        {
+          "before": "base",
+          "after": "short",
+          "before_score_percent": 10.113659089494337,
+          "after_score_percent": 15.349281578895225,
+          "delta_percentage_points": 5.235622489400887,
+          "records": 20,
+          "tasks": [
+            "gov_report",
+            "hotpotqa",
+            "multifieldqa_en",
+            "narrativeqa"
+          ],
+          "clusters": 20,
+          "clusters_by_task": {
+            "gov_report": 5,
+            "hotpotqa": 5,
+            "multifieldqa_en": 5,
+            "narrativeqa": 5
+          },
+          "ci95_percentage_points": [
+            -0.3474732819022515,
+            11.697923100348047
+          ],
+          "bootstrap_repetitions": 2000,
+          "seed": 17,
+          "method": "equal task means; paired whole-source-cluster resampling stratified by task",
+          "interpretation": "exploratory composite only; not proof of improvement or uncertainty over training seeds"
+        },
+        {
+          "before": "base",
+          "after": "long",
+          "before_score_percent": 10.113659089494337,
+          "after_score_percent": 15.776922747380246,
+          "delta_percentage_points": 5.663263657885908,
+          "records": 20,
+          "tasks": [
+            "gov_report",
+            "hotpotqa",
+            "multifieldqa_en",
+            "narrativeqa"
+          ],
+          "clusters": 20,
+          "clusters_by_task": {
+            "gov_report": 5,
+            "hotpotqa": 5,
+            "multifieldqa_en": 5,
+            "narrativeqa": 5
+          },
+          "ci95_percentage_points": [
+            0.44082946690882674,
+            12.193841254690325
+          ],
+          "bootstrap_repetitions": 2000,
+          "seed": 17,
+          "method": "equal task means; paired whole-source-cluster resampling stratified by task",
+          "interpretation": "exploratory composite only; not proof of improvement or uncertainty over training seeds"
+        },
+        {
+          "before": "short",
+          "after": "long",
+          "before_score_percent": 15.349281578895225,
+          "after_score_percent": 15.776922747380246,
+          "delta_percentage_points": 0.4276411684850212,
+          "records": 20,
+          "tasks": [
+            "gov_report",
+            "hotpotqa",
+            "multifieldqa_en",
+            "narrativeqa"
+          ],
+          "clusters": 20,
+          "clusters_by_task": {
+            "gov_report": 5,
+            "hotpotqa": 5,
+            "multifieldqa_en": 5,
+            "narrativeqa": 5
+          },
+          "ci95_percentage_points": [
+            -0.1858781659904909,
+            1.1557698601988373
+          ],
+          "bootstrap_repetitions": 2000,
+          "seed": 17,
+          "method": "equal task means; paired whole-source-cluster resampling stratified by task",
+          "interpretation": "exploratory composite only; not proof of improvement or uncertainty over training seeds"
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "records": {
+      "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\inputs\\eval_records.jsonl",
+      "sha256": "f22fb98c38a65f68abd8b2838de345ed7c0cda467ddb6c3acf73d9cfceef974e"
+    },
+    "manifest": {
+      "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\inputs\\eval_manifest.json",
+      "sha256": "c2381ea7ec8a041c3be863a314c5d5ca1cfd9374cd9476181c6d22120ebc2639"
+    },
+    "predictions": {
+      "base": {
+        "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\evaluation\\base_cachefix1\\run\\predictions.jsonl",
+        "sha256": "691c5569801f2d277a00fe825e2b613b09b4542d96655df5a708400a833af912",
+        "run_summary": {
+          "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\evaluation\\base_cachefix1\\run\\summary.json",
+          "sha256": "c3e0281b725541d5ce7a2f5b3332aac6871db90930c4aef6a2529c7a595076cd",
+          "plan_sha256": "146fb76d1b5eb11637ff3838d889a280a25f8784850b6d92938b9fbe876548be",
+          "evaluation_contract": {
+            "protocol": "gemma4-nothinking-eval-v1",
+            "model": {
+              "repo": "google/gemma-4-E2B",
+              "revision": "433813a669639fd7eaa83155828e9000ed357d53"
+            },
+            "context_length": 16384,
+            "quantization": "bf16",
+            "adapter": null
+          },
+          "runtime_weights_sha256": "76dc84a5a805a2c8b91e9ccc00b8dbf8f4a99bf0d56ab25832f6e6addd4f7f57"
+        }
+      },
+      "short": {
+        "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\evaluation\\short_cachefix3\\run\\predictions.jsonl",
+        "sha256": "755f98058608b15400d5921da63e5f09620b61b35f9c688f8ea1bb36347f8da9",
+        "run_summary": {
+          "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\evaluation\\short_cachefix3\\run\\summary.json",
+          "sha256": "b84dd8c40d46f6b198624cfcd401dad37b5cb15da71417b79478654c96389f2b",
+          "plan_sha256": "aa3c3eb69ba9861e93f3539d2dd7ba2b10dd5cf076d5b263a42f9c60b8d312b7",
+          "evaluation_contract": {
+            "protocol": "gemma4-nothinking-eval-v1",
+            "model": {
+              "repo": "google/gemma-4-E2B",
+              "revision": "433813a669639fd7eaa83155828e9000ed357d53"
+            },
+            "context_length": 16384,
+            "quantization": "bf16",
+            "adapter": {
+              "files": {
+                "adapter_config.json": "0fd79dbad96edb01ecf1015eb9d80cd60ee951ca46d963c2102f884a33c81d44",
+                "adapter_model.safetensors": "30d88b4e60d8a7f08b12024a4e68612292afc1fa7dbd03631146717405eec9a9"
+              },
+              "source_plan_sha256": "f9a246ae2e10bbc03cf73ec3d478f25dee94422031e5e5fa0f4a1dfbb66af9d4"
+            }
+          },
+          "runtime_weights_sha256": "76dc84a5a805a2c8b91e9ccc00b8dbf8f4a99bf0d56ab25832f6e6addd4f7f57"
+        }
+      },
+      "long": {
+        "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\evaluation\\long_cachefix3\\run\\predictions.jsonl",
+        "sha256": "b6fb3511da80a19672939055226d9307f33ccda7e7b8dc64d3180ab0d955f370",
+        "run_summary": {
+          "path": "C:\\Users\\tk\\.t3\\worktrees\\Ariadnian-agent\\codex-13-gemma-sft-best-d9b46a3c49213be0\\experiments\\ms_swift\\.cache\\colab_retry_20261127-093523\\final_artifacts\\experiments\\ms_swift\\.cache\\paired\\evaluation\\long_cachefix3\\run\\summary.json",
+          "sha256": "4531d032b979b63bce21bef61552cea77f5d45f204b58557dc057e8e9a2cab4d",
+          "plan_sha256": "1658833a85df1b86a26927f6507c00e17eaef2bbf29d66af917908ec5da26fcd",
+          "evaluation_contract": {
+            "protocol": "gemma4-nothinking-eval-v1",
+            "model": {
+              "repo": "google/gemma-4-E2B",
+              "revision": "433813a669639fd7eaa83155828e9000ed357d53"
+            },
+            "context_length": 16384,
+            "quantization": "bf16",
+            "adapter": {
+              "files": {
+                "adapter_config.json": "008233a242ba7f43c4b0c0764b468ae67cf986988c94fc97d4e3363b005f9fc5",
+                "adapter_model.safetensors": "2fcb4eaed3882bd8e9476e69c7982d1479ecb1abbd06a6324252c6e482290273"
+              },
+              "source_plan_sha256": "2b74e7c1e7575b6534cf0595230d53494615dd3763ede08ac592cfca2a043ebd"
+            }
+          },
+          "runtime_weights_sha256": "76dc84a5a805a2c8b91e9ccc00b8dbf8f4a99bf0d56ab25832f6e6addd4f7f57"
+        }
+      }
+    }
+  },
+  "scoring_implementation_sha256": "1344b98563fc4c18660e8805801204fbc992d9fd6f4d56098d25d8110914dcb9"
+}

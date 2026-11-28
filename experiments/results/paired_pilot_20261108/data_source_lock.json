@@ -1,0 +1,103 @@
+{
+  "schema_version": "paired-data-lock-v1",
+  "corpus_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+  "authored_specs_sha256": "21d3aa66e01bd0d0a07a6f37191c9122c11a8c9d1cdfd7c5985b2ef65b77fe2f",
+  "quarantine_sha256": "45cf13e9af6c077d2a8807b1fb01abe639234cea74dfc5cee3d1096b95946c37",
+  "model_lock_sha256": "226e681bfb3b3d084479c04fbf2c5802fa8625c7d19f41551d70ff1147eca27e",
+  "artifacts": {
+    "long.jsonl": "9376cf08ceeaccd6aa94697ef40c5b34bbb6bd85992b3e8a79fa737fd6f3d0d1",
+    "long_reviews.pending.jsonl": "6b78ed38f37696178ebdeaf8ad0dff0d5ca82a47f07d2e8d30a72891f61710c1",
+    "pairs.jsonl": "e92111e54d35332d8b41fffab471a9fca916f2e03086e5597a40f9bd624adc4b",
+    "short.jsonl": "881b5783245a2c2929fe55089871574591a2a6d9a0bc6c5d340dd9d0fd687062",
+    "short_reviews.pending.jsonl": "02e059189f248db171f940bf9aabcb7b9cde219ccd5db0d60ae4d48c6c419ee1",
+    "source_reviews.pending.jsonl": "df48155da67fc36a5871bf465bf9ca6c95dade992d48c046c76f88db41b2464b",
+    "sources.jsonl": "750f4de734e6029d3dab9f18612ffbc46af72553fe7e4c215b4eb1e1402676b1",
+    "summary.json": "bdd5758d668f66c60d3ce5f655319659026fb184a37d872b36fe391456a20ed2"
+  },
+  "sources": [
+    {
+      "id": "PMC11413148",
+      "family_id": "10.1007/s11356-024-34784-8",
+      "split": "train",
+      "sha256": "deec68e85778a991672ec5f37fff59f51940281ddbe88f9884d6b23512c57ed2",
+      "connected_family_id": "component-9acd7d17ceee64df"
+    },
+    {
+      "id": "PMC12567402",
+      "family_id": "10.3390/plants14203230",
+      "split": "train",
+      "sha256": "e78ba86e8dd04b9ce13a59e5b8162235f99043af013c7fcced48efa1e19e23ef",
+      "connected_family_id": "component-bf04d3397286b697"
+    },
+    {
+      "id": "PMC12685581",
+      "family_id": "10.4014/jmb.2509.09032",
+      "split": "dev",
+      "sha256": "c87a759faa73c9264fd02cf8bfd552314583ec82185382805be69222ed03918a",
+      "connected_family_id": "component-956fe430e4acb9fd"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_multilayer-perceptrons/mlp.md",
+      "family_id": "d2l:chapter_multilayer-perceptrons/mlp.md",
+      "split": "train",
+      "sha256": "05fb5263d2bf8de51dc401b5b9a279719faa0ba6c332735442a9643e808cc966",
+      "connected_family_id": "component-9a6cfbda4d11d99a"
+    },
+    {
+      "id": "d2l-ai/d2l-zh:chapter_optimization/gd.md",
+      "family_id": "d2l:chapter_optimization/gd.md",
+      "split": "train",
+      "sha256": "8d11586e4d0a1774b9992a909abb42a11517b82e8c30ac0ddb15eb4707989fec",
+      "connected_family_id": "component-46e2d894be0b4644"
+    },
+    {
+      "id": "python/cpython:Doc/howto/regex.rst",
+      "family_id": "python/cpython:Doc/howto/regex.rst",
+      "split": "train",
+      "sha256": "6eb0b8080c4641cec5806e9ee0103dd73347c22fdb1766e5fc1d41e1054d1c45",
+      "connected_family_id": "component-ed1819f7c6174c45"
+    },
+    {
+      "id": "python/cpython:Doc/library/concurrent.futures.rst",
+      "family_id": "python/cpython:Doc/library/concurrent.futures.rst",
+      "split": "train",
+      "sha256": "c8043d85f4ecb2155e801e20a8115af6b12775a62325b41c013703097b428a38",
+      "connected_family_id": "component-2b3848684603ef7e"
+    },
+    {
+      "id": "python/cpython:Doc/library/csv.rst",
+      "family_id": "python/cpython:Doc/library/csv.rst",
+      "split": "train",
+      "sha256": "c2a0a1e86c4993b199bd32bcc9396122d9058542be48c6a00c51b242c28ef016",
+      "connected_family_id": "component-fc4d4a87bfc212ad"
+    },
+    {
+      "id": "python/cpython:Doc/library/decimal.rst",
+      "family_id": "python/cpython:Doc/library/decimal.rst",
+      "split": "train",
+      "sha256": "dce78f4b772e160804852cd51d9abe93173cb4f45f1c055abb7f705d59e165a6",
+      "connected_family_id": "component-fc4d4a87bfc212ad"
+    },
+    {
+      "id": "python/cpython:Doc/library/hashlib.rst",
+      "family_id": "python/cpython:Doc/library/hashlib.rst",
+      "split": "train",
+      "sha256": "741ae14ef997c4b60786ca6a85ec7d05a5ee269a5db7efd8342b47e276c7057f",
+      "connected_family_id": "component-eed3d3b64ca4ebc2"
+    },
+    {
+      "id": "scikit-learn/scikit-learn:doc/common_pitfalls.rst",
+      "family_id": "scikit-learn/scikit-learn:doc/common_pitfalls.rst",
+      "split": "dev",
+      "sha256": "124fe2b112b7a51cf4d461feb5754359034c0a95b22e6aff8e5d24889901abda",
+      "connected_family_id": "component-c7ce66b9eb8f2013"
+    },
+    {
+      "id": "scikit-learn/scikit-learn:doc/model_persistence.rst",
+      "family_id": "scikit-learn/scikit-learn:doc/model_persistence.rst",
+      "split": "dev",
+      "sha256": "f0baea053cc869da8590b9ab6d4c9e1ba0839b0d33f2d7bada503d35a16be052",
+      "connected_family_id": "component-c7ce66b9eb8f2013"
+    }
+  ]
+}

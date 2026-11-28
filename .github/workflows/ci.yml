@@ -1,4 +1,4 @@
-# 每次 push / PR：后端测试（Linux + Windows）、测评冒烟、前端测试、类型检查与构建
+# 每次 push / PR：后端、独立实验、测评冒烟、前端测试与构建
 name: CI
 
 on:
@@ -36,7 +36,10 @@ jobs:
       - uses: astral-sh/setup-uv@v7
         with:
           enable-cache: true
-          cache-dependency-glob: backend/pyproject.toml
+          cache-dependency-glob: |
+            backend/pyproject.toml
+            backend/uv.lock
+            experiments/common/pyproject.toml
 
       - name: 安装 Python（版本见 .python-version）
         run: uv python install
@@ -49,6 +52,39 @@ jobs:
 
       - name: 测评冒烟（离线基线 + 内置样例）
         run: uv run python -m evals --offline --source fixture --no-save
+
+  experiments:
+    name: 独立实验工具测试 (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      UV_PYTHON: "3.12"
+    defaults:
+      run:
+        working-directory: experiments/ms_swift
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            experiments/ms_swift/pyproject.toml
+            experiments/ms_swift/uv.lock
+            experiments/common/pyproject.toml
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: 安装独立轻量环境（不安装 GPU 训练栈）
+        run: uv sync --locked --python 3.12
+
+      - name: 实验入口与离线单元测试
+        run: node scripts/test.mjs
 
   frontend:
     name: 前端测试、类型检查与构建

@@ -1,0 +1,201 @@
+{
+  "schema_version": "experiment-implementation-validation-v1",
+  "date": "2026-11-07",
+  "scope": "Code, real-data preparation, packaging and local model weight integrity; GPU runs reported separately",
+  "tests": {
+    "npm_test": {
+      "passed": true,
+      "backend_python": 280,
+      "experiment_python_at_full_run": 204,
+      "experiment_node": 13,
+      "frontend_node": 74,
+      "frontend_types_passed": true
+    },
+    "final_experiment_pytest": {
+      "passed": true,
+      "tests": 211
+    },
+    "wheel_contains_model_weights_lock": true,
+    "documentation_links_checked": 6,
+    "broken_documentation_links": 0,
+    "data_records_environments_weights_ignored": true,
+    "git_diff_check_passed": true
+  },
+  "preservation": {
+    "corpus_sha256": "a38dfd23655feb9056a7afcb1fee036957c6b07e6ffc6e00a7d80e3b54e068a3",
+    "historical_ordered_v2_sha256": "23396c1dbccc39bc98c1a536bc58a646ca90ce2b30fbb174f1c4a1ac3d71a3e6",
+    "historical_shuffled_v2_sha256": "34bdf5a215742161e61df888ff43dd5a66050bc1d012b11fc16969285ea03b9e"
+  },
+  "implementation_files": [
+    {
+      "path": "cpt\\__init__.py",
+      "sha256": "fd9d4c7a5979540fe4cf0090543554854b24ec296fdc26a75070089f4ee2e1ef"
+    },
+    {
+      "path": "cpt\\__main__.py",
+      "sha256": "00e481f4c2b23da33b98dae96ba5da50abfabbd86ab542d111439f05116c17fa"
+    },
+    {
+      "path": "cpt\\assets.py",
+      "sha256": "f0389a8a803593a1d7d5ec864f3e94ec4673feec61779ddc4eefb73a495b07e9"
+    },
+    {
+      "path": "cpt\\compare.py",
+      "sha256": "5643c7d5d07e292c66f91551dca7c8126e46e6722687236e830be5adf0c01ea2"
+    },
+    {
+      "path": "cpt\\core.py",
+      "sha256": "952553e9a553767fc9427effd4cf33841c9f279ca3863a82016283094afd1d74"
+    },
+    {
+      "path": "cpt\\launch.py",
+      "sha256": "ab2d9e8a7260d16cd402496e49cda6c015c0646b7c25ad6c46c830b2d3460bd6"
+    },
+    {
+      "path": "cpt\\profile.py",
+      "sha256": "b3938b4c8c075642a2f66408a975815476289debd7737ba326ff2547ff60fd12"
+    },
+    {
+      "path": "cpt\\review.py",
+      "sha256": "b206f0be6250179c256c9eab5e6e4f0a222903116a2713a4c8dcf619b30a65da"
+    },
+    {
+      "path": "cpt\\schema.py",
+      "sha256": "b1b2893e198b0ba7662cc00b722677d32cd2ab2054fedcaf937ed80b684b220e"
+    },
+    {
+      "path": "cpt\\sft.py",
+      "sha256": "0cda8aa87ee7647b6cc5a8f82a0dd80b6dc0329e5e8d317908973c73537aed7b"
+    },
+    {
+      "path": "cpt\\swift_verify.py",
+      "sha256": "805be2c32ffd9204ee8a4bd359ef1bc45c1a63d4da770dc92f5ef69036965a66"
+    },
+    {
+      "path": "gemma_eval\\__init__.py",
+      "sha256": "7f9c4fb8f756e2133fd53f2702b8904a6d992007902844cd26c951ada132560a"
+    },
+    {
+      "path": "gemma_eval\\__main__.py",
+      "sha256": "7601774356b452b89fc67ed0b3396d57b24d0742b361d9cfedc9bc1b7a763816"
+    },
+    {
+      "path": "gemma_eval\\core.py",
+      "sha256": "c2933b4c1f830a19eedc08d009a7c48fb0cb55abb3b1d0aaa3274f4d6a13b6ed"
+    },
+    {
+      "path": "gemma_eval\\model_weights.lock.json",
+      "sha256": "a952631e793cc58bdd36d6c034a2587997d7218f292ac9b28516689cf71dea47"
+    },
+    {
+      "path": "gemma_eval\\runtime.py",
+      "sha256": "f5734ad212003e7585bcf5107ab047859e2ce47f21b228ee63a564def902ff1d"
+    },
+    {
+      "path": "configs\\gemma4_e2b_pt_lora.json",
+      "sha256": "0c5f6bcef9c0615f5d895214af898b37c77a8a26b8ade1dabb28788a0efe9391"
+    },
+    {
+      "path": "configs\\gemma4_e2b_pt_lora_4k_smoke.json",
+      "sha256": "757be4b5db95acd8bc2abda56039b938e66ecea47d175e941fbd496f99a1d632"
+    },
+    {
+      "path": "configs\\gemma4_e2b_pt_lora_8k_smoke.json",
+      "sha256": "5b5353050db223e9467adde3a51eb1a830b483b4a59b3f86593361eae215736d"
+    },
+    {
+      "path": "configs\\gemma4_e2b_pt_qlora_4k_smoke.json",
+      "sha256": "80a62ba7176a106393c9501d196eabc86f8bf5361362b797b05bd4388a6b1655"
+    },
+    {
+      "path": "configs\\gemma4_e2b_pt_qlora_8k_smoke.json",
+      "sha256": "0bc3c509cf0f061d107e6969dfb341319450551b2e5750b60139a4bbf863196d"
+    },
+    {
+      "path": "configs\\gemma4_e2b_sft_lora_4k_smoke.json",
+      "sha256": "b5ab50d723c22a0c1f4a4c7851556276805ab44e86e14eeda53f2ce26a19ed99"
+    },
+    {
+      "path": "configs\\gemma4_e2b_sft_lora_8k_smoke.json",
+      "sha256": "97c68ce274177730fcc16842a2be23a11ed53cdf4f7d2b074a0152358ea996bf"
+    },
+    {
+      "path": "configs\\gemma4_e2b_sft_qlora_4k_smoke.json",
+      "sha256": "30abcceab3b177f7c06002f19f904e2a76fe3a1be1189d2480123e121df2ec9d"
+    },
+    {
+      "path": "configs\\gemma4_e2b_sft_qlora_8k_smoke.json",
+      "sha256": "a15521923f1e93f1e9a5ec2e66d5f14ead3f8984a65c6d650618c5c6e44159a9"
+    },
+    {
+      "path": "scripts\\cpt.mjs",
+      "sha256": "fa9fdeb454ca018a82dcb67a130ef1ac71d2b60aa9af18f641c6bf286299ddb0"
+    },
+    {
+      "path": "scripts\\experiment.mjs",
+      "sha256": "dcef063d7f66af89cfccefde70c630a6f635a2faf6c4ae5ce16c6f1cfc158197"
+    },
+    {
+      "path": "scripts\\test.mjs",
+      "sha256": "041bb3ecdcd41cfad8d698c1000e0c6320b19dab2f3b8c1517207cd6af29ccf9"
+    },
+    {
+      "path": "tests\\entrypoints.test.mjs",
+      "sha256": "c4d41dd51ec70f7445c694b166af3d6b87055f1ef92b4dec09d119293296ed47"
+    },
+    {
+      "path": "tests\\test_comparison_preflight.py",
+      "sha256": "d03e9034c9a818868969530abd0e6a1494a43c916474ec3e4ca721267e0501e5"
+    },
+    {
+      "path": "tests\\test_cpt_assets.py",
+      "sha256": "3203fd77704a642729e2aa66a3a015822891bf89f575aae91a2f9ddc3114679e"
+    },
+    {
+      "path": "tests\\test_cpt_launch.py",
+      "sha256": "700c3eac6c622c1d8dccba7f7f870fe080a1ecd1b19c46822f2d69d6208e4171"
+    },
+    {
+      "path": "tests\\test_cpt_regressions.py",
+      "sha256": "09c22cf7279caf53ef8a088094455b49e6fbc23421aa2249da30c2128f098b09"
+    },
+    {
+      "path": "tests\\test_cpt_safety.py",
+      "sha256": "3044114b14b83657da70dca7af79276fea4cb14265a58afae61027f89225cd56"
+    },
+    {
+      "path": "tests\\test_cpt_schema.py",
+      "sha256": "8050f077f59629bf9c369bc46647d1e4b957fd486e2fa71827fc04e3c7364ad6"
+    },
+    {
+      "path": "tests\\test_cpt_swift_verify.py",
+      "sha256": "fe5700b60726ed16f4d21156bb429d0f153c866f618c7080a84655ec8390bade"
+    },
+    {
+      "path": "tests\\test_data_review.py",
+      "sha256": "95bbf8d66a602e25be8e1549ab8f7aab255b59288076ec1f3332cd4b634f1e7a"
+    },
+    {
+      "path": "tests\\test_gemma_eval.py",
+      "sha256": "8d27c0d6adbaab7986058739ea8b6f9200e3947c52817e49e706c212fe62a990"
+    },
+    {
+      "path": "tests\\test_isolation.py",
+      "sha256": "4e1b5e3ae895a99bc3743c93fe7ece30f8835db1a079e7bf169122c32fbb3216"
+    },
+    {
+      "path": "tests\\test_resource_profile.py",
+      "sha256": "f2e1aaaba0d91f52fe5638671ba3411be380ab0e2e3dbbc8135964da4a89a146"
+    },
+    {
+      "path": "tests\\test_training_methods.py",
+      "sha256": "426a733c813eaba329eb0ebdf8ffd8ec3d77519ee56e043d5838331936097a9a"
+    }
+  ],
+  "limitations": [
+    "CPU tests are not real training or measured model quality.",
+    "No approved CPT/SFT documents or true training run.",
+    "Cross-split overlap candidates remain subject to review.",
+    "No strict equal actual training loss-token exposure assertion."
+  ]
+}

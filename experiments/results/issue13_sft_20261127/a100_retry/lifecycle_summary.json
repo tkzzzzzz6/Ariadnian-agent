@@ -1,0 +1,15 @@
+{
+  "schema_version": "owned-colab-lifecycle-v1",
+  "owned_session": "ariadne-sft-a100-20261127-093523",
+  "hardware": "A100-SXM4-40GB",
+  "drive_flush_and_unmount_succeeded": true,
+  "owned_runtime_stopped": true,
+  "owned_runtime_absent_from_server_assignments": true,
+  "unrelated_cpu_session_preserved": true,
+  "verified_utc": "2026-11-27T13:43:30.128700+00:00",
+  "stop_log_sha256": "ac97f17ac59c990397808bea8cf0a3f018e2556f56271794d0bbae0a83f38b67",
+  "assignments_log_sha256": "373603de7e7cc1aeddec44342915bcd23131cc25db650712d6dd1b6d7e9fbc51",
+  "archive_sha256": "2536070819c8ab2efade6f0fa5e8178cebead4570d2b8cca3e5abc55fac92d54",
+  "final_proof_sha256": "0bcd0ca817363dfebd9de3de36d1aa20c4a2e736ddc7524bdb52638cf6d5fc41",
+  "post_flush_receipt_storage": "Local and Git aggregate record; copied into the final private Drive closure manifest after connector recovery."
+}

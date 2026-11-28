@@ -17,6 +17,12 @@
     "data:synthesize": "node scripts/longdoc.mjs synthesize",
     "eval:long": "node scripts/longdoc.mjs eval",
     "eval:public": "node scripts/longdoc.mjs public",
+    "train:cpt": "node experiments/ms_swift/scripts/cpt.mjs",
+    "eval:gemma": "node experiments/ms_swift/scripts/experiment.mjs gemma_eval",
+    "data:review": "node experiments/ms_swift/scripts/experiment.mjs cpt.review",
+    "train:profile": "node experiments/ms_swift/scripts/experiment.mjs cpt.profile",
+    "train:compare": "node experiments/ms_swift/scripts/experiment.mjs cpt.compare",
+    "test:experiments": "node experiments/ms_swift/scripts/test.mjs",
     "desktop": "node scripts/desktop.mjs"
   },
   "engines": {

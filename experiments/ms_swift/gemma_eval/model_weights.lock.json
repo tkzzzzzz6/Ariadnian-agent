@@ -1,0 +1,12 @@
+{
+  "schema_version": "gemma-pinned-weights-v1",
+  "repository": "google/gemma-4-E2B",
+  "revision": "433813a669639fd7eaa83155828e9000ed357d53",
+  "filename": "model.safetensors",
+  "bytes": 10246621918,
+  "sha256": "76dc84a5a805a2c8b91e9ccc00b8dbf8f4a99bf0d56ab25832f6e6addd4f7f57",
+  "source": "https://huggingface.co/api/models/google/gemma-4-E2B/revision/433813a669639fd7eaa83155828e9000ed357d53?blobs=true",
+  "source_field": "siblings[rfilename=model.safetensors].lfs.sha256",
+  "verified_date": "2026-11-07",
+  "note": "LFS content SHA-256 and size, not Hugging Face Hub cache path names or Xet storage identifiers."
+}

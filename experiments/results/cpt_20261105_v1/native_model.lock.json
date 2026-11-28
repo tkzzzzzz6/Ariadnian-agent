@@ -1,0 +1,77 @@
+{
+  "files": {
+    "config.json": {
+      "bytes": 4914,
+      "sha256": "e5faef0dd1a8f2437f6010721146b85433eaa90e679ef011e803c7ffefae73b8"
+    },
+    "generation_config.json": {
+      "bytes": 181,
+      "sha256": "de16fa1d777387d5fe6df54a9565d9c0f1213f7b31f2a2cf44805e27686d9c7c"
+    },
+    "processor_config.json": {
+      "bytes": 1689,
+      "sha256": "32bdf45d2ad4cc29a0822ddd157a182de76644f0419a6228d151495256e9813c"
+    },
+    "tokenizer.json": {
+      "bytes": 32157288,
+      "sha256": "9cad58a1ba9824a35574be51e8c9dcc2164a662cdfe56b1b008e06a231f80f0b"
+    },
+    "tokenizer_config.json": {
+      "bytes": 906,
+      "sha256": "12754e3442e47c1a1c55d550b617fc47ae227e8156ed1b1de0d8428195768b5c"
+    }
+  },
+  "model_metadata": {
+    "native_context_tokens": 131072,
+    "processor": {
+      "inline_components": [
+        "feature_extractor",
+        "image_processor",
+        "video_processor"
+      ],
+      "processor_class": "Gemma4Processor",
+      "referenced_metadata_files": [],
+      "separate_preprocessor_config_in_pinned_snapshot": false
+    },
+    "scope": "native tokenizer and inert configs only; no weight download or runtime training verification",
+    "source_file_verification": {
+      "config.json": {
+        "bytes": 4914,
+        "git_blob_sha1": "5f0662eb398ede0ab1515c4760e13bcd6bf13f2f",
+        "url": "https://huggingface.co/google/gemma-4-E2B/resolve/433813a669639fd7eaa83155828e9000ed357d53/config.json"
+      },
+      "generation_config.json": {
+        "bytes": 181,
+        "git_blob_sha1": "a07eb97486e34532ffd3cf64e44cba33af40127c",
+        "url": "https://huggingface.co/google/gemma-4-E2B/resolve/433813a669639fd7eaa83155828e9000ed357d53/generation_config.json"
+      },
+      "processor_config.json": {
+        "bytes": 1689,
+        "git_blob_sha1": "5465974d23e1eca2c46c2809b26c997946ce0d90",
+        "url": "https://huggingface.co/google/gemma-4-E2B/resolve/433813a669639fd7eaa83155828e9000ed357d53/processor_config.json"
+      },
+      "tokenizer.json": {
+        "bytes": 32157288,
+        "git_blob_sha1": "98de2092a89a0c7068f5181bebba69cca2afc92b",
+        "lfs_sha256": "9cad58a1ba9824a35574be51e8c9dcc2164a662cdfe56b1b008e06a231f80f0b",
+        "url": "https://huggingface.co/google/gemma-4-E2B/resolve/433813a669639fd7eaa83155828e9000ed357d53/tokenizer.json"
+      },
+      "tokenizer_config.json": {
+        "bytes": 906,
+        "git_blob_sha1": "d06ea6ad5c6c809c73019583496d0fe63af692d0",
+        "url": "https://huggingface.co/google/gemma-4-E2B/resolve/433813a669639fd7eaa83155828e9000ed357d53/tokenizer_config.json"
+      }
+    },
+    "special_token_ids": {
+      "bos_token_id": 2,
+      "eos_token_id": 1,
+      "pad_token_id": 0
+    },
+    "verified_api_revision": "433813a669639fd7eaa83155828e9000ed357d53",
+    "verified_hf_api_url": "https://huggingface.co/api/models/google/gemma-4-E2B/revision/433813a669639fd7eaa83155828e9000ed357d53",
+    "vocab_size": 262144
+  },
+  "repository": "google/gemma-4-E2B",
+  "revision": "433813a669639fd7eaa83155828e9000ed357d53",
+  "schema_version": "cpt-model-lock-v1"
+}

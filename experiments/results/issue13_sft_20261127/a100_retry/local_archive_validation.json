@@ -1,0 +1,34 @@
+{
+  "archive_sha256": "2536070819c8ab2efade6f0fa5e8178cebead4570d2b8cca3e5abc55fac92d54",
+  "archive_bytes": 31325754,
+  "zip_crc_and_safe_paths_verified": true,
+  "evaluations": {
+    "base": {
+      "total": 250,
+      "successful": 244,
+      "failed_or_skipped": 6,
+      "statuses": {
+        "ok": 244,
+        "empty_prediction": 6
+      }
+    },
+    "short": {
+      "total": 250,
+      "successful": 249,
+      "failed_or_skipped": 1,
+      "statuses": {
+        "ok": 249,
+        "empty_prediction": 1
+      }
+    },
+    "long": {
+      "total": 250,
+      "successful": 250,
+      "failed_or_skipped": 0,
+      "statuses": {
+        "ok": 250
+      }
+    }
+  },
+  "complete_best_stored_separately": true
+}
