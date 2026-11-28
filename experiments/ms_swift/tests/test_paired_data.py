@@ -109,3 +109,23 @@ def test_too_short_real_source_is_not_padded(packet_inputs, tmp_path):
     write_jsonl(corpus, docs)
     with pytest.raises(ValueError, match="real unique source material too short"):
         build(corpus, authored, quarantine, "mock", tmp_path / "review")
+
+
+def test_same_qa_with_changed_id_or_spacing_cannot_inflate_coverage(packet_inputs, tmp_path):
+    _, specs, corpus, authored, quarantine = packet_inputs
+    specs.append({**specs[0], 'id': 'pretend-new', 'question': '  WHAT is the fixture identifier?  '})
+    write_jsonl(authored, specs)
+    with pytest.raises(ValueError, match='duplicate question/answer'):
+        build(corpus, authored, quarantine, 'mock', tmp_path / 'review')
+
+
+def test_review_focus_uses_current_counts_language_and_crossdoc_coverage(packet_inputs, tmp_path):
+    _, _, corpus, authored, quarantine = packet_inputs
+    out = tmp_path / 'review'
+    summary = build(corpus, authored, quarantine, 'mock', out)
+    focus = (out / 'review_focus.html').read_text(encoding='utf-8')
+    assert '1 train / 1 dev' in focus
+    assert '返回 2 条' in focus
+    assert '32 train / 8 dev' not in focus and 'CSV+Decimal' not in focus
+    assert summary['languages_by_split'] == {'train': {'en': 1}, 'dev': {'en': 1}}
+    assert summary['crossdoc_families'] == {'train': 0, 'dev': 0}

@@ -1,0 +1,58 @@
+<!doctype html><html lang="zh"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Issue 15 · 数据与评测准备</title><style>body{font:16px/1.65 system-ui,sans-serif;background:#f4f7fa;color:#19334a;max-width:1100px;margin:32px auto;padding:0 20px}section{background:white;padding:24px;margin:18px 0;border-radius:10px;border:1px solid #d6e2e9}svg{width:100%;max-width:600px;font-size:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere}strong{color:#974914}table{border-collapse:collapse;width:100%}td,th{padding:9px;border-bottom:1px solid #d6e2e9;text-align:left}</style>
+<h1>下一阶段：数据与评测准备</h1><p><strong>不是能力提升结果：未执行新训练、Base 校准或确认测评。</strong></p>
+<section><h2>长短配对候选</h2><p>同问题、答案、来源与 split；长臂添加真实不同来源块，保留原顺序。</p>
+<svg role="img" aria-label="样本数分布" viewBox="0 0 560 76"><text x="0" y="19">train</text><rect x="210" y="4" width="280.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="20">128</text><text x="0" y="57">dev</text><rect x="210" y="42" width="70.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="58">32</text></svg>
+<p>48 篇来源；连接来源族 {&#x27;train&#x27;: 32, &#x27;dev&#x27;: 8}；跨文档来源族 {&#x27;train&#x27;: 6, &#x27;dev&#x27;: 2}。</p>
+<p>每连接来源族最多4题。候选标签及字符串证据检查不等于人工验证，未获新增内容准入。</p></section>
+<section><h2>train 语言</h2>
+<svg role="img" aria-label="样本数分布" viewBox="0 0 560 76"><text x="0" y="19">en</text><rect x="210" y="4" width="247.06" height="22" rx="3" fill="#247ba0"/><text x="505" y="20">60</text><text x="0" y="57">zh</text><rect x="210" y="42" width="280.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="58">68</text></svg>
+</section>
+<section><h2>dev 语言</h2>
+<svg role="img" aria-label="样本数分布" viewBox="0 0 560 76"><text x="0" y="19">en</text><rect x="210" y="4" width="280.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="20">24</text><text x="0" y="57">zh</text><rect x="210" y="42" width="93.33" height="22" rx="3" fill="#247ba0"/><text x="505" y="58">8</text></svg>
+</section>
+<section><h2>train 预期任务方向</h2>
+<svg role="img" aria-label="样本数分布" viewBox="0 0 560 152"><text x="0" y="19">crossdoc</text><rect x="210" y="4" width="85.06" height="22" rx="3" fill="#247ba0"/><text x="505" y="20">24</text><text x="0" y="57">table_condition</text><rect x="210" y="42" width="35.44" height="22" rx="3" fill="#247ba0"/><text x="505" y="58">10</text><text x="0" y="95">evidence_local_qa</text><rect x="210" y="80" width="280.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="96">79</text><text x="0" y="133">multihop</text><rect x="210" y="118" width="53.16" height="22" rx="3" fill="#247ba0"/><text x="505" y="134">15</text></svg>
+<p>多证据汇总与比较不自动标为多跳；方向未独立验证，比例未配平。</p></section>
+<section><h2>dev 预期任务方向</h2>
+<svg role="img" aria-label="样本数分布" viewBox="0 0 560 152"><text x="0" y="19">crossdoc</text><rect x="210" y="4" width="98.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="20">7</text><text x="0" y="57">table_condition</text><rect x="210" y="42" width="28.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="58">2</text><text x="0" y="95">multihop</text><rect x="210" y="80" width="42.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="96">3</text><text x="0" y="133">evidence_local_qa</text><rect x="210" y="118" width="280.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="134">20</text></svg>
+<p>多证据汇总与比较不自动标为多跳；方向未独立验证，比例未配平。</p></section>
+<section><h2>原生内容长度</h2><table><tr><th>条件</th><th>最小</th><th>最大</th></tr>
+<tr><td>short</td><td>226</td><td>1103</td></tr>
+<tr><td>long</td><td>4394</td><td>7463</td></tr>
+</table><p>仅消息内容 token；完整 SWIFT 模板仍待实际核验。长短输入与 FLOPs 未配平。</p></section>
+<section><h2>独立评测分区</h2>
+<svg role="img" aria-label="样本数分布" viewBox="0 0 560 114"><text x="0" y="19">demonstration</text><rect x="210" y="4" width="3.73" height="22" rx="3" fill="#247ba0"/><text x="505" y="20">2</text><text x="0" y="57">development</text><rect x="210" y="42" width="72.80" height="22" rx="3" fill="#247ba0"/><text x="505" y="58">39</text><text x="0" y="95">confirmation</text><rect x="210" y="80" width="280.00" height="22" rx="3" fill="#247ba0"/><text x="505" y="96">150</text></svg>
+<p>目标：开发40、示范2、确认160。实际按来源容量冻结；旧250不变，旧RULER仅作回归。</p>
+<h3>未补齐的来源缺额</h3><pre>{
+  &quot;demonstration&quot;: {
+    &quot;boolq:yes_no&quot;: 0
+  },
+  &quot;development&quot;: {
+    &quot;boolq:yes_no&quot;: 0,
+    &quot;longbench-v1:2wikimqa&quot;: 0,
+    &quot;longbench-v1:gov_report&quot;: 0,
+    &quot;longbench-v1:hotpotqa&quot;: 0,
+    &quot;longbench-v1:multi_news&quot;: 0,
+    &quot;longbench-v1:multifieldqa_en&quot;: 0,
+    &quot;longbench-v1:multifieldqa_zh&quot;: 0,
+    &quot;longbench-v1:narrativeqa&quot;: 1,
+    &quot;longbench-v1:qasper&quot;: 0
+  },
+  &quot;confirmation&quot;: {
+    &quot;boolq:yes_no&quot;: 0,
+    &quot;longbench-v1:2wikimqa&quot;: 0,
+    &quot;longbench-v1:gov_report&quot;: 0,
+    &quot;longbench-v1:hotpotqa&quot;: 0,
+    &quot;longbench-v1:multi_news&quot;: 0,
+    &quot;longbench-v1:multifieldqa_en&quot;: 0,
+    &quot;longbench-v1:multifieldqa_zh&quot;: 0,
+    &quot;longbench-v1:narrativeqa&quot;: 10,
+    &quot;longbench-v1:qasper&quot;: 0
+  }
+}</pre>
+<p>主 LongBench 输入至少8192，输入加官方输出不超过16384，不截断。缺失任务不支持泛化到该任务的结论。</p></section>
+<section><h2>下一道门</h2><ol><li>人工审阅新增问答、来源与许可；原40条仅在哈希仍相同时沿用旧批准。</li>
+<li>固定 Base / bf16 / 无 adapter，执行24道 BoolQ ×4配置，90%格式门槛及无失败/空输出；按固定优先级选择。</li>
+<li>重新核对最终训练来源，绑定真实模型/计划/逐题哈希；所有臂沿用同一配置，再封存确认协议。</li>
+<li>单 seed 配对试验后再考虑多 seed；CPT、公开数据发布、8GB实测及跨VM完整恢复尚未在本轮执行。</li></ol></section></html>

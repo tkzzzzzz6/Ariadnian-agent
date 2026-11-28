@@ -1,0 +1,14 @@
+{
+  "schema_version": "prior-approval-compatibility-audit-v1",
+  "prior_approval_sha256": "993b2c8bdddcec608f1ff662b4d88cab27520775d99233ea4eb3b9eb6b62282a",
+  "prior_review_packet_sha256": "16966dc52c4c3fc942636337c9dfdaa10d3e2221d86c93c4fe3e1d2b5edccdba",
+  "current_review_packet_sha256": "89c446d26681d151c543535d1e0096e716e696e4b408c5b8d9c11c4eb7b4af0b",
+  "prior_approved_exact_pairs": 40,
+  "prior_approved_exact_sources": 12,
+  "new_pairs_pending_human_review": 120,
+  "new_sources_pending_human_review": 36,
+  "old_approval_revoked": false,
+  "new_batch_training_admitted": false,
+  "public_release_approved": false,
+  "note": "Read-only hash compatibility audit; no new approval or training export has been written."
+}

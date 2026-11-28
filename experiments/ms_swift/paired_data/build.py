@@ -123,7 +123,19 @@ def write_review(out, docs, pairs, arms, summary):
             body += f'<details><summary>{arm} 完整上下文、问题及答案</summary><pre>{h(json.dumps(arms[arm][i]["messages"], ensure_ascii=False, indent=2))}</pre></details>'
         body += f'<small>short record SHA256 {pair["short_sha256"]}<br>long record SHA256 {pair["long_sha256"]}</small></article>'
     (out / "index.html").write_text(body, encoding="utf-8")
-    focus = head + '<h1>本轮人工审阅重点</h1><p class="pending">这里的检查与候选标签不等于人工批准。</p><ul><li>检查每个答案的每项事实、计算、条件、限制和引用，不能只检查字符串存在。</li><li>来源页展示完整文档及原始许可证据；需要单独确认内容和本次内部训练用途的许可。材料含原文公式、排版及图像表格缺失等局限。</li><li>跨文档训练只有 CSV+Decimal 一个相连来源家族，4 个问题集中在类型转换；验证跨文档也只有 scikit-learn 两篇文档组成的一个家族。这不是广泛的跨文档能力覆盖。</li><li>来源家族按 DOI、书中章节或文档文件分组，并合并跨文档问题连接的家族；不是整本书或整个软件仓库留出。</li><li>multi_evidence_comparison 仅表示多个证据的比较/汇总，不作为多跳推理；多跳题也不等于每道题都有很长的证据距离。</li><li>当前是 32 train / 8 dev 的缩小预实验，完整 128/32 设计仍有 96/24 条缺口；4 个任务方向未配平，dev 暂无中文题。</li><li>短输入仅保留证据，长输入增加真实来源上下文，衡量的是干扰下保持同一任务的能力；上下文 token 与 FLOPs 没有配平。</li><li>当前长度是固定原生 tokenizer 的消息内容计数，实际 SWIFT 模板长度仍需在资源验证中核验。</li></ul><p><a href="index.html">返回 40 条完整审阅包</a></p>'
+    details = [
+        "检查每个答案的事实、计算、条件、限制和引用；字符串存在不代表答案正确。",
+        "来源页面展示完整文档和许可证据，内容批准与内部训练用途许可均须实际人工确认。",
+        f"当前 {summary['counts'].get('train', 0)} train / {summary['counts'].get('dev', 0)} dev；目标128/32，缺额 {summary['deficit_counts']}。",
+        f"各split语言分布：{summary['languages_by_split']}；跨文档连接来源族：{summary['crossdoc_families']}。",
+        "连接来源族按章节、文件、DOI并合并跨文档边；不等于整本书或整个软件仓库留出。",
+        "multi_evidence_comparison 表示比较或汇总，不自动等于多跳推理；请检查每份证据是否必要。",
+        "短输入保留精确证据，长输入添加真实不同来源块；输入token与FLOPs没有配平。",
+        "当前长度为固定原生tokenizer消息内容计数，实际SWIFT完整模板仍须另行核验。",
+    ]
+    focus = head + '<h1>本轮人工审阅重点</h1><p class="pending">候选检查不等于人工批准。</p><ul>'
+    focus += ''.join('<li>' + h(item) + '</li>' for item in details)
+    focus += f'</ul><p><a href="index.html">返回 {len(pairs)} 条完整审阅包</a></p>'
     (out / "review_focus.html").write_text(focus, encoding="utf-8")
 
 
@@ -140,11 +152,15 @@ def build(corpus, specs_path, quarantine, assets, output, aggregate=None):
     sources = {sid: all_docs[sid] for sid in sorted(selected_ids)}
     components = connected_families(specs, sources)
     tokenizer = load_native_tokenizer(assets)
-    seen_ids, family_splits, family_counts = set(), {}, collections.Counter()
+    seen_ids, seen_qa, family_splits, family_counts = set(), set(), {}, collections.Counter()
     arms, pairs = {"short": [], "long": []}, []
     for spec in specs:
         if spec["id"] in seen_ids or spec["direction"] not in DIRECTIONS:
             raise ValueError("duplicate pair id or unknown direction")
+        qa_key = tuple(' '.join(spec[k].split()).casefold() for k in ('question', 'answer'))
+        if qa_key in seen_qa:
+            raise ValueError("duplicate question/answer cannot inflate paired coverage")
+        seen_qa.add(qa_key)
         seen_ids.add(spec["id"])
         docs = [sources[sid] for sid in spec["source_document_ids"]]
         split = docs[0]["split"]
@@ -211,6 +227,8 @@ def build(corpus, specs_path, quarantine, assets, output, aggregate=None):
     summary = {"schema_version": "paired-review-candidates-v1", "counts": dict(counts), "directions": directions,
                "connected_families": dict(collections.Counter(family_splits.values())), "source_documents": len(sources),
                "languages": dict(collections.Counter(p["language"] for p in pairs)),
+               "languages_by_split": {s: dict(collections.Counter(p["language"] for p in pairs if p["split"] == s)) for s in ("train", "dev")},
+               "crossdoc_families": {s: len({p["connected_family_id"] for p in pairs if p["split"] == s and p["direction"] == "crossdoc"}) for s in ("train", "dev")},
                "domains": dict(collections.Counter(d["domain"] for d in sources.values())),
                "target_counts": {"train": 128, "dev": 32}, "deficit_counts": {"train": max(0,128-counts["train"]), "dev": max(0,32-counts["dev"])},
                "approved_pairs": 0, "training_ready": False, "test_sources_selected": 0,
@@ -218,7 +236,7 @@ def build(corpus, specs_path, quarantine, assets, output, aggregate=None):
                "native_chat_tokens_verified": False,
                "token_count_scope": "Pinned Gemma native tokenizer, message content only; full MS-SWIFT template verification is still mandatory.",
                "token_ranges": {arm: [min(p[f"{arm}_content_tokens"] for p in pairs), max(p[f"{arm}_content_tokens"] for p in pairs)] for arm in arms},
-               "limitations": ["AI-authored candidate answers are not human-verified gold.", "Direction labels describe the intended task, not independently demonstrated reasoning validity.", "Chapter/file and DOI family isolation does not mean entire books or software repositories are held out.", "Real source windows preserve repeated framework examples already in the source; no text was duplicated to pad length.", "This is a reduced pilot, not the full 128/32 design; task proportions are reported rather than forced."]}
+               "limitations": ["AI-authored candidate answers are not human-verified gold.", "Direction labels describe the intended task, not independently demonstrated reasoning validity.", "Chapter/file and DOI family isolation does not mean entire books or software repositories are held out.", "Real source windows preserve repeated framework examples already in the source; no text was duplicated to pad length.", "Task proportions and deficits are reported from actual records; target coverage is not a quality claim."]}
     out = new_output(output)
     write_jsonl(out / "sources.jsonl", list(sources.values()))
     write_jsonl(out / "pairs.jsonl", pairs)

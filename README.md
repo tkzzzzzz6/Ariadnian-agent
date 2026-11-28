@@ -308,6 +308,8 @@ Release 说明由 GitHub 自动生成，分类规则写在 `.github/release.yml`
 
 Gemma 4 E2B 的[配对 SFT 操作入口](docs/gemma-sft-best-tmux.md)提供 tmux 观察、dev loss 选优和完整 best 的 Drive 保存。40组已批准内部数据的两臂 SFT 和 Base / short / long 各250题公开测评已在 Colab A100 完成；完整 best、Drive备份及本轮资源释放已验证。[本轮实测](experiments/results/issue13_sft_20261127/a100_retry/README.md)包含分任务结果、训练曲线及失败分母：部分任务改善、部分下降，尚不构成稳定长文能力提升的证明。
 
+[下一阶段准备](docs/gemma-eval-calibration-data-v2.md)扩充至128/32配对候选，新增独立开发/确认分区、固定Base格式校准和来源封存守卫；[可视化](experiments/results/issue15_20261128/report.html)记录实际分布与来源缺额。新增内容待人工审核，新校准和训练尚未执行。
+
 新增 **长文数据构建与多方向评测**：公开原文版本固定、结构保留、可追溯清洗、内容去重候选、质量筛选、按 token 构造序列与配比，以及跨章/跨文档证据评测。见[复现说明](docs/long-context-data.md)与[2026-11-05 实测报告](docs/long-context-data-results-20261105.md)。当前覆盖 P0–P2；Gemma 4 E2B 的 [MS-SWIFT CPT 入口](docs/ms-swift-gemma4.md)已加入审核、原生分词预览和显式启动流程，真实训练等数据审核与算力确定后进行。训练代码、配置、脚本和测试集中于独立的 [experiments/](experiments/README.md)，不加载到应用后端。
 
 另接入 **独立公开长上下文基准**：LongBench v1 的论文问答、多文档问答、中文问答、摘要、分类、段落检索，以及 LongBench v2 的六类场景，使用固定来源、官方题目和任务指标。入口为 `npm run eval:public -- ...`，见[方法与复现](docs/public-benchmarks.md)及[公开基准实测](docs/public-benchmark-results-20261105.md)。抽样结果与自建诊断分开报告。
